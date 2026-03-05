@@ -1,0 +1,35 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Fri, 6 Mar 2026 00:00:03 +0200
+Subject: [PATCH] Add GameDebug Log implementation
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/GameDebug.cs b/Assets/Scripts/Assembly-CSharp/GameDebug.cs
+index 887d045..6f7f00f 100644
+--- a/Assets/Scripts/Assembly-CSharp/GameDebug.cs
++++ b/Assets/Scripts/Assembly-CSharp/GameDebug.cs
+@@ -97,6 +97,24 @@ public static class GameDebug
+ 
+ 	public static void Log(LogGroup group, Object context, LogLevel level, string format, params object[] args)
+ 	{
++#if UNITY_EDITOR
++		var msg = string.Format(format, args);
++		switch (level)
++		{
++			case LogLevel.Critical:
++			case LogLevel.Error:
++				Debug.LogError(msg, context);
++				break;
++
++			case LogLevel.Warning:
++				Debug.LogWarning(msg, context);
++				break;
++
++			default:
++				Debug.Log(msg, context);
++				break;
++		}
++#endif
+ 	}
+ 
+ 	private static void ShowCriticalError(string msg)

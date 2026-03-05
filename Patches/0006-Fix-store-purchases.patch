@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Fri, 6 Mar 2026 00:00:44 +0200
+Subject: [PATCH] Fix store purchases
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/StoreManager.cs b/Assets/Scripts/Assembly-CSharp/StoreManager.cs
+index 424e745..34eb2e7 100644
+--- a/Assets/Scripts/Assembly-CSharp/StoreManager.cs
++++ b/Assets/Scripts/Assembly-CSharp/StoreManager.cs
+@@ -53,7 +53,7 @@ public class StoreManager : SingletonMonoBehaviour<StoreManager>
+ 
+ 	public void RequestPurchase(string productID, StoreCurrencyType currency, Action<bool, bool> finishedCallback)
+ 	{
+-		if (IsPurchasePending || !IsAvailable)
++		if (IsPurchasePending || (!IsAvailable && currency == StoreCurrencyType.Real))
+ 		{
+ 			GameDebug.Warning("Attempting to purchase something before init or while we already have a request pending - blocking the new request");
+ 			if (finishedCallback != null)
+diff --git a/Assets/Scripts/Assembly-CSharp/StoreUI.cs b/Assets/Scripts/Assembly-CSharp/StoreUI.cs
+index 992fd5e..1213f7c 100644
+--- a/Assets/Scripts/Assembly-CSharp/StoreUI.cs
++++ b/Assets/Scripts/Assembly-CSharp/StoreUI.cs
+@@ -165,7 +165,7 @@ public class StoreUI : MonoBehaviour
+ 
+ 	private IEnumerator RunPurchaseFlow(Product p, StoreManager.StoreCurrencyType currency)
+ 	{
+-		if (SingletonMonoBehaviour<StoreManager>.Instance == null || !SingletonMonoBehaviour<StoreManager>.Instance.IsAvailable || SingletonMonoBehaviour<StoreManager>.Instance.IsPurchasePending)
++		if (SingletonMonoBehaviour<StoreManager>.Instance == null || (!SingletonMonoBehaviour<StoreManager>.Instance.IsAvailable && currency == StoreManager.StoreCurrencyType.Real) || SingletonMonoBehaviour<StoreManager>.Instance.IsPurchasePending)
+ 		{
+ 			_purchaseFlowCoroutine = null;
+ 			yield break;

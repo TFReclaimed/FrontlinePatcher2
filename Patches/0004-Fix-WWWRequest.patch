@@ -1,0 +1,111 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Thu, 5 Mar 2026 23:59:37 +0200
+Subject: [PATCH] Fix WWWRequest
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/WWWRequest.cs b/Assets/Scripts/Assembly-CSharp/WWWRequest.cs
+index 33ae90f..c4836a8 100644
+--- a/Assets/Scripts/Assembly-CSharp/WWWRequest.cs
++++ b/Assets/Scripts/Assembly-CSharp/WWWRequest.cs
+@@ -2,6 +2,7 @@ using System;
+ using System.Collections.Generic;
+ using System.Diagnostics;
+ using UnityEngine;
++using UnityEngine.Networking;
+ 
+ public class WWWRequest
+ {
+@@ -21,7 +22,7 @@ public class WWWRequest
+ 
+ 	private WWWManager.WWWRequestDelegate OnComplete;
+ 
+-	private WWW request;
++	private UnityWebRequest request;
+ 
+ 	private int numRetries;
+ 
+@@ -93,7 +94,7 @@ public class WWWRequest
+ 	{
+ 		get
+ 		{
+-			return request.bytesDownloaded;
++			return (int) request.downloadedBytes;
+ 		}
+ 	}
+ 
+@@ -101,7 +102,7 @@ public class WWWRequest
+ 	{
+ 		get
+ 		{
+-			return (request == null) ? 0f : request.progress;
++			return (request == null) ? 0f : request.downloadProgress;
+ 		}
+ 	}
+ 
+@@ -111,7 +112,7 @@ public class WWWRequest
+ 	{
+ 		get
+ 		{
+-			return (request == null) ? null : request.assetBundle;
++			return (request == null) ? null : DownloadHandlerAssetBundle.GetContent(request);
+ 		}
+ 	}
+ 
+@@ -119,7 +120,7 @@ public class WWWRequest
+ 	{
+ 		get
+ 		{
+-			return (request == null) ? null : request.text;
++			return (request == null || !request.isDone) ? null : request.downloadHandler.text;
+ 		}
+ 	}
+ 
+@@ -153,15 +154,26 @@ public class WWWRequest
+ 		case DataType.AssetBundle:
+ 			if (UseCache)
+ 			{
+-				request = WWW.LoadFromCacheOrDownload(URI, 0, CRC);
++				request = UnityWebRequestAssetBundle.GetAssetBundle(URI, CRC);
+ 			}
+ 			else
+ 			{
+-				request = new WWW(URI);
++				request = new UnityWebRequest(URI);
+ 			}
++
++			request.SendWebRequest();
+ 			break;
+ 		case DataType.Text:
+-			request = new WWW(URI, PostData, Headers);
++			if (PostData == null)
++			{
++				request = new UnityWebRequest(URI, "GET");
++			}
++			else
++			{
++				request = new UnityWebRequest(URI, "POST");
++			}
++			request.downloadHandler = new DownloadHandlerBuffer();
++			request.SendWebRequest();
+ 			break;
+ 		}
+ 		return true;
+@@ -213,7 +225,7 @@ public class WWWRequest
+ 	private void CheckProgress()
+ 	{
+ 		float realtimeSinceStartup = Time.realtimeSinceStartup;
+-		if (lastProgress == request.progress)
++		if (lastProgress == request.downloadProgress)
+ 		{
+ 			float num = realtimeSinceStartup - progressTimestamp;
+ 			if (num > 3f)
+@@ -228,7 +240,7 @@ public class WWWRequest
+ 		}
+ 		else
+ 		{
+-			lastProgress = request.progress;
++			lastProgress = request.downloadProgress;
+ 			progressTimestamp = realtimeSinceStartup;
+ 			SetStalled(false);
+ 		}

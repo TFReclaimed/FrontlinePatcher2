@@ -1,0 +1,57 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Thu, 5 Mar 2026 23:53:53 +0200
+Subject: [PATCH] Remove platform specific code
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/CCGHelpshift.cs b/Assets/Scripts/Assembly-CSharp/CCGHelpshift.cs
+index b302947..fb6395b 100644
+--- a/Assets/Scripts/Assembly-CSharp/CCGHelpshift.cs
++++ b/Assets/Scripts/Assembly-CSharp/CCGHelpshift.cs
+@@ -16,12 +16,6 @@ public class CCGHelpshift : MonoBehaviour
+ 
+ 	private bool isSetup;
+ 
+-	private void Start()
+-	{
+-		Object.DontDestroyOnLoad(base.gameObject);
+-		SetupHelpshift();
+-	}
+-
+ 	public void SetupHelpshift()
+ 	{
+ 		Debug.Log("**** SetupHelpshift at top ****");
+diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
+index df65a07..488bf87 100644
+--- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
++++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
+@@ -145,7 +145,6 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+ 		{
+ 			SingletonMonoBehaviour<SettingsManager>.Instance.sfxVolume = PlayerPrefs.GetFloat("sfxVolume");
+ 		}
+-		SetupAdjust();
+ 		screenWidth = Screen.width;
+ 		screenHeight = Screen.height;
+ 	}
+@@ -347,6 +346,7 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+ 		case RuntimePlatform.WindowsPlayer:
+ 		case RuntimePlatform.WindowsEditor:
+ 		case RuntimePlatform.LinuxPlayer:
++		case RuntimePlatform.LinuxEditor:
+ 		case RuntimePlatform.WebGLPlayer:
+ 		case RuntimePlatform.MetroPlayerX86:
+ 		case RuntimePlatform.MetroPlayerX64:
+diff --git a/Assets/Scripts/Assembly-CSharp/SimpleDiskUtils/DiskUtils.cs b/Assets/Scripts/Assembly-CSharp/SimpleDiskUtils/DiskUtils.cs
+index b20d3ba..fbbd256 100644
+--- a/Assets/Scripts/Assembly-CSharp/SimpleDiskUtils/DiskUtils.cs
++++ b/Assets/Scripts/Assembly-CSharp/SimpleDiskUtils/DiskUtils.cs
+@@ -9,8 +9,7 @@ namespace SimpleDiskUtils
+ 	{
+ 		public static int CheckAvailableSpace(bool isExternalStorage = true)
+ 		{
+-			AndroidJavaClass androidJavaClass = new AndroidJavaClass("com.dikra.diskutils.DiskUtils");
+-			return androidJavaClass.CallStatic<int>("availableSpace", new object[1] { isExternalStorage });
++			return int.MaxValue;
+ 		}
+ 
+ 		public static int CheckTotalSpace(bool isExternalStorage = true)
