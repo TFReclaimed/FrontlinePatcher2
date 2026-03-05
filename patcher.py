@@ -190,7 +190,10 @@ def cmd_rebuild() -> None:
         "base-project",
         "-o",
         os.path.abspath(PATCHES_DIR),
-        "--zero-commit"
+        "--zero-commit",
+        "--no-numbered",
+        "--no-stat",
+        "--no-signature"
     ], cwd=WORKSPACE_DIR)
 
     print(f"[+] Patches rebuilt successfully.")
