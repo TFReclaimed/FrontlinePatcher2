@@ -1,0 +1,416 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Fri, 6 Mar 2026 02:48:32 +0200
+Subject: [PATCH] Remove Nexon analytics
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/FUE_Script.cs b/Assets/Scripts/Assembly-CSharp/FUE_Script.cs
+index 6c5a5f9..a22e2bb 100644
+--- a/Assets/Scripts/Assembly-CSharp/FUE_Script.cs
++++ b/Assets/Scripts/Assembly-CSharp/FUE_Script.cs
+@@ -211,7 +211,6 @@ public class FUE_Script : BaseGameScript
+ 		{
+ 			yield return null;
+ 		}
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 1: Player Deploys Susan Raymos" } });
+ 		handFX.SetActive(false);
+ 		if (soundResult.ActingVariation.PlaySoundParm.IsPlaying)
+ 		{
+@@ -241,7 +240,6 @@ public class FUE_Script : BaseGameScript
+ 
+ 	private IEnumerator AITurn1()
+ 	{
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 1: Player ends turn 1" } });
+ 		yield return new WaitForSeconds(1f);
+ 		ResetActionFlags();
+ 		DeployCardFromHand(1, 1);
+@@ -295,7 +293,6 @@ public class FUE_Script : BaseGameScript
+ 		StartStep(WaitForCardDraw, PlayerTurn2Step1);
+ 		gameUI.CloseTalkBubble();
+ 		EndAITurn();
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "AI Turn 1: AI completes turn 1" } });
+ 	}
+ 
+ 	private IEnumerator PlayerTurn2Step1()
+@@ -311,7 +308,6 @@ public class FUE_Script : BaseGameScript
+ 		{
+ 			yield return null;
+ 		}
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 2: Deploy Jasmine Kane" } });
+ 		Object.Destroy(commandFX);
+ 		if (soundResult.ActingVariation.PlaySoundParm.IsPlaying)
+ 		{
+@@ -346,13 +342,11 @@ public class FUE_Script : BaseGameScript
+ 			yield return null;
+ 		}
+ 		gameUI.CloseTalkBubble();
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 2: Move Susan Raymos" } });
+ 		StartStep(PlayerEndTurn, AITurn2);
+ 	}
+ 
+ 	private IEnumerator AITurn2()
+ 	{
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 2: Player ends turn 2" } });
+ 		yield return new WaitForSeconds(1f);
+ 		PlaySoundResult soundResult = AudioManager.PlaySound("TFFR_TUT_F1_012");
+ 		ShowTutorialPopup(SingletonMonoBehaviour<LocalizationManager>.Instance.GetUIText("Tutorial:FUE_TipTitle"), SingletonMonoBehaviour<LocalizationManager>.Instance.GetUIText("Tutorial:FUE_Tip7"));
+@@ -397,7 +391,6 @@ public class FUE_Script : BaseGameScript
+ 		gameUI.CloseTalkBubble();
+ 		EndAITurn();
+ 		StartStep(WaitForCardDraw, PlayerTurn3Step1);
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "AI Turn 2: AI completes turn 2" } });
+ 	}
+ 
+ 	private IEnumerator PlayerTurn3Step1()
+@@ -425,7 +418,6 @@ public class FUE_Script : BaseGameScript
+ 		{
+ 			yield return new WaitForSeconds(1.5f);
+ 		}
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 3: Deploy Field HQ2" } });
+ 		StartStep(PlayerTurn3Step4);
+ 	}
+ 
+@@ -446,7 +438,6 @@ public class FUE_Script : BaseGameScript
+ 			yield return null;
+ 		}
+ 		gameUI.CloseTalkBubble();
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 3: Move Jasmine Kane" } });
+ 		yield return new WaitForSeconds(1f);
+ 		StartStep(PlayerTurn3Step5);
+ 	}
+@@ -461,7 +452,6 @@ public class FUE_Script : BaseGameScript
+ 			yield return null;
+ 		}
+ 		gameUI.CloseTalkBubble();
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 3: Attack with Susan Raymos" } });
+ 		yield return new WaitForSeconds(0.1f);
+ 		PlaySoundResult soundResult = AudioManager.PlaySound("TFFR_TUT_F1_016");
+ 		ShowTutorialPopup(SingletonMonoBehaviour<LocalizationManager>.Instance.GetUIText("Tutorial:FUE_TipTitle"), SingletonMonoBehaviour<LocalizationManager>.Instance.GetUIText("Tutorial:FUE_Tip14"));
+@@ -481,13 +471,11 @@ public class FUE_Script : BaseGameScript
+ 		{
+ 			yield return null;
+ 		}
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 3: Deploy support card" } });
+ 		StartStep(PlayerEndTurn, AITurn3);
+ 	}
+ 
+ 	private IEnumerator AITurn3()
+ 	{
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 3: Player ends turn 3" } });
+ 		yield return new WaitForSeconds(1f);
+ 		ResetActionFlags();
+ 		DeploySupportCard(1, 103);
+@@ -522,7 +510,6 @@ public class FUE_Script : BaseGameScript
+ 		yield return new WaitForSeconds(0.1f);
+ 		StartStep(WaitForCardDraw, PlayerTurn4Step1);
+ 		EndAITurn();
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "AI Turn 3: AI completes turn 3" } });
+ 	}
+ 
+ 	private IEnumerator PlayerTurn4Step1()
+@@ -542,7 +529,6 @@ public class FUE_Script : BaseGameScript
+ 		{
+ 			yield return null;
+ 		}
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 4: Deploy Atlas" } });
+ 		StartStep(PlayerTurn4Step2);
+ 	}
+ 
+@@ -564,7 +550,6 @@ public class FUE_Script : BaseGameScript
+ 		{
+ 			yield return null;
+ 		}
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 4: Attack with Atlass" } });
+ 		StartStep(PlayerTurn4Step3);
+ 		while (soundResult.ActingVariation.PlaySoundParm.IsPlaying ? true : false)
+ 		{
+@@ -581,7 +566,6 @@ public class FUE_Script : BaseGameScript
+ 		{
+ 			yield return null;
+ 		}
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 4: Attack with Susan Raymos" } });
+ 		StartStep(PlayerEndTurn, AITurn4);
+ 	}
+ 
+@@ -597,7 +581,6 @@ public class FUE_Script : BaseGameScript
+ 
+ 	private IEnumerator AITurn4()
+ 	{
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 4: Player ends turn 4" } });
+ 		yield return new WaitForSeconds(1f);
+ 		ResetActionFlags();
+ 		AttackTile(1, 2, 0, 0);
+@@ -642,7 +625,6 @@ public class FUE_Script : BaseGameScript
+ 		}
+ 		StartStep(WaitForCardDraw, PlayerTurn5Step1);
+ 		EndAITurn();
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "AI Turn 4: AI completes turn 4" } });
+ 	}
+ 
+ 	private IEnumerator PlayerTurn5Step1()
+@@ -660,7 +642,6 @@ public class FUE_Script : BaseGameScript
+ 			yield return null;
+ 		}
+ 		gameUI.CloseTalkBubble();
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 5: Deploy Barrage" } });
+ 		yield return new WaitForSeconds(3.5f);
+ 		StartStep(PlayerTurn5Step2);
+ 	}
+@@ -683,7 +664,6 @@ public class FUE_Script : BaseGameScript
+ 		{
+ 			yield return null;
+ 		}
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 5: Attack with Susan Raymos" } });
+ 		yield return new WaitForSeconds(0.1f);
+ 		StartStep(PlayerTurn5Step5);
+ 	}
+@@ -696,7 +676,6 @@ public class FUE_Script : BaseGameScript
+ 		{
+ 			yield return null;
+ 		}
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 5: Attack with Atlas" } });
+ 	}
+ 
+ 	protected void OnEndOfMatchContinue()
+@@ -751,7 +730,6 @@ public class FUE_Script : BaseGameScript
+ 
+ 	public override void FinishTutorial()
+ 	{
+-		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "nx_ftue_end" } });
+ 		TutorialManager.SetCompletedTutorial(Tutorials.FirstUserExperience);
+ 		base.FinishTutorial();
+ 		GameShell.CompleteTutorial();
+diff --git a/Assets/Scripts/Assembly-CSharp/MAPManager.cs b/Assets/Scripts/Assembly-CSharp/MAPManager.cs
+index fe10573..ea02e12 100644
+--- a/Assets/Scripts/Assembly-CSharp/MAPManager.cs
++++ b/Assets/Scripts/Assembly-CSharp/MAPManager.cs
+@@ -18,13 +18,6 @@ public class MAPManager : Singleton<MAPManager>
+ 		{
+ 			Dictionary<string, object> dictionary = new Dictionary<string, object>();
+ 			dictionary.Add("developer_player_id", AccountManager.profile.userId.ToString());
+-			NxSignal.setFieldDefaultValues(dictionary);
+-			NxSignal.reportCustomEvent("launch_f", new Dictionary<string, object> { { "launch_type", "login" } });
+-			NxSignal.reportCustomEvent("user_f", new Dictionary<string, object> { 
+-			{
+-				"username",
+-				AccountManager.profile.name
+-			} });
+ 		}
+ 		catch (Exception ex)
+ 		{
+@@ -53,7 +46,6 @@ public class MAPManager : Singleton<MAPManager>
+ 			{
+ 				productId = string.Empty;
+ 			}
+-			NxSignal.reportRevenueEvent(productId, res.product.LocalizedPrice, res.product.CurrencyCode, res.TransactionId, storeId, "currency", new Dictionary<string, object>());
+ 		}
+ 		catch (Exception ex)
+ 		{
+@@ -185,7 +177,6 @@ public class MAPManager : Singleton<MAPManager>
+ 			}
+ 			}
+ 			dictionary.Add("interaction_turn", Convert.ToInt16(game.gameState.currentRound));
+-			NxSignal.reportCustomEvent("battle_interaction_f", dictionary);
+ 		}
+ 		catch (Exception ex)
+ 		{
+@@ -268,7 +259,6 @@ public class MAPManager : Singleton<MAPManager>
+ 			dictionary.Add("battle_target_player_id", FindOpponendPlayerID());
+ 			dictionary.Add("result_is_win", isWin);
+ 			dictionary.Add("result_duration", durationSeconds);
+-			NxSignal.reportCustomEvent("battle_result_f", dictionary);
+ 		}
+ 		catch (Exception ex)
+ 		{
+@@ -296,7 +286,6 @@ public class MAPManager : Singleton<MAPManager>
+ 			dictionary.Add("source", "black_market/hanger");
+ 			dictionary.Add("action", "spent");
+ 			dictionary.Add("target", product.ProductID);
+-			NxSignal.reportCustomEvent("econ_sink_f", dictionary);
+ 		}
+ 		catch (Exception ex)
+ 		{
+@@ -324,7 +313,6 @@ public class MAPManager : Singleton<MAPManager>
+ 				}
+ 				dictionary.Add("source", source);
+ 				dictionary.Add("action", action);
+-				NxSignal.reportCustomEvent("econ_source_f", dictionary);
+ 			}
+ 		}
+ 		catch (Exception ex)
+@@ -340,7 +328,6 @@ public class MAPManager : Singleton<MAPManager>
+ 			Dictionary<string, object> dictionary = new Dictionary<string, object>();
+ 			dictionary.Add("bundle ", bundle);
+ 			dictionary.Add("isStart ", begin);
+-			NxSignal.reportCustomEvent("activity_f", dictionary);
+ 		}
+ 	}
+ 
+@@ -350,7 +337,6 @@ public class MAPManager : Singleton<MAPManager>
+ 		{
+ 			Dictionary<string, object> dictionary = new Dictionary<string, object>();
+ 			dictionary.Add("error_f", error);
+-			NxSignal.reportCustomEvent("error_f", dictionary);
+ 		}
+ 	}
+ 
+@@ -358,6 +344,5 @@ public class MAPManager : Singleton<MAPManager>
+ 	{
+ 		Dictionary<string, object> dictionary = new Dictionary<string, object>();
+ 		dictionary.Add("error_f", "not_enough_space");
+-		NxSignal.reportCustomEvent("error_f", dictionary);
+ 	}
+ }
+diff --git a/Assets/Scripts/Assembly-CSharp/MainUI.cs b/Assets/Scripts/Assembly-CSharp/MainUI.cs
+index 4fc8e2a..e95c467 100644
+--- a/Assets/Scripts/Assembly-CSharp/MainUI.cs
++++ b/Assets/Scripts/Assembly-CSharp/MainUI.cs
+@@ -450,23 +450,19 @@ public class MainUI : BaseUI
+ 		{
+ 		case Mode.FirstUser:
+ 			Debug.Log("SHOW FIRST USER...");
+-			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "FirstUser" } });
+ 			firstUserUI.gameObject.SetActive(true);
+ 			currentProcess = Process.wait;
+ 			break;
+ 		case Mode.Login:
+ 			loginDialog.transform.parent.gameObject.SetActive(true);
+-			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "Login" } });
+ 			break;
+ 		case Mode.Connecting:
+ 			ConnectingUI.SetActive(true);
+-			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "Connecting" } });
+ 			_connectingTimerHandle = Singleton<TimerManager>.Instance.AddTimer(_connectingTimeoutTime, OnConnectingTimeout, null, string.Empty);
+ 			break;
+ 		case Mode.MenuScreen:
+ 			mainMenu.SetActive(true);
+ 			currentProcess = Process.waitForRulesetToLoad;
+-			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "MenuScreen" } });
+ 			break;
+ 		case Mode.Matchmaking:
+ 		{
+@@ -476,43 +472,36 @@ public class MainUI : BaseUI
+ 				PopUpManager.CloseActivePopup();
+ 			}
+ 			Singleton<UIStateManager>.Instance.SetState(UIState.State.EnteringGame);
+-			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "MatchMaking" } });
+ 			break;
+ 		}
+ 		case Mode.MissionLeaderboard:
+ 			leaderboardsUI.gameObject.SetActive(true);
+ 			leaderboardsUI.tabControl.SelectTab("mission");
+ 			backButton.gameObject.SetActive(true);
+-			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "MissionLeaderboard" } });
+ 			break;
+ 		case Mode.GuildLeaderboard:
+ 			leaderboardsUI.gameObject.SetActive(true);
+ 			leaderboardsUI.tabControl.SelectTab("guild");
+ 			backButton.gameObject.SetActive(true);
+-			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "GuildLeaderboard" } });
+ 			break;
+ 		case Mode.EventLeaderboard:
+ 			leaderboardsUI.gameObject.SetActive(true);
+ 			leaderboardsUI.tabControl.SelectTab("event");
+ 			backButton.gameObject.SetActive(true);
+-			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "EventLeaderboard" } });
+ 			break;
+ 		case Mode.News:
+ 			if (newsUI != null)
+ 			{
+ 				newsUI.gameObject.SetActive(true);
+ 				backButton.gameObject.SetActive(true);
+-				NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "News" } });
+ 			}
+ 			break;
+ 		case Mode.ChatUI:
+ 			chatUI.gameObject.SetActive(true);
+ 			backButton.gameObject.SetActive(true);
+-			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "ChatUI" } });
+ 			break;
+ 		case Mode.StoreUI:
+ 			Singleton<UIStateManager>.Instance.SetState(UIState.State.Store);
+-			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "StoryUI" } });
+ 			break;
+ 		}
+ 		currentMode = newMode;
+diff --git a/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs b/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs
+index 84f7e86..e6a6ff6 100644
+--- a/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs
++++ b/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs
+@@ -585,11 +585,6 @@ namespace PvE
+ 
+ 		public static void OnEnterMissions()
+ 		{
+-			NxSignal.reportCustomEvent("entered_missions_f", new Dictionary<string, object> { 
+-			{
+-				"player_id",
+-				AccountManager.profile.userId.ToString()
+-			} });
+ 			if (Me != null)
+ 			{
+ 				if (Me.WasAtomicError)
+@@ -605,11 +600,6 @@ namespace PvE
+ 
+ 		public static void OnExitMissions()
+ 		{
+-			NxSignal.reportCustomEvent("exited_missions_f", new Dictionary<string, object> { 
+-			{
+-				"player_id",
+-				AccountManager.profile.userId.ToString()
+-			} });
+ 		}
+ 
+ 		private void Update()
+@@ -863,36 +853,6 @@ namespace PvE
+ 				if (missionStageStatus.currentstate == 5)
+ 				{
+ 					string value = ((eRegion)missionStageStatus.region).ToString() + "-" + ((Faction)missionStageStatus.faction).ToString() + "-" + missionStageStatus.missionid.ToString("D4");
+-					NxSignal.reportCustomEvent("mission_completed_f", new Dictionary<string, object>
+-					{
+-						{
+-							"player_id",
+-							AccountManager.profile.userId.ToString()
+-						},
+-						{ "mission_id", value },
+-						{ "start_time", missionStageStatus.missionstagestart },
+-						{ "finish_time", Now },
+-						{
+-							"card0_used",
+-							missionStageStatus.card0instanceid != 0
+-						},
+-						{
+-							"card1_used",
+-							missionStageStatus.card1instanceid != 0
+-						},
+-						{
+-							"card2_used",
+-							missionStageStatus.card2instanceid != 0
+-						},
+-						{
+-							"synergy0_used",
+-							missionStageStatus.synergy0reward0 != null || missionStageStatus.synergy0Effect != null
+-						},
+-						{
+-							"synergy1_used",
+-							missionStageStatus.synergy1reward0 != null || missionStageStatus.synergy1Effect != null
+-						}
+-					});
+ 				}
+ 			}
+ 		}
+diff --git a/Assets/Scripts/Assembly-CSharp/UIManager.cs b/Assets/Scripts/Assembly-CSharp/UIManager.cs
+index 3936bdc..48165b0 100644
+--- a/Assets/Scripts/Assembly-CSharp/UIManager.cs
++++ b/Assets/Scripts/Assembly-CSharp/UIManager.cs
+@@ -146,11 +146,6 @@ public class UIManager : MonoBehaviour
+ 			GameObject gameObject = (((int)newMode >= 7) ? null : modePrefabs[(uint)newMode]);
+ 			if ((bool)gameObject)
+ 			{
+-				NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { 
+-				{
+-					"screen",
+-					newMode.ToString()
+-				} });
+ 				currentUI = UnityEngine.Object.Instantiate(gameObject);
+ 				currentUI.transform.SetParent(base.transform);
+ 				currentMode = newMode;
