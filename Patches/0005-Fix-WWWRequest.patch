@@ -5,70 +5,44 @@ Subject: [PATCH] Fix WWWRequest
 
 
 diff --git a/Assets/Scripts/Assembly-CSharp/WWWRequest.cs b/Assets/Scripts/Assembly-CSharp/WWWRequest.cs
-index 33ae90f..c4836a8 100644
+index 33ae90fe..c4836a83 100644
 --- a/Assets/Scripts/Assembly-CSharp/WWWRequest.cs
 +++ b/Assets/Scripts/Assembly-CSharp/WWWRequest.cs
-@@ -2,6 +2,7 @@ using System;
- using System.Collections.Generic;
- using System.Diagnostics;
+@@ -4,2 +4,3 @@ using System.Diagnostics;
  using UnityEngine;
 +using UnityEngine.Networking;
  
- public class WWWRequest
- {
-@@ -21,7 +22,7 @@ public class WWWRequest
- 
- 	private WWWManager.WWWRequestDelegate OnComplete;
+@@ -23,3 +24,3 @@ public class WWWRequest
  
 -	private WWW request;
 +	private UnityWebRequest request;
  
- 	private int numRetries;
- 
-@@ -93,7 +94,7 @@ public class WWWRequest
- 	{
- 		get
+@@ -95,3 +96,3 @@ public class WWWRequest
  		{
 -			return request.bytesDownloaded;
 +			return (int) request.downloadedBytes;
  		}
- 	}
- 
-@@ -101,7 +102,7 @@ public class WWWRequest
- 	{
- 		get
+@@ -103,3 +104,3 @@ public class WWWRequest
  		{
 -			return (request == null) ? 0f : request.progress;
 +			return (request == null) ? 0f : request.downloadProgress;
  		}
- 	}
- 
-@@ -111,7 +112,7 @@ public class WWWRequest
- 	{
- 		get
+@@ -113,3 +114,3 @@ public class WWWRequest
  		{
 -			return (request == null) ? null : request.assetBundle;
 +			return (request == null) ? null : DownloadHandlerAssetBundle.GetContent(request);
  		}
- 	}
- 
-@@ -119,7 +120,7 @@ public class WWWRequest
- 	{
- 		get
+@@ -121,3 +122,3 @@ public class WWWRequest
  		{
 -			return (request == null) ? null : request.text;
 +			return (request == null || !request.isDone) ? null : request.downloadHandler.text;
  		}
- 	}
- 
-@@ -153,15 +154,26 @@ public class WWWRequest
- 		case DataType.AssetBundle:
- 			if (UseCache)
+@@ -155,3 +156,3 @@ public class WWWRequest
  			{
 -				request = WWW.LoadFromCacheOrDownload(URI, 0, CRC);
 +				request = UnityWebRequestAssetBundle.GetAssetBundle(URI, CRC);
  			}
- 			else
+@@ -159,7 +160,18 @@ public class WWWRequest
  			{
 -				request = new WWW(URI);
 +				request = new UnityWebRequest(URI);
@@ -89,23 +63,13 @@ index 33ae90f..c4836a8 100644
 +			request.downloadHandler = new DownloadHandlerBuffer();
 +			request.SendWebRequest();
  			break;
- 		}
- 		return true;
-@@ -213,7 +225,7 @@ public class WWWRequest
- 	private void CheckProgress()
- 	{
+@@ -215,3 +227,3 @@ public class WWWRequest
  		float realtimeSinceStartup = Time.realtimeSinceStartup;
 -		if (lastProgress == request.progress)
 +		if (lastProgress == request.downloadProgress)
  		{
- 			float num = realtimeSinceStartup - progressTimestamp;
- 			if (num > 3f)
-@@ -228,7 +240,7 @@ public class WWWRequest
- 		}
- 		else
+@@ -230,3 +242,3 @@ public class WWWRequest
  		{
 -			lastProgress = request.progress;
 +			lastProgress = request.downloadProgress;
  			progressTimestamp = realtimeSinceStartup;
- 			SetStalled(false);
- 		}

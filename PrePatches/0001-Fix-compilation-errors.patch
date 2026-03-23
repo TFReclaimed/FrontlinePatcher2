@@ -1,0 +1,467 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Mon, 23 Mar 2026 22:01:40 +0200
+Subject: [PATCH] Fix compilation errors
+
+
+diff --git a/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/AudioResourceOptimizer.cs b/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/AudioResourceOptimizer.cs
+index 3238ee61..df197d78 100644
+--- a/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/AudioResourceOptimizer.cs
++++ b/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/AudioResourceOptimizer.cs
+@@ -196,3 +196,3 @@ namespace DarkTonic.MasterAudio
+ 					}
+-					internetClip = fileRequest.audioClip;
++					internetClip = fileRequest.GetAudioClip();
+ 				}
+diff --git a/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/MasterAudio.cs b/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/MasterAudio.cs
+index 8b87d94e..6c43b29b 100644
+--- a/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/MasterAudio.cs
++++ b/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/MasterAudio.cs
+@@ -2667,3 +2667,3 @@ namespace DarkTonic.MasterAudio
+ 			MasterAudio instance = Instance;
+-			if (Instance.Trans.FindChild(text) != null)
++			if (Instance.Trans.Find(text) != null)
+ 			{
+@@ -3031,3 +3031,3 @@ namespace DarkTonic.MasterAudio
+ 		{
+-			Transform transform = Instance.Trans.FindChild(sType);
++			Transform transform = Instance.Trans.Find(sType);
+ 			if (transform != null)
+@@ -3040,3 +3040,3 @@ namespace DarkTonic.MasterAudio
+ 				DynamicSoundGroupCreator dynamicSoundGroupCreator = array[i];
+-				transform = dynamicSoundGroupCreator.transform.FindChild(sType);
++				transform = dynamicSoundGroupCreator.transform.Find(sType);
+ 				if (transform != null)
+diff --git a/Assets/Scripts/Assembly-CSharp/AN_NotificationProxy.cs b/Assets/Scripts/Assembly-CSharp/AN_NotificationProxy.cs
+index e7514315..89669cf3 100644
+--- a/Assets/Scripts/Assembly-CSharp/AN_NotificationProxy.cs
++++ b/Assets/Scripts/Assembly-CSharp/AN_NotificationProxy.cs
+@@ -1,2 +1,3 @@
+ using System;
++using UnityEngine;
+ 
+diff --git a/Assets/Scripts/Assembly-CSharp/AssetManager.cs b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
+index fdca41e3..076b6022 100644
+--- a/Assets/Scripts/Assembly-CSharp/AssetManager.cs
++++ b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
+@@ -124,3 +124,3 @@ public class AssetManager : Singleton<AssetManager>
+ 		{
+-			Caching.CleanCache();
++			Caching.ClearCache();
+ 		}
+diff --git a/Assets/Scripts/Assembly-CSharp/AudioManager.cs b/Assets/Scripts/Assembly-CSharp/AudioManager.cs
+index c3c53829..a87058fe 100644
+--- a/Assets/Scripts/Assembly-CSharp/AudioManager.cs
++++ b/Assets/Scripts/Assembly-CSharp/AudioManager.cs
+@@ -35,3 +35,3 @@ public static class AudioManager
+ 		{
+-			Transform transform = gameObject.transform.FindChild("MasterAudio");
++			Transform transform = gameObject.transform.Find("MasterAudio");
+ 			if (transform != null)
+diff --git a/Assets/Scripts/Assembly-CSharp/BestHTTP/Authentication/Digest.cs b/Assets/Scripts/Assembly-CSharp/BestHTTP/Authentication/Digest.cs
+index f7c2259b..7ceba121 100644
+--- a/Assets/Scripts/Assembly-CSharp/BestHTTP/Authentication/Digest.cs
++++ b/Assets/Scripts/Assembly-CSharp/BestHTTP/Authentication/Digest.cs
+@@ -117,3 +117,3 @@ namespace BestHTTP.Authentication
+ 					{
+-						int num;
++						int num = 0;
+ 						if (num == 1)
+diff --git a/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPResponse.cs b/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPResponse.cs
+index cdb25108..9063d546 100644
+--- a/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPResponse.cs
++++ b/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPResponse.cs
+@@ -542,3 +542,3 @@ namespace BestHTTP
+ 			{
+-				int num;
++				int num = 0;
+ 				if (num == 1)
+diff --git a/Assets/Scripts/Assembly-CSharp/BundleVersionField.cs b/Assets/Scripts/Assembly-CSharp/BundleVersionField.cs
+index 4b1d2bd7..c05c2e44 100644
+--- a/Assets/Scripts/Assembly-CSharp/BundleVersionField.cs
++++ b/Assets/Scripts/Assembly-CSharp/BundleVersionField.cs
+@@ -29,3 +29,3 @@ public class BundleVersionField : MonoBehaviour
+ 		}
+-		string arg = Application.bundleIdentifier.Substring(Application.bundleIdentifier.LastIndexOf('.') + 1);
++		string arg = Application.identifier.Substring(Application.identifier.LastIndexOf('.') + 1);
+ 		_buildVersion = string.Format("{0}.{1}", arg, Application.version);
+diff --git a/Assets/Scripts/Assembly-CSharp/DetailedTokenView.cs b/Assets/Scripts/Assembly-CSharp/DetailedTokenView.cs
+index 86767900..b7abba05 100644
+--- a/Assets/Scripts/Assembly-CSharp/DetailedTokenView.cs
++++ b/Assets/Scripts/Assembly-CSharp/DetailedTokenView.cs
+@@ -303,4 +303,4 @@ public class DetailedTokenView : MonoBehaviour
+ 			node = node.Next;
+-			gameObject.transform.FindChild("Title").GetComponent<TextMeshProUGUI>().text = title2;
+-			gameObject.transform.FindChild("Text").GetComponent<TextMeshProUGUI>().text = description2;
++			gameObject.transform.Find("Title").GetComponent<TextMeshProUGUI>().text = title2;
++			gameObject.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = description2;
+ 			gameObject.SetActive(true);
+diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
+index f443f0da..df65a07f 100644
+--- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
++++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
+@@ -347,5 +347,2 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+ 		case RuntimePlatform.WindowsPlayer:
+-		case RuntimePlatform.OSXWebPlayer:
+-		case RuntimePlatform.OSXDashboardPlayer:
+-		case RuntimePlatform.WindowsWebPlayer:
+ 		case RuntimePlatform.WindowsEditor:
+@@ -714,3 +711,3 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+ 	{
+-		string text = Application.bundleIdentifier.Substring(Application.bundleIdentifier.LastIndexOf('.') + 1);
++		string text = Application.identifier.Substring(Application.identifier.LastIndexOf('.') + 1);
+ 		string text2 = text + "." + Application.version;
+@@ -904,3 +901,3 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+ 	{
+-		string url = string.Format("market://details?id={0}", Application.bundleIdentifier);
++		string url = string.Format("market://details?id={0}", Application.identifier);
+ 		Application.OpenURL(url);
+diff --git a/Assets/Scripts/Assembly-CSharp/I2/Loc/Localize.cs b/Assets/Scripts/Assembly-CSharp/I2/Loc/Localize.cs
+index e346a92c..a0a933f0 100644
+--- a/Assets/Scripts/Assembly-CSharp/I2/Loc/Localize.cs
++++ b/Assets/Scripts/Assembly-CSharp/I2/Loc/Localize.cs
+@@ -91,4 +91,2 @@ namespace I2.Loc
+ 
+-		private GUIText mTarget_GUIText;
+-
+ 		private TextMesh mTarget_TextMesh;
+@@ -97,4 +95,2 @@ namespace I2.Loc
+ 
+-		private GUITexture mTarget_GUITexture;
+-
+ 		private GameObject mTarget_Child;
+@@ -716,6 +712,4 @@ namespace I2.Loc
+ 		{
+-			this.EventFindTarget = (Action)Delegate.Combine(this.EventFindTarget, new Action(FindTarget_GUIText));
+ 			this.EventFindTarget = (Action)Delegate.Combine(this.EventFindTarget, new Action(FindTarget_TextMesh));
+ 			this.EventFindTarget = (Action)Delegate.Combine(this.EventFindTarget, new Action(FindTarget_AudioSource));
+-			this.EventFindTarget = (Action)Delegate.Combine(this.EventFindTarget, new Action(FindTarget_GUITexture));
+ 			this.EventFindTarget = (Action)Delegate.Combine(this.EventFindTarget, new Action(FindTarget_Child));
+@@ -723,7 +717,2 @@ namespace I2.Loc
+ 
+-		private void FindTarget_GUIText()
+-		{
+-			FindAndCacheTarget(ref mTarget_GUIText, SetFinalTerms_GUIText, DoLocalize_GUIText, true, true, false);
+-		}
+-
+ 		private void FindTarget_TextMesh()
+@@ -738,7 +727,2 @@ namespace I2.Loc
+ 
+-		private void FindTarget_GUITexture()
+-		{
+-			FindAndCacheTarget(ref mTarget_GUITexture, SetFinalTerms_GUITexture, DoLocalize_GUITexture, false, false, false);
+-		}
+-
+ 		private void FindTarget_Child()
+@@ -748,11 +732,2 @@ namespace I2.Loc
+ 
+-		public void SetFinalTerms_GUIText(string Main, string Secondary, out string PrimaryTerm, out string SecondaryTerm)
+-		{
+-			if (string.IsNullOrEmpty(Secondary) && mTarget_GUIText.font != null)
+-			{
+-				Secondary = mTarget_GUIText.font.name;
+-			}
+-			SetFinalTerms(mTarget_GUIText.text, Secondary, out PrimaryTerm, out SecondaryTerm, true);
+-		}
+-
+ 		public void SetFinalTerms_TextMesh(string Main, string Secondary, out string PrimaryTerm, out string SecondaryTerm)
+@@ -763,14 +738,2 @@ namespace I2.Loc
+ 
+-		public void SetFinalTerms_GUITexture(string Main, string Secondary, out string PrimaryTerm, out string SecondaryTerm)
+-		{
+-			if (!mTarget_GUITexture || !mTarget_GUITexture.texture)
+-			{
+-				SetFinalTerms(string.Empty, string.Empty, out PrimaryTerm, out SecondaryTerm, false);
+-			}
+-			else
+-			{
+-				SetFinalTerms(mTarget_GUITexture.texture.name, string.Empty, out PrimaryTerm, out SecondaryTerm, false);
+-			}
+-		}
+-
+ 		public void SetFinalTerms_AudioSource(string Main, string Secondary, out string PrimaryTerm, out string SecondaryTerm)
+@@ -792,24 +755,2 @@ namespace I2.Loc
+ 
+-		private void DoLocalize_GUIText(string MainTranslation, string SecondaryTranslation)
+-		{
+-			Font secondaryTranslatedObj = GetSecondaryTranslatedObj<Font>(ref MainTranslation, ref SecondaryTranslation);
+-			if (secondaryTranslatedObj != null && mTarget_GUIText.font != secondaryTranslatedObj)
+-			{
+-				mTarget_GUIText.font = secondaryTranslatedObj;
+-			}
+-			if (mInitializeAlignment)
+-			{
+-				mInitializeAlignment = false;
+-				mOriginalAlignmentStd = mTarget_GUIText.alignment;
+-			}
+-			if (!string.IsNullOrEmpty(MainTranslation) && mTarget_GUIText.text != MainTranslation)
+-			{
+-				if (CurrentLocalizeComponent.CorrectAlignmentForRTL)
+-				{
+-					mTarget_GUIText.alignment = ((!LocalizationManager.IsRight2Left) ? mOriginalAlignmentStd : TextAlignment.Right);
+-				}
+-				mTarget_GUIText.text = MainTranslation;
+-			}
+-		}
+-
+ 		private void DoLocalize_TextMesh(string MainTranslation, string SecondaryTranslation)
+@@ -852,11 +793,2 @@ namespace I2.Loc
+ 
+-		private void DoLocalize_GUITexture(string MainTranslation, string SecondaryTranslation)
+-		{
+-			Texture texture = mTarget_GUITexture.texture;
+-			if (texture != null && texture.name != MainTranslation)
+-			{
+-				mTarget_GUITexture.texture = FindTranslatedObject<Texture>(MainTranslation);
+-			}
+-		}
+-
+ 		private void DoLocalize_Child(string MainTranslation, string SecondaryTranslation)
+diff --git a/Assets/Scripts/Assembly-CSharp/MNT_PlayerTemplate.cs b/Assets/Scripts/Assembly-CSharp/MNT_PlayerTemplate.cs
+index 727c6191..d69fa871 100644
+--- a/Assets/Scripts/Assembly-CSharp/MNT_PlayerTemplate.cs
++++ b/Assets/Scripts/Assembly-CSharp/MNT_PlayerTemplate.cs
+@@ -133,12 +133,2 @@ public class MNT_PlayerTemplate
+ 
+-	public MNT_PlayerTemplate(NetworkPlayer player)
+-	{
+-		_externalIP = player.externalIP;
+-		_externalPort = player.externalPort;
+-		_guid = player.guid;
+-		_ipAddress = player.ipAddress;
+-		_port = player.port;
+-		_id = player.ipAddress;
+-	}
+-
+ 	public MNT_PlayerTemplate(MNT_BluetoothDeviceTemplate device)
+diff --git a/Assets/Scripts/Assembly-CSharp/NetworkInfoDebugViewer.cs b/Assets/Scripts/Assembly-CSharp/NetworkInfoDebugViewer.cs
+index 05e29e82..347cfb1a 100644
+--- a/Assets/Scripts/Assembly-CSharp/NetworkInfoDebugViewer.cs
++++ b/Assets/Scripts/Assembly-CSharp/NetworkInfoDebugViewer.cs
+@@ -51,3 +51,3 @@ public class NetworkInfoDebugViewer : SingletonMonoBehaviour<NetworkInfoDebugVie
+ 		stringBuilder.AppendLine("    Platform: " + Application.platform);
+-		stringBuilder.AppendLine("    Bundle ID: " + Application.bundleIdentifier.ToString());
++		stringBuilder.AppendLine("    Bundle ID: " + Application.identifier.ToString());
+ 		stringBuilder.AppendLine("    SERVER: " + serverInterface.GetServerAddress());
+diff --git a/Assets/Scripts/Assembly-CSharp/PerformanceMonitor.cs b/Assets/Scripts/Assembly-CSharp/PerformanceMonitor.cs
+index 24475220..182dd89b 100644
+--- a/Assets/Scripts/Assembly-CSharp/PerformanceMonitor.cs
++++ b/Assets/Scripts/Assembly-CSharp/PerformanceMonitor.cs
+@@ -418,4 +418,4 @@ public class PerformanceMonitor : SingletonMonoBehaviour<PerformanceMonitor>
+ 	{
+-		BytesUsed = Profiler.GetMonoUsedSize();
+-		HeapBytes = Profiler.GetMonoHeapSize();
++		BytesUsed = UnityEngine.Profiling.Profiler.GetMonoUsedSize();
++		HeapBytes = UnityEngine.Profiling.Profiler.GetMonoHeapSize();
+ 		heapAverage.Add(HeapBytes);
+diff --git a/Assets/Scripts/Assembly-CSharp/SequenceTarget.cs b/Assets/Scripts/Assembly-CSharp/SequenceTarget.cs
+index c1b5adcb..31551dc1 100644
+--- a/Assets/Scripts/Assembly-CSharp/SequenceTarget.cs
++++ b/Assets/Scripts/Assembly-CSharp/SequenceTarget.cs
+@@ -122,3 +122,3 @@ public class SequenceTarget
+ 		TileNode = Tile.gameObject;
+-		InterpNode = TileNode.transform.FindChild("tileTransform/interpNode");
++		InterpNode = TileNode.transform.Find("tileTransform/interpNode");
+ 		Animator = Tile.AnimController;
+diff --git a/Assets/Scripts/Assembly-CSharp/TMPro/TMP_InputField.cs b/Assets/Scripts/Assembly-CSharp/TMPro/TMP_InputField.cs
+index aedb5730..b9a6ae2b 100644
+--- a/Assets/Scripts/Assembly-CSharp/TMPro/TMP_InputField.cs
++++ b/Assets/Scripts/Assembly-CSharp/TMPro/TMP_InputField.cs
+@@ -709,10 +709,2 @@ namespace TMPro
+ 
+-		virtual Transform ICanvasElement.transform
+-		{
+-			get
+-			{
+-				return base.transform;
+-			}
+-		}
+-
+ 		protected TMP_InputField()
+@@ -1090,3 +1082,3 @@ namespace TMPro
+ 			RuntimePlatform platform = Application.platform;
+-			bool flag = ((platform != RuntimePlatform.OSXEditor && platform != RuntimePlatform.OSXPlayer && platform != RuntimePlatform.OSXWebPlayer) ? ((modifiers & EventModifiers.Control) != 0) : ((modifiers & EventModifiers.Command) != 0));
++			bool flag = ((platform != RuntimePlatform.OSXEditor && platform != RuntimePlatform.OSXPlayer) ? ((modifiers & EventModifiers.Control) != 0) : ((modifiers & EventModifiers.Command) != 0));
+ 			bool flag2 = (modifiers & EventModifiers.Shift) != 0;
+@@ -2278,7 +2270,2 @@ namespace TMPro
+ 		}
+-
+-		virtual bool ICanvasElement.IsDestroyed()
+-		{
+-			return IsDestroyed();
+-		}
+ 	}
+diff --git a/Assets/Scripts/Assembly-CSharp/TMPro/TMP_SubMeshUI.cs b/Assets/Scripts/Assembly-CSharp/TMPro/TMP_SubMeshUI.cs
+index 5ba76ade..57a9eed5 100644
+--- a/Assets/Scripts/Assembly-CSharp/TMPro/TMP_SubMeshUI.cs
++++ b/Assets/Scripts/Assembly-CSharp/TMPro/TMP_SubMeshUI.cs
+@@ -436,7 +436,2 @@ namespace TMPro
+ 		}
+-
+-		virtual int ITextElement.GetInstanceID()
+-		{
+-			return GetInstanceID();
+-		}
+ 	}
+diff --git a/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshPro.cs b/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshPro.cs
+index eebb4154..4265b5f5 100644
+--- a/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshPro.cs
++++ b/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshPro.cs
+@@ -239,42 +239,2 @@ namespace TMPro
+ 
+-		virtual float ILayoutElement.minWidth
+-		{
+-			get
+-			{
+-				return base.minWidth;
+-			}
+-		}
+-
+-		virtual float ILayoutElement.flexibleWidth
+-		{
+-			get
+-			{
+-				return base.flexibleWidth;
+-			}
+-		}
+-
+-		virtual float ILayoutElement.minHeight
+-		{
+-			get
+-			{
+-				return base.minHeight;
+-			}
+-		}
+-
+-		virtual float ILayoutElement.flexibleHeight
+-		{
+-			get
+-			{
+-				return base.flexibleHeight;
+-			}
+-		}
+-
+-		virtual int ILayoutElement.layoutPriority
+-		{
+-			get
+-			{
+-				return base.layoutPriority;
+-			}
+-		}
+-
+ 		protected override void Awake()
+diff --git a/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshProUGUI.cs b/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshProUGUI.cs
+index 3d52e215..32fcde2b 100644
+--- a/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshProUGUI.cs
++++ b/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshProUGUI.cs
+@@ -122,42 +122,2 @@ namespace TMPro
+ 
+-		virtual float ILayoutElement.minWidth
+-		{
+-			get
+-			{
+-				return base.minWidth;
+-			}
+-		}
+-
+-		virtual float ILayoutElement.flexibleWidth
+-		{
+-			get
+-			{
+-				return base.flexibleWidth;
+-			}
+-		}
+-
+-		virtual float ILayoutElement.minHeight
+-		{
+-			get
+-			{
+-				return base.minHeight;
+-			}
+-		}
+-
+-		virtual float ILayoutElement.flexibleHeight
+-		{
+-			get
+-			{
+-				return base.flexibleHeight;
+-			}
+-		}
+-
+-		virtual int ILayoutElement.layoutPriority
+-		{
+-			get
+-			{
+-				return base.layoutPriority;
+-			}
+-		}
+-
+ 		protected override void Awake()
+diff --git a/Assets/Scripts/Assembly-CSharp/UniWebViewMessage.cs b/Assets/Scripts/Assembly-CSharp/UniWebViewMessage.cs
+index 797ebe9f..657cc5b8 100644
+--- a/Assets/Scripts/Assembly-CSharp/UniWebViewMessage.cs
++++ b/Assets/Scripts/Assembly-CSharp/UniWebViewMessage.cs
+@@ -17,2 +17,5 @@ public struct UniWebViewMessage
+ 		this.rawMessage = rawMessage;
++		this.scheme = string.Empty;
++		this.path = string.Empty;
++		this.args = null;
+ 		string[] array = rawMessage.Split(new string[1] { "://" }, StringSplitOptions.None);
+diff --git a/Assets/Scripts/Assembly-CSharp/hg/ApiWebKit/providers/HttpUnityWebRequestClient.cs b/Assets/Scripts/Assembly-CSharp/hg/ApiWebKit/providers/HttpUnityWebRequestClient.cs
+index f7336239..90f5c95a 100644
+--- a/Assets/Scripts/Assembly-CSharp/hg/ApiWebKit/providers/HttpUnityWebRequestClient.cs
++++ b/Assets/Scripts/Assembly-CSharp/hg/ApiWebKit/providers/HttpUnityWebRequestClient.cs
+@@ -2,4 +2,4 @@ using System.Collections;
+ using System.Collections.Generic;
+-using UnityEngine.Experimental.Networking;
+ using hg.ApiWebKit.core.http;
++using UnityEngine.Networking;
+ 
+diff --git a/Assets/Scripts/Assembly-UnityScript/JSCall.cs b/Assets/Scripts/Assembly-UnityScript/JSCall.cs
+deleted file mode 100644
+index c5894cde..00000000
+--- a/Assets/Scripts/Assembly-UnityScript/JSCall.cs
++++ /dev/null
+@@ -1,31 +0,0 @@
+-using System;
+-using UnityEngine;
+-using UnityScript.Lang;
+-
+-[Serializable]
+-public class JSCall : MonoBehaviour
+-{
+-	public virtual void Start()
+-	{
+-		SendMessage("InitGameCneter");
+-	}
+-
+-	public virtual void OnGUI()
+-	{
+-		if (GUI.Button(new Rect(10f, 10f, 150f, 40f), "Submit Score"))
+-		{
+-			SendMessage("SubmitScore", 100);
+-		}
+-		if (GUI.Button(new Rect(10f, 60f, 150f, 40f), "Submit Achievement"))
+-		{
+-			UnityScript.Lang.Array array = new UnityScript.Lang.Array();
+-			array.push("20.2");
+-			array.push("your.achievement.id1.here");
+-			SendMessage("SubmitAchievement", array.join("|"));
+-		}
+-	}
+-
+-	public virtual void Main()
+-	{
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-UnityScript/Properties/AssemblyInfo.cs b/Assets/Scripts/Assembly-UnityScript/Properties/AssemblyInfo.cs
+deleted file mode 100644
+index bbd7eef6..00000000
+--- a/Assets/Scripts/Assembly-UnityScript/Properties/AssemblyInfo.cs
++++ /dev/null
+@@ -1,5 +0,0 @@
+-using System.Diagnostics;
+-using System.Reflection;
+-using System.Runtime.CompilerServices;
+-
+-[assembly: AssemblyVersion("0.0.0.0")]

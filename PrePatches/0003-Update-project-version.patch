@@ -1,0 +1,15 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Mon, 23 Mar 2026 23:58:54 +0200
+Subject: [PATCH] Update project version
+
+
+diff --git a/ProjectSettings/ProjectVersion.txt b/ProjectSettings/ProjectVersion.txt
+index d4ad3ce5..587f809d 100644
+--- a/ProjectSettings/ProjectVersion.txt
++++ b/ProjectSettings/ProjectVersion.txt
+@@ -1,2 +1,2 @@
+-m_EditorVersion: 5.3.6f1
+-m_StandardAssetsVersion: 0
++m_EditorVersion: 2022.3.62f3
++m_EditorVersionWithRevision: 2022.3.62f3 (96770f904ca7)

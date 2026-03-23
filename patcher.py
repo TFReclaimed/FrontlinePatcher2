@@ -12,7 +12,25 @@ import zipfile
 
 WORKSPACE_DIR = "RippedProject"
 TEMP_DIR = "Temp"
+PRE_PATCHES_DIR = "PrePatches"
 PATCHES_DIR = "Patches"
+OVERRIDES_DIR = "Overrides"
+
+def find_unity() -> str:
+    unity_path = ""
+
+    # TODO: Handle Windows and macOS paths
+    if sys.platform == "linux":
+        unity_path = os.path.expanduser("~/Unity/Hub/Editor/2022.3.62f3/Editor/Unity")
+    else:
+        print("[!] ERROR: Unsupported platform.")
+        sys.exit(1)
+
+    if not os.path.isfile(unity_path):
+        print("[!] ERROR: Unity executable not found. Please install Unity 2022.3.62f3.")
+        sys.exit(1)
+
+    return unity_path
 
 def check_prerequisites() -> None:
     missing_tools = False
@@ -35,6 +53,7 @@ def run_cmd(cmd: list, cwd: str=None, ignore_errors: bool=False) -> None:
         sys.exit(result.returncode)
 
 def run_assetripper(input_dir: str, output_dir: str) -> None:
+    # TODO: Handle Windows and macOS paths
     cmd = [
         "./AssetRipper.GUI.Free",
         "--headless",
@@ -150,6 +169,10 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
 
     shutil.move(exported_project_path, WORKSPACE_DIR)
 
+    print("[*] Copy overrides...")
+    overrides_dst = os.path.join(WORKSPACE_DIR, "Assets")
+    shutil.copytree(OVERRIDES_DIR, overrides_dst, dirs_exist_ok=True)
+
     print("[*] Copy gitignore...")
     gitignore_src = os.path.join(os.path.dirname(__file__), "unity.gitignore")
     gitignore_dst = os.path.join(WORKSPACE_DIR, ".gitignore")
@@ -157,6 +180,34 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
 
     print("[*] Initializing Git repository...")
     run_cmd(["git", "init"], cwd=WORKSPACE_DIR)
+    run_cmd(["git", "add", "."], cwd=WORKSPACE_DIR)
+    run_cmd(["git", "commit", "-m", "AssetRipper", "--author", "TF Reclaimed <auto@mated.null>"], cwd=WORKSPACE_DIR)
+    run_cmd(["git", "tag", "raw-project"], cwd=WORKSPACE_DIR)
+
+    pre_patches = sorted(glob.glob(os.path.abspath(os.path.join(PRE_PATCHES_DIR, "*.patch"))))
+    if pre_patches:
+        print(f"[*] Applying {len(pre_patches)} pre-patches...")
+        run_cmd(["git", "am", "--3way"] + pre_patches, cwd=WORKSPACE_DIR)
+
+    print("[*] Upgrading and reserializing Unity project...")
+    print("[*] This may take several minutes. Please wait...")
+
+    unity_path = find_unity()
+    run_cmd([
+        unity_path,
+        "-quit",
+        "-batchmode",
+        "-projectPath",
+        os.path.abspath(WORKSPACE_DIR),
+        "-executeMethod",
+        "AssetTools.ForceReserializeAssets",
+        "-logFile",
+        os.path.abspath(os.path.join(TEMP_DIR, "unity_upgrade.log"))
+    ])
+
+    print("[+] Finished project upgrade!")
+
+    print("[*] Committing upgraded project...")
     run_cmd(["git", "add", "."], cwd=WORKSPACE_DIR)
     run_cmd(["git", "commit", "-m", "Base project", "--author", "TF Reclaimed <auto@mated.null>"], cwd=WORKSPACE_DIR)
     run_cmd(["git", "tag", "base-project"], cwd=WORKSPACE_DIR)
@@ -181,23 +232,59 @@ def cmd_rebuild() -> None:
         print(f"[!] ERROR: Workspace directory '{WORKSPACE_DIR}' does not exist. Please run 'setup' first.")
         sys.exit(1)
 
+    os.makedirs(PRE_PATCHES_DIR, exist_ok=True)
     os.makedirs(PATCHES_DIR, exist_ok=True)
 
     print("[*] Rebuilding patches...")
+    for patch in glob.glob(os.path.join(PRE_PATCHES_DIR, "*.patch")):
+        os.remove(patch)
+
     for patch in glob.glob(os.path.join(PATCHES_DIR, "*.patch")):
         os.remove(patch)
 
-    run_cmd([
-        "git",
-        "format-patch",
-        "base-project",
-        "-o",
-        os.path.abspath(PATCHES_DIR),
+    export_flags = [
         "--zero-commit",
         "--no-numbered",
         "--no-stat",
-        "--no-signature"
-    ], cwd=WORKSPACE_DIR)
+        "--no-signature",
+        "--unified=1",
+        "--minimal"
+    ]
+
+    result = subprocess.run(["git", "rev-parse", "--verify", "base-project"], cwd=WORKSPACE_DIR, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    has_base = (result.returncode == 0)
+
+    if not has_base:
+        print("[!] 'base-project' tag not found.")
+        print(f"[*] Exporting pre-patches...")
+        run_cmd([
+            "git",
+            "format-patch",
+            "raw-project..HEAD",
+            "-o",
+            os.path.abspath(PRE_PATCHES_DIR)
+        ] + export_flags, cwd=WORKSPACE_DIR)
+
+        print("[+] Pre-patches rebuilt successfully.")
+        return
+
+    print("[*] Exporting pre-patches...")
+    run_cmd([
+        "git",
+        "format-patch",
+        "raw-project..base-project^",
+        "-o",
+        os.path.abspath(PRE_PATCHES_DIR)
+    ] + export_flags, cwd=WORKSPACE_DIR)
+
+    print("[*] Exporting patches...")
+    run_cmd([
+        "git",
+        "format-patch",
+        "base-project..HEAD",
+        "-o",
+        os.path.abspath(PATCHES_DIR)
+    ] + export_flags, cwd=WORKSPACE_DIR)
 
     print(f"[+] Patches rebuilt successfully.")
 

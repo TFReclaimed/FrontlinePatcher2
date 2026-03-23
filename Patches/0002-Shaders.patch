@@ -5,11 +5,10 @@ Subject: [PATCH] Shaders
 
 
 diff --git a/Assets/Shader/Alpha-VertexLit.shader b/Assets/Shader/Alpha-VertexLit.shader
-index d1e8051..77b2ec1 100644
+index d1e80519..77b2ec1c 100644
 --- a/Assets/Shader/Alpha-VertexLit.shader
 +++ b/Assets/Shader/Alpha-VertexLit.shader
-@@ -1,29 +1,81 @@
- Shader "Legacy Shaders/Transparent/VertexLit" {
+@@ -2,28 +2,80 @@ Shader "Legacy Shaders/Transparent/VertexLit" {
  Properties {
 - _Color ("Main Color", Color) = (1,1,1,1)
 - _SpecColor ("Spec Color", Color) = (1,1,1,0)
@@ -43,8 +42,6 @@ index d1e8051..77b2ec1 100644
 -		{
 -			float4 c = tex2D(_MainTex, IN.uv_MainTex);
 -			o.Albedo = c.rgb;
--		}
--		ENDCG
 +	ZWrite Off
 +	Blend SrcAlpha OneMinusSrcAlpha 
 +	ColorMask RGB
@@ -58,7 +55,8 @@ index d1e8051..77b2ec1 100644
 +			Shininess [_Shininess]
 +			Specular [_SpecColor]
 +			Emission [_Emission]	
-+		}
+ 		}
+-		ENDCG
 +		Lighting On
 +		SeparateSpecular On
 +		SetTexture [_MainTex] {
@@ -115,7 +113,7 @@ index d1e8051..77b2ec1 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-BumpSpec.shader b/Assets/Shader/Mobile-BumpSpec.shader
-index 1a8b407..4995cc8 100644
+index 1a8b4079..4995cc89 100644
 --- a/Assets/Shader/Mobile-BumpSpec.shader
 +++ b/Assets/Shader/Mobile-BumpSpec.shader
 @@ -1,27 +1,55 @@
@@ -199,7 +197,7 @@ index 1a8b407..4995cc8 100644
 +FallBack "Mobile/VertexLit"
 +}
 diff --git a/Assets/Shader/Mobile-Bumped.shader b/Assets/Shader/Mobile-Bumped.shader
-index b810fe9..01cd3c2 100644
+index b810fe9c..01cd3c28 100644
 --- a/Assets/Shader/Mobile-Bumped.shader
 +++ b/Assets/Shader/Mobile-Bumped.shader
 @@ -1,26 +1,36 @@
@@ -264,7 +262,7 @@ index b810fe9..01cd3c2 100644
 -}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Bumped_0.shader b/Assets/Shader/Mobile-Bumped_0.shader
-index b810fe9..01cd3c2 100644
+index b810fe9c..01cd3c28 100644
 --- a/Assets/Shader/Mobile-Bumped_0.shader
 +++ b/Assets/Shader/Mobile-Bumped_0.shader
 @@ -1,26 +1,36 @@
@@ -329,7 +327,7 @@ index b810fe9..01cd3c2 100644
 -}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Bumped_1.shader b/Assets/Shader/Mobile-Bumped_1.shader
-index b810fe9..01cd3c2 100644
+index b810fe9c..01cd3c28 100644
 --- a/Assets/Shader/Mobile-Bumped_1.shader
 +++ b/Assets/Shader/Mobile-Bumped_1.shader
 @@ -1,26 +1,36 @@
@@ -394,7 +392,7 @@ index b810fe9..01cd3c2 100644
 -}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Diffuse.shader b/Assets/Shader/Mobile-Diffuse.shader
-index f1a68ac..b064ba6 100644
+index f1a68ac9..b064ba65 100644
 --- a/Assets/Shader/Mobile-Diffuse.shader
 +++ b/Assets/Shader/Mobile-Diffuse.shader
 @@ -1,25 +1,31 @@
@@ -453,7 +451,7 @@ index f1a68ac..b064ba6 100644
 -}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Diffuse_0.shader b/Assets/Shader/Mobile-Diffuse_0.shader
-index f1a68ac..b064ba6 100644
+index f1a68ac9..b064ba65 100644
 --- a/Assets/Shader/Mobile-Diffuse_0.shader
 +++ b/Assets/Shader/Mobile-Diffuse_0.shader
 @@ -1,25 +1,31 @@
@@ -512,7 +510,7 @@ index f1a68ac..b064ba6 100644
 -}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Diffuse_1.shader b/Assets/Shader/Mobile-Diffuse_1.shader
-index f1a68ac..b064ba6 100644
+index f1a68ac9..b064ba65 100644
 --- a/Assets/Shader/Mobile-Diffuse_1.shader
 +++ b/Assets/Shader/Mobile-Diffuse_1.shader
 @@ -1,25 +1,31 @@
@@ -571,7 +569,7 @@ index f1a68ac..b064ba6 100644
 -}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Diffuse_2.shader b/Assets/Shader/Mobile-Diffuse_2.shader
-index f1a68ac..b064ba6 100644
+index f1a68ac9..b064ba65 100644
 --- a/Assets/Shader/Mobile-Diffuse_2.shader
 +++ b/Assets/Shader/Mobile-Diffuse_2.shader
 @@ -1,25 +1,31 @@
@@ -630,7 +628,7 @@ index f1a68ac..b064ba6 100644
 -}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add.shader b/Assets/Shader/Mobile-Particle-Add.shader
-index 4163658..cf0589b 100644
+index 4163658e..cf0589b2 100644
 --- a/Assets/Shader/Mobile-Particle-Add.shader
 +++ b/Assets/Shader/Mobile-Particle-Add.shader
 @@ -1,25 +1,31 @@
@@ -685,7 +683,7 @@ index 4163658..cf0589b 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_0.shader b/Assets/Shader/Mobile-Particle-Add_0.shader
-index 4163658..cf0589b 100644
+index 4163658e..cf0589b2 100644
 --- a/Assets/Shader/Mobile-Particle-Add_0.shader
 +++ b/Assets/Shader/Mobile-Particle-Add_0.shader
 @@ -1,25 +1,31 @@
@@ -740,7 +738,7 @@ index 4163658..cf0589b 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_1.shader b/Assets/Shader/Mobile-Particle-Add_1.shader
-index 4163658..cf0589b 100644
+index 4163658e..cf0589b2 100644
 --- a/Assets/Shader/Mobile-Particle-Add_1.shader
 +++ b/Assets/Shader/Mobile-Particle-Add_1.shader
 @@ -1,25 +1,31 @@
@@ -795,7 +793,7 @@ index 4163658..cf0589b 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_2.shader b/Assets/Shader/Mobile-Particle-Add_2.shader
-index 4163658..cf0589b 100644
+index 4163658e..cf0589b2 100644
 --- a/Assets/Shader/Mobile-Particle-Add_2.shader
 +++ b/Assets/Shader/Mobile-Particle-Add_2.shader
 @@ -1,25 +1,31 @@
@@ -850,7 +848,7 @@ index 4163658..cf0589b 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_3.shader b/Assets/Shader/Mobile-Particle-Add_3.shader
-index 4163658..cf0589b 100644
+index 4163658e..cf0589b2 100644
 --- a/Assets/Shader/Mobile-Particle-Add_3.shader
 +++ b/Assets/Shader/Mobile-Particle-Add_3.shader
 @@ -1,25 +1,31 @@
@@ -905,7 +903,7 @@ index 4163658..cf0589b 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_4.shader b/Assets/Shader/Mobile-Particle-Add_4.shader
-index 4163658..cf0589b 100644
+index 4163658e..cf0589b2 100644
 --- a/Assets/Shader/Mobile-Particle-Add_4.shader
 +++ b/Assets/Shader/Mobile-Particle-Add_4.shader
 @@ -1,25 +1,31 @@
@@ -960,7 +958,7 @@ index 4163658..cf0589b 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_5.shader b/Assets/Shader/Mobile-Particle-Add_5.shader
-index 4163658..cf0589b 100644
+index 4163658e..cf0589b2 100644
 --- a/Assets/Shader/Mobile-Particle-Add_5.shader
 +++ b/Assets/Shader/Mobile-Particle-Add_5.shader
 @@ -1,25 +1,31 @@
@@ -1015,7 +1013,7 @@ index 4163658..cf0589b 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_6.shader b/Assets/Shader/Mobile-Particle-Add_6.shader
-index 4163658..cf0589b 100644
+index 4163658e..cf0589b2 100644
 --- a/Assets/Shader/Mobile-Particle-Add_6.shader
 +++ b/Assets/Shader/Mobile-Particle-Add_6.shader
 @@ -1,25 +1,31 @@
@@ -1070,7 +1068,7 @@ index 4163658..cf0589b 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_7.shader b/Assets/Shader/Mobile-Particle-Add_7.shader
-index 4163658..cf0589b 100644
+index 4163658e..cf0589b2 100644
 --- a/Assets/Shader/Mobile-Particle-Add_7.shader
 +++ b/Assets/Shader/Mobile-Particle-Add_7.shader
 @@ -1,25 +1,31 @@
@@ -1125,7 +1123,7 @@ index 4163658..cf0589b 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-VertexLit.shader b/Assets/Shader/Mobile-VertexLit.shader
-index af364c8..fa63de8 100644
+index af364c8e..fa63de86 100644
 --- a/Assets/Shader/Mobile-VertexLit.shader
 +++ b/Assets/Shader/Mobile-VertexLit.shader
 @@ -1,25 +1,104 @@
@@ -1251,7 +1249,7 @@ index af364c8..fa63de8 100644
 +}
 +}
 diff --git a/Assets/Shader/Mobile-VertexLit_0.shader b/Assets/Shader/Mobile-VertexLit_0.shader
-index af364c8..fa63de8 100644
+index af364c8e..fa63de86 100644
 --- a/Assets/Shader/Mobile-VertexLit_0.shader
 +++ b/Assets/Shader/Mobile-VertexLit_0.shader
 @@ -1,25 +1,104 @@
@@ -1377,7 +1375,7 @@ index af364c8..fa63de8 100644
 +}
 +}
 diff --git a/Assets/Shader/Mobile-VertexLit_1.shader b/Assets/Shader/Mobile-VertexLit_1.shader
-index af364c8..fa63de8 100644
+index af364c8e..fa63de86 100644
 --- a/Assets/Shader/Mobile-VertexLit_1.shader
 +++ b/Assets/Shader/Mobile-VertexLit_1.shader
 @@ -1,25 +1,104 @@
@@ -1503,7 +1501,7 @@ index af364c8..fa63de8 100644
 +}
 +}
 diff --git a/Assets/Shader/Mobile-VertexLit_2.shader b/Assets/Shader/Mobile-VertexLit_2.shader
-index af364c8..fa63de8 100644
+index af364c8e..fa63de86 100644
 --- a/Assets/Shader/Mobile-VertexLit_2.shader
 +++ b/Assets/Shader/Mobile-VertexLit_2.shader
 @@ -1,25 +1,104 @@
@@ -1629,7 +1627,7 @@ index af364c8..fa63de8 100644
 +}
 +}
 diff --git a/Assets/Shader/Mobile-VertexLit_3.shader b/Assets/Shader/Mobile-VertexLit_3.shader
-index af364c8..fa63de8 100644
+index af364c8e..fa63de86 100644
 --- a/Assets/Shader/Mobile-VertexLit_3.shader
 +++ b/Assets/Shader/Mobile-VertexLit_3.shader
 @@ -1,25 +1,104 @@
@@ -1755,11 +1753,10 @@ index af364c8..fa63de8 100644
 +}
 +}
 diff --git a/Assets/Shader/Normal-BumpSpec.shader b/Assets/Shader/Normal-BumpSpec.shader
-index 547c0f3..b678c1c 100644
+index 547c0f36..b678c1cb 100644
 --- a/Assets/Shader/Normal-BumpSpec.shader
 +++ b/Assets/Shader/Normal-BumpSpec.shader
-@@ -1,29 +1,51 @@
- Shader "Legacy Shaders/Bumped Specular" {
+@@ -2,28 +2,50 @@ Shader "Legacy Shaders/Bumped Specular" {
  Properties {
 - _Color ("Main Color", Color) = (1,1,1,1)
 - _SpecColor ("Specular Color", Color) = (0.5,0.5,0.5,1)
@@ -1837,11 +1834,10 @@ index 547c0f3..b678c1c 100644
 +FallBack "Legacy Shaders/Specular"
 +}
 diff --git a/Assets/Shader/Normal-Diffuse.shader b/Assets/Shader/Normal-Diffuse.shader
-index 4ba20a3..146e54c 100644
+index 4ba20a33..146e54ca 100644
 --- a/Assets/Shader/Normal-Diffuse.shader
 +++ b/Assets/Shader/Normal-Diffuse.shader
-@@ -1,26 +1,29 @@
- Shader "Legacy Shaders/Diffuse" {
+@@ -2,25 +2,28 @@ Shader "Legacy Shaders/Diffuse" {
  Properties {
 - _Color ("Main Color", Color) = (1,1,1,1)
 - _MainTex ("Base (RGB)", 2D) = "white" { }
@@ -1894,11 +1890,10 @@ index 4ba20a3..146e54c 100644
 +Fallback "Legacy Shaders/VertexLit"
 +}
 diff --git a/Assets/Shader/Normal-Diffuse_0.shader b/Assets/Shader/Normal-Diffuse_0.shader
-index 4ba20a3..146e54c 100644
+index 4ba20a33..146e54ca 100644
 --- a/Assets/Shader/Normal-Diffuse_0.shader
 +++ b/Assets/Shader/Normal-Diffuse_0.shader
-@@ -1,26 +1,29 @@
- Shader "Legacy Shaders/Diffuse" {
+@@ -2,25 +2,28 @@ Shader "Legacy Shaders/Diffuse" {
  Properties {
 - _Color ("Main Color", Color) = (1,1,1,1)
 - _MainTex ("Base (RGB)", 2D) = "white" { }
@@ -1951,11 +1946,10 @@ index 4ba20a3..146e54c 100644
 +Fallback "Legacy Shaders/VertexLit"
 +}
 diff --git a/Assets/Shader/Normal-Diffuse_1.shader b/Assets/Shader/Normal-Diffuse_1.shader
-index 4ba20a3..146e54c 100644
+index 4ba20a33..146e54ca 100644
 --- a/Assets/Shader/Normal-Diffuse_1.shader
 +++ b/Assets/Shader/Normal-Diffuse_1.shader
-@@ -1,26 +1,29 @@
- Shader "Legacy Shaders/Diffuse" {
+@@ -2,25 +2,28 @@ Shader "Legacy Shaders/Diffuse" {
  Properties {
 - _Color ("Main Color", Color) = (1,1,1,1)
 - _MainTex ("Base (RGB)", 2D) = "white" { }
@@ -2008,11 +2002,10 @@ index 4ba20a3..146e54c 100644
 +Fallback "Legacy Shaders/VertexLit"
 +}
 diff --git a/Assets/Shader/Normal-Diffuse_2.shader b/Assets/Shader/Normal-Diffuse_2.shader
-index 4ba20a3..146e54c 100644
+index 4ba20a33..146e54ca 100644
 --- a/Assets/Shader/Normal-Diffuse_2.shader
 +++ b/Assets/Shader/Normal-Diffuse_2.shader
-@@ -1,26 +1,29 @@
- Shader "Legacy Shaders/Diffuse" {
+@@ -2,25 +2,28 @@ Shader "Legacy Shaders/Diffuse" {
  Properties {
 - _Color ("Main Color", Color) = (1,1,1,1)
 - _MainTex ("Base (RGB)", 2D) = "white" { }
@@ -2065,11 +2058,10 @@ index 4ba20a3..146e54c 100644
 +Fallback "Legacy Shaders/VertexLit"
 +}
 diff --git a/Assets/Shader/Normal-Glossy.shader b/Assets/Shader/Normal-Glossy.shader
-index 4bb09ef..17d8a36 100644
+index 4bb09efe..17d8a362 100644
 --- a/Assets/Shader/Normal-Glossy.shader
 +++ b/Assets/Shader/Normal-Glossy.shader
-@@ -1,28 +1,35 @@
- Shader "Legacy Shaders/Specular" {
+@@ -2,27 +2,34 @@ Shader "Legacy Shaders/Specular" {
  Properties {
 - _Color ("Main Color", Color) = (1,1,1,1)
 - _SpecColor ("Specular Color", Color) = (0.5,0.5,0.5,1)
@@ -2130,11 +2122,10 @@ index 4bb09ef..17d8a36 100644
 +Fallback "Legacy Shaders/VertexLit"
 +}
 diff --git a/Assets/Shader/Normal-VertexLit.shader b/Assets/Shader/Normal-VertexLit.shader
-index 04c016c..ae31b91 100644
+index 04c016cd..ae31b913 100644
 --- a/Assets/Shader/Normal-VertexLit.shader
 +++ b/Assets/Shader/Normal-VertexLit.shader
-@@ -1,29 +1,113 @@
- Shader "Legacy Shaders/VertexLit" {
+@@ -2,28 +2,112 @@ Shader "Legacy Shaders/VertexLit" {
  Properties {
 - _Color ("Main Color", Color) = (1,1,1,1)
 - _SpecColor ("Spec Color", Color) = (1,1,1,1)
@@ -2272,11 +2263,10 @@ index 04c016c..ae31b91 100644
 +
 +}
 diff --git a/Assets/Shader/Normal-VertexLit_0.shader b/Assets/Shader/Normal-VertexLit_0.shader
-index 04c016c..ae31b91 100644
+index 04c016cd..ae31b913 100644
 --- a/Assets/Shader/Normal-VertexLit_0.shader
 +++ b/Assets/Shader/Normal-VertexLit_0.shader
-@@ -1,29 +1,113 @@
- Shader "Legacy Shaders/VertexLit" {
+@@ -2,28 +2,112 @@ Shader "Legacy Shaders/VertexLit" {
  Properties {
 - _Color ("Main Color", Color) = (1,1,1,1)
 - _SpecColor ("Spec Color", Color) = (1,1,1,1)
@@ -2414,11 +2404,10 @@ index 04c016c..ae31b91 100644
 +
 +}
 diff --git a/Assets/Shader/Normal-VertexLit_1.shader b/Assets/Shader/Normal-VertexLit_1.shader
-index 04c016c..ae31b91 100644
+index 04c016cd..ae31b913 100644
 --- a/Assets/Shader/Normal-VertexLit_1.shader
 +++ b/Assets/Shader/Normal-VertexLit_1.shader
-@@ -1,29 +1,113 @@
- Shader "Legacy Shaders/VertexLit" {
+@@ -2,28 +2,112 @@ Shader "Legacy Shaders/VertexLit" {
  Properties {
 - _Color ("Main Color", Color) = (1,1,1,1)
 - _SpecColor ("Spec Color", Color) = (1,1,1,1)
@@ -2556,11 +2545,10 @@ index 04c016c..ae31b91 100644
 +
 +}
 diff --git a/Assets/Shader/Normal-VertexLit_2.shader b/Assets/Shader/Normal-VertexLit_2.shader
-index 04c016c..ae31b91 100644
+index 04c016cd..ae31b913 100644
 --- a/Assets/Shader/Normal-VertexLit_2.shader
 +++ b/Assets/Shader/Normal-VertexLit_2.shader
-@@ -1,29 +1,113 @@
- Shader "Legacy Shaders/VertexLit" {
+@@ -2,28 +2,112 @@ Shader "Legacy Shaders/VertexLit" {
  Properties {
 - _Color ("Main Color", Color) = (1,1,1,1)
 - _SpecColor ("Spec Color", Color) = (1,1,1,1)
@@ -2698,11 +2686,10 @@ index 04c016c..ae31b91 100644
 +
 +}
 diff --git a/Assets/Shader/Normal-VertexLit_3.shader b/Assets/Shader/Normal-VertexLit_3.shader
-index 04c016c..ae31b91 100644
+index 04c016cd..ae31b913 100644
 --- a/Assets/Shader/Normal-VertexLit_3.shader
 +++ b/Assets/Shader/Normal-VertexLit_3.shader
-@@ -1,29 +1,113 @@
- Shader "Legacy Shaders/VertexLit" {
+@@ -2,28 +2,112 @@ Shader "Legacy Shaders/VertexLit" {
  Properties {
 - _Color ("Main Color", Color) = (1,1,1,1)
 - _SpecColor ("Spec Color", Color) = (1,1,1,1)
@@ -2840,11 +2827,10 @@ index 04c016c..ae31b91 100644
 +
 +}
 diff --git a/Assets/Shader/Normal-VertexLit_4.shader b/Assets/Shader/Normal-VertexLit_4.shader
-index 04c016c..ae31b91 100644
+index 04c016cd..ae31b913 100644
 --- a/Assets/Shader/Normal-VertexLit_4.shader
 +++ b/Assets/Shader/Normal-VertexLit_4.shader
-@@ -1,29 +1,113 @@
- Shader "Legacy Shaders/VertexLit" {
+@@ -2,28 +2,112 @@ Shader "Legacy Shaders/VertexLit" {
  Properties {
 - _Color ("Main Color", Color) = (1,1,1,1)
 - _SpecColor ("Spec Color", Color) = (1,1,1,1)
@@ -2982,7 +2968,7 @@ index 04c016c..ae31b91 100644
 +
 +}
 diff --git a/Assets/Shader/Particle Add.shader b/Assets/Shader/Particle Add.shader
-index 519f28e..9651e90 100644
+index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add.shader	
 +++ b/Assets/Shader/Particle Add.shader	
 @@ -1,27 +1,82 @@
@@ -3092,7 +3078,7 @@ index 519f28e..9651e90 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle AddSmooth.shader b/Assets/Shader/Particle AddSmooth.shader
-index 5227f98..66bfdbc 100644
+index 5227f98b..66bfdbce 100644
 --- a/Assets/Shader/Particle AddSmooth.shader	
 +++ b/Assets/Shader/Particle AddSmooth.shader	
 @@ -1,26 +1,82 @@
@@ -3202,7 +3188,7 @@ index 5227f98..66bfdbc 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Add_0.shader b/Assets/Shader/Particle Add_0.shader
-index 519f28e..9651e90 100644
+index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_0.shader	
 +++ b/Assets/Shader/Particle Add_0.shader	
 @@ -1,27 +1,82 @@
@@ -3312,7 +3298,7 @@ index 519f28e..9651e90 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Add_1.shader b/Assets/Shader/Particle Add_1.shader
-index 519f28e..9651e90 100644
+index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_1.shader	
 +++ b/Assets/Shader/Particle Add_1.shader	
 @@ -1,27 +1,82 @@
@@ -3422,7 +3408,7 @@ index 519f28e..9651e90 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Add_2.shader b/Assets/Shader/Particle Add_2.shader
-index 519f28e..9651e90 100644
+index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_2.shader	
 +++ b/Assets/Shader/Particle Add_2.shader	
 @@ -1,27 +1,82 @@
@@ -3532,7 +3518,7 @@ index 519f28e..9651e90 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Add_3.shader b/Assets/Shader/Particle Add_3.shader
-index 519f28e..9651e90 100644
+index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_3.shader	
 +++ b/Assets/Shader/Particle Add_3.shader	
 @@ -1,27 +1,82 @@
@@ -3642,7 +3628,7 @@ index 519f28e..9651e90 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Add_4.shader b/Assets/Shader/Particle Add_4.shader
-index 519f28e..9651e90 100644
+index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_4.shader	
 +++ b/Assets/Shader/Particle Add_4.shader	
 @@ -1,27 +1,82 @@
@@ -3752,7 +3738,7 @@ index 519f28e..9651e90 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Add_5.shader b/Assets/Shader/Particle Add_5.shader
-index 519f28e..9651e90 100644
+index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_5.shader	
 +++ b/Assets/Shader/Particle Add_5.shader	
 @@ -1,27 +1,82 @@
@@ -3862,7 +3848,7 @@ index 519f28e..9651e90 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Add_6.shader b/Assets/Shader/Particle Add_6.shader
-index 519f28e..9651e90 100644
+index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_6.shader	
 +++ b/Assets/Shader/Particle Add_6.shader	
 @@ -1,27 +1,82 @@
@@ -3972,7 +3958,7 @@ index 519f28e..9651e90 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Add_7.shader b/Assets/Shader/Particle Add_7.shader
-index 519f28e..9651e90 100644
+index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_7.shader	
 +++ b/Assets/Shader/Particle Add_7.shader	
 @@ -1,27 +1,82 @@
@@ -4082,7 +4068,7 @@ index 519f28e..9651e90 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Alpha Blend.shader b/Assets/Shader/Particle Alpha Blend.shader
-index 7073942..aee8353 100644
+index 70739420..aee83534 100644
 --- a/Assets/Shader/Particle Alpha Blend.shader	
 +++ b/Assets/Shader/Particle Alpha Blend.shader	
 @@ -1,27 +1,82 @@
@@ -4193,7 +4179,7 @@ index 7073942..aee8353 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Alpha Blend_0.shader b/Assets/Shader/Particle Alpha Blend_0.shader
-index 7073942..aee8353 100644
+index 70739420..aee83534 100644
 --- a/Assets/Shader/Particle Alpha Blend_0.shader	
 +++ b/Assets/Shader/Particle Alpha Blend_0.shader	
 @@ -1,27 +1,82 @@
@@ -4304,7 +4290,7 @@ index 7073942..aee8353 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Alpha Blend_1.shader b/Assets/Shader/Particle Alpha Blend_1.shader
-index 7073942..aee8353 100644
+index 70739420..aee83534 100644
 --- a/Assets/Shader/Particle Alpha Blend_1.shader	
 +++ b/Assets/Shader/Particle Alpha Blend_1.shader	
 @@ -1,27 +1,82 @@
@@ -4415,7 +4401,7 @@ index 7073942..aee8353 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Alpha Blend_2.shader b/Assets/Shader/Particle Alpha Blend_2.shader
-index 7073942..aee8353 100644
+index 70739420..aee83534 100644
 --- a/Assets/Shader/Particle Alpha Blend_2.shader	
 +++ b/Assets/Shader/Particle Alpha Blend_2.shader	
 @@ -1,27 +1,82 @@
@@ -4526,7 +4512,7 @@ index 7073942..aee8353 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Alpha Blend_3.shader b/Assets/Shader/Particle Alpha Blend_3.shader
-index 7073942..aee8353 100644
+index 70739420..aee83534 100644
 --- a/Assets/Shader/Particle Alpha Blend_3.shader	
 +++ b/Assets/Shader/Particle Alpha Blend_3.shader	
 @@ -1,27 +1,82 @@
@@ -4637,7 +4623,7 @@ index 7073942..aee8353 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Alpha Blend_4.shader b/Assets/Shader/Particle Alpha Blend_4.shader
-index 7073942..aee8353 100644
+index 70739420..aee83534 100644
 --- a/Assets/Shader/Particle Alpha Blend_4.shader	
 +++ b/Assets/Shader/Particle Alpha Blend_4.shader	
 @@ -1,27 +1,82 @@
@@ -4748,7 +4734,7 @@ index 7073942..aee8353 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Multiply.shader b/Assets/Shader/Particle Multiply.shader
-index f816418..250f3bb 100644
+index f816418b..250f3bb3 100644
 --- a/Assets/Shader/Particle Multiply.shader	
 +++ b/Assets/Shader/Particle Multiply.shader	
 @@ -1,26 +1,81 @@
@@ -4855,7 +4841,7 @@ index f816418..250f3bb 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Premultiply Blend.shader b/Assets/Shader/Particle Premultiply Blend.shader
-index 64e2bdd..73133d5 100644
+index 64e2bdd5..73133d5b 100644
 --- a/Assets/Shader/Particle Premultiply Blend.shader	
 +++ b/Assets/Shader/Particle Premultiply Blend.shader	
 @@ -1,26 +1,76 @@
@@ -4958,7 +4944,7 @@ index 64e2bdd..73133d5 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Premultiply Blend_0.shader b/Assets/Shader/Particle Premultiply Blend_0.shader
-index 64e2bdd..73133d5 100644
+index 64e2bdd5..73133d5b 100644
 --- a/Assets/Shader/Particle Premultiply Blend_0.shader	
 +++ b/Assets/Shader/Particle Premultiply Blend_0.shader	
 @@ -1,26 +1,76 @@
@@ -5061,7 +5047,7 @@ index 64e2bdd..73133d5 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Premultiply Blend_1.shader b/Assets/Shader/Particle Premultiply Blend_1.shader
-index 64e2bdd..73133d5 100644
+index 64e2bdd5..73133d5b 100644
 --- a/Assets/Shader/Particle Premultiply Blend_1.shader	
 +++ b/Assets/Shader/Particle Premultiply Blend_1.shader	
 @@ -1,26 +1,76 @@
@@ -5164,7 +5150,7 @@ index 64e2bdd..73133d5 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Premultiply Blend_2.shader b/Assets/Shader/Particle Premultiply Blend_2.shader
-index 64e2bdd..73133d5 100644
+index 64e2bdd5..73133d5b 100644
 --- a/Assets/Shader/Particle Premultiply Blend_2.shader	
 +++ b/Assets/Shader/Particle Premultiply Blend_2.shader	
 @@ -1,26 +1,76 @@
@@ -5267,7 +5253,7 @@ index 64e2bdd..73133d5 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle Premultiply Blend_3.shader b/Assets/Shader/Particle Premultiply Blend_3.shader
-index 64e2bdd..73133d5 100644
+index 64e2bdd5..73133d5b 100644
 --- a/Assets/Shader/Particle Premultiply Blend_3.shader	
 +++ b/Assets/Shader/Particle Premultiply Blend_3.shader	
 @@ -1,26 +1,76 @@
@@ -5370,7 +5356,7 @@ index 64e2bdd..73133d5 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle-Add.shader b/Assets/Shader/Particle-Add.shader
-index 4459f86..58e4770 100644
+index 4459f86c..58e47700 100644
 --- a/Assets/Shader/Particle-Add.shader
 +++ b/Assets/Shader/Particle-Add.shader
 @@ -1,26 +1,82 @@
@@ -5479,7 +5465,7 @@ index 4459f86..58e4770 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle-Add_0.shader b/Assets/Shader/Particle-Add_0.shader
-index 4459f86..58e4770 100644
+index 4459f86c..58e47700 100644
 --- a/Assets/Shader/Particle-Add_0.shader
 +++ b/Assets/Shader/Particle-Add_0.shader
 @@ -1,26 +1,82 @@
@@ -5588,7 +5574,7 @@ index 4459f86..58e4770 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle-Add_1.shader b/Assets/Shader/Particle-Add_1.shader
-index 4459f86..58e4770 100644
+index 4459f86c..58e47700 100644
 --- a/Assets/Shader/Particle-Add_1.shader
 +++ b/Assets/Shader/Particle-Add_1.shader
 @@ -1,26 +1,82 @@
@@ -5697,7 +5683,7 @@ index 4459f86..58e4770 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle-Add_2.shader b/Assets/Shader/Particle-Add_2.shader
-index 4459f86..58e4770 100644
+index 4459f86c..58e47700 100644
 --- a/Assets/Shader/Particle-Add_2.shader
 +++ b/Assets/Shader/Particle-Add_2.shader
 @@ -1,26 +1,82 @@
@@ -5806,7 +5792,7 @@ index 4459f86..58e4770 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle-Add_3.shader b/Assets/Shader/Particle-Add_3.shader
-index 4459f86..58e4770 100644
+index 4459f86c..58e47700 100644
 --- a/Assets/Shader/Particle-Add_3.shader
 +++ b/Assets/Shader/Particle-Add_3.shader
 @@ -1,26 +1,82 @@
@@ -5915,7 +5901,7 @@ index 4459f86..58e4770 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle-Add_4.shader b/Assets/Shader/Particle-Add_4.shader
-index 4459f86..58e4770 100644
+index 4459f86c..58e47700 100644
 --- a/Assets/Shader/Particle-Add_4.shader
 +++ b/Assets/Shader/Particle-Add_4.shader
 @@ -1,26 +1,82 @@
@@ -6024,7 +6010,7 @@ index 4459f86..58e4770 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle-Add_5.shader b/Assets/Shader/Particle-Add_5.shader
-index 4459f86..58e4770 100644
+index 4459f86c..58e47700 100644
 --- a/Assets/Shader/Particle-Add_5.shader
 +++ b/Assets/Shader/Particle-Add_5.shader
 @@ -1,26 +1,82 @@
@@ -6133,7 +6119,7 @@ index 4459f86..58e4770 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle-Alpha-Blend.shader b/Assets/Shader/Particle-Alpha-Blend.shader
-index 1e7430f..9daa426 100644
+index 1e7430f0..9daa426b 100644
 --- a/Assets/Shader/Particle-Alpha-Blend.shader
 +++ b/Assets/Shader/Particle-Alpha-Blend.shader
 @@ -1,26 +1,82 @@
@@ -6243,7 +6229,7 @@ index 1e7430f..9daa426 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle-Alpha-Blend_0.shader b/Assets/Shader/Particle-Alpha-Blend_0.shader
-index 1e7430f..9daa426 100644
+index 1e7430f0..9daa426b 100644
 --- a/Assets/Shader/Particle-Alpha-Blend_0.shader
 +++ b/Assets/Shader/Particle-Alpha-Blend_0.shader
 @@ -1,26 +1,82 @@
@@ -6353,7 +6339,7 @@ index 1e7430f..9daa426 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle-Alpha-Blend_1.shader b/Assets/Shader/Particle-Alpha-Blend_1.shader
-index 1e7430f..9daa426 100644
+index 1e7430f0..9daa426b 100644
 --- a/Assets/Shader/Particle-Alpha-Blend_1.shader
 +++ b/Assets/Shader/Particle-Alpha-Blend_1.shader
 @@ -1,26 +1,82 @@
@@ -6463,7 +6449,7 @@ index 1e7430f..9daa426 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle-Alpha-Blend_2.shader b/Assets/Shader/Particle-Alpha-Blend_2.shader
-index 1e7430f..9daa426 100644
+index 1e7430f0..9daa426b 100644
 --- a/Assets/Shader/Particle-Alpha-Blend_2.shader
 +++ b/Assets/Shader/Particle-Alpha-Blend_2.shader
 @@ -1,26 +1,82 @@
@@ -6573,7 +6559,7 @@ index 1e7430f..9daa426 100644
 +}
 +}
 diff --git a/Assets/Shader/Particle-Alpha-Blend_3.shader b/Assets/Shader/Particle-Alpha-Blend_3.shader
-index 1e7430f..9daa426 100644
+index 1e7430f0..9daa426b 100644
 --- a/Assets/Shader/Particle-Alpha-Blend_3.shader
 +++ b/Assets/Shader/Particle-Alpha-Blend_3.shader
 @@ -1,26 +1,82 @@
@@ -6683,7 +6669,7 @@ index 1e7430f..9daa426 100644
 +}
 +}
 diff --git a/Assets/Shader/Shader.shader b/Assets/Shader/Shader.shader
-index 20cb732..b57a17d 100644
+index 20cb7328..b57a17dd 100644
 --- a/Assets/Shader/Shader.shader
 +++ b/Assets/Shader/Shader.shader
 @@ -1,47 +1,318 @@
@@ -7049,7 +7035,7 @@ index 20cb732..b57a17d 100644
 +	CustomEditor "StandardShaderGUI"
 +}
 diff --git a/Assets/Shader/Shader_0.shader b/Assets/Shader/Shader_0.shader
-index 20cb732..b57a17d 100644
+index 20cb7328..b57a17dd 100644
 --- a/Assets/Shader/Shader_0.shader
 +++ b/Assets/Shader/Shader_0.shader
 @@ -1,47 +1,318 @@
@@ -7415,7 +7401,7 @@ index 20cb732..b57a17d 100644
 +	CustomEditor "StandardShaderGUI"
 +}
 diff --git a/Assets/Shader/Shader_1.shader b/Assets/Shader/Shader_1.shader
-index 20cb732..b57a17d 100644
+index 20cb7328..b57a17dd 100644
 --- a/Assets/Shader/Shader_1.shader
 +++ b/Assets/Shader/Shader_1.shader
 @@ -1,47 +1,318 @@
@@ -7781,7 +7767,7 @@ index 20cb732..b57a17d 100644
 +	CustomEditor "StandardShaderGUI"
 +}
 diff --git a/Assets/Shader/Shader_2.shader b/Assets/Shader/Shader_2.shader
-index 20cb732..b57a17d 100644
+index 20cb7328..b57a17dd 100644
 --- a/Assets/Shader/Shader_2.shader
 +++ b/Assets/Shader/Shader_2.shader
 @@ -1,47 +1,318 @@
@@ -8147,10 +8133,10 @@ index 20cb732..b57a17d 100644
 +	CustomEditor "StandardShaderGUI"
 +}
 diff --git a/Assets/Shader/Skybox-Procedural.shader b/Assets/Shader/Skybox-Procedural.shader
-index 6730262..16842c5 100644
+index 67302625..16842c58 100644
 --- a/Assets/Shader/Skybox-Procedural.shader
 +++ b/Assets/Shader/Skybox-Procedural.shader
-@@ -1,30 +1,391 @@
+@@ -1,27 +1,383 @@
 +// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
@@ -8553,7 +8539,7 @@ index 6730262..16842c5 100644
 +			return half4(col,1.0);
 +
  		}
- 		ENDCG
+@@ -29,2 +385,7 @@ Properties {
  	}
 -}
 \ No newline at end of file
@@ -8564,7 +8550,7 @@ index 6730262..16842c5 100644
 +
 +}
 diff --git a/Assets/Shader/Skybox.shader b/Assets/Shader/Skybox.shader
-index cf15b72..c929bb7 100644
+index cf15b728..c929bb75 100644
 --- a/Assets/Shader/Skybox.shader
 +++ b/Assets/Shader/Skybox.shader
 @@ -1,33 +1,116 @@
@@ -8712,7 +8698,7 @@ index cf15b72..c929bb7 100644
 +}
 +}
 diff --git a/Assets/Shader/Skybox_0.shader b/Assets/Shader/Skybox_0.shader
-index cf15b72..c929bb7 100644
+index cf15b728..c929bb75 100644
 --- a/Assets/Shader/Skybox_0.shader
 +++ b/Assets/Shader/Skybox_0.shader
 @@ -1,33 +1,116 @@
@@ -8860,7 +8846,7 @@ index cf15b72..c929bb7 100644
 +}
 +}
 diff --git a/Assets/Shader/Skybox_1.shader b/Assets/Shader/Skybox_1.shader
-index cf15b72..c929bb7 100644
+index cf15b728..c929bb75 100644
 --- a/Assets/Shader/Skybox_1.shader
 +++ b/Assets/Shader/Skybox_1.shader
 @@ -1,33 +1,116 @@
@@ -9008,10 +8994,10 @@ index cf15b72..c929bb7 100644
 +}
 +}
 diff --git a/Assets/Shader/Sprites-Diffuse.shader b/Assets/Shader/Sprites-Diffuse.shader
-index c054dce..e53d3c8 100644
+index c054dce2..e53d3c8c 100644
 --- a/Assets/Shader/Sprites-Diffuse.shader
 +++ b/Assets/Shader/Sprites-Diffuse.shader
-@@ -1,27 +1,73 @@
+@@ -1,16 +1,36 @@
 -Shader "Sprites/Diffuse" {
 -Properties {
 -[PerRendererData]  _MainTex ("Sprite Texture", 2D) = "white" { }
@@ -9061,7 +9047,7 @@ index c054dce..e53d3c8 100644
 +
 +
  		struct Input
- 		{
+@@ -18,7 +38,31 @@ Properties {
  			float2 uv_MainTex;
 +			fixed4 color;
  		};
@@ -9096,7 +9082,7 @@ index c054dce..e53d3c8 100644
 +			o.Albedo = c.rgb * c.a;
 +			o.Alpha = c.a;
  		}
- 		ENDCG
+@@ -26,2 +70,4 @@ Properties {
  	}
 -}
 \ No newline at end of file
@@ -9104,7 +9090,7 @@ index c054dce..e53d3c8 100644
 +Fallback "Transparent/VertexLit"
 +}
 diff --git a/Assets/Shader/StandardSpecular.shader b/Assets/Shader/StandardSpecular.shader
-index a52adac..d58ef71 100644
+index a52adacf..d58ef71e 100644
 --- a/Assets/Shader/StandardSpecular.shader
 +++ b/Assets/Shader/StandardSpecular.shader
 @@ -1,47 +1,316 @@
@@ -9468,7 +9454,7 @@ index a52adac..d58ef71 100644
 +	CustomEditor "StandardShaderGUI"
 +}
 diff --git a/Assets/Shader/Unlit-Alpha.shader b/Assets/Shader/Unlit-Alpha.shader
-index c58e97e..829ee04 100644
+index c58e97e6..829ee046 100644
 --- a/Assets/Shader/Unlit-Alpha.shader
 +++ b/Assets/Shader/Unlit-Alpha.shader
 @@ -1,25 +1,61 @@
@@ -9553,7 +9539,7 @@ index c58e97e..829ee04 100644
 +
 +}
 diff --git a/Assets/Shader/Unlit-Alpha_0.shader b/Assets/Shader/Unlit-Alpha_0.shader
-index c58e97e..829ee04 100644
+index c58e97e6..829ee046 100644
 --- a/Assets/Shader/Unlit-Alpha_0.shader
 +++ b/Assets/Shader/Unlit-Alpha_0.shader
 @@ -1,25 +1,61 @@
@@ -9638,7 +9624,7 @@ index c58e97e..829ee04 100644
 +
 +}
 diff --git a/Assets/Shader/Unlit-Alpha_1.shader b/Assets/Shader/Unlit-Alpha_1.shader
-index c58e97e..829ee04 100644
+index c58e97e6..829ee046 100644
 --- a/Assets/Shader/Unlit-Alpha_1.shader
 +++ b/Assets/Shader/Unlit-Alpha_1.shader
 @@ -1,25 +1,61 @@
@@ -9723,7 +9709,7 @@ index c58e97e..829ee04 100644
 +
 +}
 diff --git a/Assets/Shader/Unlit-Color.shader b/Assets/Shader/Unlit-Color.shader
-index 7aaa53d..576f405 100644
+index 7aaa53dc..576f4053 100644
 --- a/Assets/Shader/Unlit-Color.shader
 +++ b/Assets/Shader/Unlit-Color.shader
 @@ -1,25 +1,55 @@
@@ -9802,7 +9788,7 @@ index 7aaa53d..576f405 100644
 +
 +}
 diff --git a/Assets/Shader/Unlit-Color_0.shader b/Assets/Shader/Unlit-Color_0.shader
-index 7aaa53d..576f405 100644
+index 7aaa53dc..576f4053 100644
 --- a/Assets/Shader/Unlit-Color_0.shader
 +++ b/Assets/Shader/Unlit-Color_0.shader
 @@ -1,25 +1,55 @@
@@ -9881,7 +9867,7 @@ index 7aaa53d..576f405 100644
 +
 +}
 diff --git a/Assets/Shader/Unlit-Color_1.shader b/Assets/Shader/Unlit-Color_1.shader
-index 7aaa53d..576f405 100644
+index 7aaa53dc..576f4053 100644
 --- a/Assets/Shader/Unlit-Color_1.shader
 +++ b/Assets/Shader/Unlit-Color_1.shader
 @@ -1,25 +1,55 @@
@@ -9960,7 +9946,7 @@ index 7aaa53d..576f405 100644
 +
 +}
 diff --git a/Assets/Shader/Unlit-Normal.shader b/Assets/Shader/Unlit-Normal.shader
-index 6a53edb..f1de502 100644
+index 6a53edbc..f1de5027 100644
 --- a/Assets/Shader/Unlit-Normal.shader
 +++ b/Assets/Shader/Unlit-Normal.shader
 @@ -1,25 +1,59 @@
@@ -10043,7 +10029,7 @@ index 6a53edb..f1de502 100644
 +
 +}
 diff --git a/Assets/Shader/Unlit-Normal_0.shader b/Assets/Shader/Unlit-Normal_0.shader
-index 6a53edb..f1de502 100644
+index 6a53edbc..f1de5027 100644
 --- a/Assets/Shader/Unlit-Normal_0.shader
 +++ b/Assets/Shader/Unlit-Normal_0.shader
 @@ -1,25 +1,59 @@
