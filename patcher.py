@@ -42,8 +42,11 @@ def run_assetripper(input_dir: str, output_dir: str) -> None:
         "--port=6464"
     ]
 
+    env = os.environ.copy()
+    env["SOURCE_DATE_EPOCH"] = "1767225600"
+
     print("[*] Starting AssetRipper in the background...")
-    process = subprocess.Popen(cmd)
+    process = subprocess.Popen(cmd, env=env)
 
     print("[*] Waiting for AssetRipper to start...")
 
