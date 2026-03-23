@@ -1,0 +1,56 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Tue, 24 Mar 2026 00:37:31 +0200
+Subject: [PATCH] Set server address
+
+
+diff --git a/Assets/StreamingAssets.meta b/Assets/StreamingAssets.meta
+new file mode 100644
+index 00000000..99ca9d20
+--- /dev/null
++++ b/Assets/StreamingAssets.meta
+@@ -0,0 +1,8 @@
++fileFormatVersion: 2
++guid: d7baba77888604dd4af5342954e283a9
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
+diff --git a/Assets/StreamingAssets/serverAddresses.json b/Assets/StreamingAssets/serverAddresses.json
+new file mode 100644
+index 00000000..725d86b1
+--- /dev/null
++++ b/Assets/StreamingAssets/serverAddresses.json
+@@ -0,0 +1,16 @@
++{
++  "__comment": "NxM Production Server Environment Info",
++  "addresses": [
++    {
++      "serverAddress": "https://prod-us-east-1-gameserver-lb.tfflinternal.com/",
++      "storeAddress": "https://prod-us-east-1-store-lb.tfflinternal.com/Store/v1",
++      "profileServerAddress": "https://prod-us-east-1-virtu2-lb.tfflinternal.com/",
++      "missionAddress": "https://prod-us-east-1-gameserver-lb.tfflinternal.com/Missions/v1",
++      "dealershipAddress": "https://prod-us-east-1-gameserver-lb.tfflinternal.com/Dealership/v1",
++      "leaderboardAddress": "https://prod-us-east-1-gameserver-lb.tfflinternal.com/",
++      "chatAddress": "prod-us-east-1-chat-lb.tfflinternal.com",
++      "chatMUCAddress": "conference.prod-us-east-1-chat-lb.tfflinternal.com",
++      "newsURL": "http://news.tfflinternal.com/index.htm"
++    }
++  ]
++}
+\ No newline at end of file
+diff --git a/Assets/StreamingAssets/serverAddresses.json.meta b/Assets/StreamingAssets/serverAddresses.json.meta
+new file mode 100644
+index 00000000..136df251
+--- /dev/null
++++ b/Assets/StreamingAssets/serverAddresses.json.meta
+@@ -0,0 +1,7 @@
++fileFormatVersion: 2
++guid: 9470db73afb6603d5a745741436a4cc2
++DefaultImporter:
++  externalObjects: {}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
