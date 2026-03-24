@@ -14,7 +14,7 @@ index eea9310e..3a3cb1fa 100644
 +    m_MaxSize: 50
      m_Alignment: 4
 diff --git a/Assets/Scenes/GameShell.unity b/Assets/Scenes/GameShell.unity
-index 42101dc9..a924eeb4 100644
+index 82cad5fe..44d8b6b3 100644
 --- a/Assets/Scenes/GameShell.unity
 +++ b/Assets/Scenes/GameShell.unity
 @@ -32714,2 +32714,203 @@ NavMeshSettings:
