@@ -4,8 +4,17 @@ Date: Thu, 5 Mar 2026 23:59:37 +0200
 Subject: [PATCH] Fix WWWRequest
 
 
+diff --git a/Assets/Scripts/Assembly-CSharp/PerformanceMonitor.cs b/Assets/Scripts/Assembly-CSharp/PerformanceMonitor.cs
+index 182dd89b..7038f5ec 100644
+--- a/Assets/Scripts/Assembly-CSharp/PerformanceMonitor.cs
++++ b/Assets/Scripts/Assembly-CSharp/PerformanceMonitor.cs
+@@ -445,3 +445,3 @@ public class PerformanceMonitor : SingletonMonoBehaviour<PerformanceMonitor>
+ 			pingTimer = 0f;
+-			Singleton<WWWManager>.Instance.RequestText(GameShell.GetServerInterface().GetServerAddress() + "/session/ping", OnPingComplete);
++			Singleton<WWWManager>.Instance.RequestText(GameShell.GetServerInterface().GetServerAddress() + "session/ping", OnPingComplete);
+ 		}
 diff --git a/Assets/Scripts/Assembly-CSharp/WWWRequest.cs b/Assets/Scripts/Assembly-CSharp/WWWRequest.cs
-index 33ae90fe..c4836a83 100644
+index 33ae90fe..df49bdd3 100644
 --- a/Assets/Scripts/Assembly-CSharp/WWWRequest.cs
 +++ b/Assets/Scripts/Assembly-CSharp/WWWRequest.cs
 @@ -4,2 +4,3 @@ using System.Diagnostics;
@@ -17,35 +26,45 @@ index 33ae90fe..c4836a83 100644
 -	private WWW request;
 +	private UnityWebRequest request;
  
-@@ -95,3 +96,3 @@ public class WWWRequest
+@@ -31,2 +32,4 @@ public class WWWRequest
+ 
++	private ulong lastDownloadedBytes;
++
+ 	private float progressTimestamp;
+@@ -95,3 +98,3 @@ public class WWWRequest
  		{
 -			return request.bytesDownloaded;
 +			return (int) request.downloadedBytes;
  		}
-@@ -103,3 +104,3 @@ public class WWWRequest
+@@ -103,3 +106,3 @@ public class WWWRequest
  		{
 -			return (request == null) ? 0f : request.progress;
 +			return (request == null) ? 0f : request.downloadProgress;
  		}
-@@ -113,3 +114,3 @@ public class WWWRequest
+@@ -113,3 +116,3 @@ public class WWWRequest
  		{
 -			return (request == null) ? null : request.assetBundle;
 +			return (request == null) ? null : DownloadHandlerAssetBundle.GetContent(request);
  		}
-@@ -121,3 +122,3 @@ public class WWWRequest
+@@ -121,3 +124,3 @@ public class WWWRequest
  		{
 -			return (request == null) ? null : request.text;
 +			return (request == null || !request.isDone) ? null : request.downloadHandler.text;
  		}
-@@ -155,3 +156,3 @@ public class WWWRequest
+@@ -147,2 +150,4 @@ public class WWWRequest
+ 		}
++		lastProgress = 0f;
++		lastDownloadedBytes = 0;
+ 		progressTimestamp = Time.realtimeSinceStartup;
+@@ -155,3 +160,3 @@ public class WWWRequest
  			{
 -				request = WWW.LoadFromCacheOrDownload(URI, 0, CRC);
 +				request = UnityWebRequestAssetBundle.GetAssetBundle(URI, CRC);
  			}
-@@ -159,7 +160,18 @@ public class WWWRequest
+@@ -159,7 +164,18 @@ public class WWWRequest
  			{
 -				request = new WWW(URI);
-+				request = new UnityWebRequest(URI);
++				request = UnityWebRequestAssetBundle.GetAssetBundle(URI);
  			}
 +
 +			request.SendWebRequest();
@@ -63,13 +82,29 @@ index 33ae90fe..c4836a83 100644
 +			request.downloadHandler = new DownloadHandlerBuffer();
 +			request.SendWebRequest();
  			break;
-@@ -215,3 +227,3 @@ public class WWWRequest
+@@ -173,9 +189,9 @@ public class WWWRequest
+ 		{
+-			if (IsDone)
++			if (!string.IsNullOrEmpty(request.error))
+ 			{
+-				time.Stop();
++				Fail(request.error);
+ 			}
+-			else if (!string.IsNullOrEmpty(request.error))
++			else if (IsDone)
+ 			{
+-				Fail(request.error);
++				time.Stop();
+ 			}
+@@ -215,3 +231,4 @@ public class WWWRequest
  		float realtimeSinceStartup = Time.realtimeSinceStartup;
 -		if (lastProgress == request.progress)
-+		if (lastProgress == request.downloadProgress)
++		ulong downloadedBytes = request.downloadedBytes;
++		if (lastProgress == request.downloadProgress && lastDownloadedBytes == downloadedBytes)
  		{
-@@ -230,3 +242,3 @@ public class WWWRequest
+@@ -230,3 +247,4 @@ public class WWWRequest
  		{
 -			lastProgress = request.progress;
 +			lastProgress = request.downloadProgress;
++			lastDownloadedBytes = downloadedBytes;
  			progressTimestamp = realtimeSinceStartup;
