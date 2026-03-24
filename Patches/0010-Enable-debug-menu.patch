@@ -1,0 +1,243 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Tue, 24 Mar 2026 04:44:55 +0200
+Subject: [PATCH] Enable debug menu
+
+
+diff --git a/Assets/Resources/DebugMenuButtonTemplate.prefab b/Assets/Resources/DebugMenuButtonTemplate.prefab
+index eea9310e..3a3cb1fa 100644
+--- a/Assets/Resources/DebugMenuButtonTemplate.prefab
++++ b/Assets/Resources/DebugMenuButtonTemplate.prefab
+@@ -228,3 +228,3 @@ MonoBehaviour:
+     m_MinSize: 8
+-    m_MaxSize: 16
++    m_MaxSize: 50
+     m_Alignment: 4
+diff --git a/Assets/Scenes/GameShell.unity b/Assets/Scenes/GameShell.unity
+index 1d362d16..4dd24f7f 100644
+--- a/Assets/Scenes/GameShell.unity
++++ b/Assets/Scenes/GameShell.unity
+@@ -32714,2 +32714,203 @@ NavMeshSettings:
+   m_NavMeshData: {fileID: 0}
++--- !u!1 &365513272
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 365513274}
++  - component: {fileID: 365513273}
++  - component: {fileID: 365513286}
++  - component: {fileID: 365513285}
++  - component: {fileID: 365513284}
++  - component: {fileID: 365513283}
++  - component: {fileID: 365513282}
++  - component: {fileID: 365513281}
++  - component: {fileID: 365513280}
++  - component: {fileID: 365513279}
++  - component: {fileID: 365513278}
++  - component: {fileID: 365513277}
++  - component: {fileID: 365513276}
++  - component: {fileID: 365513275}
++  m_Layer: 0
++  m_Name: Debug
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!114 &365513273
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 365513272}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 915a427240c2d044749d2ee1f7ac4f15, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++  _parentCanvas: {fileID: 0}
++--- !u!4 &365513274
++Transform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 365513272}
++  serializedVersion: 2
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children: []
++  m_Father: {fileID: 0}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++--- !u!114 &365513275
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 365513272}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: e2fc98fa4ba18df9a61173c546af5fbf, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!114 &365513276
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 365513272}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 2052bd743abbf2a37565bc6822b49368, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!114 &365513277
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 365513272}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: a25b5d1468da825aae36ffc82d14f2ca, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!114 &365513278
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 365513272}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 822ee6ece9ee5d48546641d6b73c8cf3, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!114 &365513279
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 365513272}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: d63229e78ec4498f7273791e35afee60, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!114 &365513280
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 365513272}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: cb49f727e716e97778f004fe6483fa54, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!114 &365513281
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 365513272}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 9bf46f8e5eff7d5eb534d9800d351367, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!114 &365513282
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 365513272}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: b2b6c9865615104634ee724514a6a738, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!114 &365513283
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 365513272}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 7482b042b4c3ec5b92360acedd824655, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!114 &365513284
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 365513272}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 8979e1eb322a4ec315b2eaf97dfd243b, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!114 &365513285
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 365513272}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: f8b668e918c32e4068fe282db3ed5fa2, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!114 &365513286
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 365513272}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: ba182d619b4468bb419935bcb42b29bf, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
+ --- !u!1660057539 &9223372036854775807
+@@ -32724 +32925,2 @@ SceneRoots:
+   - {fileID: 120}
++  - {fileID: 365513274}
+diff --git a/Assets/Scripts/Assembly-CSharp/DebugMenuManager.cs b/Assets/Scripts/Assembly-CSharp/DebugMenuManager.cs
+index 294c6a96..dc379c4c 100644
+--- a/Assets/Scripts/Assembly-CSharp/DebugMenuManager.cs
++++ b/Assets/Scripts/Assembly-CSharp/DebugMenuManager.cs
+@@ -4,2 +4,3 @@ using UnityEngine;
+ 
++[DefaultExecutionOrder(-1)]
+ public class DebugMenuManager : SingletonMonoBehaviour<DebugMenuManager>
+@@ -265,2 +266,3 @@ public class DebugMenuManager : SingletonMonoBehaviour<DebugMenuManager>
+ 		base.Awake();
++		DontDestroyOnLoad(this.gameObject);
+ 		Startup();
+@@ -287,2 +289,4 @@ public class DebugMenuManager : SingletonMonoBehaviour<DebugMenuManager>
+ 		ShouldBeVisible = false;
++		AttachUnderCanvas(GameObject.Find("PopupCanvas"));
++		VisibilityQueryFunc = () => Input.GetKeyDown(KeyCode.F1);
+ 	}
