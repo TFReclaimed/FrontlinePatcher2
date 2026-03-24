@@ -39,6 +39,10 @@ def check_prerequisites() -> None:
         print("[!] ERROR: Git is not installed or not found in PATH.")
         missing_tools = True
 
+    if not shutil.which("ffmpeg"):
+        print("[!] ERROR: ffmpeg is not installed or not found in PATH.")
+        missing_tools = True
+
     if missing_tools:
         print("[!] Please install the missing tools and ensure they are accessible via the command line.")
         sys.exit(1)
@@ -168,6 +172,23 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
         sys.exit(1)
 
     shutil.move(exported_project_path, WORKSPACE_DIR)
+
+    # https://github.com/SamboyCoding/Fmod5Sharp/issues/9
+    print("[*] Re-encoding .wav files...")
+    wav_files = glob.glob(os.path.join(WORKSPACE_DIR, "Assets", "**", "*.wav"), recursive=True)
+    for wav_file in wav_files:
+        temp_wav_file = wav_file + ".temp.wav"
+        run_cmd([
+            "ffmpeg",
+            "-y",
+            "-i",
+            wav_file,
+            "-map_metadata",
+            "0",
+            temp_wav_file
+        ])
+
+        shutil.move(temp_wav_file, wav_file)
 
     print("[*] Copy overrides...")
     overrides_dst = os.path.join(WORKSPACE_DIR, "Assets")
