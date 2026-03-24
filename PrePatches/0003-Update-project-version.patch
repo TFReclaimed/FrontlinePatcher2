@@ -5,7 +5,7 @@ Subject: [PATCH] Update project version
 
 
 diff --git a/ProjectSettings/ProjectVersion.txt b/ProjectSettings/ProjectVersion.txt
-index d4ad3ce..587f809 100644
+index d4ad3ce5..587f809d 100644
 --- a/ProjectSettings/ProjectVersion.txt
 +++ b/ProjectSettings/ProjectVersion.txt
 @@ -1,2 +1,2 @@

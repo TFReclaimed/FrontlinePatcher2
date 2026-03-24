@@ -5,7 +5,7 @@ Subject: [PATCH] Packages
 
 
 diff --git a/Packages/manifest.json b/Packages/manifest.json
-index 4d0d86a..d7d064e 100644
+index 4d0d86a4..d7d064e1 100644
 --- a/Packages/manifest.json
 +++ b/Packages/manifest.json
 @@ -2,3 +2,11 @@
@@ -27,7 +27,7 @@ index 4d0d86a..d7d064e 100644
 +}
 diff --git a/Packages/packages-lock.json b/Packages/packages-lock.json
 new file mode 100644
-index 0000000..6f8f746
+index 00000000..6f8f746a
 --- /dev/null
 +++ b/Packages/packages-lock.json
 @@ -0,0 +1,340 @@

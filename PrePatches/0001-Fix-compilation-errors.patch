@@ -5,7 +5,7 @@ Subject: [PATCH] Fix compilation errors
 
 
 diff --git a/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/AudioResourceOptimizer.cs b/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/AudioResourceOptimizer.cs
-index 3238ee6..df197d7 100644
+index 3238ee61..df197d78 100644
 --- a/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/AudioResourceOptimizer.cs
 +++ b/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/AudioResourceOptimizer.cs
 @@ -196,3 +196,3 @@ namespace DarkTonic.MasterAudio
@@ -14,7 +14,7 @@ index 3238ee6..df197d7 100644
 +					internetClip = fileRequest.GetAudioClip();
  				}
 diff --git a/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/MasterAudio.cs b/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/MasterAudio.cs
-index 8b87d94..6c43b29 100644
+index 8b87d94e..6c43b29b 100644
 --- a/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/MasterAudio.cs
 +++ b/Assets/Plugins/Assembly-CSharp-firstpass/DarkTonic/MasterAudio/MasterAudio.cs
 @@ -2667,3 +2667,3 @@ namespace DarkTonic.MasterAudio
@@ -33,7 +33,7 @@ index 8b87d94..6c43b29 100644
 +				transform = dynamicSoundGroupCreator.transform.Find(sType);
  				if (transform != null)
 diff --git a/Assets/Scripts/Assembly-CSharp/AN_NotificationProxy.cs b/Assets/Scripts/Assembly-CSharp/AN_NotificationProxy.cs
-index e751431..89669cf 100644
+index e7514315..89669cf3 100644
 --- a/Assets/Scripts/Assembly-CSharp/AN_NotificationProxy.cs
 +++ b/Assets/Scripts/Assembly-CSharp/AN_NotificationProxy.cs
 @@ -1,2 +1,3 @@
@@ -41,7 +41,7 @@ index e751431..89669cf 100644
 +using UnityEngine;
  
 diff --git a/Assets/Scripts/Assembly-CSharp/AssetManager.cs b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
-index fdca41e..076b602 100644
+index fdca41e3..076b6022 100644
 --- a/Assets/Scripts/Assembly-CSharp/AssetManager.cs
 +++ b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
 @@ -124,3 +124,3 @@ public class AssetManager : Singleton<AssetManager>
@@ -50,7 +50,7 @@ index fdca41e..076b602 100644
 +			Caching.ClearCache();
  		}
 diff --git a/Assets/Scripts/Assembly-CSharp/AudioManager.cs b/Assets/Scripts/Assembly-CSharp/AudioManager.cs
-index c3c5382..a87058f 100644
+index c3c53829..a87058fe 100644
 --- a/Assets/Scripts/Assembly-CSharp/AudioManager.cs
 +++ b/Assets/Scripts/Assembly-CSharp/AudioManager.cs
 @@ -35,3 +35,3 @@ public static class AudioManager
@@ -59,7 +59,7 @@ index c3c5382..a87058f 100644
 +			Transform transform = gameObject.transform.Find("MasterAudio");
  			if (transform != null)
 diff --git a/Assets/Scripts/Assembly-CSharp/BestHTTP/Authentication/Digest.cs b/Assets/Scripts/Assembly-CSharp/BestHTTP/Authentication/Digest.cs
-index f7c2259..7ceba12 100644
+index f7c2259b..7ceba121 100644
 --- a/Assets/Scripts/Assembly-CSharp/BestHTTP/Authentication/Digest.cs
 +++ b/Assets/Scripts/Assembly-CSharp/BestHTTP/Authentication/Digest.cs
 @@ -117,3 +117,3 @@ namespace BestHTTP.Authentication
@@ -68,7 +68,7 @@ index f7c2259..7ceba12 100644
 +						int num = 0;
  						if (num == 1)
 diff --git a/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPResponse.cs b/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPResponse.cs
-index cdb2510..9063d54 100644
+index cdb25108..9063d546 100644
 --- a/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPResponse.cs
 +++ b/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPResponse.cs
 @@ -542,3 +542,3 @@ namespace BestHTTP
@@ -77,7 +77,7 @@ index cdb2510..9063d54 100644
 +				int num = 0;
  				if (num == 1)
 diff --git a/Assets/Scripts/Assembly-CSharp/BundleVersionField.cs b/Assets/Scripts/Assembly-CSharp/BundleVersionField.cs
-index 4b1d2bd..c05c2e4 100644
+index 4b1d2bd7..c05c2e44 100644
 --- a/Assets/Scripts/Assembly-CSharp/BundleVersionField.cs
 +++ b/Assets/Scripts/Assembly-CSharp/BundleVersionField.cs
 @@ -29,3 +29,3 @@ public class BundleVersionField : MonoBehaviour
@@ -86,7 +86,7 @@ index 4b1d2bd..c05c2e4 100644
 +		string arg = Application.identifier.Substring(Application.identifier.LastIndexOf('.') + 1);
  		_buildVersion = string.Format("{0}.{1}", arg, Application.version);
 diff --git a/Assets/Scripts/Assembly-CSharp/DetailedTokenView.cs b/Assets/Scripts/Assembly-CSharp/DetailedTokenView.cs
-index 8676790..b7abba0 100644
+index 86767900..b7abba05 100644
 --- a/Assets/Scripts/Assembly-CSharp/DetailedTokenView.cs
 +++ b/Assets/Scripts/Assembly-CSharp/DetailedTokenView.cs
 @@ -303,4 +303,4 @@ public class DetailedTokenView : MonoBehaviour
@@ -97,7 +97,7 @@ index 8676790..b7abba0 100644
 +			gameObject.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = description2;
  			gameObject.SetActive(true);
 diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
-index f443f0d..df65a07 100644
+index f443f0da..df65a07f 100644
 --- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
 +++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
 @@ -347,5 +347,2 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
@@ -117,7 +117,7 @@ index f443f0d..df65a07 100644
 +		string url = string.Format("market://details?id={0}", Application.identifier);
  		Application.OpenURL(url);
 diff --git a/Assets/Scripts/Assembly-CSharp/I2/Loc/Localize.cs b/Assets/Scripts/Assembly-CSharp/I2/Loc/Localize.cs
-index e346a92..a0a933f 100644
+index e346a92c..a0a933f0 100644
 --- a/Assets/Scripts/Assembly-CSharp/I2/Loc/Localize.cs
 +++ b/Assets/Scripts/Assembly-CSharp/I2/Loc/Localize.cs
 @@ -91,4 +91,2 @@ namespace I2.Loc
@@ -218,7 +218,7 @@ index e346a92..a0a933f 100644
 -
  		private void DoLocalize_Child(string MainTranslation, string SecondaryTranslation)
 diff --git a/Assets/Scripts/Assembly-CSharp/MNT_PlayerTemplate.cs b/Assets/Scripts/Assembly-CSharp/MNT_PlayerTemplate.cs
-index 727c619..d69fa87 100644
+index 727c6191..d69fa871 100644
 --- a/Assets/Scripts/Assembly-CSharp/MNT_PlayerTemplate.cs
 +++ b/Assets/Scripts/Assembly-CSharp/MNT_PlayerTemplate.cs
 @@ -133,12 +133,2 @@ public class MNT_PlayerTemplate
@@ -235,7 +235,7 @@ index 727c619..d69fa87 100644
 -
  	public MNT_PlayerTemplate(MNT_BluetoothDeviceTemplate device)
 diff --git a/Assets/Scripts/Assembly-CSharp/NetworkInfoDebugViewer.cs b/Assets/Scripts/Assembly-CSharp/NetworkInfoDebugViewer.cs
-index 05e29e8..347cfb1 100644
+index 05e29e82..347cfb1a 100644
 --- a/Assets/Scripts/Assembly-CSharp/NetworkInfoDebugViewer.cs
 +++ b/Assets/Scripts/Assembly-CSharp/NetworkInfoDebugViewer.cs
 @@ -51,3 +51,3 @@ public class NetworkInfoDebugViewer : SingletonMonoBehaviour<NetworkInfoDebugVie
@@ -244,7 +244,7 @@ index 05e29e8..347cfb1 100644
 +		stringBuilder.AppendLine("    Bundle ID: " + Application.identifier.ToString());
  		stringBuilder.AppendLine("    SERVER: " + serverInterface.GetServerAddress());
 diff --git a/Assets/Scripts/Assembly-CSharp/PerformanceMonitor.cs b/Assets/Scripts/Assembly-CSharp/PerformanceMonitor.cs
-index 2447522..182dd89 100644
+index 24475220..182dd89b 100644
 --- a/Assets/Scripts/Assembly-CSharp/PerformanceMonitor.cs
 +++ b/Assets/Scripts/Assembly-CSharp/PerformanceMonitor.cs
 @@ -418,4 +418,4 @@ public class PerformanceMonitor : SingletonMonoBehaviour<PerformanceMonitor>
@@ -255,7 +255,7 @@ index 2447522..182dd89 100644
 +		HeapBytes = UnityEngine.Profiling.Profiler.GetMonoHeapSize();
  		heapAverage.Add(HeapBytes);
 diff --git a/Assets/Scripts/Assembly-CSharp/SequenceTarget.cs b/Assets/Scripts/Assembly-CSharp/SequenceTarget.cs
-index c1b5adc..31551dc 100644
+index c1b5adcb..31551dc1 100644
 --- a/Assets/Scripts/Assembly-CSharp/SequenceTarget.cs
 +++ b/Assets/Scripts/Assembly-CSharp/SequenceTarget.cs
 @@ -122,3 +122,3 @@ public class SequenceTarget
@@ -264,7 +264,7 @@ index c1b5adc..31551dc 100644
 +		InterpNode = TileNode.transform.Find("tileTransform/interpNode");
  		Animator = Tile.AnimController;
 diff --git a/Assets/Scripts/Assembly-CSharp/TMPro/TMP_InputField.cs b/Assets/Scripts/Assembly-CSharp/TMPro/TMP_InputField.cs
-index aedb573..b9a6ae2 100644
+index aedb5730..b9a6ae2b 100644
 --- a/Assets/Scripts/Assembly-CSharp/TMPro/TMP_InputField.cs
 +++ b/Assets/Scripts/Assembly-CSharp/TMPro/TMP_InputField.cs
 @@ -709,10 +709,2 @@ namespace TMPro
@@ -292,7 +292,7 @@ index aedb573..b9a6ae2 100644
 -		}
  	}
 diff --git a/Assets/Scripts/Assembly-CSharp/TMPro/TMP_SubMeshUI.cs b/Assets/Scripts/Assembly-CSharp/TMPro/TMP_SubMeshUI.cs
-index 5ba76ad..57a9eed 100644
+index 5ba76ade..57a9eed5 100644
 --- a/Assets/Scripts/Assembly-CSharp/TMPro/TMP_SubMeshUI.cs
 +++ b/Assets/Scripts/Assembly-CSharp/TMPro/TMP_SubMeshUI.cs
 @@ -436,7 +436,2 @@ namespace TMPro
@@ -304,7 +304,7 @@ index 5ba76ad..57a9eed 100644
 -		}
  	}
 diff --git a/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshPro.cs b/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshPro.cs
-index eebb415..4265b5f 100644
+index eebb4154..4265b5f5 100644
 --- a/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshPro.cs
 +++ b/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshPro.cs
 @@ -239,42 +239,2 @@ namespace TMPro
@@ -351,7 +351,7 @@ index eebb415..4265b5f 100644
 -
  		protected override void Awake()
 diff --git a/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshProUGUI.cs b/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshProUGUI.cs
-index 3d52e21..32fcde2 100644
+index 3d52e215..32fcde2b 100644
 --- a/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshProUGUI.cs
 +++ b/Assets/Scripts/Assembly-CSharp/TMPro/TextMeshProUGUI.cs
 @@ -122,42 +122,2 @@ namespace TMPro
@@ -398,7 +398,7 @@ index 3d52e21..32fcde2 100644
 -
  		protected override void Awake()
 diff --git a/Assets/Scripts/Assembly-CSharp/UniWebViewMessage.cs b/Assets/Scripts/Assembly-CSharp/UniWebViewMessage.cs
-index 797ebe9..657cc5b 100644
+index 797ebe9f..657cc5b8 100644
 --- a/Assets/Scripts/Assembly-CSharp/UniWebViewMessage.cs
 +++ b/Assets/Scripts/Assembly-CSharp/UniWebViewMessage.cs
 @@ -17,2 +17,5 @@ public struct UniWebViewMessage
@@ -408,7 +408,7 @@ index 797ebe9..657cc5b 100644
 +		this.args = null;
  		string[] array = rawMessage.Split(new string[1] { "://" }, StringSplitOptions.None);
 diff --git a/Assets/Scripts/Assembly-CSharp/hg/ApiWebKit/providers/HttpUnityWebRequestClient.cs b/Assets/Scripts/Assembly-CSharp/hg/ApiWebKit/providers/HttpUnityWebRequestClient.cs
-index f733623..90f5c95 100644
+index f7336239..90f5c95a 100644
 --- a/Assets/Scripts/Assembly-CSharp/hg/ApiWebKit/providers/HttpUnityWebRequestClient.cs
 +++ b/Assets/Scripts/Assembly-CSharp/hg/ApiWebKit/providers/HttpUnityWebRequestClient.cs
 @@ -2,4 +2,4 @@ using System.Collections;
@@ -419,7 +419,7 @@ index f733623..90f5c95 100644
  
 diff --git a/Assets/Scripts/Assembly-UnityScript/JSCall.cs b/Assets/Scripts/Assembly-UnityScript/JSCall.cs
 deleted file mode 100644
-index c5894cd..0000000
+index c5894cde..00000000
 --- a/Assets/Scripts/Assembly-UnityScript/JSCall.cs
 +++ /dev/null
 @@ -1,31 +0,0 @@
@@ -456,7 +456,7 @@ index c5894cd..0000000
 -}
 diff --git a/Assets/Scripts/Assembly-UnityScript/Properties/AssemblyInfo.cs b/Assets/Scripts/Assembly-UnityScript/Properties/AssemblyInfo.cs
 deleted file mode 100644
-index bbd7eef..0000000
+index bbd7eef6..00000000
 --- a/Assets/Scripts/Assembly-UnityScript/Properties/AssemblyInfo.cs
 +++ /dev/null
 @@ -1,5 +0,0 @@
