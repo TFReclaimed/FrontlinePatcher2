@@ -5,12 +5,12 @@ Subject: [PATCH] Add GameDebug Log implementation
 
 
 diff --git a/Assets/Scripts/Assembly-CSharp/GameDebug.cs b/Assets/Scripts/Assembly-CSharp/GameDebug.cs
-index 887d0451..6f7f00f6 100644
+index 887d0451..2cd15833 100644
 --- a/Assets/Scripts/Assembly-CSharp/GameDebug.cs
 +++ b/Assets/Scripts/Assembly-CSharp/GameDebug.cs
 @@ -99,2 +99,20 @@ public static class GameDebug
  	{
-+#if UNITY_EDITOR
++#if UNITY_EDITOR || DEVELOPMENT_BUILD
 +		var msg = string.Format(format, args);
 +		switch (level)
 +		{
