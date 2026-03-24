@@ -239,9 +239,6 @@ def cmd_rebuild() -> None:
     for patch in glob.glob(os.path.join(PRE_PATCHES_DIR, "*.patch")):
         os.remove(patch)
 
-    for patch in glob.glob(os.path.join(PATCHES_DIR, "*.patch")):
-        os.remove(patch)
-
     export_flags = [
         "--zero-commit",
         "--no-numbered",
@@ -278,6 +275,9 @@ def cmd_rebuild() -> None:
     ] + export_flags, cwd=WORKSPACE_DIR)
 
     print("[*] Exporting patches...")
+    for patch in glob.glob(os.path.join(PATCHES_DIR, "*.patch")):
+        os.remove(patch)
+
     run_cmd([
         "git",
         "format-patch",
