@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Nuutti <snuutti@protonmail.com>
 Date: Thu, 5 Mar 2026 23:59:37 +0200
-Subject: [PATCH] Fix WWWRequest
+Subject: [PATCH] Replace WWW with UnityWebRequest
 
 
 diff --git a/Assets/Scripts/Assembly-CSharp/PerformanceMonitor.cs b/Assets/Scripts/Assembly-CSharp/PerformanceMonitor.cs
@@ -13,6 +13,86 @@ index 182dd89b..7038f5ec 100644
 -			Singleton<WWWManager>.Instance.RequestText(GameShell.GetServerInterface().GetServerAddress() + "/session/ping", OnPingComplete);
 +			Singleton<WWWManager>.Instance.RequestText(GameShell.GetServerInterface().GetServerAddress() + "session/ping", OnPingComplete);
  		}
+diff --git a/Assets/Scripts/Assembly-CSharp/ServerInterface.cs b/Assets/Scripts/Assembly-CSharp/ServerInterface.cs
+index 0564662f..b763d17f 100644
+--- a/Assets/Scripts/Assembly-CSharp/ServerInterface.cs
++++ b/Assets/Scripts/Assembly-CSharp/ServerInterface.cs
+@@ -9,2 +9,3 @@ using hg.ApiWebKit;
+ using hg.ApiWebKit.core.http;
++using UnityEngine.Networking;
+ 
+@@ -74,3 +75,3 @@ public class ServerInterface
+ 
+-		public WWW requestInflight;
++		public UnityWebRequest requestInflight;
+ 
+@@ -167,3 +168,3 @@ public class ServerInterface
+ 			new ApiConfigInfo("init/", true, false, false),
+-			new ApiConfigInfo("session/info", false, true, false),
++			new ApiConfigInfo("session/info", true, true, false),
+ 			new ApiConfigInfo("session/bundles/", true, true, true),
+@@ -591,14 +592,2 @@ public class ServerInterface
+ 
+-	public short ProcessHttpStatus(Dictionary<string, string> responseHeaders)
+-	{
+-		short result = 500;
+-		if (responseHeaders.Count > 0)
+-		{
+-			string text = responseHeaders["STATUS"];
+-			string s = text.Substring(9, 3);
+-			result = short.Parse(s);
+-		}
+-		return result;
+-	}
+-
+ 	protected void CleanupPostResponse(RequestChannelInfo channel)
+@@ -622,7 +611,7 @@ public class ServerInterface
+ 		}
+-		Dictionary<string, string> responseHeaders = requestedChannel.requestInflight.responseHeaders;
+-		short num = ProcessHttpStatus(responseHeaders);
+-		if (flag && responseHeaders.Count > 0 && requestedChannel.requestInflight.bytes.Length > 0)
++		Dictionary<string, string> responseHeaders = requestedChannel.requestInflight.GetResponseHeaders();
++		short num = (short)requestedChannel.requestInflight.responseCode;
++		if (flag && responseHeaders.Count > 0 && requestedChannel.requestInflight.downloadedBytes > 0)
+ 		{
+-			text = requestedChannel.requestInflight.text;
++			text = requestedChannel.requestInflight.downloadHandler.text;
+ 		}
+@@ -687,3 +676,3 @@ public class ServerInterface
+ 		{
+-			byte[] postData = null;
++			string postData = null;
+ 			if (requestedChannel.requestParams != null)
+@@ -692,3 +681,3 @@ public class ServerInterface
+ 				{
+-					string text = WWW.EscapeURL(requestedChannel.requestParams);
++					string text = UnityWebRequest.EscapeURL(requestedChannel.requestParams);
+ 					stringBuilder.Append("?param=" + text);
+@@ -698,3 +687,3 @@ public class ServerInterface
+ 					string s = "param=" + requestedChannel.requestParams;
+-					postData = Encoding.UTF8.GetBytes(s);
++					postData = s;
+ 				}
+@@ -702,3 +691,18 @@ public class ServerInterface
+ 			GameDebug.Info("Sending Request to Channel " + channelIndex + ":  " + stringBuilder.ToString());
+-			requestedChannel.requestInflight = new WWW(stringBuilder.ToString(), postData, requestHeaders);
++			UnityWebRequest uwr;
++			if (apiConfigInfo.isGet)
++			{
++				uwr = UnityWebRequest.Get(stringBuilder.ToString());
++			}
++			else
++			{
++				uwr = UnityWebRequest.Post(stringBuilder.ToString(), postData, "application/x-www-form-urlencoded");
++			}
++			uwr.downloadHandler = new DownloadHandlerBuffer();
++			foreach (KeyValuePair<string, string> header in requestHeaders)
++			{
++				uwr.SetRequestHeader(header.Key, header.Value);
++			}
++			uwr.SendWebRequest();
++			requestedChannel.requestInflight = uwr;
+ 			FireRequestStartedNotification((Channel)channelIndex, requestedChannel);
 diff --git a/Assets/Scripts/Assembly-CSharp/WWWRequest.cs b/Assets/Scripts/Assembly-CSharp/WWWRequest.cs
 index 33ae90fe..df49bdd3 100644
 --- a/Assets/Scripts/Assembly-CSharp/WWWRequest.cs
