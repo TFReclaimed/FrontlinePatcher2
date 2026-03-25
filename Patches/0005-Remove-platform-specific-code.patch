@@ -29,6 +29,18 @@ index df65a07f..488bf87e 100644
  		case RuntimePlatform.LinuxPlayer:
 +		case RuntimePlatform.LinuxEditor:
  		case RuntimePlatform.WebGLPlayer:
+diff --git a/Assets/Scripts/Assembly-CSharp/MainUI.cs b/Assets/Scripts/Assembly-CSharp/MainUI.cs
+index 4fc8e2ae..e7d647cc 100644
+--- a/Assets/Scripts/Assembly-CSharp/MainUI.cs
++++ b/Assets/Scripts/Assembly-CSharp/MainUI.cs
+@@ -207,2 +207,3 @@ public class MainUI : BaseUI
+ 	{
++#if UNITY_ANDROID
+ 		int num = Screen.height;
+@@ -215,2 +216,3 @@ public class MainUI : BaseUI
+ 		Screen.SetResolution(num2, num, true);
++#endif
+ 		base.Start();
 diff --git a/Assets/Scripts/Assembly-CSharp/SimpleDiskUtils/DiskUtils.cs b/Assets/Scripts/Assembly-CSharp/SimpleDiskUtils/DiskUtils.cs
 index b20d3baf..fbbd256e 100644
 --- a/Assets/Scripts/Assembly-CSharp/SimpleDiskUtils/DiskUtils.cs
