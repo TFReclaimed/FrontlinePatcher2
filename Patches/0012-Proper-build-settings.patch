@@ -1,0 +1,133 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Wed, 25 Mar 2026 23:50:16 +0200
+Subject: [PATCH] Proper build settings
+
+
+diff --git a/ProjectSettings/ProjectSettings.asset b/ProjectSettings/ProjectSettings.asset
+index 20b62153..a5d2f507 100644
+--- a/ProjectSettings/ProjectSettings.asset
++++ b/ProjectSettings/ProjectSettings.asset
+@@ -94,5 +94,5 @@ PlayerSettings:
+   bakeCollisionMeshes: 0
+-  forceSingleInstance: 0
++  forceSingleInstance: 1
+   useFlipModelSwapchain: 1
+-  resizableWindow: 0
++  resizableWindow: 1
+   useMacAppStoreValidation: 0
+@@ -165,7 +165,7 @@ PlayerSettings:
+   applicationIdentifier:
+-    Android: com.nexonm.tffl
+-    Standalone: unity.Particle City.Frontline
+-    VisionOS: com.nexonm.tffl
+-    iPhone: com.nexonm.tffl
+-    tvOS: com.nexonm.tffl
++    Android: com.ParticleCity.Frontline
++    Standalone: com.Particle-City.Frontline
++    VisionOS: com.ParticleCity.Frontline
++    iPhone: com.ParticleCity.Frontline
++    tvOS: com.ParticleCity.Frontline
+   buildNumber:
+@@ -176,3 +176,3 @@ PlayerSettings:
+   overrideDefaultApplicationIdentifier: 0
+-  AndroidBundleVersionCode: 0
++  AndroidBundleVersionCode: 1
+   AndroidMinSdkVersion: 22
+@@ -290,3 +290,10 @@ PlayerSettings:
+   AndroidAppBundleSizeToValidate: 200
+-  m_BuildTargetIcons: []
++  m_BuildTargetIcons:
++  - m_BuildTarget: 
++    m_Icons:
++    - serializedVersion: 2
++      m_Icon: {fileID: 2800000, guid: 69d3a292620c1d642b67cb4a87bf8902, type: 3}
++      m_Width: 128
++      m_Height: 128
++      m_Kind: 0
+   m_BuildTargetPlatformIcons:
+@@ -294,32 +301,2 @@ PlayerSettings:
+     m_Icons:
+-    - m_Textures: []
+-      m_Width: 432
+-      m_Height: 432
+-      m_Kind: 2
+-      m_SubKind: 
+-    - m_Textures: []
+-      m_Width: 324
+-      m_Height: 324
+-      m_Kind: 2
+-      m_SubKind: 
+-    - m_Textures: []
+-      m_Width: 216
+-      m_Height: 216
+-      m_Kind: 2
+-      m_SubKind: 
+-    - m_Textures: []
+-      m_Width: 162
+-      m_Height: 162
+-      m_Kind: 2
+-      m_SubKind: 
+-    - m_Textures: []
+-      m_Width: 108
+-      m_Height: 108
+-      m_Kind: 2
+-      m_SubKind: 
+-    - m_Textures: []
+-      m_Width: 81
+-      m_Height: 81
+-      m_Kind: 2
+-      m_SubKind: 
+     - m_Textures: []
+@@ -384,2 +361,32 @@ PlayerSettings:
+       m_SubKind: 
++    - m_Textures: []
++      m_Width: 432
++      m_Height: 432
++      m_Kind: 2
++      m_SubKind: 
++    - m_Textures: []
++      m_Width: 324
++      m_Height: 324
++      m_Kind: 2
++      m_SubKind: 
++    - m_Textures: []
++      m_Width: 216
++      m_Height: 216
++      m_Kind: 2
++      m_SubKind: 
++    - m_Textures: []
++      m_Width: 162
++      m_Height: 162
++      m_Kind: 2
++      m_SubKind: 
++    - m_Textures: []
++      m_Width: 108
++      m_Height: 108
++      m_Kind: 2
++      m_SubKind: 
++    - m_Textures: []
++      m_Width: 81
++      m_Height: 81
++      m_Kind: 2
++      m_SubKind: 
+   m_BuildTargetBatching: []
+@@ -850,2 +857,2 @@ PlayerSettings:
+   virtualTexturingSupportEnabled: 0
+-  insecureHttpOption: 0
++  insecureHttpOption: 2
+diff --git a/ProjectSettings/QualitySettings.asset b/ProjectSettings/QualitySettings.asset
+index cfec5e87..a1f21908 100644
+--- a/ProjectSettings/QualitySettings.asset
++++ b/ProjectSettings/QualitySettings.asset
+@@ -6,3 +6,3 @@ QualitySettings:
+   serializedVersion: 5
+-  m_CurrentQuality: 0
++  m_CurrentQuality: 4
+   m_QualitySettings:
+@@ -261,3 +261,4 @@ QualitySettings:
+     PSP2: 2
+-    Standalone: 5
++    Server: 0
++    Standalone: 4
+     Tizen: 2

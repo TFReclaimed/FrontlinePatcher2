@@ -194,6 +194,14 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
     overrides_dst = os.path.join(WORKSPACE_DIR, "Assets")
     shutil.copytree(OVERRIDES_DIR, overrides_dst, dirs_exist_ok=True)
 
+    print("[*] Extract app icon...")
+    icon_src = os.path.join(apk_extract_path, "res", "drawable-xxxhdpi-v4", "app_icon.png")
+    if os.path.isfile(icon_src):
+        icon_dst = os.path.join(WORKSPACE_DIR, "Assets", "Texture2D", "app_icon.png")
+        shutil.copyfile(icon_src, icon_dst)
+    else:
+        print(f"[!] WARNING: App icon not found at expected location '{icon_src}'!")
+
     print("[*] Copy gitignore...")
     gitignore_src = os.path.join(os.path.dirname(__file__), "unity.gitignore")
     gitignore_dst = os.path.join(WORKSPACE_DIR, ".gitignore")
