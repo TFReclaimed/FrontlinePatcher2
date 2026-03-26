@@ -136,6 +136,23 @@ def run_assetripper(input_dir: str, output_dir: str) -> None:
             process.kill()
         print("[*] AssetRipper stopped.")
 
+def swap_files_dict(swap_dict: dict) -> None:
+    for src, dst in swap_dict.items():
+        src_path = os.path.join(WORKSPACE_DIR, src)
+        dst_path = os.path.join(WORKSPACE_DIR, dst)
+
+        if os.path.isfile(src_path) and os.path.isfile(dst_path):
+            print(f"[*] Swapping '{src}' and '{dst}'...")
+            swap_files(src_path, dst_path)
+        else:
+            print(f"[!] WARNING: Cannot swap '{src}' and '{dst}' because one or both files do not exist.")
+
+def swap_files(src: str, dst: str) -> None:
+    temp_path = dst + ".temp"
+    shutil.move(src, temp_path)
+    shutil.move(dst, src)
+    shutil.move(temp_path, dst)
+
 def cmd_setup(apk_path: str, bundles_path: str) -> None:
     check_prerequisites()
 
@@ -201,6 +218,18 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
         shutil.copyfile(icon_src, icon_dst)
     else:
         print(f"[!] WARNING: App icon not found at expected location '{icon_src}'!")
+
+    print("[*] Fixing MainUI/StoreUI...")
+    swap_dict = {
+        "Assets/Scenes/MainUI.unity": "Assets/Scenes/StoreUI.unity",
+        "Assets/Scenes/MainUI.unity.meta": "Assets/Scenes/StoreUI.unity.meta",
+        "Assets/Scenes/MainUI/LightProbes.asset": "Assets/Scenes/StoreUI/LightProbes.asset",
+        "Assets/Scenes/MainUI/LightProbes.asset.meta": "Assets/Scenes/StoreUI/LightProbes.asset.meta",
+        "Assets/Scenes/MainUI/LightingData.asset": "Assets/Scenes/StoreUI/LightingData.asset",
+        "Assets/Scenes/MainUI/LightingData.asset.meta": "Assets/Scenes/StoreUI/LightingData.asset.meta"
+    }
+
+    swap_files_dict(swap_dict)
 
     print("[*] Copy gitignore...")
     gitignore_src = os.path.join(os.path.dirname(__file__), "unity.gitignore")
