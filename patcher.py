@@ -1,6 +1,8 @@
 import argparse
 import glob
+import hashlib
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -153,6 +155,87 @@ def swap_files(src: str, dst: str) -> None:
     shutil.move(dst, src)
     shutil.move(temp_path, dst)
 
+def apply_deterministic_guids() -> None:
+    print("[*] Identifying new .meta files...")
+
+    try:
+        untracked_cmd = ["git", "ls-files", "--others", "--exclude-standard"]
+        untracked_files = subprocess.check_output(untracked_cmd, cwd=WORKSPACE_DIR, text=True).splitlines()
+
+        new_meta_files = [f for f in untracked_files if f.endswith(".meta")]
+    except subprocess.CalledProcessError:
+        print("[!] ERROR: Failed to get untracked files from Git.")
+        sys.exit(1)
+
+    if not new_meta_files:
+        print("[*] No new .meta files found.")
+        return
+
+    print(f"[*] Calculating deterministic GUIDs for {len(new_meta_files)} files...")
+    guid_map = {}
+
+    for meta_path in new_meta_files:
+        full_path = os.path.join(WORKSPACE_DIR, meta_path)
+        if not os.path.exists(full_path):
+            print(f"[!] WARNING: .meta file '{meta_path}' does not exist. Skipping.")
+            continue
+
+        seed_path = meta_path.replace(os.path.sep, '/')
+        new_guid = hashlib.md5(seed_path.encode()).hexdigest()
+
+        try:
+            with open(full_path, "r", encoding="utf-8", errors="ignore") as f:
+                content = f.read()
+
+            match = re.search(r'guid: ([a-f0-9]{32})', content)
+            if not match:
+                print(f"[!] WARNING: No GUID found in '{meta_path}'. Skipping.")
+                continue
+
+            old_guid = match.group(1)
+            if old_guid == new_guid:
+                print(f"[*] GUID for '{meta_path}' is already deterministic. Skipping.")
+                continue
+
+            guid_map[old_guid] = new_guid
+            new_content = content.replace(f"guid: {old_guid}", f"guid: {new_guid}")
+            with open(full_path, "w", encoding="utf-8") as f:
+                f.write(new_content)
+        except Exception as e:
+            print(f"[!] ERROR: Failed to process '{meta_path}': {e}")
+            sys.exit(1)
+
+    if not guid_map:
+        print("[*] No GUIDs needed to be updated.")
+        return
+
+    print(f"[*] Updating references to {len(guid_map)} assets...")
+
+    guid_pattern = re.compile(r'\b([a-f0-9]{32})\b')
+
+    def guid_replacer(guid_match: re.Match) -> str:
+        found_guid = guid_match.group(1)
+        return guid_map.get(found_guid, found_guid)
+
+    for root, dirs, files in os.walk(WORKSPACE_DIR):
+        if ".git" in root:
+            continue
+
+        for file in files:
+            file_path = os.path.join(root, file)
+            try:
+                with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+                    old_text = f.read()
+
+                new_text = guid_pattern.sub(guid_replacer, old_text)
+
+                if new_text != old_text:
+                    with open(file_path, "w", encoding="utf-8") as f:
+                        f.write(new_text)
+            except Exception as e:
+                print(f"[!] ERROR: Failed to update references in '{file_path}': {e}")
+                sys.exit(1)
+
 def cmd_setup(apk_path: str, bundles_path: str) -> None:
     check_prerequisites()
 
@@ -264,6 +347,8 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
     ])
 
     print("[+] Finished project upgrade!")
+
+    apply_deterministic_guids()
 
     print("[*] Committing upgraded project...")
     run_cmd(["git", "add", "."], cwd=WORKSPACE_DIR)
