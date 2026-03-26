@@ -14,10 +14,10 @@ index eea9310e..3a3cb1fa 100644
 +    m_MaxSize: 50
      m_Alignment: 4
 diff --git a/Assets/Scenes/GameShell.unity b/Assets/Scenes/GameShell.unity
-index 6e30a02f..e7c8abe4 100644
+index 42efaeb1..369f7932 100644
 --- a/Assets/Scenes/GameShell.unity
 +++ b/Assets/Scenes/GameShell.unity
-@@ -32714,2 +32714,203 @@ NavMeshSettings:
+@@ -32682,2 +32682,203 @@ NavMeshSettings:
    m_NavMeshData: {fileID: 0}
 +--- !u!1 &365513272
 +GameObject:
@@ -221,7 +221,7 @@ index 6e30a02f..e7c8abe4 100644
 +  m_Name: 
 +  m_EditorClassIdentifier: 
  --- !u!1660057539 &9223372036854775807
-@@ -32724 +32925,2 @@ SceneRoots:
+@@ -32692 +32893,2 @@ SceneRoots:
    - {fileID: 120}
 +  - {fileID: 365513274}
 diff --git a/Assets/Scripts/Assembly-CSharp/DebugMenuManager.cs b/Assets/Scripts/Assembly-CSharp/DebugMenuManager.cs
