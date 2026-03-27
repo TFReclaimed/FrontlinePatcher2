@@ -1,0 +1,75 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Fri, 27 Mar 2026 05:03:27 +0200
+Subject: [PATCH] Reassign GameBoard meshes
+
+
+diff --git a/Assets/Scenes/GameBoard1.unity b/Assets/Scenes/GameBoard1.unity
+index 3d49b4dd..faaa6763 100644
+--- a/Assets/Scenes/GameBoard1.unity
++++ b/Assets/Scenes/GameBoard1.unity
+@@ -7030,3 +7030,3 @@ MeshFilter:
+   m_GameObject: {fileID: 6}
+-  m_Mesh: {fileID: 4300000, guid: 8dd954e68ce9b963fda5b30bcc25c19b, type: 2}
++  m_Mesh: {fileID: 4300000, guid: fd27c837d83df3a4da374c57bea2c87c, type: 2}
+ --- !u!33 &372
+@@ -7038,3 +7038,3 @@ MeshFilter:
+   m_GameObject: {fileID: 7}
+-  m_Mesh: {fileID: 4300000, guid: 8dd954e68ce9b963fda5b30bcc25c19b, type: 2}
++  m_Mesh: {fileID: 4300000, guid: 1e9630a663e714f498999ccc0dad1f3f, type: 2}
+ --- !u!33 &373
+@@ -7046,3 +7046,3 @@ MeshFilter:
+   m_GameObject: {fileID: 8}
+-  m_Mesh: {fileID: 4300000, guid: 8dd954e68ce9b963fda5b30bcc25c19b, type: 2}
++  m_Mesh: {fileID: 4300000, guid: de0b320fa1976b140a6c67a51edd1e2f, type: 2}
+ --- !u!33 &374
+@@ -7062,3 +7062,3 @@ MeshFilter:
+   m_GameObject: {fileID: 11}
+-  m_Mesh: {fileID: 4300000, guid: 8dd954e68ce9b963fda5b30bcc25c19b, type: 2}
++  m_Mesh: {fileID: 4300000, guid: 1647991ebe014964a8115fd43977d0c3, type: 2}
+ --- !u!33 &376
+@@ -7070,3 +7070,3 @@ MeshFilter:
+   m_GameObject: {fileID: 12}
+-  m_Mesh: {fileID: 4300000, guid: 8dd954e68ce9b963fda5b30bcc25c19b, type: 2}
++  m_Mesh: {fileID: 4300000, guid: a6313d1fbd760d6408fcf115d20f06ed, type: 2}
+ --- !u!33 &377
+@@ -7078,3 +7078,3 @@ MeshFilter:
+   m_GameObject: {fileID: 13}
+-  m_Mesh: {fileID: 4300000, guid: 8dd954e68ce9b963fda5b30bcc25c19b, type: 2}
++  m_Mesh: {fileID: 4300000, guid: b31c080de5f6e0a49a6d10a605713c1a, type: 2}
+ --- !u!33 &378
+@@ -7086,3 +7086,3 @@ MeshFilter:
+   m_GameObject: {fileID: 14}
+-  m_Mesh: {fileID: 4300000, guid: 8dd954e68ce9b963fda5b30bcc25c19b, type: 2}
++  m_Mesh: {fileID: 4300000, guid: bfe050fc049b49d4c9c5eefa92f4b894, type: 2}
+ --- !u!33 &379
+@@ -7102,3 +7102,3 @@ MeshFilter:
+   m_GameObject: {fileID: 17}
+-  m_Mesh: {fileID: 4300000, guid: 8dd954e68ce9b963fda5b30bcc25c19b, type: 2}
++  m_Mesh: {fileID: 4300000, guid: b6c543c45ac0ae94fb4f1e71a1f19463, type: 2}
+ --- !u!33 &381
+@@ -7110,3 +7110,3 @@ MeshFilter:
+   m_GameObject: {fileID: 18}
+-  m_Mesh: {fileID: 4300000, guid: 8dd954e68ce9b963fda5b30bcc25c19b, type: 2}
++  m_Mesh: {fileID: 4300000, guid: a7cf7ad438dd19847b368bf91c81cba7, type: 2}
+ --- !u!33 &382
+@@ -7118,3 +7118,3 @@ MeshFilter:
+   m_GameObject: {fileID: 19}
+-  m_Mesh: {fileID: 4300000, guid: 8dd954e68ce9b963fda5b30bcc25c19b, type: 2}
++  m_Mesh: {fileID: 4300000, guid: 5d00d55fabcfe624e922e99a179fed72, type: 2}
+ --- !u!33 &383
+@@ -7126,3 +7126,3 @@ MeshFilter:
+   m_GameObject: {fileID: 21}
+-  m_Mesh: {fileID: 4300000, guid: 8dd954e68ce9b963fda5b30bcc25c19b, type: 2}
++  m_Mesh: {fileID: 4300000, guid: b09a2d48a6e60e44b8d6f4be5a5a5eec, type: 2}
+ --- !u!33 &384
+@@ -7134,3 +7134,3 @@ MeshFilter:
+   m_GameObject: {fileID: 22}
+-  m_Mesh: {fileID: 4300000, guid: 8dd954e68ce9b963fda5b30bcc25c19b, type: 2}
++  m_Mesh: {fileID: 4300000, guid: 716c58ffdc7e7bd45a752117c0ed7171, type: 2}
+ --- !u!33 &385
+@@ -7142,3 +7142,3 @@ MeshFilter:
+   m_GameObject: {fileID: 23}
+-  m_Mesh: {fileID: 4300000, guid: 8dd954e68ce9b963fda5b30bcc25c19b, type: 2}
++  m_Mesh: {fileID: 4300000, guid: 5316083946f02e445a4d9b7711614407, type: 2}
+ --- !u!33 &386
