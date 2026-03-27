@@ -402,7 +402,7 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
         "-projectPath",
         os.path.abspath(WORKSPACE_DIR),
         "-executeMethod",
-        "AssetTools.ForceReserializeAssets",
+        "AssetUpgrader.UpgradeProject",
         "-logFile",
         os.path.abspath(os.path.join(TEMP_DIR, "unity_upgrade.log"))
     ])
