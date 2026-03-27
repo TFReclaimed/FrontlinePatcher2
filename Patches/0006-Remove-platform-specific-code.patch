@@ -18,7 +18,7 @@ index b302947b..fb6395bb 100644
 -
  	public void SetupHelpshift()
 diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
-index df65a07f..488bf87e 100644
+index df65a07f..1e65d23e 100644
 --- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
 +++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
 @@ -147,3 +147,2 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
@@ -29,6 +29,12 @@ index df65a07f..488bf87e 100644
  		case RuntimePlatform.LinuxPlayer:
 +		case RuntimePlatform.LinuxEditor:
  		case RuntimePlatform.WebGLPlayer:
+@@ -711,5 +711,2 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+ 	{
+-		string text = Application.identifier.Substring(Application.identifier.LastIndexOf('.') + 1);
+-		string text2 = text + "." + Application.version;
+-		CrashReporting.Init("fd1f4b60-2c24-415e-b8d8-dd633c752c22", text2, userID);
+ 	}
 diff --git a/Assets/Scripts/Assembly-CSharp/MainUI.cs b/Assets/Scripts/Assembly-CSharp/MainUI.cs
 index 4fc8e2ae..e7d647cc 100644
 --- a/Assets/Scripts/Assembly-CSharp/MainUI.cs
