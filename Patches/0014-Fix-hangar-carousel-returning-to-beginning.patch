@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Fri, 27 Mar 2026 22:31:39 +0200
+Subject: [PATCH] Fix hangar carousel returning to beginning
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/HangarCollectionView.cs b/Assets/Scripts/Assembly-CSharp/HangarCollectionView.cs
+index ccf069e9..5193756a 100644
+--- a/Assets/Scripts/Assembly-CSharp/HangarCollectionView.cs
++++ b/Assets/Scripts/Assembly-CSharp/HangarCollectionView.cs
+@@ -70,3 +70,4 @@ public class HangarCollectionView : MonoBehaviour
+ 		}
+-		if (SingletonMonoBehaviour<HangarMain>.Instance.OldMode != HangarMain.Mode.DetailsView)
++		var returningFromDetails = SingletonMonoBehaviour<HangarMain>.Instance.OldMode == HangarMain.Mode.DetailsView;
++		if (!returningFromDetails)
+ 		{
+@@ -80,3 +81,6 @@ public class HangarCollectionView : MonoBehaviour
+ 		Carousel.FilterCards();
+-		Carousel.SortCards();
++		if (!returningFromDetails)
++		{
++			Carousel.SortCards();
++		}
+ 		Carousel.gameObject.SetActive(true);
