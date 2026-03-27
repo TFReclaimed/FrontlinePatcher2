@@ -34,18 +34,28 @@ def find_unity() -> str:
 
     return unity_path
 
-def check_prerequisites() -> None:
-    missing_tools = False
+def check_prerequisites(command: str) -> None:
+    missing_tools = []
 
     if not shutil.which("git"):
-        print("[!] ERROR: Git is not installed or not found in PATH.")
-        missing_tools = True
+        missing_tools.append("git")
 
-    if not shutil.which("ffmpeg"):
-        print("[!] ERROR: ffmpeg is not installed or not found in PATH.")
-        missing_tools = True
+    if command == "setup":
+        if not shutil.which("ffmpeg"):
+            missing_tools.append("ffmpeg")
+
+        if not os.path.isfile("./AssetRipper.GUI.Free"):
+            missing_tools.append("AssetRipper.GUI.Free")
+
+        if not os.path.isfile("./vgmstream-cli"):
+            missing_tools.append("vgmstream-cli")
+
+        find_unity()
 
     if missing_tools:
+        print("[!] ERROR: The following prerequisites are missing:")
+        for tool in missing_tools:
+            print(f"- {tool}")
         print("[!] Please install the missing tools and ensure they are accessible via the command line.")
         sys.exit(1)
     else:
@@ -237,7 +247,7 @@ def apply_deterministic_guids() -> None:
                 sys.exit(1)
 
 def cmd_setup(apk_path: str, bundles_path: str) -> None:
-    check_prerequisites()
+    check_prerequisites("setup")
 
     if os.path.exists(WORKSPACE_DIR):
         print(f"[!] ERROR: Workspace directory '{WORKSPACE_DIR}' already exists. Please remove it before running setup.")
@@ -435,7 +445,7 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
     print(f"[+] Setup completed successfully! You can now open '{WORKSPACE_DIR}' in Unity.")
 
 def cmd_rebuild() -> None:
-    check_prerequisites()
+    check_prerequisites("rebuild")
 
     if not os.path.exists(WORKSPACE_DIR):
         print(f"[!] ERROR: Workspace directory '{WORKSPACE_DIR}' does not exist. Please run 'setup' first.")
