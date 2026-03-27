@@ -375,6 +375,11 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
 
     swap_files_dict(swap_dict)
 
+    print("[*] Deleting broken game board mesh...")
+    broken_mesh_path = os.path.join(WORKSPACE_DIR, "Assets", "Mesh", "Combined Mesh (root_ scene).asset")
+    os.remove(broken_mesh_path)
+    os.remove(broken_mesh_path + ".meta")
+
     print("[*] Copy gitignore...")
     gitignore_src = os.path.join(os.path.dirname(__file__), "unity.gitignore")
     gitignore_dst = os.path.join(WORKSPACE_DIR, ".gitignore")
