@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Nuutti <snuutti@protonmail.com>
 Date: Wed, 25 Mar 2026 23:50:16 +0200
-Subject: [PATCH] Proper build settings
+Subject: [PATCH] Build settings
 
 
 diff --git a/ProjectSettings/ProjectSettings.asset b/ProjectSettings/ProjectSettings.asset
