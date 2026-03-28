@@ -1,0 +1,65 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Sat, 28 Mar 2026 17:18:46 +0200
+Subject: [PATCH] Optimize missions
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs b/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs
+index 233e491c..2a760a78 100644
+--- a/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs
++++ b/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs
+@@ -110,2 +110,4 @@ namespace PvE
+ 
++		private float _missionUpdateTimer;
++
+ 		public ePvEState PvEState;
+@@ -676,2 +678,9 @@ namespace PvE
+ 		{
++			const float missionUpdateInterval = 0.5f;
++			_missionUpdateTimer += Time.deltaTime;
++			if (_missionUpdateTimer < missionUpdateInterval)
++			{
++				return;
++			}
++			_missionUpdateTimer = 0f;
+ 			if (_Regions == null)
+@@ -680,10 +689,5 @@ namespace PvE
+ 			}
+-			Dictionary<eRegion, Region>.Enumerator enumerator = _Regions.GetEnumerator();
+-			while (enumerator.MoveNext())
++			foreach (var region in _Regions.Values)
+ 			{
+-				Region value = enumerator.Current.Value;
+-				if (value != null)
+-				{
+-					value.UpdateActiveMissions();
+-				}
++				region?.UpdateActiveMissions();
+ 			}
+diff --git a/Assets/Scripts/Assembly-CSharp/PvE/Region.cs b/Assets/Scripts/Assembly-CSharp/PvE/Region.cs
+index 4069a7e1..5cce82b5 100644
+--- a/Assets/Scripts/Assembly-CSharp/PvE/Region.cs
++++ b/Assets/Scripts/Assembly-CSharp/PvE/Region.cs
+@@ -99,13 +99,13 @@ namespace PvE
+ 			}
+-			Dictionary<Faction, Dictionary<int, Mission>>.Enumerator enumerator = _Missions.GetEnumerator();
+-			while (enumerator.MoveNext())
++
++			foreach (var factionMissions in _Missions.Values)
+ 			{
+-				Dictionary<int, Mission> value = enumerator.Current.Value;
+-				if (value != null)
++				if (factionMissions == null)
+ 				{
+-					Dictionary<int, Mission>.Enumerator enumerator2 = value.GetEnumerator();
+-					while (enumerator2.MoveNext())
+-					{
+-						enumerator2.Current.Value.UpdateActiveMissions();
+-					}
++					return;
++				}
++
++				foreach (var mission in factionMissions.Values)
++				{
++					mission.UpdateActiveMissions();
+ 				}

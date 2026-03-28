@@ -1,0 +1,43 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Sat, 28 Mar 2026 17:18:26 +0200
+Subject: [PATCH] Optimize polling
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/PollingManager.cs b/Assets/Scripts/Assembly-CSharp/PollingManager.cs
+index a943ac79..a3f130df 100644
+--- a/Assets/Scripts/Assembly-CSharp/PollingManager.cs
++++ b/Assets/Scripts/Assembly-CSharp/PollingManager.cs
+@@ -29,2 +29,6 @@ public class PollingManager : MonoBehaviour
+ 
++	private static float _sessionPollTimer;
++
++	private static float _gamePollTimer;
++
+ 	public static void SessionPollSetEnable(bool enable)
+@@ -61,9 +65,21 @@ public class PollingManager : MonoBehaviour
+ 	{
+-		if (!sessionPollingActive && enableSessionPolling && GameShell.GetServerInterface().SessionPoll(SessionPollDone))
++		const float pollInterval = 0.2f;
++
++		if (!sessionPollingActive && enableSessionPolling)
+ 		{
+-			sessionPollingActive = true;
++			_sessionPollTimer -= Time.deltaTime;
++			if (_sessionPollTimer <= 0f && GameShell.GetServerInterface().SessionPoll(SessionPollDone))
++			{
++				sessionPollingActive = true;
++				_sessionPollTimer = pollInterval;
++			}
+ 		}
+-		if (!gamePollingActive && enableGamePolling && GameShell.GetServerInterface().GamePoll(GamePollDone))
++		if (!gamePollingActive && enableGamePolling)
+ 		{
+-			gamePollingActive = true;
++			_gamePollTimer -= Time.deltaTime;
++			if (_gamePollTimer <= 0f && GameShell.GetServerInterface().GamePoll(GamePollDone))
++			{
++				gamePollingActive = true;
++				_gamePollTimer = pollInterval;
++			}
+ 		}
