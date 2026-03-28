@@ -1,0 +1,84 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Sat, 28 Mar 2026 20:42:04 +0200
+Subject: [PATCH] More client platforms
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/AccountAccess.cs b/Assets/Scripts/Assembly-CSharp/AccountAccess.cs
+index 765d63e1..e9bfcaa7 100644
+--- a/Assets/Scripts/Assembly-CSharp/AccountAccess.cs
++++ b/Assets/Scripts/Assembly-CSharp/AccountAccess.cs
+@@ -12,3 +12,3 @@ public class AccountAccess
+ 
+-	public ClientPlatform deviceType = ClientPlatform.Computer;
++	public ClientPlatform deviceType = ClientPlatform.NumPlatforms;
+ 
+@@ -24,5 +24,13 @@ public class AccountAccess
+ 		}
+-		else
++		else if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.OSXPlayer)
+ 		{
+-			deviceType = ClientPlatform.Computer;
++			deviceType = ClientPlatform.Mac;
++		}
++		else if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
++		{
++			deviceType = ClientPlatform.Windows;
++		}
++		else if (Application.platform == RuntimePlatform.LinuxEditor || Application.platform == RuntimePlatform.LinuxPlayer)
++		{
++			deviceType = ClientPlatform.Linux;
+ 		}
+diff --git a/Assets/Scripts/Assembly-CSharp/AssetManager.cs b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
+index 076b6022..5bd83213 100644
+--- a/Assets/Scripts/Assembly-CSharp/AssetManager.cs
++++ b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
+@@ -796,5 +796,13 @@ public class AssetManager : Singleton<AssetManager>
+ 		string arg = string.Empty;
+-		if (rootURI.Contains("Computer"))
++		if (rootURI.Contains("Windows"))
+ 		{
+-			arg = ((Application.platform != RuntimePlatform.OSXEditor) ? "StandaloneWindows" : "StandaloneOSXIntel");
++			arg = "StandaloneWindows64";
++		}
++		else if (rootURI.Contains("Linux"))
++		{
++			arg = "StandaloneLinux64";
++		}
++		else if (rootURI.Contains("Mac"))
++		{
++			arg = "StandaloneOSX";
+ 		}
+diff --git a/Assets/Scripts/Assembly-CSharp/ClientPlatform.cs b/Assets/Scripts/Assembly-CSharp/ClientPlatform.cs
+index 118d49dd..ff1e9173 100644
+--- a/Assets/Scripts/Assembly-CSharp/ClientPlatform.cs
++++ b/Assets/Scripts/Assembly-CSharp/ClientPlatform.cs
+@@ -4,4 +4,6 @@ public enum ClientPlatform : byte
+ 	Android = 1,
+-	Computer = 2,
+-	NumPlatforms = 3
++	Linux = 2,
++	Windows = 3,
++	Mac = 4,
++	NumPlatforms = 5
+ }
+diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
+index 1e65d23e..4ba1c7b7 100644
+--- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
++++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
+@@ -345,10 +345,11 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+ 		case RuntimePlatform.OSXPlayer:
++			result = ClientPlatform.Mac;
++			break;
+ 		case RuntimePlatform.WindowsPlayer:
+ 		case RuntimePlatform.WindowsEditor:
++			result = ClientPlatform.Windows;
++			break;
+ 		case RuntimePlatform.LinuxPlayer:
+ 		case RuntimePlatform.LinuxEditor:
+-		case RuntimePlatform.WebGLPlayer:
+-		case RuntimePlatform.MetroPlayerX86:
+-		case RuntimePlatform.MetroPlayerX64:
+-			result = ClientPlatform.Computer;
++			result = ClientPlatform.Linux;
+ 			break;

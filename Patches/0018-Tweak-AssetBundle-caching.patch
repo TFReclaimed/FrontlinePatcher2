@@ -8,7 +8,7 @@ Stores AssetBundles as uncompressed.
 On modern Linux distros the default AssetBundle cache location /tmp is mounted as a RAM disk, so use persistent data path instead.
 
 diff --git a/Assets/Scripts/Assembly-CSharp/AssetManager.cs b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
-index 076b6022..b24d3516 100644
+index 5bd83213..b4754007 100644
 --- a/Assets/Scripts/Assembly-CSharp/AssetManager.cs
 +++ b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
 @@ -122,2 +122,17 @@ public class AssetManager : Singleton<AssetManager>
