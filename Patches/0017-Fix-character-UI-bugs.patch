@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Sat, 28 Mar 2026 20:44:46 +0200
+Subject: [PATCH] Fix character UI bugs
+
+Fixes exception and broken guild button when opening profile of user not in guild.
+
+diff --git a/Assets/Scripts/Assembly-CSharp/CharacterUI.cs b/Assets/Scripts/Assembly-CSharp/CharacterUI.cs
+index 6246dba9..cac276ff 100644
+--- a/Assets/Scripts/Assembly-CSharp/CharacterUI.cs
++++ b/Assets/Scripts/Assembly-CSharp/CharacterUI.cs
+@@ -319,9 +319,9 @@ public class CharacterUI : MonoBehaviour
+ 		}
+-		SingletonMonoBehaviour<AvatarManager>.Instance.RequestAvatarSprite(playerDetails.avatarId, delegate(string aID, Sprite sprite)
++		if (playerDetails != null)
+ 		{
+-			CharacterImage.sprite = sprite;
+-		});
+-		ChallengeButton.gameObject.SetActive(false);
+-		InviteButton.gameObject.SetActive(false);
+-		MessageButton.gameObject.SetActive(false);
++			SingletonMonoBehaviour<AvatarManager>.Instance.RequestAvatarSprite(playerDetails.avatarId, delegate(string aID, Sprite sprite)
++			{
++				CharacterImage.sprite = sprite;
++			});
++		}
+ 		ChallengeButton.gameObject.SetActive(false);
+@@ -446,2 +446,3 @@ public class CharacterUI : MonoBehaviour
+ 		{
++			GuildButton.enabled = false;
+ 			if (!string.IsNullOrEmpty(_desiredUserId))
