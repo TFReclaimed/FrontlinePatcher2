@@ -1,0 +1,18 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Sat, 28 Mar 2026 20:47:29 +0200
+Subject: [PATCH] Fix chat room resetting to guild sometimes
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/ChatPanel.cs b/Assets/Scripts/Assembly-CSharp/ChatPanel.cs
+index 13fe9a4e..fa686b33 100644
+--- a/Assets/Scripts/Assembly-CSharp/ChatPanel.cs
++++ b/Assets/Scripts/Assembly-CSharp/ChatPanel.cs
+@@ -254,3 +254,6 @@ public class ChatPanel : MonoBehaviour
+ 		{
+-			SingletonMonoBehaviour<ChatManager>.Instance.SetActiveChannel(ChatManager.ChannelType.GUILD);
++			if (_setGuildChannelFirstTime)
++			{
++				SingletonMonoBehaviour<ChatManager>.Instance.SetActiveChannel(ChatManager.ChannelType.GUILD);
++			}
+ 		}
