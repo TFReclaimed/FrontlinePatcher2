@@ -34,20 +34,35 @@ def find_unity() -> str:
 
     return unity_path
 
+def find_executable(name: str) -> str | None:
+    search_name = name
+    if sys.platform == "win32":
+        search_name += ".exe"
+
+    local_path = os.path.abspath(os.path.join(os.getcwd(), search_name))
+    if os.path.isfile(local_path) and os.access(local_path, os.X_OK):
+        return local_path
+
+    system_path = shutil.which(search_name)
+    if system_path:
+        return os.path.abspath(system_path)
+
+    return None
+
 def check_prerequisites(command: str) -> None:
     missing_tools = []
 
-    if not shutil.which("git"):
+    if not find_executable("git"):
         missing_tools.append("git")
 
     if command == "setup":
-        if not shutil.which("ffmpeg"):
+        if not find_executable("ffmpeg"):
             missing_tools.append("ffmpeg")
 
-        if not os.path.isfile("./AssetRipper.GUI.Free"):
+        if not find_executable("AssetRipper.GUI.Free"):
             missing_tools.append("AssetRipper.GUI.Free")
 
-        if not os.path.isfile("./vgmstream-cli"):
+        if not find_executable("vgmstream-cli"):
             missing_tools.append("vgmstream-cli")
 
         find_unity()
@@ -69,9 +84,9 @@ def run_cmd(cmd: list, cwd: str=None, ignore_errors: bool=False) -> None:
         sys.exit(result.returncode)
 
 def run_assetripper(input_dir: str, output_dir: str) -> None:
-    # TODO: Handle Windows and macOS paths
+    assetripper_path = find_executable("AssetRipper.GUI.Free")
     cmd = [
-        "./AssetRipper.GUI.Free",
+        assetripper_path,
         "--headless",
         "--log=false",
         "--port=6464"
@@ -168,8 +183,10 @@ def swap_files(src: str, dst: str) -> None:
 def apply_deterministic_guids() -> None:
     print("[*] Identifying new .meta files...")
 
+    git_path = find_executable("git")
+
     try:
-        untracked_cmd = ["git", "ls-files", "--others", "--exclude-standard"]
+        untracked_cmd = [git_path, "ls-files", "--others", "--exclude-standard"]
         untracked_files = subprocess.check_output(untracked_cmd, cwd=WORKSPACE_DIR, text=True).splitlines()
 
         new_meta_files = [f for f in untracked_files if f.endswith(".meta")]
@@ -248,6 +265,7 @@ def apply_deterministic_guids() -> None:
 
 def cmd_setup(apk_path: str, bundles_path: str) -> None:
     check_prerequisites("setup")
+    git_path = find_executable("git")
 
     if os.path.exists(WORKSPACE_DIR):
         print(f"[!] ERROR: Workspace directory '{WORKSPACE_DIR}' already exists. Please remove it before running setup.")
@@ -285,11 +303,12 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
 
     # https://github.com/SamboyCoding/Fmod5Sharp/issues/9
     print("[*] Re-encoding .wav files...")
+    ffmpeg_path = find_executable("ffmpeg")
     wav_files = glob.glob(os.path.join(WORKSPACE_DIR, "Assets", "**", "*.wav"), recursive=True)
     for wav_file in wav_files:
         temp_wav_file = wav_file + ".temp.wav"
         run_cmd([
-            "ffmpeg",
+            ffmpeg_path,
             "-y",
             "-i",
             wav_file,
@@ -302,6 +321,7 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
 
     # https://github.com/SamboyCoding/Fmod5Sharp/issues/12
     print("[*] Decoding MPEG FSB files...")
+    vgmstream_path = find_executable("vgmstream-cli")
     fsb_files = glob.glob(os.path.join(WORKSPACE_DIR, "Assets", "sound", "**", "*.audioclip.resS"), recursive=True)
     for fsb_file in fsb_files:
         # We need to add the .fsb extension for vgmstream to recognize the file format
@@ -310,7 +330,7 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
 
         output_wav_file = fsb_file.replace(".audioclip.resS", ".wav")
         run_cmd([
-            "./vgmstream-cli",
+            vgmstream_path,
             temp_fsb_file,
             "-o",
             output_wav_file
@@ -396,15 +416,15 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
     shutil.copyfile(gitignore_src, gitignore_dst)
 
     print("[*] Initializing Git repository...")
-    run_cmd(["git", "init"], cwd=WORKSPACE_DIR)
-    run_cmd(["git", "add", "."], cwd=WORKSPACE_DIR)
-    run_cmd(["git", "commit", "-m", "AssetRipper", "--author", "TF Reclaimed <auto@mated.null>"], cwd=WORKSPACE_DIR)
-    run_cmd(["git", "tag", "raw-project"], cwd=WORKSPACE_DIR)
+    run_cmd([git_path, "init"], cwd=WORKSPACE_DIR)
+    run_cmd([git_path, "add", "."], cwd=WORKSPACE_DIR)
+    run_cmd([git_path, "commit", "-m", "AssetRipper", "--author", "TF Reclaimed <auto@mated.null>"], cwd=WORKSPACE_DIR)
+    run_cmd([git_path, "tag", "raw-project"], cwd=WORKSPACE_DIR)
 
     pre_patches = sorted(glob.glob(os.path.abspath(os.path.join(PRE_PATCHES_DIR, "*.patch"))))
     if pre_patches:
         print(f"[*] Applying {len(pre_patches)} pre-patches...")
-        run_cmd(["git", "am", "--3way"] + pre_patches, cwd=WORKSPACE_DIR)
+        run_cmd([git_path, "am", "--3way"] + pre_patches, cwd=WORKSPACE_DIR)
 
     print("[*] Upgrading and reserializing Unity project...")
     print("[*] This may take several minutes. Please wait...")
@@ -427,14 +447,14 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
     apply_deterministic_guids()
 
     print("[*] Committing upgraded project...")
-    run_cmd(["git", "add", "."], cwd=WORKSPACE_DIR)
-    run_cmd(["git", "commit", "-m", "Base project", "--author", "TF Reclaimed <auto@mated.null>"], cwd=WORKSPACE_DIR)
-    run_cmd(["git", "tag", "base-project"], cwd=WORKSPACE_DIR)
+    run_cmd([git_path, "add", "."], cwd=WORKSPACE_DIR)
+    run_cmd([git_path, "commit", "-m", "Base project", "--author", "TF Reclaimed <auto@mated.null>"], cwd=WORKSPACE_DIR)
+    run_cmd([git_path, "tag", "base-project"], cwd=WORKSPACE_DIR)
 
     patches = sorted(glob.glob(os.path.abspath(os.path.join(PATCHES_DIR, "*.patch"))))
     if patches:
         print(f"[*] Applying {len(patches)} patches...")
-        run_cmd(["git", "am", "--3way"] + patches, cwd=WORKSPACE_DIR)
+        run_cmd([git_path, "am", "--3way"] + patches, cwd=WORKSPACE_DIR)
     else:
         print("[*] No patches found to apply.")
 
@@ -446,6 +466,7 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
 
 def cmd_rebuild() -> None:
     check_prerequisites("rebuild")
+    git_path = find_executable("git")
 
     if not os.path.exists(WORKSPACE_DIR):
         print(f"[!] ERROR: Workspace directory '{WORKSPACE_DIR}' does not exist. Please run 'setup' first.")
@@ -467,14 +488,14 @@ def cmd_rebuild() -> None:
         "--minimal"
     ]
 
-    result = subprocess.run(["git", "rev-parse", "--verify", "base-project"], cwd=WORKSPACE_DIR, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    result = subprocess.run([git_path, "rev-parse", "--verify", "base-project"], cwd=WORKSPACE_DIR, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     has_base = (result.returncode == 0)
 
     if not has_base:
         print("[!] 'base-project' tag not found.")
         print(f"[*] Exporting pre-patches...")
         run_cmd([
-            "git",
+            git_path,
             "format-patch",
             "raw-project..HEAD",
             "-o",
@@ -486,7 +507,7 @@ def cmd_rebuild() -> None:
 
     print("[*] Exporting pre-patches...")
     run_cmd([
-        "git",
+        git_path,
         "format-patch",
         "raw-project..base-project^",
         "-o",
@@ -498,7 +519,7 @@ def cmd_rebuild() -> None:
         os.remove(patch)
 
     run_cmd([
-        "git",
+        git_path,
         "format-patch",
         "base-project..HEAD",
         "-o",
