@@ -4,103 +4,428 @@ Date: Fri, 6 Mar 2026 02:48:32 +0200
 Subject: [PATCH] Remove Nexon analytics
 
 
+diff --git a/Assets/Plugins/NxSDK.dll b/Assets/Plugins/NxSDK.dll
+deleted file mode 100644
+index e5099d06f5d34a0c45965e9ea61dad1b690d3679..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+HcmV?d00001
+
+literal 21504
+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
+M>(+n2{(rmvFD>GJMgRZ+
+
+diff --git a/Assets/Plugins/NxSDK.dll.meta b/Assets/Plugins/NxSDK.dll.meta
+deleted file mode 100644
+index cfa52056..00000000
+--- a/Assets/Plugins/NxSDK.dll.meta
++++ /dev/null
+@@ -1,33 +0,0 @@
+-fileFormatVersion: 2
+-guid: b20008194089a01f3ffd8d091a9aa913
+-PluginImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  iconMap: {}
+-  executionOrder: {}
+-  defineConstraints: []
+-  isPreloaded: 0
+-  isOverridable: 0
+-  isExplicitlyReferenced: 0
+-  validateReferences: 1
+-  platformData:
+-  - first:
+-      Any: 
+-    second:
+-      enabled: 1
+-      settings: {}
+-  - first:
+-      Editor: Editor
+-    second:
+-      enabled: 0
+-      settings:
+-        DefaultValueInitialized: true
+-  - first:
+-      Windows Store Apps: WindowsStoreApps
+-    second:
+-      enabled: 0
+-      settings:
+-        CPU: AnyCPU
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scenes/GameShell.unity b/Assets/Scenes/GameShell.unity
+index 42efaeb1..bcdac12a 100644
+--- a/Assets/Scenes/GameShell.unity
++++ b/Assets/Scenes/GameShell.unity
+@@ -20,19 +20,2 @@ GameObject:
+   m_IsActive: 1
+---- !u!1 &2
+-GameObject:
+-  m_ObjectHideFlags: 0
+-  m_CorrespondingSourceObject: {fileID: 0}
+-  m_PrefabInstance: {fileID: 0}
+-  m_PrefabAsset: {fileID: 0}
+-  serializedVersion: 6
+-  m_Component:
+-  - component: {fileID: 42}
+-  - component: {fileID: 172}
+-  m_Layer: 0
+-  m_Name: NativeSystemObject
+-  m_TagString: Untagged
+-  m_Icon: {fileID: 0}
+-  m_NavMeshLayer: 0
+-  m_StaticEditorFlags: 0
+-  m_IsActive: 1
+ --- !u!1 &3
+@@ -751,17 +734,2 @@ Transform:
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+---- !u!4 &42
+-Transform:
+-  m_ObjectHideFlags: 0
+-  m_CorrespondingSourceObject: {fileID: 0}
+-  m_PrefabInstance: {fileID: 0}
+-  m_PrefabAsset: {fileID: 0}
+-  m_GameObject: {fileID: 2}
+-  serializedVersion: 2
+-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+-  m_LocalPosition: {x: -947.8532, y: 145.75177, z: 643.80457}
+-  m_LocalScale: {x: 1, y: 1, z: 1}
+-  m_ConstrainProportionsScale: 0
+-  m_Children: []
+-  m_Father: {fileID: 0}
+-  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+ --- !u!4 &43
+@@ -32454,16 +32422,2 @@ MonoBehaviour:
+     height: 1
+---- !u!114 &172
+-MonoBehaviour:
+-  m_ObjectHideFlags: 0
+-  m_CorrespondingSourceObject: {fileID: 0}
+-  m_PrefabInstance: {fileID: 0}
+-  m_PrefabAsset: {fileID: 0}
+-  m_GameObject: {fileID: 2}
+-  m_Enabled: 1
+-  m_EditorHideFlags: 0
+-  m_Script: {fileID: 11500000, guid: 643e505a9bb1805f28345d45f25a09f3, type: 3}
+-  m_Name: 
+-  m_EditorClassIdentifier: 
+-  key: aeaeb173-04f4-4b3a-b661-19b9aeb164ee
+-  isProduction: 1
+ --- !u!114 &173
+@@ -32687,3 +32641,2 @@ SceneRoots:
+   - {fileID: 41}
+-  - {fileID: 42}
+   - {fileID: 51}
+diff --git a/Assets/Scripts/Assembly-CSharp/CCGAdjust.cs b/Assets/Scripts/Assembly-CSharp/CCGAdjust.cs
+index 31168fe3..b476d181 100644
+--- a/Assets/Scripts/Assembly-CSharp/CCGAdjust.cs
++++ b/Assets/Scripts/Assembly-CSharp/CCGAdjust.cs
+@@ -1,2 +1 @@
+-using Nexon;
+ using UnityEngine;
+@@ -51,12 +50,2 @@ public class CCGAdjust : MonoBehaviour
+ 	{
+-		string nexonDeviceId = NxSignal.nexonDeviceId;
+-		if (nexonDeviceId == null)
+-		{
+-			Debug.Log("nexon_device_id = *** null ***");
+-			return;
+-		}
+-		Debug.Log("nexon_device_id = \"" + nexonDeviceId + "\"");
+-		AdjustEvent adjustEvent = new AdjustEvent(GetBridgeEventToken());
+-		adjustEvent.addCallbackParameter("nexon_device_id", nexonDeviceId);
+-		Adjust.trackEvent(adjustEvent);
+ 	}
 diff --git a/Assets/Scripts/Assembly-CSharp/FUE_Script.cs b/Assets/Scripts/Assembly-CSharp/FUE_Script.cs
-index 6c5a5f98..a22e2bb5 100644
+index 6c5a5f98..229c84a9 100644
 --- a/Assets/Scripts/Assembly-CSharp/FUE_Script.cs
 +++ b/Assets/Scripts/Assembly-CSharp/FUE_Script.cs
-@@ -213,3 +213,2 @@ public class FUE_Script : BaseGameScript
+@@ -3,3 +3,2 @@ using System.Collections.Generic;
+ using DarkTonic.MasterAudio;
+-using Nexon;
+ using UnityEngine;
+@@ -213,3 +212,2 @@ public class FUE_Script : BaseGameScript
  		}
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 1: Player Deploys Susan Raymos" } });
  		handFX.SetActive(false);
-@@ -243,3 +242,2 @@ public class FUE_Script : BaseGameScript
+@@ -243,3 +241,2 @@ public class FUE_Script : BaseGameScript
  	{
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 1: Player ends turn 1" } });
  		yield return new WaitForSeconds(1f);
-@@ -297,3 +295,2 @@ public class FUE_Script : BaseGameScript
+@@ -297,3 +294,2 @@ public class FUE_Script : BaseGameScript
  		EndAITurn();
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "AI Turn 1: AI completes turn 1" } });
  	}
-@@ -313,3 +310,2 @@ public class FUE_Script : BaseGameScript
+@@ -313,3 +309,2 @@ public class FUE_Script : BaseGameScript
  		}
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 2: Deploy Jasmine Kane" } });
  		Object.Destroy(commandFX);
-@@ -348,3 +344,2 @@ public class FUE_Script : BaseGameScript
+@@ -348,3 +343,2 @@ public class FUE_Script : BaseGameScript
  		gameUI.CloseTalkBubble();
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 2: Move Susan Raymos" } });
  		StartStep(PlayerEndTurn, AITurn2);
-@@ -354,3 +349,2 @@ public class FUE_Script : BaseGameScript
+@@ -354,3 +348,2 @@ public class FUE_Script : BaseGameScript
  	{
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 2: Player ends turn 2" } });
  		yield return new WaitForSeconds(1f);
-@@ -399,3 +393,2 @@ public class FUE_Script : BaseGameScript
+@@ -399,3 +392,2 @@ public class FUE_Script : BaseGameScript
  		StartStep(WaitForCardDraw, PlayerTurn3Step1);
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "AI Turn 2: AI completes turn 2" } });
  	}
-@@ -427,3 +420,2 @@ public class FUE_Script : BaseGameScript
+@@ -427,3 +419,2 @@ public class FUE_Script : BaseGameScript
  		}
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 3: Deploy Field HQ2" } });
  		StartStep(PlayerTurn3Step4);
-@@ -448,3 +440,2 @@ public class FUE_Script : BaseGameScript
+@@ -448,3 +439,2 @@ public class FUE_Script : BaseGameScript
  		gameUI.CloseTalkBubble();
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 3: Move Jasmine Kane" } });
  		yield return new WaitForSeconds(1f);
-@@ -463,3 +454,2 @@ public class FUE_Script : BaseGameScript
+@@ -463,3 +453,2 @@ public class FUE_Script : BaseGameScript
  		gameUI.CloseTalkBubble();
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 3: Attack with Susan Raymos" } });
  		yield return new WaitForSeconds(0.1f);
-@@ -483,3 +473,2 @@ public class FUE_Script : BaseGameScript
+@@ -483,3 +472,2 @@ public class FUE_Script : BaseGameScript
  		}
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 3: Deploy support card" } });
  		StartStep(PlayerEndTurn, AITurn3);
-@@ -489,3 +478,2 @@ public class FUE_Script : BaseGameScript
+@@ -489,3 +477,2 @@ public class FUE_Script : BaseGameScript
  	{
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 3: Player ends turn 3" } });
  		yield return new WaitForSeconds(1f);
-@@ -524,3 +512,2 @@ public class FUE_Script : BaseGameScript
+@@ -524,3 +511,2 @@ public class FUE_Script : BaseGameScript
  		EndAITurn();
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "AI Turn 3: AI completes turn 3" } });
  	}
-@@ -544,3 +531,2 @@ public class FUE_Script : BaseGameScript
+@@ -544,3 +530,2 @@ public class FUE_Script : BaseGameScript
  		}
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 4: Deploy Atlas" } });
  		StartStep(PlayerTurn4Step2);
-@@ -566,3 +552,2 @@ public class FUE_Script : BaseGameScript
+@@ -566,3 +551,2 @@ public class FUE_Script : BaseGameScript
  		}
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 4: Attack with Atlass" } });
  		StartStep(PlayerTurn4Step3);
-@@ -583,3 +568,2 @@ public class FUE_Script : BaseGameScript
+@@ -583,3 +567,2 @@ public class FUE_Script : BaseGameScript
  		}
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 4: Attack with Susan Raymos" } });
  		StartStep(PlayerEndTurn, AITurn4);
-@@ -599,3 +583,2 @@ public class FUE_Script : BaseGameScript
+@@ -599,3 +582,2 @@ public class FUE_Script : BaseGameScript
  	{
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 4: Player ends turn 4" } });
  		yield return new WaitForSeconds(1f);
-@@ -644,3 +627,2 @@ public class FUE_Script : BaseGameScript
+@@ -644,3 +626,2 @@ public class FUE_Script : BaseGameScript
  		EndAITurn();
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "AI Turn 4: AI completes turn 4" } });
  	}
-@@ -662,3 +644,2 @@ public class FUE_Script : BaseGameScript
+@@ -662,3 +643,2 @@ public class FUE_Script : BaseGameScript
  		gameUI.CloseTalkBubble();
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 5: Deploy Barrage" } });
  		yield return new WaitForSeconds(3.5f);
-@@ -685,3 +666,2 @@ public class FUE_Script : BaseGameScript
+@@ -685,3 +665,2 @@ public class FUE_Script : BaseGameScript
  		}
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 5: Attack with Susan Raymos" } });
  		yield return new WaitForSeconds(0.1f);
-@@ -698,3 +678,2 @@ public class FUE_Script : BaseGameScript
+@@ -698,3 +677,2 @@ public class FUE_Script : BaseGameScript
  		}
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "Turn 5: Attack with Atlas" } });
  	}
-@@ -753,3 +732,2 @@ public class FUE_Script : BaseGameScript
+@@ -753,3 +731,2 @@ public class FUE_Script : BaseGameScript
  	{
 -		NxSignal.reportCustomEvent("funnel_f", new Dictionary<string, object> { { "funnel_step", "nx_ftue_end" } });
  		TutorialManager.SetCompletedTutorial(Tutorials.FirstUserExperience);
 diff --git a/Assets/Scripts/Assembly-CSharp/MAPManager.cs b/Assets/Scripts/Assembly-CSharp/MAPManager.cs
-index fe105732..ea02e12a 100644
+index fe105732..daf96355 100644
 --- a/Assets/Scripts/Assembly-CSharp/MAPManager.cs
 +++ b/Assets/Scripts/Assembly-CSharp/MAPManager.cs
-@@ -20,9 +20,2 @@ public class MAPManager : Singleton<MAPManager>
+@@ -2,3 +2,2 @@ using System;
+ using System.Collections.Generic;
+-using Nexon;
+ using UnityEngine;
+@@ -20,9 +19,2 @@ public class MAPManager : Singleton<MAPManager>
  			dictionary.Add("developer_player_id", AccountManager.profile.userId.ToString());
 -			NxSignal.setFieldDefaultValues(dictionary);
 -			NxSignal.reportCustomEvent("launch_f", new Dictionary<string, object> { { "launch_type", "login" } });
@@ -110,91 +435,153 @@ index fe105732..ea02e12a 100644
 -				AccountManager.profile.name
 -			} });
  		}
-@@ -55,3 +48,2 @@ public class MAPManager : Singleton<MAPManager>
+@@ -55,3 +47,2 @@ public class MAPManager : Singleton<MAPManager>
  			}
 -			NxSignal.reportRevenueEvent(productId, res.product.LocalizedPrice, res.product.CurrencyCode, res.TransactionId, storeId, "currency", new Dictionary<string, object>());
  		}
-@@ -187,3 +179,2 @@ public class MAPManager : Singleton<MAPManager>
+@@ -187,3 +178,2 @@ public class MAPManager : Singleton<MAPManager>
  			dictionary.Add("interaction_turn", Convert.ToInt16(game.gameState.currentRound));
 -			NxSignal.reportCustomEvent("battle_interaction_f", dictionary);
  		}
-@@ -270,3 +261,2 @@ public class MAPManager : Singleton<MAPManager>
+@@ -270,3 +260,2 @@ public class MAPManager : Singleton<MAPManager>
  			dictionary.Add("result_duration", durationSeconds);
 -			NxSignal.reportCustomEvent("battle_result_f", dictionary);
  		}
-@@ -298,3 +288,2 @@ public class MAPManager : Singleton<MAPManager>
+@@ -298,3 +287,2 @@ public class MAPManager : Singleton<MAPManager>
  			dictionary.Add("target", product.ProductID);
 -			NxSignal.reportCustomEvent("econ_sink_f", dictionary);
  		}
-@@ -326,3 +315,2 @@ public class MAPManager : Singleton<MAPManager>
+@@ -326,3 +314,2 @@ public class MAPManager : Singleton<MAPManager>
  				dictionary.Add("action", action);
 -				NxSignal.reportCustomEvent("econ_source_f", dictionary);
  			}
-@@ -342,3 +330,2 @@ public class MAPManager : Singleton<MAPManager>
+@@ -342,3 +329,2 @@ public class MAPManager : Singleton<MAPManager>
  			dictionary.Add("isStart ", begin);
 -			NxSignal.reportCustomEvent("activity_f", dictionary);
  		}
-@@ -352,3 +339,2 @@ public class MAPManager : Singleton<MAPManager>
+@@ -352,3 +338,2 @@ public class MAPManager : Singleton<MAPManager>
  			dictionary.Add("error_f", error);
 -			NxSignal.reportCustomEvent("error_f", dictionary);
  		}
-@@ -360,3 +346,2 @@ public class MAPManager : Singleton<MAPManager>
+@@ -360,3 +345,2 @@ public class MAPManager : Singleton<MAPManager>
  		dictionary.Add("error_f", "not_enough_space");
 -		NxSignal.reportCustomEvent("error_f", dictionary);
  	}
 diff --git a/Assets/Scripts/Assembly-CSharp/MainUI.cs b/Assets/Scripts/Assembly-CSharp/MainUI.cs
-index e7d647cc..8e86c1ed 100644
+index e7d647cc..652e3c25 100644
 --- a/Assets/Scripts/Assembly-CSharp/MainUI.cs
 +++ b/Assets/Scripts/Assembly-CSharp/MainUI.cs
-@@ -454,3 +454,2 @@ public class MainUI : BaseUI
+@@ -3,3 +3,2 @@ using System.Collections;
+ using System.Collections.Generic;
+-using Nexon;
+ using PvE;
+@@ -454,3 +453,2 @@ public class MainUI : BaseUI
  			Debug.Log("SHOW FIRST USER...");
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "FirstUser" } });
  			firstUserUI.gameObject.SetActive(true);
-@@ -460,3 +459,2 @@ public class MainUI : BaseUI
+@@ -460,3 +458,2 @@ public class MainUI : BaseUI
  			loginDialog.transform.parent.gameObject.SetActive(true);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "Login" } });
  			break;
-@@ -464,3 +462,2 @@ public class MainUI : BaseUI
+@@ -464,3 +461,2 @@ public class MainUI : BaseUI
  			ConnectingUI.SetActive(true);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "Connecting" } });
  			_connectingTimerHandle = Singleton<TimerManager>.Instance.AddTimer(_connectingTimeoutTime, OnConnectingTimeout, null, string.Empty);
-@@ -470,3 +467,2 @@ public class MainUI : BaseUI
+@@ -470,3 +466,2 @@ public class MainUI : BaseUI
  			currentProcess = Process.waitForRulesetToLoad;
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "MenuScreen" } });
  			break;
-@@ -480,3 +476,2 @@ public class MainUI : BaseUI
+@@ -480,3 +475,2 @@ public class MainUI : BaseUI
  			Singleton<UIStateManager>.Instance.SetState(UIState.State.EnteringGame);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "MatchMaking" } });
  			break;
-@@ -487,3 +482,2 @@ public class MainUI : BaseUI
+@@ -487,3 +481,2 @@ public class MainUI : BaseUI
  			backButton.gameObject.SetActive(true);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "MissionLeaderboard" } });
  			break;
-@@ -493,3 +487,2 @@ public class MainUI : BaseUI
+@@ -493,3 +486,2 @@ public class MainUI : BaseUI
  			backButton.gameObject.SetActive(true);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "GuildLeaderboard" } });
  			break;
-@@ -499,3 +492,2 @@ public class MainUI : BaseUI
+@@ -499,3 +491,2 @@ public class MainUI : BaseUI
  			backButton.gameObject.SetActive(true);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "EventLeaderboard" } });
  			break;
-@@ -506,3 +498,2 @@ public class MainUI : BaseUI
+@@ -506,3 +497,2 @@ public class MainUI : BaseUI
  				backButton.gameObject.SetActive(true);
 -				NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "News" } });
  			}
-@@ -512,3 +503,2 @@ public class MainUI : BaseUI
+@@ -512,3 +502,2 @@ public class MainUI : BaseUI
  			backButton.gameObject.SetActive(true);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "ChatUI" } });
  			break;
-@@ -516,3 +506,2 @@ public class MainUI : BaseUI
+@@ -516,3 +505,2 @@ public class MainUI : BaseUI
  			Singleton<UIStateManager>.Instance.SetState(UIState.State.Store);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "StoryUI" } });
  			break;
+diff --git a/Assets/Scripts/Assembly-CSharp/NativeSystemCallbackBehavior.cs b/Assets/Scripts/Assembly-CSharp/NativeSystemCallbackBehavior.cs
+deleted file mode 100644
+index 9e0af3de..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NativeSystemCallbackBehavior.cs
++++ /dev/null
+@@ -1,31 +0,0 @@
+-using Nexon;
+-using UnityEngine;
+-
+-public class NativeSystemCallbackBehavior : NativeSystemCallback
+-{
+-	private NativeSystemAccess nativeSystemInstance;
+-
+-	private void Start()
+-	{
+-		Object.DontDestroyOnLoad(base.transform.gameObject);
+-		AndroidJavaClass androidJavaClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+-		AndroidJavaObject androidJavaObject = androidJavaClass.GetStatic<AndroidJavaObject>("currentActivity");
+-		AndroidJavaClass androidJavaClass2 = new AndroidJavaClass("com.nexonm.bridge.UnityCommunicator");
+-		if (isProduction)
+-		{
+-			androidJavaClass2.CallStatic("initSDK", androidJavaObject, new AndroidJavaObject("java.lang.String", key), new AndroidJavaObject("java.lang.String", "prod"));
+-		}
+-		else
+-		{
+-			androidJavaClass2.CallStatic("initSDK", androidJavaObject, new AndroidJavaObject("java.lang.String", key), new AndroidJavaObject("java.lang.String", "dev"));
+-		}
+-		nativeSystemInstance = NativeSystemAccess.Instance;
+-		NativeSystemAccess.setCallBack(this);
+-		NxSignal instance = NxSignal.Instance;
+-	}
+-
+-	public new void nativeCallBack(string msg)
+-	{
+-		nativeSystemInstance.recivedMessageFromNative(msg);
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NativeSystemCallbackBehavior.cs.meta b/Assets/Scripts/Assembly-CSharp/NativeSystemCallbackBehavior.cs.meta
+deleted file mode 100644
+index 541a7825..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NativeSystemCallbackBehavior.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 643e505a9bb1805f28345d45f25a09f3
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
 diff --git a/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs b/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs
-index 84f7e868..e6a6ff63 100644
+index 84f7e868..233e491c 100644
 --- a/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs
 +++ b/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs
-@@ -587,7 +587,2 @@ namespace PvE
+@@ -3,3 +3,2 @@ using System.Collections;
+ using System.Collections.Generic;
+-using Nexon;
+ using UnityEngine;
+@@ -587,7 +586,2 @@ namespace PvE
  		{
 -			NxSignal.reportCustomEvent("entered_missions_f", new Dictionary<string, object> { 
 -			{
@@ -202,7 +589,7 @@ index 84f7e868..e6a6ff63 100644
 -				AccountManager.profile.userId.ToString()
 -			} });
  			if (Me != null)
-@@ -607,7 +602,2 @@ namespace PvE
+@@ -607,7 +601,2 @@ namespace PvE
  		{
 -			NxSignal.reportCustomEvent("exited_missions_f", new Dictionary<string, object> { 
 -			{
@@ -210,7 +597,7 @@ index 84f7e868..e6a6ff63 100644
 -				AccountManager.profile.userId.ToString()
 -			} });
  		}
-@@ -865,32 +855,2 @@ namespace PvE
+@@ -865,32 +854,2 @@ namespace PvE
  					string value = ((eRegion)missionStageStatus.region).ToString() + "-" + ((Faction)missionStageStatus.faction).ToString() + "-" + missionStageStatus.missionid.ToString("D4");
 -					NxSignal.reportCustomEvent("mission_completed_f", new Dictionary<string, object>
 -					{
@@ -244,10 +631,14 @@ index 84f7e868..e6a6ff63 100644
 -					});
  				}
 diff --git a/Assets/Scripts/Assembly-CSharp/UIManager.cs b/Assets/Scripts/Assembly-CSharp/UIManager.cs
-index 3936bdc0..48165b04 100644
+index 3936bdc0..168689c3 100644
 --- a/Assets/Scripts/Assembly-CSharp/UIManager.cs
 +++ b/Assets/Scripts/Assembly-CSharp/UIManager.cs
-@@ -148,7 +148,2 @@ public class UIManager : MonoBehaviour
+@@ -2,3 +2,2 @@ using System;
+ using System.Collections.Generic;
+-using Nexon;
+ using UnityEngine;
+@@ -148,7 +147,2 @@ public class UIManager : MonoBehaviour
  			{
 -				NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { 
 -				{
