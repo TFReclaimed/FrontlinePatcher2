@@ -94,7 +94,7 @@ index 0564662f..98fc5a64 100644
 +			requestedChannel.requestInflight = uwr;
  			FireRequestStartedNotification((Channel)channelIndex, requestedChannel);
 diff --git a/Assets/Scripts/Assembly-CSharp/WWWRequest.cs b/Assets/Scripts/Assembly-CSharp/WWWRequest.cs
-index 33ae90fe..df49bdd3 100644
+index 33ae90fe..ae7f3690 100644
 --- a/Assets/Scripts/Assembly-CSharp/WWWRequest.cs
 +++ b/Assets/Scripts/Assembly-CSharp/WWWRequest.cs
 @@ -4,2 +4,3 @@ using System.Diagnostics;
@@ -139,9 +139,9 @@ index 33ae90fe..df49bdd3 100644
 @@ -155,3 +160,3 @@ public class WWWRequest
  			{
 -				request = WWW.LoadFromCacheOrDownload(URI, 0, CRC);
-+				request = UnityWebRequestAssetBundle.GetAssetBundle(URI, CRC);
++				request = UnityWebRequestAssetBundle.GetAssetBundle(URI, 0, CRC);
  			}
-@@ -159,7 +164,18 @@ public class WWWRequest
+@@ -159,7 +164,27 @@ public class WWWRequest
  			{
 -				request = new WWW(URI);
 +				request = UnityWebRequestAssetBundle.GetAssetBundle(URI);
@@ -159,10 +159,19 @@ index 33ae90fe..df49bdd3 100644
 +			{
 +				request = new UnityWebRequest(URI, "POST");
 +			}
++			
++			if (Headers != null)
++			{
++				foreach (var header in Headers)
++				{
++					request.SetRequestHeader(header.Key, header.Value);
++				}
++			}
++			
 +			request.downloadHandler = new DownloadHandlerBuffer();
 +			request.SendWebRequest();
  			break;
-@@ -173,9 +189,9 @@ public class WWWRequest
+@@ -173,9 +198,9 @@ public class WWWRequest
  		{
 -			if (IsDone)
 +			if (!string.IsNullOrEmpty(request.error))
@@ -176,13 +185,13 @@ index 33ae90fe..df49bdd3 100644
 -				Fail(request.error);
 +				time.Stop();
  			}
-@@ -215,3 +231,4 @@ public class WWWRequest
+@@ -215,3 +240,4 @@ public class WWWRequest
  		float realtimeSinceStartup = Time.realtimeSinceStartup;
 -		if (lastProgress == request.progress)
 +		ulong downloadedBytes = request.downloadedBytes;
 +		if (lastProgress == request.downloadProgress && lastDownloadedBytes == downloadedBytes)
  		{
-@@ -230,3 +247,4 @@ public class WWWRequest
+@@ -230,3 +256,4 @@ public class WWWRequest
  		{
 -			lastProgress = request.progress;
 +			lastProgress = request.downloadProgress;
