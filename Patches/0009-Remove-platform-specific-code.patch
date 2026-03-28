@@ -36,14 +36,14 @@ index df65a07f..1e65d23e 100644
 -		CrashReporting.Init("fd1f4b60-2c24-415e-b8d8-dd633c752c22", text2, userID);
  	}
 diff --git a/Assets/Scripts/Assembly-CSharp/MainUI.cs b/Assets/Scripts/Assembly-CSharp/MainUI.cs
-index 4fc8e2ae..e7d647cc 100644
+index 9e18c400..652e3c25 100644
 --- a/Assets/Scripts/Assembly-CSharp/MainUI.cs
 +++ b/Assets/Scripts/Assembly-CSharp/MainUI.cs
-@@ -207,2 +207,3 @@ public class MainUI : BaseUI
+@@ -206,2 +206,3 @@ public class MainUI : BaseUI
  	{
 +#if UNITY_ANDROID
  		int num = Screen.height;
-@@ -215,2 +216,3 @@ public class MainUI : BaseUI
+@@ -214,2 +215,3 @@ public class MainUI : BaseUI
  		Screen.SetResolution(num2, num, true);
 +#endif
  		base.Start();

@@ -5,7 +5,7 @@ Subject: [PATCH] Build settings
 
 
 diff --git a/ProjectSettings/ProjectSettings.asset b/ProjectSettings/ProjectSettings.asset
-index 220953af..01fb4049 100644
+index 220953af..6a7e2464 100644
 --- a/ProjectSettings/ProjectSettings.asset
 +++ b/ProjectSettings/ProjectSettings.asset
 @@ -94,5 +94,5 @@ PlayerSettings:
@@ -34,6 +34,11 @@ index 220953af..01fb4049 100644
 -  AndroidBundleVersionCode: 0
 +  AndroidBundleVersionCode: 1
    AndroidMinSdkVersion: 22
+@@ -269,3 +269,3 @@ PlayerSettings:
+   useCustomProguardFile: 0
+-  AndroidTargetArchitectures: 1
++  AndroidTargetArchitectures: 3
+   AndroidTargetDevices: 0
 @@ -290,3 +290,10 @@ PlayerSettings:
    AndroidAppBundleSizeToValidate: 200
 -  m_BuildTargetIcons: []
@@ -112,7 +117,19 @@ index 220953af..01fb4049 100644
 +      m_Kind: 2
 +      m_SubKind: 
    m_BuildTargetBatching: []
-@@ -850,2 +857,2 @@ PlayerSettings:
+@@ -735,3 +742,5 @@ PlayerSettings:
+   platformArchitecture: {}
+-  scriptingBackend: {}
++  scriptingBackend:
++    Android: 1
++    Standalone: 1
+   il2cppCompilerConfiguration: {}
+@@ -837,3 +846,3 @@ PlayerSettings:
+   hmiCpuConfiguration: 
+-  apiCompatibilityLevel: 3
++  apiCompatibilityLevel: 6
+   activeInputHandler: 0
+@@ -850,2 +859,2 @@ PlayerSettings:
    virtualTexturingSupportEnabled: 0
 -  insecureHttpOption: 0
 +  insecureHttpOption: 2

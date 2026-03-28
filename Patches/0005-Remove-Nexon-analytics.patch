@@ -468,54 +468,54 @@ index fe105732..daf96355 100644
 -		NxSignal.reportCustomEvent("error_f", dictionary);
  	}
 diff --git a/Assets/Scripts/Assembly-CSharp/MainUI.cs b/Assets/Scripts/Assembly-CSharp/MainUI.cs
-index e7d647cc..652e3c25 100644
+index 4fc8e2ae..9e18c400 100644
 --- a/Assets/Scripts/Assembly-CSharp/MainUI.cs
 +++ b/Assets/Scripts/Assembly-CSharp/MainUI.cs
 @@ -3,3 +3,2 @@ using System.Collections;
  using System.Collections.Generic;
 -using Nexon;
  using PvE;
-@@ -454,3 +453,2 @@ public class MainUI : BaseUI
+@@ -452,3 +451,2 @@ public class MainUI : BaseUI
  			Debug.Log("SHOW FIRST USER...");
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "FirstUser" } });
  			firstUserUI.gameObject.SetActive(true);
-@@ -460,3 +458,2 @@ public class MainUI : BaseUI
+@@ -458,3 +456,2 @@ public class MainUI : BaseUI
  			loginDialog.transform.parent.gameObject.SetActive(true);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "Login" } });
  			break;
-@@ -464,3 +461,2 @@ public class MainUI : BaseUI
+@@ -462,3 +459,2 @@ public class MainUI : BaseUI
  			ConnectingUI.SetActive(true);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "Connecting" } });
  			_connectingTimerHandle = Singleton<TimerManager>.Instance.AddTimer(_connectingTimeoutTime, OnConnectingTimeout, null, string.Empty);
-@@ -470,3 +466,2 @@ public class MainUI : BaseUI
+@@ -468,3 +464,2 @@ public class MainUI : BaseUI
  			currentProcess = Process.waitForRulesetToLoad;
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "MenuScreen" } });
  			break;
-@@ -480,3 +475,2 @@ public class MainUI : BaseUI
+@@ -478,3 +473,2 @@ public class MainUI : BaseUI
  			Singleton<UIStateManager>.Instance.SetState(UIState.State.EnteringGame);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "MatchMaking" } });
  			break;
-@@ -487,3 +481,2 @@ public class MainUI : BaseUI
+@@ -485,3 +479,2 @@ public class MainUI : BaseUI
  			backButton.gameObject.SetActive(true);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "MissionLeaderboard" } });
  			break;
-@@ -493,3 +486,2 @@ public class MainUI : BaseUI
+@@ -491,3 +484,2 @@ public class MainUI : BaseUI
  			backButton.gameObject.SetActive(true);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "GuildLeaderboard" } });
  			break;
-@@ -499,3 +491,2 @@ public class MainUI : BaseUI
+@@ -497,3 +489,2 @@ public class MainUI : BaseUI
  			backButton.gameObject.SetActive(true);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "EventLeaderboard" } });
  			break;
-@@ -506,3 +497,2 @@ public class MainUI : BaseUI
+@@ -504,3 +495,2 @@ public class MainUI : BaseUI
  				backButton.gameObject.SetActive(true);
 -				NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "News" } });
  			}
-@@ -512,3 +502,2 @@ public class MainUI : BaseUI
+@@ -510,3 +500,2 @@ public class MainUI : BaseUI
  			backButton.gameObject.SetActive(true);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "ChatUI" } });
  			break;
-@@ -516,3 +505,2 @@ public class MainUI : BaseUI
+@@ -514,3 +503,2 @@ public class MainUI : BaseUI
  			Singleton<UIStateManager>.Instance.SetState(UIState.State.Store);
 -			NxSignal.reportCustomEvent("screenview_f", new Dictionary<string, object> { { "screen", "StoryUI" } });
  			break;

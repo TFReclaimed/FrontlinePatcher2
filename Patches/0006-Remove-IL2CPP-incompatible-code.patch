@@ -1,0 +1,548 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Sat, 28 Mar 2026 04:21:52 +0200
+Subject: [PATCH] Remove IL2CPP incompatible code
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/MNIOSDialog.cs b/Assets/Scripts/Assembly-CSharp/MNIOSDialog.cs
+deleted file mode 100644
+index 979a5a9d..00000000
+--- a/Assets/Scripts/Assembly-CSharp/MNIOSDialog.cs
++++ /dev/null
+@@ -1,44 +0,0 @@
+-using System;
+-using UnityEngine;
+-
+-public class MNIOSDialog : MNPopup
+-{
+-	public string yes;
+-
+-	public string no;
+-
+-	public static MNIOSDialog Create(string title, string message)
+-	{
+-		return Create(title, message, "Yes", "No");
+-	}
+-
+-	public static MNIOSDialog Create(string title, string message, string yes, string no)
+-	{
+-		MNIOSDialog mNIOSDialog = new GameObject("IOSPopUp").AddComponent<MNIOSDialog>();
+-		mNIOSDialog.title = title;
+-		mNIOSDialog.message = message;
+-		mNIOSDialog.yes = yes;
+-		mNIOSDialog.no = no;
+-		mNIOSDialog.init();
+-		return mNIOSDialog;
+-	}
+-
+-	public void init()
+-	{
+-		MNIOSNative.showDialog(title, message, yes, no);
+-	}
+-
+-	public void onPopUpCallBack(string buttonIndex)
+-	{
+-		switch ((int)Convert.ToInt16(buttonIndex))
+-		{
+-		case 0:
+-			OnComplete(MNDialogResult.YES);
+-			break;
+-		case 1:
+-			OnComplete(MNDialogResult.NO);
+-			break;
+-		}
+-		UnityEngine.Object.Destroy(base.gameObject);
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/MNIOSDialog.cs.meta b/Assets/Scripts/Assembly-CSharp/MNIOSDialog.cs.meta
+deleted file mode 100644
+index 640bd8d9..00000000
+--- a/Assets/Scripts/Assembly-CSharp/MNIOSDialog.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 14d484ba4c01b40d09532bfb67152ae0
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/MNIOSMessage.cs b/Assets/Scripts/Assembly-CSharp/MNIOSMessage.cs
+deleted file mode 100644
+index 3e2904ea..00000000
+--- a/Assets/Scripts/Assembly-CSharp/MNIOSMessage.cs
++++ /dev/null
+@@ -1,32 +0,0 @@
+-using UnityEngine;
+-
+-public class MNIOSMessage : MNPopup
+-{
+-	public string ok;
+-
+-	public static MNIOSMessage Create(string title, string message)
+-	{
+-		return Create(title, message, "Ok");
+-	}
+-
+-	public static MNIOSMessage Create(string title, string message, string ok)
+-	{
+-		MNIOSMessage mNIOSMessage = new GameObject("IOSPopUp").AddComponent<MNIOSMessage>();
+-		mNIOSMessage.title = title;
+-		mNIOSMessage.message = message;
+-		mNIOSMessage.ok = ok;
+-		mNIOSMessage.init();
+-		return mNIOSMessage;
+-	}
+-
+-	public void init()
+-	{
+-		MNIOSNative.showMessage(title, message, ok);
+-	}
+-
+-	public void onPopUpCallBack(string buttonIndex)
+-	{
+-		OnComplete(MNDialogResult.YES);
+-		Object.Destroy(base.gameObject);
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/MNIOSMessage.cs.meta b/Assets/Scripts/Assembly-CSharp/MNIOSMessage.cs.meta
+deleted file mode 100644
+index 2181889f..00000000
+--- a/Assets/Scripts/Assembly-CSharp/MNIOSMessage.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 75e800b36e9a0ae87d38184fe8144dfb
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/MNIOSNative.cs b/Assets/Scripts/Assembly-CSharp/MNIOSNative.cs
+deleted file mode 100644
+index dab9db05..00000000
+--- a/Assets/Scripts/Assembly-CSharp/MNIOSNative.cs
++++ /dev/null
+@@ -1,70 +0,0 @@
+-using System.Runtime.InteropServices;
+-
+-public class MNIOSNative
+-{
+-	[DllImport("__Internal")]
+-	private static extern void _MNP_ShowRateUsPopUp(string title, string message, string rate, string remind, string declined);
+-
+-	[DllImport("__Internal")]
+-	private static extern void _MNP_ShowDialog(string title, string message, string yes, string no);
+-
+-	[DllImport("__Internal")]
+-	private static extern void _MNP_ShowMessage(string title, string message, string ok);
+-
+-	[DllImport("__Internal")]
+-	private static extern void _MNP_DismissCurrentAlert();
+-
+-	[DllImport("__Internal")]
+-	private static extern void _MNP_RedirectToAppStoreRatingPage(string appId);
+-
+-	[DllImport("__Internal")]
+-	private static extern void _MNP_ShowPreloader();
+-
+-	[DllImport("__Internal")]
+-	private static extern void _MNP_HidePreloader();
+-
+-	public static void dismissCurrentAlert()
+-	{
+-		_MNP_DismissCurrentAlert();
+-	}
+-
+-	public static void showRateUsPopUP(string title, string message, string rate, string remind, string declined)
+-	{
+-		_MNP_ShowRateUsPopUp(title, message, rate, remind, declined);
+-	}
+-
+-	public static void showDialog(string title, string message)
+-	{
+-		showDialog(title, message, "Yes", "No");
+-	}
+-
+-	public static void showDialog(string title, string message, string yes, string no)
+-	{
+-		_MNP_ShowDialog(title, message, yes, no);
+-	}
+-
+-	public static void showMessage(string title, string message)
+-	{
+-		showMessage(title, message, "Ok");
+-	}
+-
+-	public static void showMessage(string title, string message, string ok)
+-	{
+-		_MNP_ShowMessage(title, message, ok);
+-	}
+-
+-	public static void RedirectToAppStoreRatingPage(string appleId)
+-	{
+-		_MNP_RedirectToAppStoreRatingPage(appleId);
+-	}
+-
+-	public static void ShowPreloader()
+-	{
+-		_MNP_ShowPreloader();
+-	}
+-
+-	public static void HidePreloader()
+-	{
+-		_MNP_HidePreloader();
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/MNIOSNative.cs.meta b/Assets/Scripts/Assembly-CSharp/MNIOSNative.cs.meta
+deleted file mode 100644
+index d29f8215..00000000
+--- a/Assets/Scripts/Assembly-CSharp/MNIOSNative.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: e339597f88a021c641b764a3fc399a30
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/MNIOSRateUsPopUp.cs b/Assets/Scripts/Assembly-CSharp/MNIOSRateUsPopUp.cs
+deleted file mode 100644
+index 4d2e138c..00000000
+--- a/Assets/Scripts/Assembly-CSharp/MNIOSRateUsPopUp.cs
++++ /dev/null
+@@ -1,58 +0,0 @@
+-using System;
+-using UnityEngine;
+-
+-public class MNIOSRateUsPopUp : MNPopup
+-{
+-	public string rate;
+-
+-	public string remind;
+-
+-	public string declined;
+-
+-	public string appleId;
+-
+-	public static MNIOSRateUsPopUp Create()
+-	{
+-		return Create("Like the Game?", "Rate US");
+-	}
+-
+-	public static MNIOSRateUsPopUp Create(string title, string message)
+-	{
+-		return Create(title, message, "Rate Now", "Ask me later", "No, thanks");
+-	}
+-
+-	public static MNIOSRateUsPopUp Create(string title, string message, string rate, string remind, string declined)
+-	{
+-		MNIOSRateUsPopUp mNIOSRateUsPopUp = new GameObject("IOSRateUsPopUp").AddComponent<MNIOSRateUsPopUp>();
+-		mNIOSRateUsPopUp.title = title;
+-		mNIOSRateUsPopUp.message = message;
+-		mNIOSRateUsPopUp.rate = rate;
+-		mNIOSRateUsPopUp.remind = remind;
+-		mNIOSRateUsPopUp.declined = declined;
+-		mNIOSRateUsPopUp.init();
+-		return mNIOSRateUsPopUp;
+-	}
+-
+-	public void init()
+-	{
+-		MNIOSNative.showRateUsPopUP(title, message, rate, remind, declined);
+-	}
+-
+-	public void onPopUpCallBack(string buttonIndex)
+-	{
+-		switch ((int)Convert.ToInt16(buttonIndex))
+-		{
+-		case 0:
+-			MNIOSNative.RedirectToAppStoreRatingPage(appleId);
+-			OnComplete(MNDialogResult.RATED);
+-			break;
+-		case 1:
+-			OnComplete(MNDialogResult.REMIND);
+-			break;
+-		case 2:
+-			OnComplete(MNDialogResult.DECLINED);
+-			break;
+-		}
+-		UnityEngine.Object.Destroy(base.gameObject);
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/MNIOSRateUsPopUp.cs.meta b/Assets/Scripts/Assembly-CSharp/MNIOSRateUsPopUp.cs.meta
+deleted file mode 100644
+index 7f53d8d4..00000000
+--- a/Assets/Scripts/Assembly-CSharp/MNIOSRateUsPopUp.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 9337030442e3539da23a264ba815b19a
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/iCloudManager.cs b/Assets/Scripts/Assembly-CSharp/iCloudManager.cs
+deleted file mode 100644
+index a7a52abd..00000000
+--- a/Assets/Scripts/Assembly-CSharp/iCloudManager.cs
++++ /dev/null
+@@ -1,110 +0,0 @@
+-using System;
+-using System.Collections.Generic;
+-using System.Runtime.InteropServices;
+-using UnityEngine;
+-
+-public class iCloudManager : ISN_Singleton<iCloudManager>
+-{
+-	public static event Action<ISN_Result> OnCloudInitAction;
+-
+-	public static event Action<iCloudData> OnCloudDataReceivedAction;
+-
+-	public static event Action<List<iCloudData>> OnStoreDidChangeExternally;
+-
+-	static iCloudManager()
+-	{
+-		iCloudManager.OnCloudInitAction = delegate
+-		{
+-		};
+-		iCloudManager.OnCloudDataReceivedAction = delegate
+-		{
+-		};
+-		iCloudManager.OnStoreDidChangeExternally = delegate
+-		{
+-		};
+-	}
+-
+-	[DllImport("__Internal")]
+-	private static extern void _initCloud();
+-
+-	[DllImport("__Internal")]
+-	private static extern void _setString(string key, string val);
+-
+-	[DllImport("__Internal")]
+-	private static extern void _setDouble(string key, float val);
+-
+-	[DllImport("__Internal")]
+-	private static extern void _setData(string key, string val);
+-
+-	[DllImport("__Internal")]
+-	private static extern void _requestDataForKey(string key);
+-
+-	private void Awake()
+-	{
+-		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+-	}
+-
+-	public void init()
+-	{
+-		_initCloud();
+-	}
+-
+-	public void setString(string key, string val)
+-	{
+-		_setString(key, val);
+-	}
+-
+-	public void setFloat(string key, float val)
+-	{
+-		_setDouble(key, val);
+-	}
+-
+-	public void setData(string key, byte[] val)
+-	{
+-		string val2 = Convert.ToBase64String(val);
+-		_setData(key, val2);
+-	}
+-
+-	public void requestDataForKey(string key)
+-	{
+-		_requestDataForKey(key);
+-	}
+-
+-	private void OnCloudInit()
+-	{
+-		ISN_Result obj = new ISN_Result(true);
+-		iCloudManager.OnCloudInitAction(obj);
+-	}
+-
+-	private void OnCloudInitFail()
+-	{
+-		ISN_Result obj = new ISN_Result(false);
+-		iCloudManager.OnCloudInitAction(obj);
+-	}
+-
+-	private void OnCloudDataChanged(string data)
+-	{
+-		List<iCloudData> list = new List<iCloudData>();
+-		string[] array = data.Split('|');
+-		for (int i = 0; i < array.Length && !(array[i] == "endofline"); i += 2)
+-		{
+-			iCloudData item = new iCloudData(array[i], array[i + 1]);
+-			list.Add(item);
+-		}
+-		iCloudManager.OnStoreDidChangeExternally(list);
+-	}
+-
+-	private void OnCloudData(string array)
+-	{
+-		string[] array2 = array.Split('|');
+-		iCloudData obj = new iCloudData(array2[0], array2[1]);
+-		iCloudManager.OnCloudDataReceivedAction(obj);
+-	}
+-
+-	private void OnCloudDataEmpty(string array)
+-	{
+-		string[] array2 = array.Split('|');
+-		iCloudData obj = new iCloudData(array2[0], "null");
+-		iCloudManager.OnCloudDataReceivedAction(obj);
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/iCloudManager.cs.meta b/Assets/Scripts/Assembly-CSharp/iCloudManager.cs.meta
+deleted file mode 100644
+index 69b63480..00000000
+--- a/Assets/Scripts/Assembly-CSharp/iCloudManager.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 00d9261d6316579751017cd4ae8c0651
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/iCloudUseExample.cs b/Assets/Scripts/Assembly-CSharp/iCloudUseExample.cs
+deleted file mode 100644
+index 87da067e..00000000
+--- a/Assets/Scripts/Assembly-CSharp/iCloudUseExample.cs
++++ /dev/null
+@@ -1,90 +0,0 @@
+-using System.Collections.Generic;
+-using System.Text;
+-using UnityEngine;
+-
+-public class iCloudUseExample : BaseIOSFeaturePreview
+-{
+-	private float v = 1.1f;
+-
+-	private void Awake()
+-	{
+-		iCloudManager.OnCloudInitAction += OnCloundInitAction;
+-		iCloudManager.OnCloudDataReceivedAction += OnCloudDataReceivedAction;
+-		iCloudManager.OnStoreDidChangeExternally += HandleOnStoreDidChangeExternally;
+-		ISN_Singleton<iCloudManager>.Instance.init();
+-	}
+-
+-	private void HandleOnStoreDidChangeExternally(List<iCloudData> changedData)
+-	{
+-		foreach (iCloudData changedDatum in changedData)
+-		{
+-			Debug.Log("Cloud data with key:  " + changedDatum.key + " was chnaged");
+-		}
+-	}
+-
+-	private void OnGUI()
+-	{
+-		if (GUI.Button(new Rect(170f, 70f, 150f, 50f), "Set String"))
+-		{
+-			ISN_Singleton<iCloudManager>.Instance.setString("TestStringKey", "Hello World");
+-		}
+-		if (GUI.Button(new Rect(170f, 130f, 150f, 50f), "Get String"))
+-		{
+-			ISN_Singleton<iCloudManager>.Instance.requestDataForKey("TestStringKey");
+-		}
+-		if (GUI.Button(new Rect(330f, 70f, 150f, 50f), "Set Float"))
+-		{
+-			v += 1.1f;
+-			ISN_Singleton<iCloudManager>.Instance.setFloat("TestFloatKey", v);
+-		}
+-		if (GUI.Button(new Rect(330f, 130f, 150f, 50f), "Get Float"))
+-		{
+-			ISN_Singleton<iCloudManager>.Instance.requestDataForKey("TestFloatKey");
+-		}
+-		if (GUI.Button(new Rect(490f, 70f, 150f, 50f), "Set Bytes"))
+-		{
+-			string s = "hello world";
+-			UTF8Encoding uTF8Encoding = new UTF8Encoding();
+-			byte[] bytes = uTF8Encoding.GetBytes(s);
+-			ISN_Singleton<iCloudManager>.Instance.setData("TestByteKey", bytes);
+-		}
+-		if (GUI.Button(new Rect(490f, 130f, 150f, 50f), "Get Bytes"))
+-		{
+-			ISN_Singleton<iCloudManager>.Instance.requestDataForKey("TestByteKey");
+-		}
+-		if (GUI.Button(new Rect(170f, 500f, 150f, 50f), "TestConnection"))
+-		{
+-			LoadLevel("Peer-To-PeerGameExample");
+-		}
+-	}
+-
+-	private void OnCloundInitAction(ISN_Result result)
+-	{
+-		if (result.IsSucceeded)
+-		{
+-			IOSNativePopUpManager.showMessage("iCloud", "Initialization Success!");
+-		}
+-		else
+-		{
+-			IOSNativePopUpManager.showMessage("iCloud", "Initialization Failed!");
+-		}
+-	}
+-
+-	private void OnCloudDataReceivedAction(iCloudData data)
+-	{
+-		if (data.IsEmpty)
+-		{
+-			IOSNativePopUpManager.showMessage(data.key, "data is empty");
+-		}
+-		else
+-		{
+-			IOSNativePopUpManager.showMessage(data.key, data.stringValue);
+-		}
+-	}
+-
+-	private void OnDestroy()
+-	{
+-		iCloudManager.OnCloudInitAction -= OnCloundInitAction;
+-		iCloudManager.OnCloudDataReceivedAction -= OnCloudDataReceivedAction;
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/iCloudUseExample.cs.meta b/Assets/Scripts/Assembly-CSharp/iCloudUseExample.cs.meta
+deleted file mode 100644
+index bd08eb0d..00000000
+--- a/Assets/Scripts/Assembly-CSharp/iCloudUseExample.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: cc5ddf54d9263b7c5ffec81bab7dff9e
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
