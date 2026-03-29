@@ -21,9 +21,12 @@ OVERRIDES_DIR = "Overrides"
 def find_unity() -> str:
     unity_path = ""
 
-    # TODO: Handle Windows and macOS paths
     if sys.platform == "linux":
         unity_path = os.path.expanduser("~/Unity/Hub/Editor/2022.3.62f3/Editor/Unity")
+    elif sys.platform == "darwin":
+        unity_path = "/Applications/Unity/Hub/Editor/2022.3.62f3/Unity.app/Contents/MacOS/Unity"
+    elif sys.platform == "win32":
+        unity_path = "C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Unity.exe"
     else:
         print("[!] ERROR: Unsupported platform.")
         sys.exit(1)
