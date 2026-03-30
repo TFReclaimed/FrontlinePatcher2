@@ -201,12 +201,12 @@ M>(+n2{(rmvFD>GJMgRZ+
 
 diff --git a/Assets/Plugins/NxSDK.dll.meta b/Assets/Plugins/NxSDK.dll.meta
 deleted file mode 100644
-index cfa52056..00000000
+index 594f039c..00000000
 --- a/Assets/Plugins/NxSDK.dll.meta
 +++ /dev/null
 @@ -1,33 +0,0 @@
 -fileFormatVersion: 2
--guid: b20008194089a01f3ffd8d091a9aa913
+-guid: 0553da1e5d1bd49344abd2924d584c2f
 -PluginImporter:
 -  externalObjects: {}
 -  serializedVersion: 2
@@ -239,7 +239,7 @@ index cfa52056..00000000
 -  assetBundleName: 
 -  assetBundleVariant: 
 diff --git a/Assets/Scenes/GameShell.unity b/Assets/Scenes/GameShell.unity
-index 42efaeb1..bcdac12a 100644
+index 8ec3d402..933e977c 100644
 --- a/Assets/Scenes/GameShell.unity
 +++ b/Assets/Scenes/GameShell.unity
 @@ -20,19 +20,2 @@ GameObject:
@@ -291,7 +291,7 @@ index 42efaeb1..bcdac12a 100644
 -  m_GameObject: {fileID: 2}
 -  m_Enabled: 1
 -  m_EditorHideFlags: 0
--  m_Script: {fileID: 11500000, guid: 643e505a9bb1805f28345d45f25a09f3, type: 3}
+-  m_Script: {fileID: 11500000, guid: 2076afebc806effe6002db593a7483a5, type: 3}
 -  m_Name: 
 -  m_EditorClassIdentifier: 
 -  key: aeaeb173-04f4-4b3a-b661-19b9aeb164ee
@@ -558,12 +558,12 @@ index 9e0af3de..00000000
 -}
 diff --git a/Assets/Scripts/Assembly-CSharp/NativeSystemCallbackBehavior.cs.meta b/Assets/Scripts/Assembly-CSharp/NativeSystemCallbackBehavior.cs.meta
 deleted file mode 100644
-index 541a7825..00000000
+index 9850cc88..00000000
 --- a/Assets/Scripts/Assembly-CSharp/NativeSystemCallbackBehavior.cs.meta
 +++ /dev/null
 @@ -1,11 +0,0 @@
 -fileFormatVersion: 2
--guid: 643e505a9bb1805f28345d45f25a09f3
+-guid: 2076afebc806effe6002db593a7483a5
 -MonoImporter:
 -  externalObjects: {}
 -  serializedVersion: 2

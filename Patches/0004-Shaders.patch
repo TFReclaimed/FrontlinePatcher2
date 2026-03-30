@@ -1525,8 +1525,6 @@ index 1a8b4079..4995cc89 100644
 -		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +CGPROGRAM
 +#pragma surface surf MobileBlinnPhong exclude_path:prepass nolightmap noforwardadd halfasview interpolateview
 +
@@ -1562,7 +1560,7 @@ index 1a8b4079..4995cc89 100644
 +}
 +
 +FallBack "Mobile/VertexLit"
-+}
+ }
 diff --git a/Assets/Shader/Mobile-Bumped.shader b/Assets/Shader/Mobile-Bumped.shader
 index b810fe9c..01cd3c28 100644
 --- a/Assets/Shader/Mobile-Bumped.shader
@@ -1579,7 +1577,27 @@ index b810fe9c..01cd3c28 100644
 - _BumpMap ("Normalmap", 2D) = "bump" { }
 +	_MainTex ("Base (RGB)", 2D) = "white" {}
 +	_BumpMap ("Normalmap", 2D) = "bump" {}
-+}
+ }
+-	//DummyShaderTextExporter
+-	
+-	SubShader{
+-		Tags { "RenderType" = "Opaque" }
+-		LOD 200
+-		CGPROGRAM
+-#pragma surface surf Lambert
+-#pragma target 3.0
+-		sampler2D _MainTex;
+-		struct Input
+-		{
+-			float2 uv_MainTex;
+-		};
+-		void surf(Input IN, inout SurfaceOutput o)
+-		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
+-		}
+-		ENDCG
+-	}
 +
 +SubShader {
 +	Tags { "RenderType"="Opaque" }
@@ -1606,28 +1624,6 @@ index b810fe9c..01cd3c28 100644
 +
 +FallBack "Mobile/Diffuse"
  }
--	//DummyShaderTextExporter
--	
--	SubShader{
--		Tags { "RenderType" = "Opaque" }
--		LOD 200
--		CGPROGRAM
--#pragma surface surf Lambert
--#pragma target 3.0
--		sampler2D _MainTex;
--		struct Input
--		{
--			float2 uv_MainTex;
--		};
--		void surf(Input IN, inout SurfaceOutput o)
--		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
--		}
--		ENDCG
--	}
--}
-\ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Bumped_0.shader b/Assets/Shader/Mobile-Bumped_0.shader
 index b810fe9c..01cd3c28 100644
 --- a/Assets/Shader/Mobile-Bumped_0.shader
@@ -1644,7 +1640,27 @@ index b810fe9c..01cd3c28 100644
 - _BumpMap ("Normalmap", 2D) = "bump" { }
 +	_MainTex ("Base (RGB)", 2D) = "white" {}
 +	_BumpMap ("Normalmap", 2D) = "bump" {}
-+}
+ }
+-	//DummyShaderTextExporter
+-	
+-	SubShader{
+-		Tags { "RenderType" = "Opaque" }
+-		LOD 200
+-		CGPROGRAM
+-#pragma surface surf Lambert
+-#pragma target 3.0
+-		sampler2D _MainTex;
+-		struct Input
+-		{
+-			float2 uv_MainTex;
+-		};
+-		void surf(Input IN, inout SurfaceOutput o)
+-		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
+-		}
+-		ENDCG
+-	}
 +
 +SubShader {
 +	Tags { "RenderType"="Opaque" }
@@ -1671,28 +1687,6 @@ index b810fe9c..01cd3c28 100644
 +
 +FallBack "Mobile/Diffuse"
  }
--	//DummyShaderTextExporter
--	
--	SubShader{
--		Tags { "RenderType" = "Opaque" }
--		LOD 200
--		CGPROGRAM
--#pragma surface surf Lambert
--#pragma target 3.0
--		sampler2D _MainTex;
--		struct Input
--		{
--			float2 uv_MainTex;
--		};
--		void surf(Input IN, inout SurfaceOutput o)
--		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
--		}
--		ENDCG
--	}
--}
-\ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Bumped_1.shader b/Assets/Shader/Mobile-Bumped_1.shader
 index b810fe9c..01cd3c28 100644
 --- a/Assets/Shader/Mobile-Bumped_1.shader
@@ -1709,7 +1703,27 @@ index b810fe9c..01cd3c28 100644
 - _BumpMap ("Normalmap", 2D) = "bump" { }
 +	_MainTex ("Base (RGB)", 2D) = "white" {}
 +	_BumpMap ("Normalmap", 2D) = "bump" {}
-+}
+ }
+-	//DummyShaderTextExporter
+-	
+-	SubShader{
+-		Tags { "RenderType" = "Opaque" }
+-		LOD 200
+-		CGPROGRAM
+-#pragma surface surf Lambert
+-#pragma target 3.0
+-		sampler2D _MainTex;
+-		struct Input
+-		{
+-			float2 uv_MainTex;
+-		};
+-		void surf(Input IN, inout SurfaceOutput o)
+-		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
+-		}
+-		ENDCG
+-	}
 +
 +SubShader {
 +	Tags { "RenderType"="Opaque" }
@@ -1736,28 +1750,6 @@ index b810fe9c..01cd3c28 100644
 +
 +FallBack "Mobile/Diffuse"
  }
--	//DummyShaderTextExporter
--	
--	SubShader{
--		Tags { "RenderType" = "Opaque" }
--		LOD 200
--		CGPROGRAM
--#pragma surface surf Lambert
--#pragma target 3.0
--		sampler2D _MainTex;
--		struct Input
--		{
--			float2 uv_MainTex;
--		};
--		void surf(Input IN, inout SurfaceOutput o)
--		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
--		}
--		ENDCG
--	}
--}
-\ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Diffuse.shader b/Assets/Shader/Mobile-Diffuse.shader
 index f1a68ac9..b064ba65 100644
 --- a/Assets/Shader/Mobile-Diffuse.shader
@@ -1771,7 +1763,27 @@ index f1a68ac9..b064ba65 100644
  Properties {
 - _MainTex ("Base (RGB)", 2D) = "white" { }
 +	_MainTex ("Base (RGB)", 2D) = "white" {}
-+}
+ }
+-	//DummyShaderTextExporter
+-	
+-	SubShader{
+-		Tags { "RenderType" = "Opaque" }
+-		LOD 200
+-		CGPROGRAM
+-#pragma surface surf Lambert
+-#pragma target 3.0
+-		sampler2D _MainTex;
+-		struct Input
+-		{
+-			float2 uv_MainTex;
+-		};
+-		void surf(Input IN, inout SurfaceOutput o)
+-		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
+-		}
+-		ENDCG
+-	}
 +SubShader {
 +	Tags { "RenderType"="Opaque" }
 +	LOD 150
@@ -1795,28 +1807,6 @@ index f1a68ac9..b064ba65 100644
 +
 +Fallback "Mobile/VertexLit"
  }
--	//DummyShaderTextExporter
--	
--	SubShader{
--		Tags { "RenderType" = "Opaque" }
--		LOD 200
--		CGPROGRAM
--#pragma surface surf Lambert
--#pragma target 3.0
--		sampler2D _MainTex;
--		struct Input
--		{
--			float2 uv_MainTex;
--		};
--		void surf(Input IN, inout SurfaceOutput o)
--		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
--		}
--		ENDCG
--	}
--}
-\ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Diffuse_0.shader b/Assets/Shader/Mobile-Diffuse_0.shader
 index f1a68ac9..b064ba65 100644
 --- a/Assets/Shader/Mobile-Diffuse_0.shader
@@ -1830,7 +1820,27 @@ index f1a68ac9..b064ba65 100644
  Properties {
 - _MainTex ("Base (RGB)", 2D) = "white" { }
 +	_MainTex ("Base (RGB)", 2D) = "white" {}
-+}
+ }
+-	//DummyShaderTextExporter
+-	
+-	SubShader{
+-		Tags { "RenderType" = "Opaque" }
+-		LOD 200
+-		CGPROGRAM
+-#pragma surface surf Lambert
+-#pragma target 3.0
+-		sampler2D _MainTex;
+-		struct Input
+-		{
+-			float2 uv_MainTex;
+-		};
+-		void surf(Input IN, inout SurfaceOutput o)
+-		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
+-		}
+-		ENDCG
+-	}
 +SubShader {
 +	Tags { "RenderType"="Opaque" }
 +	LOD 150
@@ -1854,28 +1864,6 @@ index f1a68ac9..b064ba65 100644
 +
 +Fallback "Mobile/VertexLit"
  }
--	//DummyShaderTextExporter
--	
--	SubShader{
--		Tags { "RenderType" = "Opaque" }
--		LOD 200
--		CGPROGRAM
--#pragma surface surf Lambert
--#pragma target 3.0
--		sampler2D _MainTex;
--		struct Input
--		{
--			float2 uv_MainTex;
--		};
--		void surf(Input IN, inout SurfaceOutput o)
--		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
--		}
--		ENDCG
--	}
--}
-\ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Diffuse_1.shader b/Assets/Shader/Mobile-Diffuse_1.shader
 index f1a68ac9..b064ba65 100644
 --- a/Assets/Shader/Mobile-Diffuse_1.shader
@@ -1889,7 +1877,27 @@ index f1a68ac9..b064ba65 100644
  Properties {
 - _MainTex ("Base (RGB)", 2D) = "white" { }
 +	_MainTex ("Base (RGB)", 2D) = "white" {}
-+}
+ }
+-	//DummyShaderTextExporter
+-	
+-	SubShader{
+-		Tags { "RenderType" = "Opaque" }
+-		LOD 200
+-		CGPROGRAM
+-#pragma surface surf Lambert
+-#pragma target 3.0
+-		sampler2D _MainTex;
+-		struct Input
+-		{
+-			float2 uv_MainTex;
+-		};
+-		void surf(Input IN, inout SurfaceOutput o)
+-		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
+-		}
+-		ENDCG
+-	}
 +SubShader {
 +	Tags { "RenderType"="Opaque" }
 +	LOD 150
@@ -1913,28 +1921,6 @@ index f1a68ac9..b064ba65 100644
 +
 +Fallback "Mobile/VertexLit"
  }
--	//DummyShaderTextExporter
--	
--	SubShader{
--		Tags { "RenderType" = "Opaque" }
--		LOD 200
--		CGPROGRAM
--#pragma surface surf Lambert
--#pragma target 3.0
--		sampler2D _MainTex;
--		struct Input
--		{
--			float2 uv_MainTex;
--		};
--		void surf(Input IN, inout SurfaceOutput o)
--		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
--		}
--		ENDCG
--	}
--}
-\ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Diffuse_2.shader b/Assets/Shader/Mobile-Diffuse_2.shader
 index f1a68ac9..b064ba65 100644
 --- a/Assets/Shader/Mobile-Diffuse_2.shader
@@ -1948,7 +1934,27 @@ index f1a68ac9..b064ba65 100644
  Properties {
 - _MainTex ("Base (RGB)", 2D) = "white" { }
 +	_MainTex ("Base (RGB)", 2D) = "white" {}
-+}
+ }
+-	//DummyShaderTextExporter
+-	
+-	SubShader{
+-		Tags { "RenderType" = "Opaque" }
+-		LOD 200
+-		CGPROGRAM
+-#pragma surface surf Lambert
+-#pragma target 3.0
+-		sampler2D _MainTex;
+-		struct Input
+-		{
+-			float2 uv_MainTex;
+-		};
+-		void surf(Input IN, inout SurfaceOutput o)
+-		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
+-		}
+-		ENDCG
+-	}
 +SubShader {
 +	Tags { "RenderType"="Opaque" }
 +	LOD 150
@@ -1972,28 +1978,6 @@ index f1a68ac9..b064ba65 100644
 +
 +Fallback "Mobile/VertexLit"
  }
--	//DummyShaderTextExporter
--	
--	SubShader{
--		Tags { "RenderType" = "Opaque" }
--		LOD 200
--		CGPROGRAM
--#pragma surface surf Lambert
--#pragma target 3.0
--		sampler2D _MainTex;
--		struct Input
--		{
--			float2 uv_MainTex;
--		};
--		void surf(Input IN, inout SurfaceOutput o)
--		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
--		}
--		ENDCG
--	}
--}
-\ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add.shader b/Assets/Shader/Mobile-Particle-Add.shader
 index 4163658e..cf0589b2 100644
 --- a/Assets/Shader/Mobile-Particle-Add.shader
@@ -2046,8 +2030,8 @@ index 4163658e..cf0589b2 100644
  		}
 -		ENDCG
  	}
-+}
  }
++}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_0.shader b/Assets/Shader/Mobile-Particle-Add_0.shader
 index 4163658e..cf0589b2 100644
@@ -2101,8 +2085,8 @@ index 4163658e..cf0589b2 100644
  		}
 -		ENDCG
  	}
-+}
  }
++}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_1.shader b/Assets/Shader/Mobile-Particle-Add_1.shader
 index 4163658e..cf0589b2 100644
@@ -2156,8 +2140,8 @@ index 4163658e..cf0589b2 100644
  		}
 -		ENDCG
  	}
-+}
  }
++}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_2.shader b/Assets/Shader/Mobile-Particle-Add_2.shader
 index 4163658e..cf0589b2 100644
@@ -2211,8 +2195,8 @@ index 4163658e..cf0589b2 100644
  		}
 -		ENDCG
  	}
-+}
  }
++}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_3.shader b/Assets/Shader/Mobile-Particle-Add_3.shader
 index 4163658e..cf0589b2 100644
@@ -2266,8 +2250,8 @@ index 4163658e..cf0589b2 100644
  		}
 -		ENDCG
  	}
-+}
  }
++}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_4.shader b/Assets/Shader/Mobile-Particle-Add_4.shader
 index 4163658e..cf0589b2 100644
@@ -2321,8 +2305,8 @@ index 4163658e..cf0589b2 100644
  		}
 -		ENDCG
  	}
-+}
  }
++}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_5.shader b/Assets/Shader/Mobile-Particle-Add_5.shader
 index 4163658e..cf0589b2 100644
@@ -2376,8 +2360,8 @@ index 4163658e..cf0589b2 100644
  		}
 -		ENDCG
  	}
-+}
  }
++}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_6.shader b/Assets/Shader/Mobile-Particle-Add_6.shader
 index 4163658e..cf0589b2 100644
@@ -2431,8 +2415,8 @@ index 4163658e..cf0589b2 100644
  		}
 -		ENDCG
  	}
-+}
  }
++}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-Particle-Add_7.shader b/Assets/Shader/Mobile-Particle-Add_7.shader
 index 4163658e..cf0589b2 100644
@@ -2486,8 +2470,8 @@ index 4163658e..cf0589b2 100644
  		}
 -		ENDCG
  	}
-+}
  }
++}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-VertexLit.shader b/Assets/Shader/Mobile-VertexLit.shader
 index af364c8e..fa63de86 100644
@@ -2596,25 +2580,23 @@ index af364c8e..fa63de86 100644
 -		void surf(Input IN, inout SurfaceOutput o)
 +
 +		v2f vert( appdata_base v )
-+		{
+ 		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
 +			v2f o;
 +			TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
 +			return o;
 +		}
 +
 +		float4 frag( v2f i ) : SV_Target
- 		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
++		{
 +			SHADOW_CASTER_FRAGMENT(i)
  		}
  		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Mobile-VertexLit_0.shader b/Assets/Shader/Mobile-VertexLit_0.shader
 index af364c8e..fa63de86 100644
 --- a/Assets/Shader/Mobile-VertexLit_0.shader
@@ -2722,25 +2704,23 @@ index af364c8e..fa63de86 100644
 -		void surf(Input IN, inout SurfaceOutput o)
 +
 +		v2f vert( appdata_base v )
-+		{
+ 		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
 +			v2f o;
 +			TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
 +			return o;
 +		}
 +
 +		float4 frag( v2f i ) : SV_Target
- 		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
++		{
 +			SHADOW_CASTER_FRAGMENT(i)
  		}
  		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Mobile-VertexLit_1.shader b/Assets/Shader/Mobile-VertexLit_1.shader
 index af364c8e..fa63de86 100644
 --- a/Assets/Shader/Mobile-VertexLit_1.shader
@@ -2848,25 +2828,23 @@ index af364c8e..fa63de86 100644
 -		void surf(Input IN, inout SurfaceOutput o)
 +
 +		v2f vert( appdata_base v )
-+		{
+ 		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
 +			v2f o;
 +			TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
 +			return o;
 +		}
 +
 +		float4 frag( v2f i ) : SV_Target
- 		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
++		{
 +			SHADOW_CASTER_FRAGMENT(i)
  		}
  		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Mobile-VertexLit_2.shader b/Assets/Shader/Mobile-VertexLit_2.shader
 index af364c8e..fa63de86 100644
 --- a/Assets/Shader/Mobile-VertexLit_2.shader
@@ -2974,25 +2952,23 @@ index af364c8e..fa63de86 100644
 -		void surf(Input IN, inout SurfaceOutput o)
 +
 +		v2f vert( appdata_base v )
-+		{
+ 		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
 +			v2f o;
 +			TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
 +			return o;
 +		}
 +
 +		float4 frag( v2f i ) : SV_Target
- 		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
++		{
 +			SHADOW_CASTER_FRAGMENT(i)
  		}
  		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Mobile-VertexLit_3.shader b/Assets/Shader/Mobile-VertexLit_3.shader
 index af364c8e..fa63de86 100644
 --- a/Assets/Shader/Mobile-VertexLit_3.shader
@@ -3100,25 +3076,23 @@ index af364c8e..fa63de86 100644
 -		void surf(Input IN, inout SurfaceOutput o)
 +
 +		v2f vert( appdata_base v )
-+		{
+ 		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
 +			v2f o;
 +			TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
 +			return o;
 +		}
 +
 +		float4 frag( v2f i ) : SV_Target
- 		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
++		{
 +			SHADOW_CASTER_FRAGMENT(i)
  		}
  		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Model-Diffuse-Specular.shader b/Assets/Shader/Model-Diffuse-Specular.shader
 index 88679239..b40f8da5 100644
 --- a/Assets/Shader/Model-Diffuse-Specular.shader
@@ -7595,15 +7569,13 @@ index 547c0f36..b678c1cb 100644
 -		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	CGPROGRAM
 +	#pragma surface surf BlinnPhong nodynlightmap
 +	ENDCG
 +}
 +
 +FallBack "Legacy Shaders/Specular"
-+}
+ }
 diff --git a/Assets/Shader/Normal-Diffuse.shader b/Assets/Shader/Normal-Diffuse.shader
 index 4ba20a33..146e54ca 100644
 --- a/Assets/Shader/Normal-Diffuse.shader
@@ -7640,8 +7612,6 @@ index 4ba20a33..146e54ca 100644
 -		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +
 +sampler2D _MainTex;
 +fixed4 _Color;
@@ -7659,7 +7629,7 @@ index 4ba20a33..146e54ca 100644
 +}
 +
 +Fallback "Legacy Shaders/VertexLit"
-+}
+ }
 diff --git a/Assets/Shader/Normal-Diffuse_0.shader b/Assets/Shader/Normal-Diffuse_0.shader
 index 4ba20a33..146e54ca 100644
 --- a/Assets/Shader/Normal-Diffuse_0.shader
@@ -7696,8 +7666,6 @@ index 4ba20a33..146e54ca 100644
 -		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +
 +sampler2D _MainTex;
 +fixed4 _Color;
@@ -7715,7 +7683,7 @@ index 4ba20a33..146e54ca 100644
 +}
 +
 +Fallback "Legacy Shaders/VertexLit"
-+}
+ }
 diff --git a/Assets/Shader/Normal-Diffuse_1.shader b/Assets/Shader/Normal-Diffuse_1.shader
 index 4ba20a33..146e54ca 100644
 --- a/Assets/Shader/Normal-Diffuse_1.shader
@@ -7752,8 +7720,6 @@ index 4ba20a33..146e54ca 100644
 -		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +
 +sampler2D _MainTex;
 +fixed4 _Color;
@@ -7771,7 +7737,7 @@ index 4ba20a33..146e54ca 100644
 +}
 +
 +Fallback "Legacy Shaders/VertexLit"
-+}
+ }
 diff --git a/Assets/Shader/Normal-Diffuse_2.shader b/Assets/Shader/Normal-Diffuse_2.shader
 index 4ba20a33..146e54ca 100644
 --- a/Assets/Shader/Normal-Diffuse_2.shader
@@ -7808,8 +7774,6 @@ index 4ba20a33..146e54ca 100644
 -		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +
 +sampler2D _MainTex;
 +fixed4 _Color;
@@ -7827,7 +7791,7 @@ index 4ba20a33..146e54ca 100644
 +}
 +
 +Fallback "Legacy Shaders/VertexLit"
-+}
+ }
 diff --git a/Assets/Shader/Normal-Glossy.shader b/Assets/Shader/Normal-Glossy.shader
 index 4bb09efe..17d8a362 100644
 --- a/Assets/Shader/Normal-Glossy.shader
@@ -7867,8 +7831,6 @@ index 4bb09efe..17d8a362 100644
 -		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +CGPROGRAM
 +#pragma surface surf BlinnPhong
 +
@@ -7891,7 +7853,7 @@ index 4bb09efe..17d8a362 100644
 +}
 +
 +Fallback "Legacy Shaders/VertexLit"
-+}
+ }
 diff --git a/Assets/Shader/Normal-VertexLit.shader b/Assets/Shader/Normal-VertexLit.shader
 index 04c016cd..ae31b913 100644
 --- a/Assets/Shader/Normal-VertexLit.shader
@@ -7968,11 +7930,8 @@ index 04c016cd..ae31b913 100644
 +		SetTexture [_MainTex] {
 +			constantColor (1,1,1,1)
 +			combine texture * previous DOUBLE, constant // UNITY_OPAQUE_ALPHA_FFP
- 		}
--		ENDCG
- 	}
--}
-\ No newline at end of file
++		}
++	}
 +	
 +	// Lightmapped, encoded as RGBM
 +	Pass {
@@ -7989,7 +7948,8 @@ index 04c016cd..ae31b913 100644
 +		SetTexture [unity_Lightmap] {
 +			matrix [unity_LightmapMatrix]
 +			combine texture * texture alpha DOUBLE
-+		}
+ 		}
+-		ENDCG
 +		SetTexture [unity_Lightmap] {
 +			constantColor [_Color]
 +			combine previous * constant
@@ -8028,11 +7988,11 @@ index 04c016cd..ae31b913 100644
 +}
 +ENDCG
 +
-+	}
+ 	}
 +	
 +}
 +
-+}
+ }
 diff --git a/Assets/Shader/Normal-VertexLit_0.shader b/Assets/Shader/Normal-VertexLit_0.shader
 index 04c016cd..ae31b913 100644
 --- a/Assets/Shader/Normal-VertexLit_0.shader
@@ -8109,11 +8069,8 @@ index 04c016cd..ae31b913 100644
 +		SetTexture [_MainTex] {
 +			constantColor (1,1,1,1)
 +			combine texture * previous DOUBLE, constant // UNITY_OPAQUE_ALPHA_FFP
- 		}
--		ENDCG
- 	}
--}
-\ No newline at end of file
++		}
++	}
 +	
 +	// Lightmapped, encoded as RGBM
 +	Pass {
@@ -8130,7 +8087,8 @@ index 04c016cd..ae31b913 100644
 +		SetTexture [unity_Lightmap] {
 +			matrix [unity_LightmapMatrix]
 +			combine texture * texture alpha DOUBLE
-+		}
+ 		}
+-		ENDCG
 +		SetTexture [unity_Lightmap] {
 +			constantColor [_Color]
 +			combine previous * constant
@@ -8169,11 +8127,11 @@ index 04c016cd..ae31b913 100644
 +}
 +ENDCG
 +
-+	}
+ 	}
 +	
 +}
 +
-+}
+ }
 diff --git a/Assets/Shader/Normal-VertexLit_1.shader b/Assets/Shader/Normal-VertexLit_1.shader
 index 04c016cd..ae31b913 100644
 --- a/Assets/Shader/Normal-VertexLit_1.shader
@@ -8250,11 +8208,8 @@ index 04c016cd..ae31b913 100644
 +		SetTexture [_MainTex] {
 +			constantColor (1,1,1,1)
 +			combine texture * previous DOUBLE, constant // UNITY_OPAQUE_ALPHA_FFP
- 		}
--		ENDCG
- 	}
--}
-\ No newline at end of file
++		}
++	}
 +	
 +	// Lightmapped, encoded as RGBM
 +	Pass {
@@ -8271,7 +8226,8 @@ index 04c016cd..ae31b913 100644
 +		SetTexture [unity_Lightmap] {
 +			matrix [unity_LightmapMatrix]
 +			combine texture * texture alpha DOUBLE
-+		}
+ 		}
+-		ENDCG
 +		SetTexture [unity_Lightmap] {
 +			constantColor [_Color]
 +			combine previous * constant
@@ -8310,11 +8266,11 @@ index 04c016cd..ae31b913 100644
 +}
 +ENDCG
 +
-+	}
+ 	}
 +	
 +}
 +
-+}
+ }
 diff --git a/Assets/Shader/Normal-VertexLit_2.shader b/Assets/Shader/Normal-VertexLit_2.shader
 index 04c016cd..ae31b913 100644
 --- a/Assets/Shader/Normal-VertexLit_2.shader
@@ -8391,11 +8347,8 @@ index 04c016cd..ae31b913 100644
 +		SetTexture [_MainTex] {
 +			constantColor (1,1,1,1)
 +			combine texture * previous DOUBLE, constant // UNITY_OPAQUE_ALPHA_FFP
- 		}
--		ENDCG
- 	}
--}
-\ No newline at end of file
++		}
++	}
 +	
 +	// Lightmapped, encoded as RGBM
 +	Pass {
@@ -8412,7 +8365,8 @@ index 04c016cd..ae31b913 100644
 +		SetTexture [unity_Lightmap] {
 +			matrix [unity_LightmapMatrix]
 +			combine texture * texture alpha DOUBLE
-+		}
+ 		}
+-		ENDCG
 +		SetTexture [unity_Lightmap] {
 +			constantColor [_Color]
 +			combine previous * constant
@@ -8451,11 +8405,11 @@ index 04c016cd..ae31b913 100644
 +}
 +ENDCG
 +
-+	}
+ 	}
 +	
 +}
 +
-+}
+ }
 diff --git a/Assets/Shader/Normal-VertexLit_3.shader b/Assets/Shader/Normal-VertexLit_3.shader
 index 04c016cd..ae31b913 100644
 --- a/Assets/Shader/Normal-VertexLit_3.shader
@@ -8532,11 +8486,8 @@ index 04c016cd..ae31b913 100644
 +		SetTexture [_MainTex] {
 +			constantColor (1,1,1,1)
 +			combine texture * previous DOUBLE, constant // UNITY_OPAQUE_ALPHA_FFP
- 		}
--		ENDCG
- 	}
--}
-\ No newline at end of file
++		}
++	}
 +	
 +	// Lightmapped, encoded as RGBM
 +	Pass {
@@ -8553,7 +8504,8 @@ index 04c016cd..ae31b913 100644
 +		SetTexture [unity_Lightmap] {
 +			matrix [unity_LightmapMatrix]
 +			combine texture * texture alpha DOUBLE
-+		}
+ 		}
+-		ENDCG
 +		SetTexture [unity_Lightmap] {
 +			constantColor [_Color]
 +			combine previous * constant
@@ -8592,11 +8544,11 @@ index 04c016cd..ae31b913 100644
 +}
 +ENDCG
 +
-+	}
+ 	}
 +	
 +}
 +
-+}
+ }
 diff --git a/Assets/Shader/Normal-VertexLit_4.shader b/Assets/Shader/Normal-VertexLit_4.shader
 index 04c016cd..ae31b913 100644
 --- a/Assets/Shader/Normal-VertexLit_4.shader
@@ -8673,11 +8625,8 @@ index 04c016cd..ae31b913 100644
 +		SetTexture [_MainTex] {
 +			constantColor (1,1,1,1)
 +			combine texture * previous DOUBLE, constant // UNITY_OPAQUE_ALPHA_FFP
- 		}
--		ENDCG
- 	}
--}
-\ No newline at end of file
++		}
++	}
 +	
 +	// Lightmapped, encoded as RGBM
 +	Pass {
@@ -8694,7 +8643,8 @@ index 04c016cd..ae31b913 100644
 +		SetTexture [unity_Lightmap] {
 +			matrix [unity_LightmapMatrix]
 +			combine texture * texture alpha DOUBLE
-+		}
+ 		}
+-		ENDCG
 +		SetTexture [unity_Lightmap] {
 +			constantColor [_Color]
 +			combine previous * constant
@@ -8733,11 +8683,11 @@ index 04c016cd..ae31b913 100644
 +}
 +ENDCG
 +
-+	}
+ 	}
 +	
 +}
 +
-+}
+ }
 diff --git a/Assets/Shader/Particle Add.shader b/Assets/Shader/Particle Add.shader
 index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add.shader	
@@ -8843,11 +8793,9 @@ index 519f28e3..9651e909 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle AddSmooth.shader b/Assets/Shader/Particle AddSmooth.shader
 index 5227f98b..66bfdbce 100644
 --- a/Assets/Shader/Particle AddSmooth.shader	
@@ -8953,11 +8901,9 @@ index 5227f98b..66bfdbce 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	} 
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle Add_0.shader b/Assets/Shader/Particle Add_0.shader
 index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_0.shader	
@@ -9063,11 +9009,9 @@ index 519f28e3..9651e909 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle Add_1.shader b/Assets/Shader/Particle Add_1.shader
 index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_1.shader	
@@ -9173,11 +9117,9 @@ index 519f28e3..9651e909 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle Add_2.shader b/Assets/Shader/Particle Add_2.shader
 index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_2.shader	
@@ -9283,11 +9225,9 @@ index 519f28e3..9651e909 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle Add_3.shader b/Assets/Shader/Particle Add_3.shader
 index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_3.shader	
@@ -9393,11 +9333,9 @@ index 519f28e3..9651e909 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle Add_4.shader b/Assets/Shader/Particle Add_4.shader
 index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_4.shader	
@@ -9503,11 +9441,9 @@ index 519f28e3..9651e909 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle Add_5.shader b/Assets/Shader/Particle Add_5.shader
 index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_5.shader	
@@ -9613,11 +9549,9 @@ index 519f28e3..9651e909 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle Add_6.shader b/Assets/Shader/Particle Add_6.shader
 index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_6.shader	
@@ -9723,11 +9657,9 @@ index 519f28e3..9651e909 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle Add_7.shader b/Assets/Shader/Particle Add_7.shader
 index 519f28e3..9651e909 100644
 --- a/Assets/Shader/Particle Add_7.shader	
@@ -9833,11 +9765,9 @@ index 519f28e3..9651e909 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle Alpha Blend.shader b/Assets/Shader/Particle Alpha Blend.shader
 index 70739420..aee83534 100644
 --- a/Assets/Shader/Particle Alpha Blend.shader	
@@ -9944,11 +9874,9 @@ index 70739420..aee83534 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle Alpha Blend_0.shader b/Assets/Shader/Particle Alpha Blend_0.shader
 index 70739420..aee83534 100644
 --- a/Assets/Shader/Particle Alpha Blend_0.shader	
@@ -10055,11 +9983,9 @@ index 70739420..aee83534 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle Alpha Blend_1.shader b/Assets/Shader/Particle Alpha Blend_1.shader
 index 70739420..aee83534 100644
 --- a/Assets/Shader/Particle Alpha Blend_1.shader	
@@ -10166,11 +10092,9 @@ index 70739420..aee83534 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle Alpha Blend_2.shader b/Assets/Shader/Particle Alpha Blend_2.shader
 index 70739420..aee83534 100644
 --- a/Assets/Shader/Particle Alpha Blend_2.shader	
@@ -10277,11 +10201,9 @@ index 70739420..aee83534 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle Alpha Blend_3.shader b/Assets/Shader/Particle Alpha Blend_3.shader
 index 70739420..aee83534 100644
 --- a/Assets/Shader/Particle Alpha Blend_3.shader	
@@ -10388,11 +10310,9 @@ index 70739420..aee83534 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle Alpha Blend_4.shader b/Assets/Shader/Particle Alpha Blend_4.shader
 index 70739420..aee83534 100644
 --- a/Assets/Shader/Particle Alpha Blend_4.shader	
@@ -10499,11 +10419,9 @@ index 70739420..aee83534 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle Multiply.shader b/Assets/Shader/Particle Multiply.shader
 index f816418b..250f3bb3 100644
 --- a/Assets/Shader/Particle Multiply.shader	
@@ -10607,9 +10525,7 @@ index f816418b..250f3bb3 100644
  		}
 -		ENDCG
  	}
--}
-\ No newline at end of file
-+}
+ }
 +}
 diff --git a/Assets/Shader/Particle Premultiply Blend.shader b/Assets/Shader/Particle Premultiply Blend.shader
 index 64e2bdd5..73133d5b 100644
@@ -10710,9 +10626,7 @@ index 64e2bdd5..73133d5b 100644
  		}
 -		ENDCG
  	}
--}
-\ No newline at end of file
-+}
+ }
 +}
 diff --git a/Assets/Shader/Particle Premultiply Blend_0.shader b/Assets/Shader/Particle Premultiply Blend_0.shader
 index 64e2bdd5..73133d5b 100644
@@ -10813,9 +10727,7 @@ index 64e2bdd5..73133d5b 100644
  		}
 -		ENDCG
  	}
--}
-\ No newline at end of file
-+}
+ }
 +}
 diff --git a/Assets/Shader/Particle Premultiply Blend_1.shader b/Assets/Shader/Particle Premultiply Blend_1.shader
 index 64e2bdd5..73133d5b 100644
@@ -10916,9 +10828,7 @@ index 64e2bdd5..73133d5b 100644
  		}
 -		ENDCG
  	}
--}
-\ No newline at end of file
-+}
+ }
 +}
 diff --git a/Assets/Shader/Particle Premultiply Blend_2.shader b/Assets/Shader/Particle Premultiply Blend_2.shader
 index 64e2bdd5..73133d5b 100644
@@ -11019,9 +10929,7 @@ index 64e2bdd5..73133d5b 100644
  		}
 -		ENDCG
  	}
--}
-\ No newline at end of file
-+}
+ }
 +}
 diff --git a/Assets/Shader/Particle Premultiply Blend_3.shader b/Assets/Shader/Particle Premultiply Blend_3.shader
 index 64e2bdd5..73133d5b 100644
@@ -11122,9 +11030,7 @@ index 64e2bdd5..73133d5b 100644
  		}
 -		ENDCG
  	}
--}
-\ No newline at end of file
-+}
+ }
 +}
 diff --git a/Assets/Shader/Particle-Add-Stencil.shader b/Assets/Shader/Particle-Add-Stencil.shader
 index 2a690955..85ec0fc5 100644
@@ -11740,11 +11646,9 @@ index 4459f86c..58e47700 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle-Add_0.shader b/Assets/Shader/Particle-Add_0.shader
 index 4459f86c..58e47700 100644
 --- a/Assets/Shader/Particle-Add_0.shader
@@ -11849,11 +11753,9 @@ index 4459f86c..58e47700 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle-Add_1.shader b/Assets/Shader/Particle-Add_1.shader
 index 4459f86c..58e47700 100644
 --- a/Assets/Shader/Particle-Add_1.shader
@@ -11958,11 +11860,9 @@ index 4459f86c..58e47700 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle-Add_2.shader b/Assets/Shader/Particle-Add_2.shader
 index 4459f86c..58e47700 100644
 --- a/Assets/Shader/Particle-Add_2.shader
@@ -12067,11 +11967,9 @@ index 4459f86c..58e47700 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle-Add_3.shader b/Assets/Shader/Particle-Add_3.shader
 index 4459f86c..58e47700 100644
 --- a/Assets/Shader/Particle-Add_3.shader
@@ -12176,11 +12074,9 @@ index 4459f86c..58e47700 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle-Add_4.shader b/Assets/Shader/Particle-Add_4.shader
 index 4459f86c..58e47700 100644
 --- a/Assets/Shader/Particle-Add_4.shader
@@ -12285,11 +12181,9 @@ index 4459f86c..58e47700 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle-Add_5.shader b/Assets/Shader/Particle-Add_5.shader
 index 4459f86c..58e47700 100644
 --- a/Assets/Shader/Particle-Add_5.shader
@@ -12394,11 +12288,9 @@ index 4459f86c..58e47700 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle-Alpha-Blend.shader b/Assets/Shader/Particle-Alpha-Blend.shader
 index 1e7430f0..9daa426b 100644
 --- a/Assets/Shader/Particle-Alpha-Blend.shader
@@ -12504,11 +12396,9 @@ index 1e7430f0..9daa426b 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle-Alpha-Blend_0.shader b/Assets/Shader/Particle-Alpha-Blend_0.shader
 index 1e7430f0..9daa426b 100644
 --- a/Assets/Shader/Particle-Alpha-Blend_0.shader
@@ -12614,11 +12504,9 @@ index 1e7430f0..9daa426b 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle-Alpha-Blend_1.shader b/Assets/Shader/Particle-Alpha-Blend_1.shader
 index 1e7430f0..9daa426b 100644
 --- a/Assets/Shader/Particle-Alpha-Blend_1.shader
@@ -12724,11 +12612,9 @@ index 1e7430f0..9daa426b 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle-Alpha-Blend_2.shader b/Assets/Shader/Particle-Alpha-Blend_2.shader
 index 1e7430f0..9daa426b 100644
 --- a/Assets/Shader/Particle-Alpha-Blend_2.shader
@@ -12834,11 +12720,9 @@ index 1e7430f0..9daa426b 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle-Alpha-Blend_3.shader b/Assets/Shader/Particle-Alpha-Blend_3.shader
 index 1e7430f0..9daa426b 100644
 --- a/Assets/Shader/Particle-Alpha-Blend_3.shader
@@ -12944,11 +12828,9 @@ index 1e7430f0..9daa426b 100644
  		}
 -		ENDCG
 -	}
--}
-\ No newline at end of file
 +	}	
 +}
-+}
+ }
 diff --git a/Assets/Shader/Particle-Blend-Stencil.shader b/Assets/Shader/Particle-Blend-Stencil.shader
 index fe4a54b6..916b0961 100644
 --- a/Assets/Shader/Particle-Blend-Stencil.shader
@@ -14154,10 +14036,7 @@ index 20cb7328..b57a17dd 100644
 +		// ------------------------------------------------------------------
 +		//  Base forward pass (directional light, emission, lightmaps, ...)
 +		Pass
- 		{
--			float2 uv_MainTex;
--		};
--		void surf(Input IN, inout SurfaceOutput o)
++		{
 +			Name "FORWARD" 
 +			Tags { "LightMode" = "ForwardBase" }
 +
@@ -14190,9 +14069,7 @@ index 20cb7328..b57a17dd 100644
 +		// ------------------------------------------------------------------
 +		//  Additive forward pass (one light per pass)
 +		Pass
- 		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
++		{
 +			Name "FORWARD_DELTA"
 +			Tags { "LightMode" = "ForwardAdd" }
 +			Blend [_SrcBlend] One
@@ -14304,11 +14181,8 @@ index 20cb7328..b57a17dd 100644
 +
 +			#include "UnityStandardMeta.cginc"
 +			ENDCG
- 		}
--		ENDCG
- 	}
--}
-\ No newline at end of file
++		}
++	}
 +
 +	SubShader
 +	{
@@ -14318,7 +14192,10 @@ index 20cb7328..b57a17dd 100644
 +		// ------------------------------------------------------------------
 +		//  Base forward pass (directional light, emission, lightmaps, ...)
 +		Pass
-+		{
+ 		{
+-			float2 uv_MainTex;
+-		};
+-		void surf(Input IN, inout SurfaceOutput o)
 +			Name "FORWARD" 
 +			Tags { "LightMode" = "ForwardBase" }
 +
@@ -14403,7 +14280,9 @@ index 20cb7328..b57a17dd 100644
 +		// Extracts information for lightmapping, GI (emission, albedo, ...)
 +		// This pass it not used during regular rendering.
 +		Pass
-+		{
+ 		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
 +			Name "META" 
 +			Tags { "LightMode"="Meta" }
 +
@@ -14419,13 +14298,14 @@ index 20cb7328..b57a17dd 100644
 +
 +			#include "UnityStandardMeta.cginc"
 +			ENDCG
-+		}
-+	}
+ 		}
+-		ENDCG
+ 	}
 +
 +
 +	FallBack "VertexLit"
 +	CustomEditor "StandardShaderGUI"
-+}
+ }
 diff --git a/Assets/Shader/Shader_0.shader b/Assets/Shader/Shader_0.shader
 index 20cb7328..b57a17dd 100644
 --- a/Assets/Shader/Shader_0.shader
@@ -14520,10 +14400,7 @@ index 20cb7328..b57a17dd 100644
 +		// ------------------------------------------------------------------
 +		//  Base forward pass (directional light, emission, lightmaps, ...)
 +		Pass
- 		{
--			float2 uv_MainTex;
--		};
--		void surf(Input IN, inout SurfaceOutput o)
++		{
 +			Name "FORWARD" 
 +			Tags { "LightMode" = "ForwardBase" }
 +
@@ -14556,9 +14433,7 @@ index 20cb7328..b57a17dd 100644
 +		// ------------------------------------------------------------------
 +		//  Additive forward pass (one light per pass)
 +		Pass
- 		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
++		{
 +			Name "FORWARD_DELTA"
 +			Tags { "LightMode" = "ForwardAdd" }
 +			Blend [_SrcBlend] One
@@ -14670,11 +14545,8 @@ index 20cb7328..b57a17dd 100644
 +
 +			#include "UnityStandardMeta.cginc"
 +			ENDCG
- 		}
--		ENDCG
- 	}
--}
-\ No newline at end of file
++		}
++	}
 +
 +	SubShader
 +	{
@@ -14684,7 +14556,10 @@ index 20cb7328..b57a17dd 100644
 +		// ------------------------------------------------------------------
 +		//  Base forward pass (directional light, emission, lightmaps, ...)
 +		Pass
-+		{
+ 		{
+-			float2 uv_MainTex;
+-		};
+-		void surf(Input IN, inout SurfaceOutput o)
 +			Name "FORWARD" 
 +			Tags { "LightMode" = "ForwardBase" }
 +
@@ -14769,7 +14644,9 @@ index 20cb7328..b57a17dd 100644
 +		// Extracts information for lightmapping, GI (emission, albedo, ...)
 +		// This pass it not used during regular rendering.
 +		Pass
-+		{
+ 		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
 +			Name "META" 
 +			Tags { "LightMode"="Meta" }
 +
@@ -14785,13 +14662,14 @@ index 20cb7328..b57a17dd 100644
 +
 +			#include "UnityStandardMeta.cginc"
 +			ENDCG
-+		}
-+	}
+ 		}
+-		ENDCG
+ 	}
 +
 +
 +	FallBack "VertexLit"
 +	CustomEditor "StandardShaderGUI"
-+}
+ }
 diff --git a/Assets/Shader/Shader_1.shader b/Assets/Shader/Shader_1.shader
 index 20cb7328..b57a17dd 100644
 --- a/Assets/Shader/Shader_1.shader
@@ -14886,10 +14764,7 @@ index 20cb7328..b57a17dd 100644
 +		// ------------------------------------------------------------------
 +		//  Base forward pass (directional light, emission, lightmaps, ...)
 +		Pass
- 		{
--			float2 uv_MainTex;
--		};
--		void surf(Input IN, inout SurfaceOutput o)
++		{
 +			Name "FORWARD" 
 +			Tags { "LightMode" = "ForwardBase" }
 +
@@ -14922,9 +14797,7 @@ index 20cb7328..b57a17dd 100644
 +		// ------------------------------------------------------------------
 +		//  Additive forward pass (one light per pass)
 +		Pass
- 		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
++		{
 +			Name "FORWARD_DELTA"
 +			Tags { "LightMode" = "ForwardAdd" }
 +			Blend [_SrcBlend] One
@@ -15036,11 +14909,8 @@ index 20cb7328..b57a17dd 100644
 +
 +			#include "UnityStandardMeta.cginc"
 +			ENDCG
- 		}
--		ENDCG
- 	}
--}
-\ No newline at end of file
++		}
++	}
 +
 +	SubShader
 +	{
@@ -15050,7 +14920,10 @@ index 20cb7328..b57a17dd 100644
 +		// ------------------------------------------------------------------
 +		//  Base forward pass (directional light, emission, lightmaps, ...)
 +		Pass
-+		{
+ 		{
+-			float2 uv_MainTex;
+-		};
+-		void surf(Input IN, inout SurfaceOutput o)
 +			Name "FORWARD" 
 +			Tags { "LightMode" = "ForwardBase" }
 +
@@ -15135,7 +15008,9 @@ index 20cb7328..b57a17dd 100644
 +		// Extracts information for lightmapping, GI (emission, albedo, ...)
 +		// This pass it not used during regular rendering.
 +		Pass
-+		{
+ 		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
 +			Name "META" 
 +			Tags { "LightMode"="Meta" }
 +
@@ -15151,13 +15026,14 @@ index 20cb7328..b57a17dd 100644
 +
 +			#include "UnityStandardMeta.cginc"
 +			ENDCG
-+		}
-+	}
+ 		}
+-		ENDCG
+ 	}
 +
 +
 +	FallBack "VertexLit"
 +	CustomEditor "StandardShaderGUI"
-+}
+ }
 diff --git a/Assets/Shader/Shader_2.shader b/Assets/Shader/Shader_2.shader
 index 20cb7328..b57a17dd 100644
 --- a/Assets/Shader/Shader_2.shader
@@ -15252,10 +15128,7 @@ index 20cb7328..b57a17dd 100644
 +		// ------------------------------------------------------------------
 +		//  Base forward pass (directional light, emission, lightmaps, ...)
 +		Pass
- 		{
--			float2 uv_MainTex;
--		};
--		void surf(Input IN, inout SurfaceOutput o)
++		{
 +			Name "FORWARD" 
 +			Tags { "LightMode" = "ForwardBase" }
 +
@@ -15288,9 +15161,7 @@ index 20cb7328..b57a17dd 100644
 +		// ------------------------------------------------------------------
 +		//  Additive forward pass (one light per pass)
 +		Pass
- 		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
++		{
 +			Name "FORWARD_DELTA"
 +			Tags { "LightMode" = "ForwardAdd" }
 +			Blend [_SrcBlend] One
@@ -15402,11 +15273,8 @@ index 20cb7328..b57a17dd 100644
 +
 +			#include "UnityStandardMeta.cginc"
 +			ENDCG
- 		}
--		ENDCG
- 	}
--}
-\ No newline at end of file
++		}
++	}
 +
 +	SubShader
 +	{
@@ -15416,7 +15284,10 @@ index 20cb7328..b57a17dd 100644
 +		// ------------------------------------------------------------------
 +		//  Base forward pass (directional light, emission, lightmaps, ...)
 +		Pass
-+		{
+ 		{
+-			float2 uv_MainTex;
+-		};
+-		void surf(Input IN, inout SurfaceOutput o)
 +			Name "FORWARD" 
 +			Tags { "LightMode" = "ForwardBase" }
 +
@@ -15501,7 +15372,9 @@ index 20cb7328..b57a17dd 100644
 +		// Extracts information for lightmapping, GI (emission, albedo, ...)
 +		// This pass it not used during regular rendering.
 +		Pass
-+		{
+ 		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
 +			Name "META" 
 +			Tags { "LightMode"="Meta" }
 +
@@ -15517,13 +15390,14 @@ index 20cb7328..b57a17dd 100644
 +
 +			#include "UnityStandardMeta.cginc"
 +			ENDCG
-+		}
-+	}
+ 		}
+-		ENDCG
+ 	}
 +
 +
 +	FallBack "VertexLit"
 +	CustomEditor "StandardShaderGUI"
-+}
+ }
 diff --git a/Assets/Shader/Skybox-Procedural.shader b/Assets/Shader/Skybox-Procedural.shader
 index 67302625..16842c58 100644
 --- a/Assets/Shader/Skybox-Procedural.shader
@@ -15706,7 +15580,9 @@ index 67302625..16842c58 100644
 +
 +
 +		float scale(float inCos)
-+		{
+ 		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
 +			float x = 1.0 - inCos;
 +		#if defined(SHADER_API_N3DS)
 +			// The polynomial expansion here generates too many swizzle instructions for the 3DS vertex assembler
@@ -15880,9 +15756,7 @@ index 67302625..16842c58 100644
 +		}
 +
 +		half calcSunSpot(half3 vec1, half3 vec2)
- 		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
++		{
 +			half3 delta = vec1 - vec2;
 +			half dist = length(delta);
 +			half spot = 1.0 - smoothstep(0.0, _SunSize, dist);
@@ -15931,11 +15805,8 @@ index 67302625..16842c58 100644
 +			return half4(col,1.0);
 +
  		}
-@@ -29,2 +385,7 @@ Properties {
- 	}
--}
-\ No newline at end of file
-+}
+@@ -30 +386,6 @@ Properties {
+ }
 +
 +
 +Fallback Off
@@ -16058,8 +15929,6 @@ index cf15b728..c929bb75 100644
 +		half4 frag (v2f i) : SV_Target { return skybox_frag(i,_LeftTex, _LeftTex_HDR); }
  		ENDCG
  	}
--}
-\ No newline at end of file
 +	Pass{
 +		CGPROGRAM
 +		#pragma vertex vert
@@ -16088,7 +15957,7 @@ index cf15b728..c929bb75 100644
 +		ENDCG
 +	}
 +}
-+}
+ }
 diff --git a/Assets/Shader/Skybox_0.shader b/Assets/Shader/Skybox_0.shader
 index cf15b728..c929bb75 100644
 --- a/Assets/Shader/Skybox_0.shader
@@ -16206,8 +16075,6 @@ index cf15b728..c929bb75 100644
 +		half4 frag (v2f i) : SV_Target { return skybox_frag(i,_LeftTex, _LeftTex_HDR); }
  		ENDCG
  	}
--}
-\ No newline at end of file
 +	Pass{
 +		CGPROGRAM
 +		#pragma vertex vert
@@ -16236,7 +16103,7 @@ index cf15b728..c929bb75 100644
 +		ENDCG
 +	}
 +}
-+}
+ }
 diff --git a/Assets/Shader/Skybox_1.shader b/Assets/Shader/Skybox_1.shader
 index cf15b728..c929bb75 100644
 --- a/Assets/Shader/Skybox_1.shader
@@ -16354,8 +16221,6 @@ index cf15b728..c929bb75 100644
 +		half4 frag (v2f i) : SV_Target { return skybox_frag(i,_LeftTex, _LeftTex_HDR); }
  		ENDCG
  	}
--}
-\ No newline at end of file
 +	Pass{
 +		CGPROGRAM
 +		#pragma vertex vert
@@ -16384,7 +16249,7 @@ index cf15b728..c929bb75 100644
 +		ENDCG
 +	}
 +}
-+}
+ }
 diff --git a/Assets/Shader/Sprites-Diffuse.shader b/Assets/Shader/Sprites-Diffuse.shader
 index c054dce2..e53d3c8c 100644
 --- a/Assets/Shader/Sprites-Diffuse.shader
@@ -16476,11 +16341,9 @@ index c054dce2..e53d3c8c 100644
  		}
 @@ -26,2 +70,4 @@ Properties {
  	}
--}
-\ No newline at end of file
 +
 +Fallback "Transparent/VertexLit"
-+}
+ }
 diff --git a/Assets/Shader/StandardSpecular.shader b/Assets/Shader/StandardSpecular.shader
 index a52adacf..d58ef71e 100644
 --- a/Assets/Shader/StandardSpecular.shader
@@ -16575,10 +16438,7 @@ index a52adacf..d58ef71e 100644
 +		// ------------------------------------------------------------------
 +		//  Base forward pass (directional light, emission, lightmaps, ...)
 +		Pass
- 		{
--			float2 uv_MainTex;
--		};
--		void surf(Input IN, inout SurfaceOutput o)
++		{
 +			Name "FORWARD" 
 +			Tags { "LightMode" = "ForwardBase" }
 +
@@ -16611,9 +16471,7 @@ index a52adacf..d58ef71e 100644
 +		// ------------------------------------------------------------------
 +		//  Additive forward pass (one light per pass)
 +		Pass
- 		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
++		{
 +			Name "FORWARD_DELTA"
 +			Tags { "LightMode" = "ForwardAdd" }
 +			Blend [_SrcBlend] One
@@ -16725,11 +16583,8 @@ index a52adacf..d58ef71e 100644
 +
 +			#include "UnityStandardMeta.cginc"
 +			ENDCG
- 		}
--		ENDCG
- 	}
--}
-\ No newline at end of file
++		}
++	}
 +
 +	SubShader
 +	{
@@ -16739,7 +16594,10 @@ index a52adacf..d58ef71e 100644
 +		// ------------------------------------------------------------------
 +		//  Base forward pass (directional light, emission, lightmaps, ...)
 +		Pass
-+		{
+ 		{
+-			float2 uv_MainTex;
+-		};
+-		void surf(Input IN, inout SurfaceOutput o)
 +			Name "FORWARD" 
 +			Tags { "LightMode" = "ForwardBase" }
 +
@@ -16823,7 +16681,9 @@ index a52adacf..d58ef71e 100644
 +		// Extracts information for lightmapping, GI (emission, albedo, ...)
 +		// This pass it not used during regular rendering.
 +		Pass
-+		{
+ 		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
 +			Name "META" 
 +			Tags { "LightMode"="Meta" }
 +
@@ -16839,12 +16699,13 @@ index a52adacf..d58ef71e 100644
 +
 +			#include "UnityStandardMeta.cginc"
 +			ENDCG
-+		}
-+	}
+ 		}
+-		ENDCG
+ 	}
 +
 +	FallBack "VertexLit"
 +	CustomEditor "StandardShaderGUI"
-+}
+ }
 diff --git a/Assets/Shader/StencilAddTint.shader b/Assets/Shader/StencilAddTint.shader
 index 231c33a8..d4c29983 100644
 --- a/Assets/Shader/StencilAddTint.shader
@@ -17109,7 +16970,7 @@ diff --git a/Assets/Shader/Unlit-Alpha.shader b/Assets/Shader/Unlit-Alpha.shader
 index c58e97e6..829ee046 100644
 --- a/Assets/Shader/Unlit-Alpha.shader
 +++ b/Assets/Shader/Unlit-Alpha.shader
-@@ -1,25 +1,61 @@
+@@ -1,23 +1,57 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
 +// Unlit alpha-blended shader.
@@ -17184,17 +17045,15 @@ index c58e97e6..829ee046 100644
 +				return col;
 +			}
  		ENDCG
- 	}
--}
-\ No newline at end of file
-+}
+@@ -25 +59,3 @@ Properties {
+ }
 +
 +}
 diff --git a/Assets/Shader/Unlit-Alpha_0.shader b/Assets/Shader/Unlit-Alpha_0.shader
 index c58e97e6..829ee046 100644
 --- a/Assets/Shader/Unlit-Alpha_0.shader
 +++ b/Assets/Shader/Unlit-Alpha_0.shader
-@@ -1,25 +1,61 @@
+@@ -1,23 +1,57 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
 +// Unlit alpha-blended shader.
@@ -17269,17 +17128,15 @@ index c58e97e6..829ee046 100644
 +				return col;
 +			}
  		ENDCG
- 	}
--}
-\ No newline at end of file
-+}
+@@ -25 +59,3 @@ Properties {
+ }
 +
 +}
 diff --git a/Assets/Shader/Unlit-Alpha_1.shader b/Assets/Shader/Unlit-Alpha_1.shader
 index c58e97e6..829ee046 100644
 --- a/Assets/Shader/Unlit-Alpha_1.shader
 +++ b/Assets/Shader/Unlit-Alpha_1.shader
-@@ -1,25 +1,61 @@
+@@ -1,23 +1,57 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
 +// Unlit alpha-blended shader.
@@ -17354,17 +17211,15 @@ index c58e97e6..829ee046 100644
 +				return col;
 +			}
  		ENDCG
- 	}
--}
-\ No newline at end of file
-+}
+@@ -25 +59,3 @@ Properties {
+ }
 +
 +}
 diff --git a/Assets/Shader/Unlit-Color.shader b/Assets/Shader/Unlit-Color.shader
 index 7aaa53dc..576f4053 100644
 --- a/Assets/Shader/Unlit-Color.shader
 +++ b/Assets/Shader/Unlit-Color.shader
-@@ -1,25 +1,55 @@
+@@ -1,23 +1,51 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
 +// Unlit shader. Simplest possible colored shader.
@@ -17433,17 +17288,15 @@ index 7aaa53dc..576f4053 100644
 +				return col;
 +			}
  		ENDCG
- 	}
--}
-\ No newline at end of file
-+}
+@@ -25 +53,3 @@ Properties {
+ }
 +
 +}
 diff --git a/Assets/Shader/Unlit-Color_0.shader b/Assets/Shader/Unlit-Color_0.shader
 index 7aaa53dc..576f4053 100644
 --- a/Assets/Shader/Unlit-Color_0.shader
 +++ b/Assets/Shader/Unlit-Color_0.shader
-@@ -1,25 +1,55 @@
+@@ -1,23 +1,51 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
 +// Unlit shader. Simplest possible colored shader.
@@ -17512,17 +17365,15 @@ index 7aaa53dc..576f4053 100644
 +				return col;
 +			}
  		ENDCG
- 	}
--}
-\ No newline at end of file
-+}
+@@ -25 +53,3 @@ Properties {
+ }
 +
 +}
 diff --git a/Assets/Shader/Unlit-Color_1.shader b/Assets/Shader/Unlit-Color_1.shader
 index 7aaa53dc..576f4053 100644
 --- a/Assets/Shader/Unlit-Color_1.shader
 +++ b/Assets/Shader/Unlit-Color_1.shader
-@@ -1,25 +1,55 @@
+@@ -1,23 +1,51 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
 +// Unlit shader. Simplest possible colored shader.
@@ -17591,17 +17442,15 @@ index 7aaa53dc..576f4053 100644
 +				return col;
 +			}
  		ENDCG
- 	}
--}
-\ No newline at end of file
-+}
+@@ -25 +53,3 @@ Properties {
+ }
 +
 +}
 diff --git a/Assets/Shader/Unlit-Normal.shader b/Assets/Shader/Unlit-Normal.shader
 index 6a53edbc..f1de5027 100644
 --- a/Assets/Shader/Unlit-Normal.shader
 +++ b/Assets/Shader/Unlit-Normal.shader
-@@ -1,25 +1,59 @@
+@@ -1,23 +1,55 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
 +// Unlit shader. Simplest possible textured shader.
@@ -17674,17 +17523,15 @@ index 6a53edbc..f1de5027 100644
 +				return col;
 +			}
  		ENDCG
- 	}
--}
-\ No newline at end of file
-+}
+@@ -25 +57,3 @@ Properties {
+ }
 +
 +}
 diff --git a/Assets/Shader/Unlit-Normal_0.shader b/Assets/Shader/Unlit-Normal_0.shader
 index 6a53edbc..f1de5027 100644
 --- a/Assets/Shader/Unlit-Normal_0.shader
 +++ b/Assets/Shader/Unlit-Normal_0.shader
-@@ -1,25 +1,59 @@
+@@ -1,23 +1,55 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
 +// Unlit shader. Simplest possible textured shader.
@@ -17757,10 +17604,8 @@ index 6a53edbc..f1de5027 100644
 +				return col;
 +			}
  		ENDCG
- 	}
--}
-\ No newline at end of file
-+}
+@@ -25 +57,3 @@ Properties {
+ }
 +
 +}
 diff --git a/Assets/Shader/VFX_AddTintFade.shader b/Assets/Shader/VFX_AddTintFade.shader

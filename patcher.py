@@ -12,6 +12,8 @@ import urllib.request
 import urllib.error
 import zipfile
 
+import yaml
+
 WORKSPACE_DIR = "RippedProject"
 TEMP_DIR = "Temp"
 PRE_PATCHES_DIR = "PrePatches"
@@ -183,28 +185,41 @@ def swap_files(src: str, dst: str) -> None:
     shutil.move(dst, src)
     shutil.move(temp_path, dst)
 
-def apply_deterministic_guids() -> None:
-    print("[*] Identifying new .meta files...")
+def apply_deterministic_guids(new_assets_only: bool) -> None:
+    file_list = []
 
-    git_path = find_executable("git")
+    if new_assets_only:
+        print("[*] Identifying new .meta files...")
 
-    try:
-        untracked_cmd = [git_path, "ls-files", "--others", "--exclude-standard"]
-        untracked_files = subprocess.check_output(untracked_cmd, cwd=WORKSPACE_DIR, text=True).splitlines()
+        git_path = find_executable("git")
 
-        new_meta_files = [f for f in untracked_files if f.endswith(".meta")]
-    except subprocess.CalledProcessError:
-        print("[!] ERROR: Failed to get untracked files from Git.")
-        sys.exit(1)
+        try:
+            untracked_cmd = [git_path, "ls-files", "--others", "--exclude-standard"]
+            untracked_files = subprocess.check_output(untracked_cmd, cwd=WORKSPACE_DIR, text=True).splitlines()
 
-    if not new_meta_files:
-        print("[*] No new .meta files found.")
-        return
+            file_list = [f for f in untracked_files if f.endswith(".meta")]
+        except subprocess.CalledProcessError:
+            print("[!] ERROR: Failed to get untracked files from Git.")
+            sys.exit(1)
 
-    print(f"[*] Calculating deterministic GUIDs for {len(new_meta_files)} files...")
+        if not file_list:
+            print("[*] No new .meta files found.")
+            return
+    else:
+        print("[*] Scanning for all .meta files...")
+        for root, dirs, files in os.walk(WORKSPACE_DIR):
+            if ".git" in root:
+                continue
+
+            for file in files:
+                if file.endswith(".meta"):
+                    relative_path = os.path.relpath(os.path.join(root, file), WORKSPACE_DIR)
+                    file_list.append(relative_path)
+
+    print(f"[*] Calculating deterministic GUIDs for {len(file_list)} files...")
     guid_map = {}
 
-    for meta_path in new_meta_files:
+    for meta_path in file_list:
         full_path = os.path.join(WORKSPACE_DIR, meta_path)
         if not os.path.exists(full_path):
             print(f"[!] WARNING: .meta file '{meta_path}' does not exist. Skipping.")
@@ -236,7 +251,7 @@ def apply_deterministic_guids() -> None:
             sys.exit(1)
 
     if not guid_map:
-        print("[*] No GUIDs needed to be updated.")
+        print("[*] No GUIDs need to be updated.")
         return
 
     print(f"[*] Updating references to {len(guid_map)} assets...")
@@ -252,6 +267,8 @@ def apply_deterministic_guids() -> None:
             continue
 
         for file in files:
+            # todo: don't process binary files
+
             file_path = os.path.join(root, file)
             try:
                 with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
@@ -265,6 +282,90 @@ def apply_deterministic_guids() -> None:
             except Exception as e:
                 print(f"[!] ERROR: Failed to update references in '{file_path}': {e}")
                 sys.exit(1)
+
+    print("[+] GUID regeneration finished.")
+
+class FlowDict(dict):
+    pass
+
+def represent_flow_dict(self: yaml.Dumper, data: FlowDict) -> yaml.Node:
+    return self.represent_mapping("tag:yaml.org,2002:map", data, flow_style=True)
+
+def represent_none(self: yaml.Dumper, _) -> yaml.Node:
+    return self.represent_scalar("tag:yaml.org,2002:str", " ")
+
+def populate_texture_platform_settings() -> None:
+    print("[*] Populating texture platform settings...")
+
+    yaml.add_representer(FlowDict, represent_flow_dict)
+    yaml.add_representer(type(None), represent_none)
+
+    target_platforms = ["Standalone", "Android", "iOS"]
+
+    png_metas = glob.glob(os.path.join(WORKSPACE_DIR, "Assets", "**", "*.png.meta"), recursive=True)
+    for meta_path in png_metas:
+        try:
+            with open(meta_path, "r", encoding="utf-8") as f:
+                data = yaml.safe_load(f)
+
+            if not data or "TextureImporter" not in data:
+                print(f"[!] WARNING: No TextureImporter section found in '{meta_path}'. Skipping.")
+                continue
+
+            importer = data["TextureImporter"]
+            if "platformSettings" not in importer:
+                continue
+
+            settings_list = importer["platformSettings"]
+
+            existing_targets = {}
+            standalone_template = None
+
+            for entry in settings_list:
+                target_name = entry.get("buildTarget")
+                existing_targets[target_name] = entry
+                if target_name == "Standalone":
+                    standalone_template = entry
+
+            if not standalone_template:
+                standalone_template = existing_targets.get("DefaultTexturePlatform")
+
+            if not standalone_template:
+                print(f"[!] WARNING: No suitable template found for '{meta_path}'. Skipping.")
+                continue
+
+            modified = False
+            for target in target_platforms:
+                if target not in existing_targets:
+                    new_entry = standalone_template.copy()
+                    new_entry["buildTarget"] = target
+                    new_entry["overridden"] = 0
+                    settings_list.append(new_entry)
+                    modified = True
+
+            if modified:
+                for key in ["spritePivot", "spriteBorder"]:
+                    if key in importer and isinstance(importer[key], dict):
+                        importer[key] = FlowDict(importer[key])
+
+                if "spriteSheet" in importer:
+                    sheet = importer["spriteSheet"]
+                    if "outline" in sheet and isinstance(sheet["outline"], list):
+                        for polygon in sheet["outline"]:
+                            if isinstance(polygon, list):
+                                for i in range(len(polygon)):
+                                    if isinstance(polygon[i], dict):
+                                        polygon[i] = FlowDict(polygon[i])
+
+                with open(meta_path, "w", encoding="utf-8") as f:
+                    content = yaml.dump(data, sort_keys=False)
+                    content = content.replace("' '", "")
+                    f.write(content)
+
+                print(f"[*] Updated platform settings in '{meta_path}'.")
+        except Exception as e:
+            print(f"[!] ERROR: Failed to process '{meta_path}': {e}")
+            sys.exit(1)
 
 def cmd_setup(apk_path: str, bundles_path: str) -> None:
     check_prerequisites("setup")
@@ -384,17 +485,18 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
         with open(new_audio_meta_path, "w", encoding="utf-8") as f:
             f.write(meta_content)
 
-    print("[*] Copy overrides...")
-    overrides_dst = os.path.join(WORKSPACE_DIR, "Assets")
-    shutil.copytree(OVERRIDES_DIR, overrides_dst, dirs_exist_ok=True)
+    if sys.platform == "linux":
+        print("[*] Fixing Stryder EType duplicate asset...")
+        stryder_src = os.path.join(WORKSPACE_DIR, "Assets", "Material", "MAT_SB_StryderEtype.mat")
+        stryder_meta_src = stryder_src + ".meta"
+        stryder_dst = os.path.join(WORKSPACE_DIR, "Assets", "Material", "MAT_SB_StryderEtype_0.mat")
+        stryder_meta_dst = stryder_dst + ".meta"
 
-    print("[*] Extract app icon...")
-    icon_src = os.path.join(apk_extract_path, "res", "drawable-xxxhdpi-v4", "app_icon.png")
-    if os.path.isfile(icon_src):
-        icon_dst = os.path.join(WORKSPACE_DIR, "Assets", "Texture2D", "app_icon.png")
-        shutil.copyfile(icon_src, icon_dst)
-    else:
-        print(f"[!] WARNING: App icon not found at expected location '{icon_src}'!")
+        if os.path.isfile(stryder_src) and os.path.isfile(stryder_meta_src):
+            shutil.move(stryder_src, stryder_dst)
+            shutil.move(stryder_meta_src, stryder_meta_dst)
+        else:
+            print(f"[!] WARNING: Couldn't find duplicate Stryder EType material. Skipping.")
 
     print("[*] Fixing MainUI/StoreUI...")
     swap_dict = {
@@ -408,6 +510,21 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
 
     swap_files_dict(swap_dict)
 
+    print("[*] Regenerating deterministic asset GUIDs...")
+    apply_deterministic_guids(False)
+
+    print("[*] Copy overrides...")
+    overrides_dst = os.path.join(WORKSPACE_DIR, "Assets")
+    shutil.copytree(OVERRIDES_DIR, overrides_dst, dirs_exist_ok=True)
+
+    print("[*] Extract app icon...")
+    icon_src = os.path.join(apk_extract_path, "res", "drawable-xxxhdpi-v4", "app_icon.png")
+    if os.path.isfile(icon_src):
+        icon_dst = os.path.join(WORKSPACE_DIR, "Assets", "Texture2D", "app_icon.png")
+        shutil.copyfile(icon_src, icon_dst)
+    else:
+        print(f"[!] WARNING: App icon not found at expected location '{icon_src}'!")
+
     print("[*] Deleting broken game board mesh...")
     broken_mesh_path = os.path.join(WORKSPACE_DIR, "Assets", "Mesh", "Combined Mesh (root_ scene).asset")
     os.remove(broken_mesh_path)
@@ -420,6 +537,7 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
 
     print("[*] Initializing Git repository...")
     run_cmd([git_path, "init"], cwd=WORKSPACE_DIR)
+    run_cmd([git_path, "config", "core.autocrlf", "false"], cwd=WORKSPACE_DIR)
     run_cmd([git_path, "add", "."], cwd=WORKSPACE_DIR)
     run_cmd([git_path, "commit", "-m", "AssetRipper", "--author", "TF Reclaimed <auto@mated.null>"], cwd=WORKSPACE_DIR)
     run_cmd([git_path, "tag", "raw-project"], cwd=WORKSPACE_DIR)
@@ -427,7 +545,7 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
     pre_patches = sorted(glob.glob(os.path.abspath(os.path.join(PRE_PATCHES_DIR, "*.patch"))))
     if pre_patches:
         print(f"[*] Applying {len(pre_patches)} pre-patches...")
-        run_cmd([git_path, "am", "--3way"] + pre_patches, cwd=WORKSPACE_DIR)
+        run_cmd([git_path, "am", "--3way", "--ignore-whitespace"] + pre_patches, cwd=WORKSPACE_DIR)
 
     print("[*] Upgrading and reserializing Unity project...")
     print("[*] This may take several minutes. Please wait...")
@@ -447,7 +565,10 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
 
     print("[+] Finished project upgrade!")
 
-    apply_deterministic_guids()
+    print("[*] Regenerating deterministic asset GUIDs... (new assets)")
+    apply_deterministic_guids(True)
+
+    populate_texture_platform_settings()
 
     print("[*] Committing upgraded project...")
     run_cmd([git_path, "add", "."], cwd=WORKSPACE_DIR)
@@ -457,7 +578,7 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
     patches = sorted(glob.glob(os.path.abspath(os.path.join(PATCHES_DIR, "*.patch"))))
     if patches:
         print(f"[*] Applying {len(patches)} patches...")
-        run_cmd([git_path, "am", "--3way"] + patches, cwd=WORKSPACE_DIR)
+        run_cmd([git_path, "am", "--3way", "--ignore-whitespace"] + patches, cwd=WORKSPACE_DIR)
     else:
         print("[*] No patches found to apply.")
 
@@ -488,7 +609,8 @@ def cmd_rebuild() -> None:
         "--no-stat",
         "--no-signature",
         "--unified=1",
-        "--minimal"
+        "--minimal",
+        "--ignore-cr-at-eol"
     ]
 
     result = subprocess.run([git_path, "rev-parse", "--verify", "base-project"], cwd=WORKSPACE_DIR, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

@@ -56,12 +56,12 @@ index 979a5a9d..00000000
 -}
 diff --git a/Assets/Scripts/Assembly-CSharp/MNIOSDialog.cs.meta b/Assets/Scripts/Assembly-CSharp/MNIOSDialog.cs.meta
 deleted file mode 100644
-index 640bd8d9..00000000
+index d9a49462..00000000
 --- a/Assets/Scripts/Assembly-CSharp/MNIOSDialog.cs.meta
 +++ /dev/null
 @@ -1,11 +0,0 @@
 -fileFormatVersion: 2
--guid: 14d484ba4c01b40d09532bfb67152ae0
+-guid: 1759d59fc28cd29ee68237165933a224
 -MonoImporter:
 -  externalObjects: {}
 -  serializedVersion: 2
@@ -111,12 +111,12 @@ index 3e2904ea..00000000
 -}
 diff --git a/Assets/Scripts/Assembly-CSharp/MNIOSMessage.cs.meta b/Assets/Scripts/Assembly-CSharp/MNIOSMessage.cs.meta
 deleted file mode 100644
-index 2181889f..00000000
+index 786f6d53..00000000
 --- a/Assets/Scripts/Assembly-CSharp/MNIOSMessage.cs.meta
 +++ /dev/null
 @@ -1,11 +0,0 @@
 -fileFormatVersion: 2
--guid: 75e800b36e9a0ae87d38184fe8144dfb
+-guid: 4935a17403f7597a32b280a01482fbef
 -MonoImporter:
 -  externalObjects: {}
 -  serializedVersion: 2
@@ -204,12 +204,12 @@ index dab9db05..00000000
 -}
 diff --git a/Assets/Scripts/Assembly-CSharp/MNIOSNative.cs.meta b/Assets/Scripts/Assembly-CSharp/MNIOSNative.cs.meta
 deleted file mode 100644
-index d29f8215..00000000
+index 0a3da3bf..00000000
 --- a/Assets/Scripts/Assembly-CSharp/MNIOSNative.cs.meta
 +++ /dev/null
 @@ -1,11 +0,0 @@
 -fileFormatVersion: 2
--guid: e339597f88a021c641b764a3fc399a30
+-guid: ac3630aae3a7f9baba9c72cd928706ad
 -MonoImporter:
 -  externalObjects: {}
 -  serializedVersion: 2
@@ -285,12 +285,12 @@ index 4d2e138c..00000000
 -}
 diff --git a/Assets/Scripts/Assembly-CSharp/MNIOSRateUsPopUp.cs.meta b/Assets/Scripts/Assembly-CSharp/MNIOSRateUsPopUp.cs.meta
 deleted file mode 100644
-index 7f53d8d4..00000000
+index 6ae723c0..00000000
 --- a/Assets/Scripts/Assembly-CSharp/MNIOSRateUsPopUp.cs.meta
 +++ /dev/null
 @@ -1,11 +0,0 @@
 -fileFormatVersion: 2
--guid: 9337030442e3539da23a264ba815b19a
+-guid: ed3ee6852e06dd9c78ad5e1d707e57c5
 -MonoImporter:
 -  externalObjects: {}
 -  serializedVersion: 2
@@ -418,12 +418,12 @@ index a7a52abd..00000000
 -}
 diff --git a/Assets/Scripts/Assembly-CSharp/iCloudManager.cs.meta b/Assets/Scripts/Assembly-CSharp/iCloudManager.cs.meta
 deleted file mode 100644
-index 69b63480..00000000
+index bd76e715..00000000
 --- a/Assets/Scripts/Assembly-CSharp/iCloudManager.cs.meta
 +++ /dev/null
 @@ -1,11 +0,0 @@
 -fileFormatVersion: 2
--guid: 00d9261d6316579751017cd4ae8c0651
+-guid: 47a9f1289b640b2e49dc7d4b798faea1
 -MonoImporter:
 -  externalObjects: {}
 -  serializedVersion: 2
@@ -531,12 +531,12 @@ index 87da067e..00000000
 -}
 diff --git a/Assets/Scripts/Assembly-CSharp/iCloudUseExample.cs.meta b/Assets/Scripts/Assembly-CSharp/iCloudUseExample.cs.meta
 deleted file mode 100644
-index bd08eb0d..00000000
+index 7b80b765..00000000
 --- a/Assets/Scripts/Assembly-CSharp/iCloudUseExample.cs.meta
 +++ /dev/null
 @@ -1,11 +0,0 @@
 -fileFormatVersion: 2
--guid: cc5ddf54d9263b7c5ffec81bab7dff9e
+-guid: d397d55249dd2b4828bfc8a4310dd334
 -MonoImporter:
 -  externalObjects: {}
 -  serializedVersion: 2

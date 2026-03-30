@@ -5,7 +5,7 @@ Subject: [PATCH] Enable debug menu
 
 
 diff --git a/Assets/Resources/DebugMenuButtonTemplate.prefab b/Assets/Resources/DebugMenuButtonTemplate.prefab
-index eea9310e..3a3cb1fa 100644
+index 5e5652ca..35a62dac 100644
 --- a/Assets/Resources/DebugMenuButtonTemplate.prefab
 +++ b/Assets/Resources/DebugMenuButtonTemplate.prefab
 @@ -228,3 +228,3 @@ MonoBehaviour:
@@ -14,7 +14,7 @@ index eea9310e..3a3cb1fa 100644
 +    m_MaxSize: 50
      m_Alignment: 4
 diff --git a/Assets/Scenes/GameShell.unity b/Assets/Scenes/GameShell.unity
-index bcdac12a..c7ad1737 100644
+index 933e977c..bf59ce73 100644
 --- a/Assets/Scenes/GameShell.unity
 +++ b/Assets/Scenes/GameShell.unity
 @@ -32636,2 +32636,203 @@ NavMeshSettings:
@@ -57,7 +57,7 @@ index bcdac12a..c7ad1737 100644
 +  m_GameObject: {fileID: 365513272}
 +  m_Enabled: 1
 +  m_EditorHideFlags: 0
-+  m_Script: {fileID: 11500000, guid: 915a427240c2d044749d2ee1f7ac4f15, type: 3}
++  m_Script: {fileID: 11500000, guid: e73b2f213f5abdcc031badd30595fe20, type: 3}
 +  m_Name: 
 +  m_EditorClassIdentifier: 
 +  _parentCanvas: {fileID: 0}
@@ -85,7 +85,7 @@ index bcdac12a..c7ad1737 100644
 +  m_GameObject: {fileID: 365513272}
 +  m_Enabled: 1
 +  m_EditorHideFlags: 0
-+  m_Script: {fileID: 11500000, guid: e2fc98fa4ba18df9a61173c546af5fbf, type: 3}
++  m_Script: {fileID: 11500000, guid: d2d41f2ddbdf7ca5de8f15246252be9e, type: 3}
 +  m_Name: 
 +  m_EditorClassIdentifier: 
 +--- !u!114 &365513276
@@ -97,7 +97,7 @@ index bcdac12a..c7ad1737 100644
 +  m_GameObject: {fileID: 365513272}
 +  m_Enabled: 1
 +  m_EditorHideFlags: 0
-+  m_Script: {fileID: 11500000, guid: 2052bd743abbf2a37565bc6822b49368, type: 3}
++  m_Script: {fileID: 11500000, guid: c83ca72469c7971d9430b7fa2d2e4c53, type: 3}
 +  m_Name: 
 +  m_EditorClassIdentifier: 
 +--- !u!114 &365513277
@@ -109,7 +109,7 @@ index bcdac12a..c7ad1737 100644
 +  m_GameObject: {fileID: 365513272}
 +  m_Enabled: 1
 +  m_EditorHideFlags: 0
-+  m_Script: {fileID: 11500000, guid: a25b5d1468da825aae36ffc82d14f2ca, type: 3}
++  m_Script: {fileID: 11500000, guid: 809bdc3534da9c00cee2fa0c4dbbfcd4, type: 3}
 +  m_Name: 
 +  m_EditorClassIdentifier: 
 +--- !u!114 &365513278
@@ -121,7 +121,7 @@ index bcdac12a..c7ad1737 100644
 +  m_GameObject: {fileID: 365513272}
 +  m_Enabled: 1
 +  m_EditorHideFlags: 0
-+  m_Script: {fileID: 11500000, guid: 822ee6ece9ee5d48546641d6b73c8cf3, type: 3}
++  m_Script: {fileID: 11500000, guid: de3462d8d1bc9adfb5f1e00f6a2660c3, type: 3}
 +  m_Name: 
 +  m_EditorClassIdentifier: 
 +--- !u!114 &365513279
@@ -133,7 +133,7 @@ index bcdac12a..c7ad1737 100644
 +  m_GameObject: {fileID: 365513272}
 +  m_Enabled: 1
 +  m_EditorHideFlags: 0
-+  m_Script: {fileID: 11500000, guid: d63229e78ec4498f7273791e35afee60, type: 3}
++  m_Script: {fileID: 11500000, guid: b54f0f638b530607779f7527a0f19b68, type: 3}
 +  m_Name: 
 +  m_EditorClassIdentifier: 
 +--- !u!114 &365513280
@@ -145,7 +145,7 @@ index bcdac12a..c7ad1737 100644
 +  m_GameObject: {fileID: 365513272}
 +  m_Enabled: 1
 +  m_EditorHideFlags: 0
-+  m_Script: {fileID: 11500000, guid: cb49f727e716e97778f004fe6483fa54, type: 3}
++  m_Script: {fileID: 11500000, guid: c839decef3d1935e709ad88cf77108f3, type: 3}
 +  m_Name: 
 +  m_EditorClassIdentifier: 
 +--- !u!114 &365513281
@@ -157,7 +157,7 @@ index bcdac12a..c7ad1737 100644
 +  m_GameObject: {fileID: 365513272}
 +  m_Enabled: 1
 +  m_EditorHideFlags: 0
-+  m_Script: {fileID: 11500000, guid: 9bf46f8e5eff7d5eb534d9800d351367, type: 3}
++  m_Script: {fileID: 11500000, guid: ca07677518443c07c6f89c3b39a9c638, type: 3}
 +  m_Name: 
 +  m_EditorClassIdentifier: 
 +--- !u!114 &365513282
@@ -169,7 +169,7 @@ index bcdac12a..c7ad1737 100644
 +  m_GameObject: {fileID: 365513272}
 +  m_Enabled: 1
 +  m_EditorHideFlags: 0
-+  m_Script: {fileID: 11500000, guid: b2b6c9865615104634ee724514a6a738, type: 3}
++  m_Script: {fileID: 11500000, guid: 5d8e8b86b8e5d51f477296d8938e2fea, type: 3}
 +  m_Name: 
 +  m_EditorClassIdentifier: 
 +--- !u!114 &365513283
@@ -181,7 +181,7 @@ index bcdac12a..c7ad1737 100644
 +  m_GameObject: {fileID: 365513272}
 +  m_Enabled: 1
 +  m_EditorHideFlags: 0
-+  m_Script: {fileID: 11500000, guid: 7482b042b4c3ec5b92360acedd824655, type: 3}
++  m_Script: {fileID: 11500000, guid: ed2f62cfe0423ecd987b2d79e1132a78, type: 3}
 +  m_Name: 
 +  m_EditorClassIdentifier: 
 +--- !u!114 &365513284
@@ -193,7 +193,7 @@ index bcdac12a..c7ad1737 100644
 +  m_GameObject: {fileID: 365513272}
 +  m_Enabled: 1
 +  m_EditorHideFlags: 0
-+  m_Script: {fileID: 11500000, guid: 8979e1eb322a4ec315b2eaf97dfd243b, type: 3}
++  m_Script: {fileID: 11500000, guid: a696609a541b4e7b8f0e21f98001d41f, type: 3}
 +  m_Name: 
 +  m_EditorClassIdentifier: 
 +--- !u!114 &365513285
@@ -205,7 +205,7 @@ index bcdac12a..c7ad1737 100644
 +  m_GameObject: {fileID: 365513272}
 +  m_Enabled: 1
 +  m_EditorHideFlags: 0
-+  m_Script: {fileID: 11500000, guid: f8b668e918c32e4068fe282db3ed5fa2, type: 3}
++  m_Script: {fileID: 11500000, guid: 0ff7c94f0d19c981e8a1ba20b3aae5be, type: 3}
 +  m_Name: 
 +  m_EditorClassIdentifier: 
 +--- !u!114 &365513286
@@ -217,7 +217,7 @@ index bcdac12a..c7ad1737 100644
 +  m_GameObject: {fileID: 365513272}
 +  m_Enabled: 1
 +  m_EditorHideFlags: 0
-+  m_Script: {fileID: 11500000, guid: ba182d619b4468bb419935bcb42b29bf, type: 3}
++  m_Script: {fileID: 11500000, guid: 397c41dda309d55cab7f692d8c28ab18, type: 3}
 +  m_Name: 
 +  m_EditorClassIdentifier: 
  --- !u!1660057539 &9223372036854775807

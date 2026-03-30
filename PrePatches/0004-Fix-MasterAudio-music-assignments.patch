@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Fri, 27 Mar 2026 02:09:40 +0200
+Subject: [PATCH] Fix MasterAudio music assignments
+
+
+diff --git a/Assets/sound/MasterAudioContainer.prefab b/Assets/sound/MasterAudioContainer.prefab
+index 6f3a1162..b0313df9 100644
+--- a/Assets/sound/MasterAudioContainer.prefab
++++ b/Assets/sound/MasterAudioContainer.prefab
+@@ -22000,3 +22000,3 @@ MonoBehaviour:
+       audLocation: 0
+-      clip: {fileID: 8300000, guid: c64e5a6dd041c602a3a815677f7c8ca1, type: 2}
++      clip: {fileID: 8300000, guid: c64e5a6dd041c602a3a815677f7c8ca1, type: 3}
+       songName: menu_music
+@@ -22042,3 +22042,3 @@ MonoBehaviour:
+       audLocation: 0
+-      clip: {fileID: 8300000, guid: a59788518104c7ca59dd22e2f81f1e89, type: 2}
++      clip: {fileID: 8300000, guid: a59788518104c7ca59dd22e2f81f1e89, type: 3}
+       songName: matchmaking2
+@@ -22068,3 +22068,3 @@ MonoBehaviour:
+       audLocation: 0
+-      clip: {fileID: 8300000, guid: 6150d15b9d3cdb7656b65dc6ebcf5c38, type: 2}
++      clip: {fileID: 8300000, guid: 6150d15b9d3cdb7656b65dc6ebcf5c38, type: 3}
+       songName: gameplay
+@@ -22094,3 +22094,3 @@ MonoBehaviour:
+       audLocation: 0
+-      clip: {fileID: 8300000, guid: 8da3fd40e0f198f4d9ac8ef8e8a95c66, type: 2}
++      clip: {fileID: 8300000, guid: 8da3fd40e0f198f4d9ac8ef8e8a95c66, type: 3}
+       songName: victory

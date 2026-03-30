@@ -5,7 +5,7 @@ Subject: [PATCH] Build settings
 
 
 diff --git a/ProjectSettings/ProjectSettings.asset b/ProjectSettings/ProjectSettings.asset
-index 220953af..6a7e2464 100644
+index 8b1d4811..e4453bb8 100644
 --- a/ProjectSettings/ProjectSettings.asset
 +++ b/ProjectSettings/ProjectSettings.asset
 @@ -94,5 +94,5 @@ PlayerSettings:
@@ -51,7 +51,7 @@ index 220953af..6a7e2464 100644
 +      m_Height: 128
 +      m_Kind: 0
    m_BuildTargetPlatformIcons:
-@@ -294,32 +301,2 @@ PlayerSettings:
+@@ -391,32 +398,2 @@ PlayerSettings:
      m_Icons:
 -    - m_Textures: []
 -      m_Width: 432
@@ -84,7 +84,7 @@ index 220953af..6a7e2464 100644
 -      m_Kind: 2
 -      m_SubKind: 
      - m_Textures: []
-@@ -384,2 +361,32 @@ PlayerSettings:
+@@ -481,2 +458,32 @@ PlayerSettings:
        m_SubKind: 
 +    - m_Textures: []
 +      m_Width: 432
@@ -117,19 +117,19 @@ index 220953af..6a7e2464 100644
 +      m_Kind: 2
 +      m_SubKind: 
    m_BuildTargetBatching: []
-@@ -735,3 +742,5 @@ PlayerSettings:
+@@ -832,3 +839,5 @@ PlayerSettings:
    platformArchitecture: {}
 -  scriptingBackend: {}
 +  scriptingBackend:
 +    Android: 1
 +    Standalone: 1
    il2cppCompilerConfiguration: {}
-@@ -837,3 +846,3 @@ PlayerSettings:
+@@ -934,3 +943,3 @@ PlayerSettings:
    hmiCpuConfiguration: 
 -  apiCompatibilityLevel: 3
 +  apiCompatibilityLevel: 6
    activeInputHandler: 0
-@@ -850,2 +859,2 @@ PlayerSettings:
+@@ -947,2 +956,2 @@ PlayerSettings:
    virtualTexturingSupportEnabled: 0
 -  insecureHttpOption: 0
 +  insecureHttpOption: 2

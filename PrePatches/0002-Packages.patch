@@ -20,11 +20,6 @@ index 4d0d86a4..d7d064e1 100644
      "com.unity.modules.ai": "1.0.0",
 +    "com.unity.modules.androidjni": "1.0.0",
      "com.unity.modules.animation": "1.0.0",
-@@ -33,2 +41,2 @@
-   }
--}
-\ No newline at end of file
-+}
 diff --git a/Packages/packages-lock.json b/Packages/packages-lock.json
 new file mode 100644
 index 00000000..6f8f746a
