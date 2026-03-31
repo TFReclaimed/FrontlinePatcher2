@@ -36,6 +36,12 @@ def find_unity() -> list:
             f"{os.getcwd()}:{os.getcwd()}",
             "-w",
             os.getcwd(),
+            "-e",
+            f"UNITY_SERIAL={os.environ.get("UNITY_SERIAL")}",
+            "-e",
+            f"UNITY_EMAIL={os.environ.get("UNITY_EMAIL")}",
+            "-e",
+            f"UNITY_PASSWORD={os.environ.get("UNITY_PASSWORD")}",
             f"unityci/editor:ubuntu-{unity_version}-linux-il2cpp-3",
             "unity-editor"
         ]
@@ -589,12 +595,13 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
             "-logFile",
             unity_log,
             "-quit",
+            "-nographics",
             "-serial",
-            os.environ.get("UNITY_SERIAL", ""),
+            "$UNITY_SERIAL",
             "-username",
-            os.environ.get("UNITY_EMAIL", ""),
+            "$UNITY_EMAIL",
             "-password",
-            os.environ.get("UNITY_PASSWORD", "")
+            "$UNITY_PASSWORD"
         ])
 
     run_cmd(unity_cmd + [
