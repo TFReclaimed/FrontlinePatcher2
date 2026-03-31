@@ -40,5 +40,9 @@ jobs:
           curl -L "https://cdn.tfflinternal.com/original/Titanfall_Frontline_1.0.17334.apk" -o Frontline.apk
           unzip -o AndroidBundles.zip -d .
           rm AndroidBundles.zip
+      - name: Setup Git
+        run: |
+          git config --global user.email "auto@mated.null"
+          git config --global user.name "GitHub Actions"
       - name: Run patcher
         run: python patcher.py setup "Frontline.apk" "Android"
