@@ -302,6 +302,142 @@ def apply_deterministic_guids(new_assets_only: bool) -> None:
 
     print("[+] GUID regeneration finished.")
 
+def get_file_hash(file_path: str) -> str:
+    hasher = hashlib.md5()
+    with open(file_path, "rb") as f:
+        while chunk := f.read(8192):
+            hasher.update(chunk)
+
+    return hasher.hexdigest()
+
+def get_meta_filtered(file_path: str) -> str:
+    if not os.path.exists(file_path):
+        return ""
+
+    try:
+        with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+            lines = f.readlines()
+
+        filtered_liens = [line for line in lines if not line.startswith("guid: ")]
+        return "".join(filtered_liens)
+    except Exception as e:
+        print(f"[!] ERROR: Failed to read and filter '{file_path}': {e}")
+        return ""
+
+def deduplicate_assets() -> None:
+    print("[*] Scanning for duplicate assets...")
+
+    asset_map = collections.defaultdict(list)
+    duplicate_pattern = re.compile(r"^(.*?)(?:_(\d+))?(\.[^.]+)$")
+    guid_map = {}
+
+    for root, _, files in os.walk(os.path.join(WORKSPACE_DIR, "Assets")):
+        if ".git" in root:
+            continue
+
+        for file in files:
+            if file.endswith(".meta"):
+                continue
+
+            match = duplicate_pattern.match(file)
+            if match:
+                base_name = match.group(1)
+                extension = match.group(3)
+                asset_map[(root, base_name, extension)].append(os.path.join(root, file))
+
+    count = 0
+    for (folder, base, ext), paths in asset_map.items():
+        if len(paths) < 2:
+            continue
+
+        paths.sort(key=lambda x: (len(x), x))
+
+        master_file = paths[0]
+        master_meta = master_file + ".meta"
+
+        try:
+            master_hash = get_file_hash(master_file)
+            master_meta_content = get_meta_filtered(master_meta)
+
+            with open(master_meta, "r", encoding="utf-8", errors="ignore") as f:
+                master_guid_match = re.search(r'guid: ([a-f0-9]{32})', f.read())
+                if not master_guid_match:
+                    continue
+                master_guid = master_guid_match.group(1)
+        except Exception as e:
+            print(f"[!] ERROR: Failed to process master file '{master_file}': {e}")
+            continue
+
+        for duplicate in paths[1:]:
+            try:
+                duplicate_hash = get_file_hash(duplicate)
+            except Exception as e:
+                print(f"[!] ERROR: Failed to hash '{duplicate}': {e}")
+                continue
+
+            if master_hash != duplicate_hash:
+                continue
+
+            if master_meta_content != get_meta_filtered(duplicate + ".meta"):
+                continue
+
+            try:
+                print(f"[*] Removing duplicate asset '{duplicate}'...")
+                os.remove(duplicate)
+                meta_file = duplicate + ".meta"
+                if os.path.isfile(meta_file):
+                    with open(meta_file, "r", encoding="utf-8", errors="ignore") as f:
+                        dup_guid_match = re.search(r'guid: ([a-f0-9]{32})', f.read())
+                        if dup_guid_match:
+                            dup_guid = dup_guid_match.group(1)
+                            guid_map[dup_guid] = master_guid
+
+                    os.remove(meta_file)
+                count += 1
+            except Exception as e:
+                print(f"[!] ERROR: Failed to remove duplicate '{duplicate}': {e}")
+
+    if count > 0:
+        print(f"[+] Removed {count} duplicate assets.")
+    else:
+        print("[*] No duplicate assets found.")
+        return
+
+    if not guid_map:
+        print("[*] No GUIDs need to be updated after deduplication.")
+        return
+
+    print(f"[*] Updating references to {len(guid_map)} deduplicated assets...")
+
+    guid_pattern = re.compile(r'\b([a-f0-9]{32})\b')
+
+    def guid_replacer(guid_match: re.Match) -> str:
+        found_guid = guid_match.group(1)
+        return guid_map.get(found_guid, found_guid)
+
+    for root, dirs, files in os.walk(WORKSPACE_DIR):
+        if ".git" in root:
+            continue
+
+        for file in files:
+            # todo: don't process binary files
+
+            file_path = os.path.join(root, file)
+            try:
+                with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+                    old_text = f.read()
+
+                new_text = guid_pattern.sub(guid_replacer, old_text)
+
+                if new_text != old_text:
+                    with open(file_path, "w", encoding="utf-8") as f:
+                        f.write(new_text)
+            except Exception as e:
+                print(f"[!] ERROR: Failed to update references in '{file_path}': {e}")
+                sys.exit(1)
+
+    print("[+] Deduplication reference update finished.")
+
 class FlowDict(dict):
     pass
 
@@ -541,6 +677,8 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
 
     print("[*] Regenerating deterministic asset GUIDs...")
     apply_deterministic_guids(False)
+
+    deduplicate_assets()
 
     print("[*] Copy overrides...")
     overrides_dst = os.path.join(WORKSPACE_DIR, "Assets")
