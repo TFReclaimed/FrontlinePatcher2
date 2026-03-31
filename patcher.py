@@ -324,7 +324,7 @@ def get_meta_filtered(file_path: str) -> str:
         print(f"[!] ERROR: Failed to read and filter '{file_path}': {e}")
         return ""
 
-def deduplicate_assets() -> None:
+def deduplicate_assets() -> int:
     print("[*] Scanning for duplicate assets...")
 
     asset_map = collections.defaultdict(list)
@@ -346,7 +346,7 @@ def deduplicate_assets() -> None:
                 asset_map[(root, base_name, extension)].append(os.path.join(root, file))
 
     count = 0
-    for (folder, base, ext), paths in asset_map.items():
+    for (_, _, _), paths in asset_map.items():
         if len(paths) < 2:
             continue
 
@@ -401,11 +401,11 @@ def deduplicate_assets() -> None:
         print(f"[+] Removed {count} duplicate assets.")
     else:
         print("[*] No duplicate assets found.")
-        return
+        return 0
 
     if not guid_map:
         print("[*] No GUIDs need to be updated after deduplication.")
-        return
+        return 0
 
     print(f"[*] Updating references to {len(guid_map)} deduplicated assets...")
 
@@ -437,6 +437,7 @@ def deduplicate_assets() -> None:
                 sys.exit(1)
 
     print("[+] Deduplication reference update finished.")
+    return count
 
 class FlowDict(dict):
     pass
@@ -678,7 +679,10 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
     print("[*] Regenerating deterministic asset GUIDs...")
     apply_deterministic_guids(False)
 
-    deduplicate_assets()
+    while True:
+        removed = deduplicate_assets()
+        if removed == 0:
+            break
 
     print("[*] Copy overrides...")
     overrides_dst = os.path.join(WORKSPACE_DIR, "Assets")
