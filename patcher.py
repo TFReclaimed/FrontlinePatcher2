@@ -1,4 +1,5 @@
 import argparse
+import collections
 import glob
 import hashlib
 import os
@@ -300,7 +301,7 @@ def populate_texture_platform_settings() -> None:
     yaml.add_representer(FlowDict, represent_flow_dict)
     yaml.add_representer(type(None), represent_none)
 
-    target_platforms = ["Standalone", "Android", "iOS"]
+    REQUIRED_ORDER = ["DefaultTexturePlatform", "Standalone", "Android", "iPhone"]
 
     png_metas = glob.glob(os.path.join(WORKSPACE_DIR, "Assets", "**", "*.png.meta"), recursive=True)
     for meta_path in png_metas:
@@ -318,32 +319,44 @@ def populate_texture_platform_settings() -> None:
 
             settings_list = importer["platformSettings"]
 
-            existing_targets = {}
-            standalone_template = None
-
+            existing_targets = collections.defaultdict(list)
             for entry in settings_list:
-                target_name = entry.get("buildTarget")
-                existing_targets[target_name] = entry
-                if target_name == "Standalone":
-                    standalone_template = entry
+                name = entry.get("buildTarget")
+                existing_targets[name].append(entry)
 
-            if not standalone_template:
-                standalone_template = existing_targets.get("DefaultTexturePlatform")
+            standalone_template = None
+            if existing_targets["Standalone"]:
+                standalone_template = existing_targets["Standalone"][0]
+            elif existing_targets["DefaultTexturePlatform"]:
+                standalone_template = existing_targets["DefaultTexturePlatform"][0]
 
             if not standalone_template:
                 print(f"[!] WARNING: No suitable template found for '{meta_path}'. Skipping.")
                 continue
 
+            new_settings_list = []
             modified = False
-            for target in target_platforms:
-                if target not in existing_targets:
+
+            for target in REQUIRED_ORDER:
+                if target in existing_targets:
+                    new_settings_list.extend(existing_targets[target])
+                else:
                     new_entry = standalone_template.copy()
                     new_entry["buildTarget"] = target
                     new_entry["overridden"] = 0
-                    settings_list.append(new_entry)
+                    new_settings_list.append(new_entry)
                     modified = True
 
+            for target_name, entries in existing_targets.items():
+                if target_name not in REQUIRED_ORDER:
+                    new_settings_list.extend(entries)
+
+            if not modified and new_settings_list != settings_list:
+                modified = True
+
             if modified:
+                importer["platformSettings"] = new_settings_list
+
                 for key in ["spritePivot", "spriteBorder"]:
                     if key in importer and isinstance(importer[key], dict):
                         importer[key] = FlowDict(importer[key])

@@ -5,7 +5,7 @@ Subject: [PATCH] Packages
 
 
 diff --git a/Packages/manifest.json b/Packages/manifest.json
-index 4d0d86a4..d7d064e1 100644
+index 4d0d86a4..93830654 100644
 --- a/Packages/manifest.json
 +++ b/Packages/manifest.json
 @@ -2,3 +2,11 @@

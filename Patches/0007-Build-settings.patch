@@ -5,7 +5,7 @@ Subject: [PATCH] Build settings
 
 
 diff --git a/ProjectSettings/ProjectSettings.asset b/ProjectSettings/ProjectSettings.asset
-index 8b1d4811..e4453bb8 100644
+index 934dc5b1..3ad9006c 100644
 --- a/ProjectSettings/ProjectSettings.asset
 +++ b/ProjectSettings/ProjectSettings.asset
 @@ -94,5 +94,5 @@ PlayerSettings:
