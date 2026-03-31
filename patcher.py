@@ -583,25 +583,18 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
     unity_log = os.path.abspath(os.path.join(TEMP_DIR, "unity_upgrade.log"))
 
     if "CI" in os.environ:
-        print("[*] Trying to activate Unity...")
         unity_log = "/dev/stdout"
-        run_cmd(unity_cmd + [
-            "-logFile",
-            unity_log,
-            "-quit",
-            "-nographics",
-            "-serial",
-            os.environ.get("UNITY_SERIAL"),
-            "-username",
-            os.environ.get("UNITY_EMAIL"),
-            "-password",
-            os.environ.get("UNITY_PASSWORD")
-        ])
 
     run_cmd(unity_cmd + [
         "-quit",
         "-batchmode",
         "-nographics",
+        "-serial",
+        os.environ.get("UNITY_SERIAL"),
+        "-username",
+        os.environ.get("UNITY_EMAIL"),
+        "-password",
+        os.environ.get("UNITY_PASSWORD"),
         "-projectPath",
         os.path.abspath(WORKSPACE_DIR),
         "-executeMethod",
