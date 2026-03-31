@@ -605,6 +605,16 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
 
     print("[+] Finished project upgrade!")
 
+    if "CI" in os.environ:
+        print("[*] Fixing file permissions...")
+        run_cmd([
+            "sudo",
+            "chown",
+            "-R",
+            f"{os.getuid()}:{os.getgid()}",
+            WORKSPACE_DIR
+        ])
+
     print("[*] Regenerating deterministic asset GUIDs... (new assets)")
     apply_deterministic_guids(True)
 
