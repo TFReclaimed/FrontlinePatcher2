@@ -21,24 +21,37 @@ PRE_PATCHES_DIR = "PrePatches"
 PATCHES_DIR = "Patches"
 OVERRIDES_DIR = "Overrides"
 
-def find_unity() -> str:
+def find_unity() -> list:
+    unity_version = "2022.3.62f3"
     unity_path = ""
 
-    if sys.platform == "linux":
-        unity_path = os.path.expanduser("~/Unity/Hub/Editor/2022.3.62f3/Editor/Unity")
+    if "CI" in os.environ:
+        return [
+            "docker",
+            "run",
+            "--rm",
+            "-v",
+            f"{os.getcwd()}:{os.getcwd()}",
+            "-w",
+            os.getcwd(),
+            f"unityci/editor:ubuntu-{unity_version}-linux-il2cpp-3",
+            "unity-editor"
+        ]
+    elif sys.platform == "linux":
+        unity_path = os.path.expanduser(f"~/Unity/Hub/Editor/{unity_version}/Editor/Unity")
     elif sys.platform == "darwin":
-        unity_path = "/Applications/Unity/Hub/Editor/2022.3.62f3/Unity.app/Contents/MacOS/Unity"
+        unity_path = f"/Applications/Unity/Hub/Editor/{unity_version}/Unity.app/Contents/MacOS/Unity"
     elif sys.platform == "win32":
-        unity_path = "C:/Program Files/Unity/Hub/Editor/2022.3.62f3/Editor/Unity.exe"
+        unity_path = f"C:/Program Files/Unity/Hub/Editor/{unity_version}/Editor/Unity.exe"
     else:
         print("[!] ERROR: Unsupported platform.")
         sys.exit(1)
 
     if not os.path.isfile(unity_path):
-        print("[!] ERROR: Unity executable not found. Please install Unity 2022.3.62f3.")
+        print(f"[!] ERROR: Unity executable not found. Please install Unity {unity_version}.")
         sys.exit(1)
 
-    return unity_path
+    return [unity_path]
 
 def find_executable(name: str) -> str | None:
     search_name = name
@@ -71,7 +84,8 @@ def check_prerequisites(command: str) -> None:
         if not find_executable("vgmstream-cli"):
             missing_tools.append("vgmstream-cli")
 
-        find_unity()
+        if "CI" not in os.environ:
+            find_unity()
 
     if missing_tools:
         print("[!] ERROR: The following prerequisites are missing:")
@@ -563,9 +577,8 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
     print("[*] Upgrading and reserializing Unity project...")
     print("[*] This may take several minutes. Please wait...")
 
-    unity_path = find_unity()
-    run_cmd([
-        unity_path,
+    unity_cmd = find_unity()
+    run_cmd(unity_cmd + [
         "-quit",
         "-batchmode",
         "-projectPath",
