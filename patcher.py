@@ -581,27 +581,29 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
 
     unity_cmd = find_unity()
     unity_log = os.path.abspath(os.path.join(TEMP_DIR, "unity_upgrade.log"))
-
-    if "CI" in os.environ:
-        unity_log = "/dev/stdout"
-
-    run_cmd(unity_cmd + [
+    unity_args = [
         "-quit",
         "-batchmode",
         "-nographics",
-        "-serial",
-        os.environ.get("UNITY_SERIAL"),
-        "-username",
-        os.environ.get("UNITY_EMAIL"),
-        "-password",
-        os.environ.get("UNITY_PASSWORD"),
         "-projectPath",
         os.path.abspath(WORKSPACE_DIR),
         "-executeMethod",
-        "AssetUpgrader.UpgradeProject",
-        "-logFile",
-        unity_log
-    ])
+        "AssetUpgrader.UpgradeProject"
+    ]
+
+    if "CI" in os.environ:
+        unity_log = "/dev/stdout"
+        unity_args += [
+            "-serial",
+            os.environ.get("UNITY_SERIAL"),
+            "-username",
+            os.environ.get("UNITY_EMAIL"),
+            "-password",
+            os.environ.get("UNITY_PASSWORD"),
+        ]
+
+    unity_args += ["-logFile", unity_log]
+    run_cmd(unity_cmd + unity_args)
 
     print("[+] Finished project upgrade!")
 
