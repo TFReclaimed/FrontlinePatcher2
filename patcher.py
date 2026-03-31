@@ -580,6 +580,23 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
     print("[*] This may take several minutes. Please wait...")
 
     unity_cmd = find_unity()
+    unity_log = os.path.abspath(os.path.join(TEMP_DIR, "unity_upgrade.log"))
+
+    if "CI" in os.environ:
+        print("[*] Trying to activate Unity...")
+        unity_log = "/dev/stdout"
+        run_cmd(unity_cmd + [
+            "-logFile",
+            unity_log,
+            "-quit",
+            "-serial",
+            os.environ.get("UNITY_SERIAL", ""),
+            "-username",
+            os.environ.get("UNITY_EMAIL", ""),
+            "-password",
+            os.environ.get("UNITY_PASSWORD", "")
+        ])
+
     run_cmd(unity_cmd + [
         "-quit",
         "-batchmode",
@@ -589,7 +606,7 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
         "-executeMethod",
         "AssetUpgrader.UpgradeProject",
         "-logFile",
-        os.path.abspath(os.path.join(TEMP_DIR, "unity_upgrade.log"))
+        unity_log
     ])
 
     print("[+] Finished project upgrade!")
