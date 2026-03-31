@@ -15,6 +15,8 @@ import zipfile
 
 import yaml
 
+sys.stdout.reconfigure(line_buffering=True)
+
 WORKSPACE_DIR = "RippedProject"
 TEMP_DIR = "Temp"
 PRE_PATCHES_DIR = "PrePatches"
@@ -581,6 +583,7 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
     run_cmd(unity_cmd + [
         "-quit",
         "-batchmode",
+        "-nographics",
         "-projectPath",
         os.path.abspath(WORKSPACE_DIR),
         "-executeMethod",
