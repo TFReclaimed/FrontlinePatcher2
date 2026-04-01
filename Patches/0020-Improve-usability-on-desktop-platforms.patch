@@ -1,0 +1,135 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Wed, 1 Apr 2026 22:38:25 +0300
+Subject: [PATCH] Improve usability on desktop platforms
+
+
+diff --git a/Assets/Scenes/StoreUI.unity b/Assets/Scenes/StoreUI.unity
+index 09ea8264..06b0fd37 100644
+--- a/Assets/Scenes/StoreUI.unity
++++ b/Assets/Scenes/StoreUI.unity
+@@ -14741,3 +14741,3 @@ MonoBehaviour:
+   m_DecelerationRate: 0.135
+-  m_ScrollSensitivity: 1
++  m_ScrollSensitivity: 120
+   m_Viewport: {fileID: 0}
+diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
+index cc4e5fcd..143f4640 100644
+--- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
++++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
+@@ -55,2 +55,6 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+ 
++	private int _prevScreenWidth;
++
++	private int _prevScreenHeight;
++
+ 	private static RandomNumberGenerator rng = new RandomNumberGenerator();
+@@ -152,2 +156,5 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+ 		Application.targetFrameRate = (int) Screen.currentResolution.refreshRateRatio.value;
++#endif
++#if UNITY_STANDALONE
++		Screen.SetResolution(600, 900, FullScreenMode.Windowed);
+ #endif
+@@ -185,2 +192,18 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+ 		}
++#if UNITY_STANDALONE
++		if (Input.GetKeyDown(KeyCode.F11))
++		{
++			if (Screen.fullScreen)
++			{
++				Screen.SetResolution(_prevScreenWidth, _prevScreenHeight, FullScreenMode.Windowed);
++			}
++			else
++			{
++				_prevScreenWidth = Screen.width;
++				_prevScreenHeight = Screen.height;
++				var currentResolution = Screen.currentResolution;
++				Screen.SetResolution(currentResolution.width, currentResolution.height, FullScreenMode.FullScreenWindow);
++			}
++		}
++#endif
+ 	}
+diff --git a/Assets/prefabs/ui/MainUI.prefab b/Assets/prefabs/ui/MainUI.prefab
+index 662dd7c2..091535a0 100644
+--- a/Assets/prefabs/ui/MainUI.prefab
++++ b/Assets/prefabs/ui/MainUI.prefab
+@@ -32722,3 +32722,3 @@ MonoBehaviour:
+   m_DecelerationRate: 0.135
+-  m_ScrollSensitivity: 1
++  m_ScrollSensitivity: 120
+   m_Viewport: {fileID: 0}
+@@ -59373,3 +59373,3 @@ MonoBehaviour:
+   m_DecelerationRate: 0.135
+-  m_ScrollSensitivity: 1
++  m_ScrollSensitivity: 120
+   m_Viewport: {fileID: 0}
+@@ -67643,3 +67643,3 @@ MonoBehaviour:
+   m_DecelerationRate: 0.135
+-  m_ScrollSensitivity: 1
++  m_ScrollSensitivity: 120
+   m_Viewport: {fileID: 224010324180031124}
+@@ -93542,3 +93542,3 @@ MonoBehaviour:
+   m_DecelerationRate: 0.135
+-  m_ScrollSensitivity: 1
++  m_ScrollSensitivity: 120
+   m_Viewport: {fileID: 224719120084294589}
+@@ -106034,3 +106034,3 @@ MonoBehaviour:
+   m_DecelerationRate: 0.135
+-  m_ScrollSensitivity: 1
++  m_ScrollSensitivity: 120
+   m_Viewport: {fileID: 0}
+diff --git a/Assets/prefabs/ui/accountcutomize/AccountProfileCustomizer.prefab b/Assets/prefabs/ui/accountcutomize/AccountProfileCustomizer.prefab
+index ba69ba30..4a9f3228 100644
+--- a/Assets/prefabs/ui/accountcutomize/AccountProfileCustomizer.prefab
++++ b/Assets/prefabs/ui/accountcutomize/AccountProfileCustomizer.prefab
+@@ -2348,3 +2348,3 @@ MonoBehaviour:
+   m_DecelerationRate: 0.135
+-  m_ScrollSensitivity: 1
++  m_ScrollSensitivity: 120
+   m_Viewport: {fileID: 224808113985169905}
+diff --git a/Assets/prefabs/ui/guildui/FindGuildDialog.prefab b/Assets/prefabs/ui/guildui/FindGuildDialog.prefab
+index d9393d8f..bd4fc91d 100644
+--- a/Assets/prefabs/ui/guildui/FindGuildDialog.prefab
++++ b/Assets/prefabs/ui/guildui/FindGuildDialog.prefab
+@@ -2836,3 +2836,3 @@ MonoBehaviour:
+   m_DecelerationRate: 0.135
+-  m_ScrollSensitivity: 1
++  m_ScrollSensitivity: 120
+   m_Viewport: {fileID: 224149520701623706}
+diff --git a/Assets/prefabs/ui/guildui/GuildProfileCreateUI.prefab b/Assets/prefabs/ui/guildui/GuildProfileCreateUI.prefab
+index 0166e11b..3d95d56d 100644
+--- a/Assets/prefabs/ui/guildui/GuildProfileCreateUI.prefab
++++ b/Assets/prefabs/ui/guildui/GuildProfileCreateUI.prefab
+@@ -99,3 +99,3 @@ MonoBehaviour:
+   m_DecelerationRate: 0.135
+-  m_ScrollSensitivity: 1
++  m_ScrollSensitivity: 120
+   m_Viewport: {fileID: 224492842699383957}
+@@ -3886,3 +3886,3 @@ MonoBehaviour:
+   m_DecelerationRate: 0.135
+-  m_ScrollSensitivity: 1
++  m_ScrollSensitivity: 120
+   m_Viewport: {fileID: 224011164340880974}
+diff --git a/Assets/prefabs/ui/guildui/GuildProfileEditUI.prefab b/Assets/prefabs/ui/guildui/GuildProfileEditUI.prefab
+index 136e4578..0c48a90c 100644
+--- a/Assets/prefabs/ui/guildui/GuildProfileEditUI.prefab
++++ b/Assets/prefabs/ui/guildui/GuildProfileEditUI.prefab
+@@ -1675,3 +1675,3 @@ MonoBehaviour:
+   m_DecelerationRate: 0.135
+-  m_ScrollSensitivity: 1
++  m_ScrollSensitivity: 120
+   m_Viewport: {fileID: 224085275382694935}
+@@ -2766,3 +2766,3 @@ MonoBehaviour:
+   m_DecelerationRate: 0.135
+-  m_ScrollSensitivity: 1
++  m_ScrollSensitivity: 120
+   m_Viewport: {fileID: 224528911807818478}
+diff --git a/Assets/pve/prefabs/ui/MissionMenu.prefab b/Assets/pve/prefabs/ui/MissionMenu.prefab
+index 54cd7e79..43d60da1 100644
+--- a/Assets/pve/prefabs/ui/MissionMenu.prefab
++++ b/Assets/pve/prefabs/ui/MissionMenu.prefab
+@@ -79520,3 +79520,3 @@ MonoBehaviour:
+   m_DecelerationRate: 0.135
+-  m_ScrollSensitivity: 1
++  m_ScrollSensitivity: 120
+   m_Viewport: {fileID: 224627669683874462}
