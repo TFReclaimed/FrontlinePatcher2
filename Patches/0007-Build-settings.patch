@@ -5,7 +5,7 @@ Subject: [PATCH] Build settings
 
 
 diff --git a/ProjectSettings/ProjectSettings.asset b/ProjectSettings/ProjectSettings.asset
-index 934dc5b1..3ad9006c 100644
+index 19764f84..632a2b05 100644
 --- a/ProjectSettings/ProjectSettings.asset
 +++ b/ProjectSettings/ProjectSettings.asset
 @@ -94,5 +94,5 @@ PlayerSettings:
@@ -39,97 +39,19 @@ index 934dc5b1..3ad9006c 100644
 -  AndroidTargetArchitectures: 1
 +  AndroidTargetArchitectures: 3
    AndroidTargetDevices: 0
-@@ -290,3 +290,10 @@ PlayerSettings:
-   AndroidAppBundleSizeToValidate: 200
--  m_BuildTargetIcons: []
-+  m_BuildTargetIcons:
-+  - m_BuildTarget: 
-+    m_Icons:
-+    - serializedVersion: 2
-+      m_Icon: {fileID: 2800000, guid: 69d3a292620c1d642b67cb4a87bf8902, type: 3}
-+      m_Width: 128
-+      m_Height: 128
-+      m_Kind: 0
-   m_BuildTargetPlatformIcons:
-@@ -391,32 +398,2 @@ PlayerSettings:
-     m_Icons:
--    - m_Textures: []
--      m_Width: 432
--      m_Height: 432
--      m_Kind: 2
--      m_SubKind: 
--    - m_Textures: []
--      m_Width: 324
--      m_Height: 324
--      m_Kind: 2
--      m_SubKind: 
--    - m_Textures: []
--      m_Width: 216
--      m_Height: 216
--      m_Kind: 2
--      m_SubKind: 
--    - m_Textures: []
--      m_Width: 162
--      m_Height: 162
--      m_Kind: 2
--      m_SubKind: 
--    - m_Textures: []
--      m_Width: 108
--      m_Height: 108
--      m_Kind: 2
--      m_SubKind: 
--    - m_Textures: []
--      m_Width: 81
--      m_Height: 81
--      m_Kind: 2
--      m_SubKind: 
-     - m_Textures: []
-@@ -481,2 +458,32 @@ PlayerSettings:
-       m_SubKind: 
-+    - m_Textures: []
-+      m_Width: 432
-+      m_Height: 432
-+      m_Kind: 2
-+      m_SubKind: 
-+    - m_Textures: []
-+      m_Width: 324
-+      m_Height: 324
-+      m_Kind: 2
-+      m_SubKind: 
-+    - m_Textures: []
-+      m_Width: 216
-+      m_Height: 216
-+      m_Kind: 2
-+      m_SubKind: 
-+    - m_Textures: []
-+      m_Width: 162
-+      m_Height: 162
-+      m_Kind: 2
-+      m_SubKind: 
-+    - m_Textures: []
-+      m_Width: 108
-+      m_Height: 108
-+      m_Kind: 2
-+      m_SubKind: 
-+    - m_Textures: []
-+      m_Width: 81
-+      m_Height: 81
-+      m_Kind: 2
-+      m_SubKind: 
-   m_BuildTargetBatching: []
-@@ -832,3 +839,5 @@ PlayerSettings:
+@@ -643,3 +643,5 @@ PlayerSettings:
    platformArchitecture: {}
 -  scriptingBackend: {}
 +  scriptingBackend:
 +    Android: 1
 +    Standalone: 1
    il2cppCompilerConfiguration: {}
-@@ -934,3 +943,3 @@ PlayerSettings:
+@@ -745,3 +747,3 @@ PlayerSettings:
    hmiCpuConfiguration: 
 -  apiCompatibilityLevel: 3
 +  apiCompatibilityLevel: 6
    activeInputHandler: 0
-@@ -947,2 +956,2 @@ PlayerSettings:
+@@ -758,2 +760,2 @@ PlayerSettings:
    virtualTexturingSupportEnabled: 0
 -  insecureHttpOption: 0
 +  insecureHttpOption: 2
