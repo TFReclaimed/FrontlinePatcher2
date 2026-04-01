@@ -5,7 +5,7 @@ Subject: [PATCH] Reassign GameBoard meshes
 
 
 diff --git a/Assets/Scenes/GameBoard1.unity b/Assets/Scenes/GameBoard1.unity
-index 06a0fed7..2c3d9197 100644
+index 0413f5a4..303fa1e5 100644
 --- a/Assets/Scenes/GameBoard1.unity
 +++ b/Assets/Scenes/GameBoard1.unity
 @@ -7030,3 +7030,3 @@ MeshFilter:

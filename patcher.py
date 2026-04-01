@@ -351,51 +351,39 @@ def deduplicate_assets() -> int:
             continue
 
         paths.sort(key=lambda x: (len(x), x))
+        kept_variants = []
 
-        master_file = paths[0]
-        master_meta = master_file + ".meta"
-
-        try:
-            master_hash = get_file_hash(master_file)
-            master_meta_content = get_meta_filtered(master_meta)
-
-            with open(master_meta, "r", encoding="utf-8", errors="ignore") as f:
-                master_guid_match = re.search(r'guid: ([a-f0-9]{32})', f.read())
-                if not master_guid_match:
-                    continue
-                master_guid = master_guid_match.group(1)
-        except Exception as e:
-            print(f"[!] ERROR: Failed to process master file '{master_file}': {e}")
-            continue
-
-        for duplicate in paths[1:]:
+        for asset_path in paths:
             try:
-                duplicate_hash = get_file_hash(duplicate)
+                current_hash = get_file_hash(asset_path)
+                current_meta = asset_path + ".meta"
+                current_meta_content = get_meta_filtered(current_meta)
+
+                with open(current_meta, "r", encoding="utf-8", errors="ignore") as f:
+                    guid_match = re.search(r'guid: ([a-f0-9]{32})', f.read())
+                    if not guid_match:
+                        continue
+                    current_guid = guid_match.group(1)
+
+                matching_guid = None
+                for m_hash, m_meta, m_guid in kept_variants:
+                    if current_hash == m_hash and current_meta_content == m_meta:
+                        matching_guid = m_guid
+                        break
+
+                if matching_guid:
+                    print(f"[*] Removing duplicate asset '{asset_path}'...")
+                    os.remove(asset_path)
+                    if os.path.isfile(current_meta):
+                        guid_map[current_guid] = matching_guid
+                        os.remove(current_meta)
+                    count += 1
+                else:
+                    kept_variants.append((current_hash, current_meta_content, current_guid))
+
             except Exception as e:
-                print(f"[!] ERROR: Failed to hash '{duplicate}': {e}")
+                print(f"[!] ERROR: Failed to process '{asset_path}': {e}")
                 continue
-
-            if master_hash != duplicate_hash:
-                continue
-
-            if master_meta_content != get_meta_filtered(duplicate + ".meta"):
-                continue
-
-            try:
-                print(f"[*] Removing duplicate asset '{duplicate}'...")
-                os.remove(duplicate)
-                meta_file = duplicate + ".meta"
-                if os.path.isfile(meta_file):
-                    with open(meta_file, "r", encoding="utf-8", errors="ignore") as f:
-                        dup_guid_match = re.search(r'guid: ([a-f0-9]{32})', f.read())
-                        if dup_guid_match:
-                            dup_guid = dup_guid_match.group(1)
-                            guid_map[dup_guid] = master_guid
-
-                    os.remove(meta_file)
-                count += 1
-            except Exception as e:
-                print(f"[!] ERROR: Failed to remove duplicate '{duplicate}': {e}")
 
     if count > 0:
         print(f"[+] Removed {count} duplicate assets.")

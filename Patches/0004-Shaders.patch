@@ -938,7 +938,7 @@ index 4163658e..3628b1ce 100644
 +}}
 \ No newline at end of file
 diff --git a/Assets/Shader/Mobile-VertexLit.shader b/Assets/Shader/Mobile-VertexLit.shader
-index af364c8e..6692990a 100644
+index af364c8e..379da06c 100644
 --- a/Assets/Shader/Mobile-VertexLit.shader
 +++ b/Assets/Shader/Mobile-VertexLit.shader
 @@ -1,22 +1,100 @@
@@ -1056,9 +1056,11 @@ index af364c8e..6692990a 100644
 +		{
 +			SHADOW_CASTER_FRAGMENT(i)
  		}
-@@ -25 +103,2 @@ Properties {
- }
-+}
+@@ -24,2 +102,2 @@ Properties {
+ 	}
+-}
+\ No newline at end of file
++}}
 \ No newline at end of file
 diff --git a/Assets/Shader/Model-Diffuse-Specular.shader b/Assets/Shader/Model-Diffuse-Specular.shader
 index 88679239..455b77cf 100644
@@ -2611,10 +2613,10 @@ index 04c016cd..a1069de4 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Particle Add.shader b/Assets/Shader/Particle Add.shader
-index 519f28e3..56de2cf6 100644
+index 519f28e3..095f4b43 100644
 --- a/Assets/Shader/Particle Add.shader	
 +++ b/Assets/Shader/Particle Add.shader	
-@@ -1,27 +1,82 @@
+@@ -1,27 +1,81 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
  Shader "Particles/Additive" {
@@ -2715,14 +2717,15 @@ index 519f28e3..56de2cf6 100644
  		}
 -		ENDCG
  	}
- }
-+}
+-}
+\ No newline at end of file
++}}
 \ No newline at end of file
 diff --git a/Assets/Shader/Particle AddSmooth.shader b/Assets/Shader/Particle AddSmooth.shader
-index 5227f98b..1cd2108e 100644
+index 5227f98b..dbbb391b 100644
 --- a/Assets/Shader/Particle AddSmooth.shader	
 +++ b/Assets/Shader/Particle AddSmooth.shader	
-@@ -1,26 +1,82 @@
+@@ -1,26 +1,81 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
  Shader "Particles/Additive (Soft)" {
@@ -2823,14 +2826,15 @@ index 5227f98b..1cd2108e 100644
  		}
 -		ENDCG
  	}
- }
-+}
+-}
+\ No newline at end of file
++}}
 \ No newline at end of file
 diff --git a/Assets/Shader/Particle Alpha Blend.shader b/Assets/Shader/Particle Alpha Blend.shader
-index 70739420..979be3aa 100644
+index 70739420..345a0f50 100644
 --- a/Assets/Shader/Particle Alpha Blend.shader	
 +++ b/Assets/Shader/Particle Alpha Blend.shader	
-@@ -1,27 +1,82 @@
+@@ -1,27 +1,81 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
  Shader "Particles/Alpha Blended" {
@@ -2932,8 +2936,9 @@ index 70739420..979be3aa 100644
  		}
 -		ENDCG
  	}
- }
-+}
+-}
+\ No newline at end of file
++}}
 \ No newline at end of file
 diff --git a/Assets/Shader/Particle Multiply.shader b/Assets/Shader/Particle Multiply.shader
 index f816418b..e77f8b84 100644
@@ -3246,10 +3251,10 @@ index 2a690955..2f58379f 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Particle-Add.shader b/Assets/Shader/Particle-Add.shader
-index 4459f86c..d44fa38d 100644
+index 4459f86c..12238c36 100644
 --- a/Assets/Shader/Particle-Add.shader
 +++ b/Assets/Shader/Particle-Add.shader
-@@ -1,26 +1,82 @@
+@@ -1,26 +1,81 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
  Shader "PC/Particles/Additive" {
@@ -3349,14 +3354,15 @@ index 4459f86c..d44fa38d 100644
  		}
 -		ENDCG
  	}
- }
-+}
+-}
+\ No newline at end of file
++}}
 \ No newline at end of file
 diff --git a/Assets/Shader/Particle-Alpha-Blend.shader b/Assets/Shader/Particle-Alpha-Blend.shader
-index 1e7430f0..b058ded0 100644
+index 1e7430f0..3ff84378 100644
 --- a/Assets/Shader/Particle-Alpha-Blend.shader
 +++ b/Assets/Shader/Particle-Alpha-Blend.shader
-@@ -1,26 +1,82 @@
+@@ -1,26 +1,81 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
  Shader "PC/Particles/Alpha Blended" {
@@ -3457,8 +3463,9 @@ index 1e7430f0..b058ded0 100644
  		}
 -		ENDCG
  	}
- }
-+}
+-}
+\ No newline at end of file
++}}
 \ No newline at end of file
 diff --git a/Assets/Shader/Particle-Blend-Stencil.shader b/Assets/Shader/Particle-Blend-Stencil.shader
 index fe4a54b6..53be66aa 100644
@@ -4492,7 +4499,7 @@ index 20cb7328..2cc0fc3a 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Skybox-Procedural.shader b/Assets/Shader/Skybox-Procedural.shader
-index 67302625..3f38c951 100644
+index 67302625..f3f4ae47 100644
 --- a/Assets/Shader/Skybox-Procedural.shader
 +++ b/Assets/Shader/Skybox-Procedural.shader
 @@ -1,27 +1,383 @@
@@ -4898,9 +4905,8 @@ index 67302625..3f38c951 100644
 +			return half4(col,1.0);
 +
  		}
-@@ -30 +386,5 @@ Properties {
+@@ -30 +386,4 @@ Properties {
  }
-+
 +Fallback Off
 +
 +}
@@ -5770,10 +5776,10 @@ index cbd7cd67..754213da 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Unlit-Alpha.shader b/Assets/Shader/Unlit-Alpha.shader
-index c58e97e6..4ab98e91 100644
+index c58e97e6..25cbb602 100644
 --- a/Assets/Shader/Unlit-Alpha.shader
 +++ b/Assets/Shader/Unlit-Alpha.shader
-@@ -1,23 +1,57 @@
+@@ -1,25 +1,59 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
 +// Unlit alpha-blended shader.
@@ -5848,14 +5854,15 @@ index c58e97e6..4ab98e91 100644
 +				return col;
 +			}
  		ENDCG
-@@ -25 +59,2 @@ Properties {
- }
-+}
+ 	}
+-}
+\ No newline at end of file
++}}
 diff --git a/Assets/Shader/Unlit-Color.shader b/Assets/Shader/Unlit-Color.shader
-index 7aaa53dc..107e63e4 100644
+index 7aaa53dc..e4451951 100644
 --- a/Assets/Shader/Unlit-Color.shader
 +++ b/Assets/Shader/Unlit-Color.shader
-@@ -1,23 +1,51 @@
+@@ -1,25 +1,53 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
 +// Unlit shader. Simplest possible colored shader.
@@ -5924,14 +5931,15 @@ index 7aaa53dc..107e63e4 100644
 +				return col;
 +			}
  		ENDCG
-@@ -25 +53,2 @@ Properties {
- }
-+}
+ 	}
+-}
+\ No newline at end of file
++}}
 diff --git a/Assets/Shader/Unlit-Normal.shader b/Assets/Shader/Unlit-Normal.shader
-index 6a53edbc..1a64811f 100644
+index 6a53edbc..59c0013f 100644
 --- a/Assets/Shader/Unlit-Normal.shader
 +++ b/Assets/Shader/Unlit-Normal.shader
-@@ -1,23 +1,55 @@
+@@ -1,25 +1,57 @@
 +// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 +
 +// Unlit shader. Simplest possible textured shader.
@@ -6004,9 +6012,10 @@ index 6a53edbc..1a64811f 100644
 +				return col;
 +			}
  		ENDCG
-@@ -25 +57,2 @@ Properties {
- }
-+}
+ 	}
+-}
+\ No newline at end of file
++}}
 diff --git a/Assets/Shader/VFX_AddTintFade.shader b/Assets/Shader/VFX_AddTintFade.shader
 index 1f4be679..947ada73 100644
 --- a/Assets/Shader/VFX_AddTintFade.shader
