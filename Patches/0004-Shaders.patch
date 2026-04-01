@@ -4499,7 +4499,7 @@ index 20cb7328..2cc0fc3a 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Skybox-Procedural.shader b/Assets/Shader/Skybox-Procedural.shader
-index 67302625..f3f4ae47 100644
+index 67302625..8ea06927 100644
 --- a/Assets/Shader/Skybox-Procedural.shader
 +++ b/Assets/Shader/Skybox-Procedural.shader
 @@ -1,27 +1,383 @@
@@ -4638,8 +4638,7 @@ index 67302625..f3f4ae47 100644
 +
 +		// Calculates the Rayleigh phase function
 +		half getRayleighPhase(half eyeCos2)
- 		{
--			float2 uv_MainTex;
++		{
 +			return 0.75 + 0.75*eyeCos2;
 +		}
 +		half getRayleighPhase(half3 light, half3 ray)
@@ -4655,7 +4654,8 @@ index 67302625..f3f4ae47 100644
 +		};
 +
 +		struct v2f
-+		{
+ 		{
+-			float2 uv_MainTex;
 +			float4	pos				: SV_POSITION;
 +
 +		#if SKYBOX_SUNDISK == SKYBOX_SUNDISK_HQ
@@ -4680,9 +4680,7 @@ index 67302625..f3f4ae47 100644
 +
 +
 +		float scale(float inCos)
- 		{
--			float4 c = tex2D(_MainTex, IN.uv_MainTex);
--			o.Albedo = c.rgb;
++		{
 +			float x = 1.0 - inCos;
 +		#if defined(SHADER_API_N3DS)
 +			// The polynomial expansion here generates too many swizzle instructions for the 3DS vertex assembler
@@ -4864,7 +4862,9 @@ index 67302625..f3f4ae47 100644
 +		}
 +
 +		half4 frag (v2f IN) : SV_Target
-+		{
+ 		{
+-			float4 c = tex2D(_MainTex, IN.uv_MainTex);
+-			o.Albedo = c.rgb;
 +			half3 col = half3(0.0, 0.0, 0.0);
 +
 +		// if y > 1 [eyeRay.y < -SKY_GROUND_THRESHOLD] - ground
@@ -4905,11 +4905,11 @@ index 67302625..f3f4ae47 100644
 +			return half4(col,1.0);
 +
  		}
-@@ -30 +386,4 @@ Properties {
- }
-+Fallback Off
+@@ -29,2 +385,4 @@ Properties {
+ 	}
++}Fallback Off
 +
-+}
+ }
 diff --git a/Assets/Shader/Skybox.shader b/Assets/Shader/Skybox.shader
 index cf15b728..df2cdf70 100644
 --- a/Assets/Shader/Skybox.shader
