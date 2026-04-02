@@ -103,3 +103,7 @@ InitTestScene*.unity*
 
 # Rider
 .idea/
+
+# NuGetForUnity
+/Packages/nuget-packages/InstalledPackages
+/Packages/nuget-packages/InstalledPackages.meta
