@@ -6016,7 +6016,7 @@ index 00000000..568a2a76
 +timeCreated: 1775095025
 \ No newline at end of file
 diff --git a/Packages/manifest.json b/Packages/manifest.json
-index f9929320..7a851d68 100644
+index f9929320..8cf771d5 100644
 --- a/Packages/manifest.json
 +++ b/Packages/manifest.json
 @@ -2,2 +2,3 @@
@@ -6037,6 +6037,7 @@ index f9929320..7a851d68 100644
 +    }
 +  ]
  }
+\ No newline at end of file
 diff --git a/Packages/nuget-packages/NuGet.config b/Packages/nuget-packages/NuGet.config
 new file mode 100644
 index 00000000..d968e9a8

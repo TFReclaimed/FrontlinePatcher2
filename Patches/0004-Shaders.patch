@@ -4499,7 +4499,7 @@ index 20cb7328..2cc0fc3a 100644
  }
 \ No newline at end of file
 diff --git a/Assets/Shader/Skybox-Procedural.shader b/Assets/Shader/Skybox-Procedural.shader
-index 67302625..8ea06927 100644
+index 67302625..d141fa89 100644
 --- a/Assets/Shader/Skybox-Procedural.shader
 +++ b/Assets/Shader/Skybox-Procedural.shader
 @@ -1,27 +1,383 @@
@@ -4910,6 +4910,7 @@ index 67302625..8ea06927 100644
 +}Fallback Off
 +
  }
+\ No newline at end of file
 diff --git a/Assets/Shader/Skybox.shader b/Assets/Shader/Skybox.shader
 index cf15b728..df2cdf70 100644
 --- a/Assets/Shader/Skybox.shader

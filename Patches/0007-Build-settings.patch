@@ -5,7 +5,7 @@ Subject: [PATCH] Build settings
 
 
 diff --git a/ProjectSettings/ProjectSettings.asset b/ProjectSettings/ProjectSettings.asset
-index 1dd82cca..02e48192 100644
+index 87efdef8..65f689e2 100644
 --- a/ProjectSettings/ProjectSettings.asset
 +++ b/ProjectSettings/ProjectSettings.asset
 @@ -94,5 +94,5 @@ PlayerSettings:
@@ -39,19 +39,19 @@ index 1dd82cca..02e48192 100644
 -  AndroidTargetArchitectures: 1
 +  AndroidTargetArchitectures: 3
    AndroidTargetDevices: 0
-@@ -643,3 +643,5 @@ PlayerSettings:
+@@ -832,3 +832,5 @@ PlayerSettings:
    platformArchitecture: {}
 -  scriptingBackend: {}
 +  scriptingBackend:
 +    Android: 1
 +    Standalone: 1
    il2cppCompilerConfiguration: {}
-@@ -745,3 +747,3 @@ PlayerSettings:
+@@ -934,3 +936,3 @@ PlayerSettings:
    hmiCpuConfiguration: 
 -  apiCompatibilityLevel: 3
 +  apiCompatibilityLevel: 6
    activeInputHandler: 0
-@@ -758,2 +760,2 @@ PlayerSettings:
+@@ -947,2 +949,2 @@ PlayerSettings:
    virtualTexturingSupportEnabled: 0
 -  insecureHttpOption: 0
 +  insecureHttpOption: 2

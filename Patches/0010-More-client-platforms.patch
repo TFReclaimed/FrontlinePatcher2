@@ -30,10 +30,10 @@ index 765d63e1..e9bfcaa7 100644
 +			deviceType = ClientPlatform.Linux;
  		}
 diff --git a/Assets/Scripts/Assembly-CSharp/AssetManager.cs b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
-index 076b6022..5bd83213 100644
+index 0afa5573..69bde685 100644
 --- a/Assets/Scripts/Assembly-CSharp/AssetManager.cs
 +++ b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
-@@ -796,5 +796,13 @@ public class AssetManager : Singleton<AssetManager>
+@@ -798,5 +798,13 @@ public class AssetManager : Singleton<AssetManager>
  		string arg = string.Empty;
 -		if (rootURI.Contains("Computer"))
 +		if (rootURI.Contains("Windows"))

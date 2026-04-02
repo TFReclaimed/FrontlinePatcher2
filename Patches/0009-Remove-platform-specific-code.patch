@@ -4,6 +4,18 @@ Date: Thu, 5 Mar 2026 23:53:53 +0200
 Subject: [PATCH] Remove platform specific code
 
 
+diff --git a/Assets/Scripts/Assembly-CSharp/AssetManager.cs b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
+index 076b6022..0afa5573 100644
+--- a/Assets/Scripts/Assembly-CSharp/AssetManager.cs
++++ b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
+@@ -121,2 +121,3 @@ public class AssetManager : Singleton<AssetManager>
+ 		MaxActiveSceneRequests = 1;
++#if !UNITY_WEBGL
+ 		Caching.maximumAvailableDiskSpace = MAX_CACHE_SPACE;
+@@ -126,2 +127,3 @@ public class AssetManager : Singleton<AssetManager>
+ 		}
++#endif
+ 		bundleURIs = new List<string>();
 diff --git a/Assets/Scripts/Assembly-CSharp/CCGHelpshift.cs b/Assets/Scripts/Assembly-CSharp/CCGHelpshift.cs
 index b302947b..fb6395bb 100644
 --- a/Assets/Scripts/Assembly-CSharp/CCGHelpshift.cs
