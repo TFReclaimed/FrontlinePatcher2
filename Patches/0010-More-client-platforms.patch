@@ -5,7 +5,7 @@ Subject: [PATCH] More client platforms
 
 
 diff --git a/Assets/Scripts/Assembly-CSharp/AccountAccess.cs b/Assets/Scripts/Assembly-CSharp/AccountAccess.cs
-index 765d63e1..e9bfcaa7 100644
+index 765d63e1..854f705a 100644
 --- a/Assets/Scripts/Assembly-CSharp/AccountAccess.cs
 +++ b/Assets/Scripts/Assembly-CSharp/AccountAccess.cs
 @@ -12,3 +12,3 @@ public class AccountAccess
@@ -13,7 +13,7 @@ index 765d63e1..e9bfcaa7 100644
 -	public ClientPlatform deviceType = ClientPlatform.Computer;
 +	public ClientPlatform deviceType = ClientPlatform.NumPlatforms;
  
-@@ -24,5 +24,13 @@ public class AccountAccess
+@@ -24,5 +24,17 @@ public class AccountAccess
  		}
 -		else
 +		else if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.OSXPlayer)
@@ -28,9 +28,13 @@ index 765d63e1..e9bfcaa7 100644
 +		else if (Application.platform == RuntimePlatform.LinuxEditor || Application.platform == RuntimePlatform.LinuxPlayer)
 +		{
 +			deviceType = ClientPlatform.Linux;
++		}
++		else if (Application.platform == RuntimePlatform.WebGLPlayer)
++		{
++			deviceType = ClientPlatform.WebGL;
  		}
 diff --git a/Assets/Scripts/Assembly-CSharp/AssetManager.cs b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
-index 0afa5573..69bde685 100644
+index 0afa5573..e921edf0 100644
 --- a/Assets/Scripts/Assembly-CSharp/AssetManager.cs
 +++ b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
 @@ -798,5 +798,13 @@ public class AssetManager : Singleton<AssetManager>
@@ -49,24 +53,32 @@ index 0afa5573..69bde685 100644
 +		{
 +			arg = "StandaloneOSX";
  		}
+@@ -810,2 +818,6 @@ public class AssetManager : Singleton<AssetManager>
+ 		}
++		else if (rootURI.Contains("WebGL"))
++		{
++			arg = "WebGL";
++		}
+ 		Singleton<WWWManager>.Instance.RequestText(string.Format("{0}/{1}.manifest", rootURI, arg), OnManifestOfManifestsComplete);
 diff --git a/Assets/Scripts/Assembly-CSharp/ClientPlatform.cs b/Assets/Scripts/Assembly-CSharp/ClientPlatform.cs
-index 118d49dd..ff1e9173 100644
+index 118d49dd..1e2ab2c2 100644
 --- a/Assets/Scripts/Assembly-CSharp/ClientPlatform.cs
 +++ b/Assets/Scripts/Assembly-CSharp/ClientPlatform.cs
-@@ -4,4 +4,6 @@ public enum ClientPlatform : byte
+@@ -4,4 +4,7 @@ public enum ClientPlatform : byte
  	Android = 1,
 -	Computer = 2,
 -	NumPlatforms = 3
 +	Linux = 2,
 +	Windows = 3,
 +	Mac = 4,
-+	NumPlatforms = 5
++	WebGL = 5,
++	NumPlatforms = 6
  }
 diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
-index 1e65d23e..4ba1c7b7 100644
+index 1e65d23e..8272ce18 100644
 --- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
 +++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
-@@ -345,10 +345,11 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+@@ -345,10 +345,14 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
  		case RuntimePlatform.OSXPlayer:
 +			result = ClientPlatform.Mac;
 +			break;
@@ -76,9 +88,11 @@ index 1e65d23e..4ba1c7b7 100644
 +			break;
  		case RuntimePlatform.LinuxPlayer:
  		case RuntimePlatform.LinuxEditor:
--		case RuntimePlatform.WebGLPlayer:
++			result = ClientPlatform.Linux;
++			break;
+ 		case RuntimePlatform.WebGLPlayer:
 -		case RuntimePlatform.MetroPlayerX86:
 -		case RuntimePlatform.MetroPlayerX64:
 -			result = ClientPlatform.Computer;
-+			result = ClientPlatform.Linux;
++			result = ClientPlatform.WebGL;
  			break;

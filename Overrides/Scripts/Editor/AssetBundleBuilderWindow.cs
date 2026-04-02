@@ -15,6 +15,8 @@ public class AssetBundleBuilderWindow : EditorWindow
 
     private bool _buildIOS;
 
+    private bool _buildWebGL;
+
     private void OnEnable()
     {
         _buildWindows = EditorUserBuildSettings.activeBuildTarget == BuildTarget.StandaloneWindows64;
@@ -22,6 +24,7 @@ public class AssetBundleBuilderWindow : EditorWindow
         _buildMacOS = EditorUserBuildSettings.activeBuildTarget == BuildTarget.StandaloneOSX;
         _buildAndroid = EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android;
         _buildIOS = EditorUserBuildSettings.activeBuildTarget == BuildTarget.iOS;
+        _buildWebGL = EditorUserBuildSettings.activeBuildTarget == BuildTarget.WebGL;
     }
 
     private void OnGUI()
@@ -33,6 +36,7 @@ public class AssetBundleBuilderWindow : EditorWindow
         _buildMacOS = EditorGUILayout.Toggle("macOS", _buildMacOS);
         _buildAndroid = EditorGUILayout.Toggle("Android", _buildAndroid);
         _buildIOS = EditorGUILayout.Toggle("iOS", _buildIOS);
+        _buildWebGL = EditorGUILayout.Toggle("WebGL", _buildWebGL);
 
         GUILayout.Space(20);
 
@@ -69,6 +73,11 @@ public class AssetBundleBuilderWindow : EditorWindow
         if (_buildIOS)
         {
             targets.Add(BuildTarget.iOS);
+        }
+
+        if (_buildWebGL)
+        {
+            targets.Add(BuildTarget.WebGL);
         }
 
         if (targets.Count == 0)

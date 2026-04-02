@@ -6,10 +6,10 @@ Subject: [PATCH] TOY
 TODO: We need a cross platform C# TOY client implementation.
 
 diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
-index 4ba1c7b7..4800e212 100644
+index 8272ce18..3e1f5634 100644
 --- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
 +++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
-@@ -846,3 +846,8 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+@@ -849,3 +849,8 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
  		{
 -			account.EnterToy(this);
 +			//account.EnterToy(this);
