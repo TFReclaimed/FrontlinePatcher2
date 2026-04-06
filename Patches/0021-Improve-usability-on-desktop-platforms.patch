@@ -13,6 +13,36 @@ index 09ea8264..06b0fd37 100644
 -  m_ScrollSensitivity: 1
 +  m_ScrollSensitivity: 120
    m_Viewport: {fileID: 0}
+diff --git a/Assets/Scripts/Assembly-CSharp/CardCarousel.cs b/Assets/Scripts/Assembly-CSharp/CardCarousel.cs
+index 07035e1c..da849034 100644
+--- a/Assets/Scripts/Assembly-CSharp/CardCarousel.cs
++++ b/Assets/Scripts/Assembly-CSharp/CardCarousel.cs
+@@ -433,3 +433,7 @@ public class CardCarousel : MonoBehaviour
+ 		int num4 = Mathf.CeilToInt(_currentPos / HorizontalSpacing) * ((!TwoRows) ? 1 : 2);
++#if !UNITY_ANDROID && !UNITY_IOS
++		int num5 = GetVisibleRangeRadius();
++#else
+ 		int num5 = Mathf.CeilToInt(FocusRadius) * ((!TwoRows) ? 1 : 2);
++#endif
+ 		num2 = num4 - num5;
+@@ -471,2 +475,17 @@ public class CardCarousel : MonoBehaviour
+ 
++#if !UNITY_ANDROID && !UNITY_IOS
++	private int GetVisibleRangeRadius()
++	{
++		var num = FocusRadius;
++		if (Screen.width > Screen.height && HorizontalSpacing > 0f)
++		{
++			var num2 = Screen.width * 0.5f / HorizontalSpacing;
++			num = Mathf.Max(num, num2 + 0.5f);
++		}
++
++		var num3 = Mathf.CeilToInt(num);
++		return num3 * (!TwoRows ? 1 : 2);
++	}
++#endif
++
+ 	private void OnBeginDrag(PointerInfo info)
 diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
 index 2d99ce24..01681b40 100644
 --- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
