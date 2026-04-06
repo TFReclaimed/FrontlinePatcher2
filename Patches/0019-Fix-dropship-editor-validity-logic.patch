@@ -1,0 +1,23 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Tue, 7 Apr 2026 00:04:45 +0300
+Subject: [PATCH] Fix dropship editor validity logic
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs b/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs
+index ec2d4b92..3e1daf33 100644
+--- a/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs
++++ b/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs
+@@ -3,2 +3,3 @@ using System.Collections;
+ using System.Collections.Generic;
++using System.Linq;
+ using TMPro;
+@@ -160,2 +161,3 @@ public class DropshipEditView : MonoBehaviour
+ 		_dropship = SingletonMonoBehaviour<HangarMain>.Instance.GetCurrentDropship();
++		SetSaveValidity();
+ 		_unsavedChanges = false;
+@@ -695,3 +697,3 @@ public class DropshipEditView : MonoBehaviour
+ 	{
+-		_validForSave = Array.IndexOf(_dropship.slottedCards, null) < 0;
++		_validForSave = !_dropship.slottedCards.Any(c => c == null || c.instanceId == 0);
+ 		ColorBlock defaultColorBlock = ColorBlock.defaultColorBlock;
