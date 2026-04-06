@@ -3,19 +3,4617 @@ From: Nuutti <snuutti@protonmail.com>
 Date: Thu, 5 Mar 2026 23:54:26 +0200
 Subject: [PATCH] TOY
 
-TODO: We need a cross platform C# TOY client implementation.
 
+diff --git a/Assets/Resources/ToyInfo.asset b/Assets/Resources/ToyInfo.asset
+new file mode 100644
+index 00000000..4b0ad00a
+--- /dev/null
++++ b/Assets/Resources/ToyInfo.asset
+@@ -0,0 +1,16 @@
++%YAML 1.1
++%TAG !u! tag:unity3d.com,2011:
++--- !u!114 &11400000
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 0}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: bdee17892e614daab9decb48b3b0258f, type: 3}
++  m_Name: ToyInfo
++  m_EditorClassIdentifier: 
++  ToyUrl: https://opentoy.tfflinternal.com
++  ServiceId: 1253
+diff --git a/Assets/Resources/ToyInfo.asset.meta b/Assets/Resources/ToyInfo.asset.meta
+new file mode 100644
+index 00000000..e8b39596
+--- /dev/null
++++ b/Assets/Resources/ToyInfo.asset.meta
+@@ -0,0 +1,8 @@
++fileFormatVersion: 2
++guid: 6d9ced21ec881f347b07d62e2c48bd2d
++NativeFormatImporter:
++  externalObjects: {}
++  mainObjectFileID: 11400000
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
 diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
-index 8272ce18..3e1f5634 100644
+index 8272ce18..779713d6 100644
 --- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
 +++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
-@@ -849,3 +849,8 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
- 		{
--			account.EnterToy(this);
-+			//account.EnterToy(this);
-+			OnResult(new NPResult
-+			{
-+				requestTag = NPRequestTypeTag.NPRequestTypeGetUserInfo,
-+				resultJson = JSONNode.Parse("{\"errorCode\":0,\"result\":{\"npsn\":\"\"12530000000000005\"\",\"npToken\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiIiLCJpYXQiOjE3NzI3NDI5NTcsImV4cCI6MTc3NTQyMTM1NywiYXVkIjoiIiwic3ViIjoiIiwiVXNlcklkIjoiNSIsIlNlcnZpY2VJZCI6IjEyNTMifQ.jDZOVRNkrmHmJHWWQXOYLmcegcYXgZUSv1iyyw9Iz-w\"}}")
-+			});
- 		}
+@@ -813,2 +813,3 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+ 		case NPRequestTypeTag.NPRequestTypeLogin:
++		case NPRequestTypeTag.NPRequestTypeLoginWithEmail:
+ 		case NPRequestTypeTag.NPRequestTypeLoginWithGPlus:
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPBannerListener.cs b/Assets/Scripts/Assembly-CSharp/NPA/INPBannerListener.cs
+deleted file mode 100644
+index a6a0ce05..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPBannerListener.cs
++++ /dev/null
+@@ -1,11 +0,0 @@
+-namespace NPA
+-{
+-	public interface INPBannerListener : INPListenerType
+-	{
+-		void OnBannerClick(string landInfo);
+-
+-		void OnBannerFailed(NPResult npResult);
+-
+-		void OnBannerDismiss();
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPBannerListener.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/INPBannerListener.cs.meta
+deleted file mode 100644
+index db9b0cac..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPBannerListener.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: b7470d515333205f357616b1e464a9b8
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPEndingBannerListener.cs b/Assets/Scripts/Assembly-CSharp/NPA/INPEndingBannerListener.cs
+deleted file mode 100644
+index f5f52389..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPEndingBannerListener.cs
++++ /dev/null
+@@ -1,13 +0,0 @@
+-namespace NPA
+-{
+-	public interface INPEndingBannerListener : INPListenerType
+-	{
+-		void OnEndingBannerClick(string landInfo);
+-
+-		void OnEndingBannerFailed(NPResult npResult);
+-
+-		void OnEndingBannerDismiss();
+-
+-		void OnEndingBannerExit();
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPEndingBannerListener.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/INPEndingBannerListener.cs.meta
+deleted file mode 100644
+index b19ce3d5..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPEndingBannerListener.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 558bbdcafb3d4badfe34018dd8a859bd
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPGCMListener.cs b/Assets/Scripts/Assembly-CSharp/NPA/INPGCMListener.cs
+deleted file mode 100644
+index 70a61db3..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPGCMListener.cs
++++ /dev/null
+@@ -1,7 +0,0 @@
+-namespace NPA
+-{
+-	public interface INPGCMListener : INPListenerType
+-	{
+-		void OnGCMResult(int errorCode);
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPGCMListener.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/INPGCMListener.cs.meta
+deleted file mode 100644
+index 3c828f50..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPGCMListener.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 18d6dff27024f7697c22de1222f91da4
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPListener.cs b/Assets/Scripts/Assembly-CSharp/NPA/INPListener.cs
+deleted file mode 100644
+index 8deeef3c..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPListener.cs
++++ /dev/null
+@@ -1,7 +0,0 @@
+-namespace NPA
+-{
+-	public interface INPListener : INPListenerType
+-	{
+-		void OnResult(NPResult npResult);
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPListener.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/INPListener.cs.meta
+deleted file mode 100644
+index 5c2ea676..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPListener.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 8173deaf3025ae5b5a9c4c079df002e8
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPListenerType.cs b/Assets/Scripts/Assembly-CSharp/NPA/INPListenerType.cs
+deleted file mode 100644
+index 7fbb4ba4..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPListenerType.cs
++++ /dev/null
+@@ -1,6 +0,0 @@
+-namespace NPA
+-{
+-	public interface INPListenerType
+-	{
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPListenerType.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/INPListenerType.cs.meta
+deleted file mode 100644
+index a1b4f838..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPListenerType.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 8475e453e0f602b6c5a12e64bcf4c99c
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPOnCloseListener.cs b/Assets/Scripts/Assembly-CSharp/NPA/INPOnCloseListener.cs
+deleted file mode 100644
+index cef4cb0a..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPOnCloseListener.cs
++++ /dev/null
+@@ -1,7 +0,0 @@
+-namespace NPA
+-{
+-	public interface INPOnCloseListener : INPListenerType
+-	{
+-		void OnClose(NPCloseResult npResult);
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPOnCloseListener.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/INPOnCloseListener.cs.meta
+deleted file mode 100644
+index 3f9c887c..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPOnCloseListener.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 791aac527ad2251700d0758bc091909f
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPPlateListener.cs b/Assets/Scripts/Assembly-CSharp/NPA/INPPlateListener.cs
+deleted file mode 100644
+index 71d8f58d..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPPlateListener.cs
++++ /dev/null
+@@ -1,7 +0,0 @@
+-namespace NPA
+-{
+-	public interface INPPlateListener : INPListenerType
+-	{
+-		void OnActionPerformedResult(NPResult npResult);
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPPlateListener.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/INPPlateListener.cs.meta
+deleted file mode 100644
+index eadbfa9f..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPPlateListener.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: dcfda2ed0528f37743b617f5320a0f60
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPRecvNotificationListener.cs b/Assets/Scripts/Assembly-CSharp/NPA/INPRecvNotificationListener.cs
+deleted file mode 100644
+index fbc6cc51..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPRecvNotificationListener.cs
++++ /dev/null
+@@ -1,9 +0,0 @@
+-using SimpleJSON;
+-
+-namespace NPA
+-{
+-	public interface INPRecvNotificationListener : INPListenerType
+-	{
+-		void OnRecvNotification(JSONNode recvNotification);
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPRecvNotificationListener.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/INPRecvNotificationListener.cs.meta
+deleted file mode 100644
+index b96dd588..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPRecvNotificationListener.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: a94d3ed30005e8c97d18551df3ca123b
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPRuntimePermissionListener.cs b/Assets/Scripts/Assembly-CSharp/NPA/INPRuntimePermissionListener.cs
+deleted file mode 100644
+index 60c571b6..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPRuntimePermissionListener.cs
++++ /dev/null
+@@ -1,7 +0,0 @@
+-namespace NPA
+-{
+-	public interface INPRuntimePermissionListener : INPListenerType
+-	{
+-		void OnRequestPermissionsResult(int requestCode, string[] permissions, int[] grantResults);
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/INPRuntimePermissionListener.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/INPRuntimePermissionListener.cs.meta
+deleted file mode 100644
+index f98019d8..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/INPRuntimePermissionListener.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 22bfd3b38bf2bc18973a4ee4459682a0
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPAccount.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPAccount.cs
+deleted file mode 100644
+index 1f816bec..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPAccount.cs
++++ /dev/null
+@@ -1,1362 +0,0 @@
+-using System.Collections.Generic;
+-using System.Threading;
+-using SimpleJSON;
+-using UnityEngine;
+-
+-namespace NPA
+-{
+-	public class NPAccount
+-	{
+-		private class Nested
+-		{
+-			internal static readonly NPAccount instance;
+-
+-			static Nested()
+-			{
+-				instance = new NPAccount();
+-			}
+-		}
+-
+-		private const bool isDebug = false;
+-
+-		public static string FRIEND_FILTER_TYPE_FRIENDS = "friends";
+-
+-		public static string FRIEND_FILTER_TYPE_INVITES = "invites";
+-
+-		public static string FRIEND_FILTER_TYPE_ALL = string.Empty;
+-
+-		public static int LOCAL_PUSH_TYPE_ON;
+-
+-		public static int LOCAL_PUSH_TYPE_AFTER = 1;
+-
+-		public static int LOCAL_PUSH_TYPE_NOW = 2;
+-
+-		public string GAMEOBJECT_NAME = "NPAccount";
+-
+-		public GameObject mGameObject;
+-
+-		public static string serviceID;
+-
+-		private AndroidJavaObject account;
+-
+-		private static int incrementCallIdValue = 1;
+-
+-		public static NPAccount Instance
+-		{
+-			get
+-			{
+-				return Nested.instance;
+-			}
+-		}
+-
+-		private NPAccount()
+-		{
+-			mGameObject = new GameObject(GAMEOBJECT_NAME, typeof(NPAccountGameObject));
+-			Object.DontDestroyOnLoad(mGameObject);
+-			if (Application.platform != RuntimePlatform.Android)
+-			{
+-				return;
+-			}
+-			using (AndroidJavaClass androidJavaClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+-			{
+-				using (AndroidJavaObject androidJavaObject = androidJavaClass.GetStatic<AndroidJavaObject>("currentActivity"))
+-				{
+-					ToyDebugLog("init android java object");
+-					if (serviceID == null)
+-					{
+-						account = new AndroidJavaObject("kr.co.nexon.npaccount.NPAccountForUnityObject", androidJavaObject);
+-					}
+-					else
+-					{
+-						account = new AndroidJavaObject("kr.co.nexon.npaccount.NPAccountForUnityObject", androidJavaObject, serviceID);
+-					}
+-				}
+-			}
+-		}
+-
+-		private void setPushListener(INPRecvNotificationListener listener)
+-		{
+-			mGameObject.SendMessage("setPushListener", listener);
+-		}
+-
+-		private void setGCMListener(INPGCMListener listener)
+-		{
+-			mGameObject.SendMessage("setGCMListener", listener);
+-		}
+-
+-		private void setListener(INPListenerType listener, string callId)
+-		{
+-			object[] value = new object[2] { listener, callId };
+-			mGameObject.SendMessage("setListener", value);
+-		}
+-
+-		public void callJavaMethod(string method, string args, string callId)
+-		{
+-			if (Application.platform != RuntimePlatform.Android)
+-			{
+-				return;
+-			}
+-			using (AndroidJavaClass androidJavaClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+-			{
+-				using (AndroidJavaObject androidJavaObject = androidJavaClass.GetStatic<AndroidJavaObject>("currentActivity"))
+-				{
+-					account.Call("ExecuteMethod", androidJavaObject, method, args, callId);
+-				}
+-			}
+-		}
+-
+-		public void callIOSMethod(string method, string args, string callId)
+-		{
+-		}
+-
+-		public bool isAuthCrashError(int errorCode)
+-		{
+-			switch (errorCode)
+-			{
+-			case 5001:
+-			case 5002:
+-			case 5003:
+-			case 90502:
+-			case 90707:
+-				callJavaMethod("initAccount", string.Empty, string.Empty);
+-				callIOSMethod("initAccount", string.Empty, string.Empty);
+-				return true;
+-			default:
+-				return false;
+-			}
+-		}
+-
+-		public void pushInit(INPRecvNotificationListener pushListener, string senderID = "")
+-		{
+-			pushInit(pushListener, null, false, senderID);
+-		}
+-
+-		public void pushInit(INPRecvNotificationListener pushListener, INPGCMListener gcmListener, bool isSkip, string senderID = "")
+-		{
+-			setPushListener(pushListener);
+-			if (gcmListener != null)
+-			{
+-				setGCMListener(gcmListener);
+-			}
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0].AsBool = isSkip;
+-			jSONArray[1] = senderID;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("gcmInit", text, string.Empty);
+-			callIOSMethod("apnsInit", string.Empty, string.Empty);
+-		}
+-
+-		public void RegisterPush(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("registerPush", string.Empty, callId);
+-			callIOSMethod("registerPush", string.Empty, callId);
+-		}
+-
+-		public void UnregisterPush(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("unregisterPush", string.Empty, callId);
+-			callIOSMethod("unregisterPush", string.Empty, callId);
+-		}
+-
+-		public void Login(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("login", string.Empty, callId);
+-			callIOSMethod("loginWithParentViewController:completeBlock:", string.Empty, callId);
+-		}
+-
+-		public void Login(NPLoginType loginType, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0].AsInt = (int)loginType;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("login", text, callId);
+-			callIOSMethod("loginWithType:parentViewController:completeBlock:", text, callId);
+-		}
+-
+-		public void LoginForKakao(string kakaoID, string accessToken, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = kakaoID;
+-			jSONArray[1] = accessToken;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("loginForKakao", text, callId);
+-			callIOSMethod("loginWithKakaoID:accessToken:parentViewController:completeBlock:", text, callId);
+-		}
+-
+-		public void UnregisterService(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("unregisterService", string.Empty, callId);
+-			callIOSMethod("unregisterServiceWithCompleteBlock:", string.Empty, callId);
+-		}
+-
+-		public void RecoverUser(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("recoverUser", string.Empty, callId);
+-			callIOSMethod("recoverUserWithCompleteBlock:", string.Empty, callId);
+-		}
+-
+-		public void Logout(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("logout", string.Empty, callId);
+-			callIOSMethod("logoutWithCompleteBlock:", string.Empty, callId);
+-		}
+-
+-		public void GetUserInfo(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("getUserInfo", string.Empty, callId);
+-			callIOSMethod("getUserInfoWithCompleteBlock:", string.Empty, callId);
+-		}
+-
+-		private bool isSnsType(NPLoginType loginType)
+-		{
+-			if (loginType >= NPLoginType.NPLoginTypeFaceBook && loginType <= NPLoginType.NPLoginTypeGooglePlus)
+-			{
+-				return true;
+-			}
+-			return false;
+-		}
+-
+-		public void GetFriends(int next, string filterType, INPListener listener)
+-		{
+-			if (isSnsType(GetLoginType()))
+-			{
+-				GetFriends((NPSnsType)GetLoginType(), next, filterType, listener);
+-				return;
+-			}
+-			NPResult nPResult = new NPResult();
+-			nPResult.errorCode = 91005;
+-			nPResult.requestTag = NPRequestTypeTag.NPRequestTypeGetFriends;
+-			nPResult.resultJson = new JSONClass();
+-			nPResult.resultJson["errorCode"].AsInt = 91005;
+-			nPResult.resultJson["result"] = new JSONClass();
+-			listener.OnResult(nPResult);
+-		}
+-
+-		public void GetFriends(NPSnsType snsType, int next, string filterType, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0].AsInt = (int)snsType;
+-			jSONArray[1].AsInt = next;
+-			jSONArray[2] = filterType;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("getFriends", text, callId);
+-			callIOSMethod("getFriendsWithNextPage:type:filterType:completeBlock:", text, callId);
+-		}
+-
+-		public void Share(string title, string content, string url)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = title;
+-			jSONArray[1] = content;
+-			jSONArray[2] = url;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("commonShare", text, string.Empty);
+-			callIOSMethod("shareWithParentViewController:title:content:url:", text, string.Empty);
+-		}
+-
+-		public void ShowBanner(string groupCode, INPBannerListener bannerListener)
+-		{
+-			string callId = generateCallId();
+-			setListener(bannerListener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = groupCode;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("showBanner", text, callId);
+-			callIOSMethod("showBannerWithParentViewController:groupCode:bannerClickBlock:failedBlock:dismissBannerBlock:", text, callId);
+-		}
+-
+-		public void NXLogin(string id, string pw, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = id;
+-			jSONArray[1] = pw;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("NXLogin", text, callId);
+-			callIOSMethod("NXLoginWithParentViewController:userID:pw:completeBlock:", text, callId);
+-		}
+-
+-		public void Post(string msg, string description, string link, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = msg;
+-			jSONArray[1] = description;
+-			jSONArray[2] = link;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("post", text, callId);
+-			callIOSMethod("post", text, callId);
+-		}
+-
+-		public void PostImage(string msg, string imageURL, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = msg;
+-			jSONArray[1] = imageURL;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("postImage", text, callId);
+-			callIOSMethod("postImage", text, callId);
+-		}
+-
+-		public void DismissEndingBanner()
+-		{
+-			callJavaMethod("dismissEndingBanner", string.Empty, string.Empty);
+-		}
+-
+-		public void GetNexonSN(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("getNexonSN", string.Empty, callId);
+-			callIOSMethod("getNexonSNWithNexonID:pw:completeBlock:", string.Empty, callId);
+-		}
+-
+-		public NPLoginType GetLoginType()
+-		{
+-			callJavaMethod("loadLoginType", string.Empty, string.Empty);
+-			if (Application.platform == RuntimePlatform.Android)
+-			{
+-				using (new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+-				{
+-					return (NPLoginType)account.Get<int>("loginType");
+-				}
+-			}
+-			return NPLoginType.NPLoginTypeDefault;
+-		}
+-
+-		public void GetLoginType(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("getLoginType", string.Empty, callId);
+-			callIOSMethod("loginType", string.Empty, callId);
+-		}
+-
+-		public void ShowNotice()
+-		{
+-			callJavaMethod("showNotice", string.Empty, string.Empty);
+-			callIOSMethod("showNotice", string.Empty, string.Empty);
+-		}
+-
+-		public void ShowNotice(INPOnCloseListener closeListener)
+-		{
+-			string callId = generateCallId();
+-			setListener(closeListener, callId);
+-			callJavaMethod("showNotice", "useCloseListener", callId);
+-			callIOSMethod("showNotice", "useCloseBlock", callId);
+-		}
+-
+-		public void ShowFAQ()
+-		{
+-			callJavaMethod("showFAQ", string.Empty, string.Empty);
+-			callIOSMethod("showFAQ", string.Empty, string.Empty);
+-		}
+-
+-		public void ShowWeb(string title, string url)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = title;
+-			jSONArray[1] = url;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("showWeb", text, string.Empty);
+-			callIOSMethod("showWeb", text, string.Empty);
+-		}
+-
+-		public void ShowWeb(string title, string url, string postData)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = title;
+-			jSONArray[1] = url;
+-			if (postData == null)
+-			{
+-				jSONArray[2] = string.Empty;
+-			}
+-			else
+-			{
+-				jSONArray[2] = postData;
+-			}
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("showWeb", text, string.Empty);
+-			callIOSMethod("showWeb", text, string.Empty);
+-		}
+-
+-		public void ShowEventWeb(string url)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = url;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("showEventWeb", text, string.Empty);
+-			callIOSMethod("showEventWeb", text, string.Empty);
+-		}
+-
+-		public void ShowEndingBanner(INPEndingBannerListener endingBannerListener)
+-		{
+-			string callId = generateCallId();
+-			setListener(endingBannerListener, callId);
+-			callJavaMethod("showEndingBanner", string.Empty, callId);
+-		}
+-
+-		public void ShowInputCoupon(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("showInputCoupon", string.Empty, callId);
+-			callIOSMethod("showInputCoupon", string.Empty, callId);
+-		}
+-
+-		public void ShowCustomerService(NPCSInfo param)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			string empty = string.Empty;
+-			if (param != null)
+-			{
+-				JSONClass jSONClass = new JSONClass();
+-				if (param.questionInfos != null)
+-				{
+-					JSONArray jSONArray2 = new JSONArray();
+-					for (int i = 0; i < param.questionInfos.Length; i++)
+-					{
+-						jSONArray2[i] = param.questionInfos[i];
+-					}
+-					jSONClass["questionInfos"] = jSONArray2;
+-				}
+-				foreach (KeyValuePair<string, string> item in param)
+-				{
+-					if (item.Value == null)
+-					{
+-						jSONClass[item.Key] = string.Empty;
+-					}
+-					else
+-					{
+-						jSONClass[item.Key] = item.Value;
+-					}
+-				}
+-				jSONArray[0] = jSONClass.ToString();
+-			}
+-			else
+-			{
+-				jSONArray[0] = string.Empty;
+-			}
+-			ToyDebugLog(empty);
+-			callJavaMethod("showCustomerService", empty, string.Empty);
+-			callIOSMethod("showCustomerServiceWithParentViewController", empty, string.Empty);
+-		}
+-
+-		public void ShowCustomerService(NPCSInfo param, INPPlateListener plateListener)
+-		{
+-			ShowPlate(0, param, plateListener);
+-		}
+-
+-		public void ShowHelpCenter(NPCSInfo param)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			string empty = string.Empty;
+-			if (param != null)
+-			{
+-				JSONClass jSONClass = new JSONClass();
+-				if (param.questionInfos != null)
+-				{
+-					JSONArray jSONArray2 = new JSONArray();
+-					for (int i = 0; i < param.questionInfos.Length; i++)
+-					{
+-						jSONArray2[i] = param.questionInfos[i];
+-					}
+-					jSONClass["questionInfos"] = jSONArray2;
+-				}
+-				foreach (KeyValuePair<string, string> item in param)
+-				{
+-					if (item.Value == null)
+-					{
+-						jSONClass[item.Key] = string.Empty;
+-					}
+-					else
+-					{
+-						jSONClass[item.Key] = item.Value;
+-					}
+-				}
+-				jSONArray[0] = jSONClass.ToString();
+-			}
+-			else
+-			{
+-				jSONArray[0] = string.Empty;
+-			}
+-			ToyDebugLog(empty);
+-			callJavaMethod("showHelpCenter", empty, string.Empty);
+-			callIOSMethod("showHelpCenter", empty, string.Empty);
+-		}
+-
+-		public void SendEvent(string category, string action, string label, string value)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = category;
+-			jSONArray[1] = action;
+-			jSONArray[2] = label;
+-			jSONArray[3] = value;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("sendEvent", text, string.Empty);
+-			callIOSMethod("sendEventWithCategory:action:label:value:", text, string.Empty);
+-		}
+-
+-		public void SendScreen(string screenName)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = screenName;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("sendScreen", text, string.Empty);
+-			callIOSMethod("sendScreen:", text, string.Empty);
+-		}
+-
+-		public void SendEcommerceTransaction(string transactionID, string affiliation, double revenue, double tax, double shipping, string currencyCode)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = transactionID;
+-			jSONArray[1] = affiliation;
+-			jSONArray[2].AsDouble = revenue;
+-			jSONArray[3].AsDouble = tax;
+-			jSONArray[4].AsDouble = shipping;
+-			jSONArray[5] = currencyCode;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("sendEcommerceTransaction", text, string.Empty);
+-			callIOSMethod("sendEcommerceTransactionWithId:affiliation:revenue:tax:shipping:currencyCode:", text, string.Empty);
+-		}
+-
+-		public void SendEcommerceItem(string transactionID, string name, string sku, string category, double price, long quantity, string currencyCode)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = transactionID;
+-			jSONArray[1] = name;
+-			jSONArray[2] = sku;
+-			jSONArray[3] = category;
+-			jSONArray[4].AsDouble = price;
+-			jSONArray[5].AsInt = (int)quantity;
+-			jSONArray[6] = currencyCode;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("sendEcommerceItem", text, string.Empty);
+-			callIOSMethod("sendEcommerceItemWithTransactionId:name:sku:category:price:quantity:currencyCode:", text, string.Empty);
+-		}
+-
+-		public void StartSession()
+-		{
+-			callJavaMethod("startSession", string.Empty, string.Empty);
+-			callIOSMethod("startSession", string.Empty, string.Empty);
+-		}
+-
+-		public void EndSession()
+-		{
+-			callJavaMethod("endSession", string.Empty, string.Empty);
+-			callIOSMethod("endSession", string.Empty, string.Empty);
+-		}
+-
+-		public void setCountry(NPCountry country)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0].AsInt = (int)country;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("setCountry", text, string.Empty);
+-			callIOSMethod("setCountry", text, string.Empty);
+-		}
+-
+-		public NPCountry getCountry()
+-		{
+-			callJavaMethod("loadCountry", string.Empty, string.Empty);
+-			if (Application.platform == RuntimePlatform.Android)
+-			{
+-				using (new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+-				{
+-					return (NPCountry)account.Get<int>("country");
+-				}
+-			}
+-			return NPCountry.UnitedStates;
+-		}
+-
+-		public void setLocale(NPLocale locale)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0].AsInt = (int)locale;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("setLocale", text, string.Empty);
+-			callIOSMethod("setLocale", text, string.Empty);
+-		}
+-
+-		public NPLocale getLocale()
+-		{
+-			callJavaMethod("loadLocale", string.Empty, string.Empty);
+-			if (Application.platform == RuntimePlatform.Android)
+-			{
+-				using (AndroidJavaClass androidJavaClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+-				{
+-					using (androidJavaClass.GetStatic<AndroidJavaObject>("currentActivity"))
+-					{
+-						return (NPLocale)account.Get<int>("locale");
+-					}
+-				}
+-			}
+-			return NPLocale.EN_US;
+-		}
+-
+-		public void dispatchLocalPush(NPNotificationData data)
+-		{
+-			JSONClass jSONClass = new JSONClass();
+-			JSONClass jSONClass2 = new JSONClass();
+-			jSONClass["notificationID"].AsInt = data.notificationID;
+-			jSONClass["message"] = data.message;
+-			jSONClass["meta"] = data.meta;
+-			jSONClass["pushType"].AsInt = data.pushType;
+-			jSONClass2["year"].AsInt = data.time.year;
+-			jSONClass2["month"].AsInt = data.time.month;
+-			jSONClass2["day"].AsInt = data.time.day;
+-			jSONClass2["hour"].AsInt = data.time.hour;
+-			jSONClass2["minute"].AsInt = data.time.minute;
+-			jSONClass2["sec"].AsInt = data.time.sec;
+-			jSONClass["time"] = jSONClass2;
+-			string text = jSONClass.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("dispatchLocalPush", text, string.Empty);
+-			callIOSMethod("dispatchLocalPush", text, string.Empty);
+-		}
+-
+-		public void cancelLocalPush(int notificationID)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0].AsInt = notificationID;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("cancelLocalPush", text, string.Empty);
+-			callIOSMethod("cancelLocalPush", text, string.Empty);
+-		}
+-
+-		public void cancelAllLocalPush()
+-		{
+-			callJavaMethod("cancelAllLocalPush", string.Empty, string.Empty);
+-			callIOSMethod("cancelAllLocalPush", string.Empty, string.Empty);
+-		}
+-
+-		public void showAchievement(INPListener gameServiceCloseListener)
+-		{
+-			string callId = generateCallId();
+-			setListener(gameServiceCloseListener, callId);
+-			callJavaMethod("showAchievement", string.Empty, callId);
+-			callIOSMethod("showAchievement", string.Empty, callId);
+-		}
+-
+-		public void setStepsAchievement(string achievementID, int steps)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = achievementID;
+-			jSONArray[1].AsInt = steps;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("setStepsAchievement", text, string.Empty);
+-			callIOSMethod("setStepsAchievement", text, string.Empty);
+-		}
+-
+-		public void setStepsAchievementImmediate(string achievementID, int steps, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = achievementID;
+-			jSONArray[1].AsInt = steps;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("setStepsAchievementImmediate", text, callId);
+-			callIOSMethod("setStepsAchievementImmediate", text, callId);
+-		}
+-
+-		public void unlockAchievement(string achievementID)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = achievementID;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("unlockAchievement", text, string.Empty);
+-			callIOSMethod("unlockAchievement", text, string.Empty);
+-		}
+-
+-		public void unlockAchievementImmediate(string achievementID, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = achievementID;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("unlockAchievementImmediate", text, callId);
+-			callIOSMethod("unlockAchievementImmediate", text, callId);
+-		}
+-
+-		public void incrementAchievement(string achievementID, int increment)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = achievementID;
+-			jSONArray[1].AsInt = increment;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("incrementAchievement", text, string.Empty);
+-			callIOSMethod("incrementAchievement", text, string.Empty);
+-		}
+-
+-		public void incrementAchievementImmediate(string achievementID, int increment, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = achievementID;
+-			jSONArray[1].AsInt = increment;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("incrementAchievementImmediate", text, callId);
+-			callIOSMethod("incrementAchievementImmediate", text, callId);
+-		}
+-
+-		public void loadAchievementData(bool forceReload, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0].AsBool = forceReload;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("loadAchievementData", text, callId);
+-			callIOSMethod("loadAchievementData", text, callId);
+-		}
+-
+-		public void showAllLeaderBoard(INPListener gameServiceCloseListener)
+-		{
+-			string callId = generateCallId();
+-			setListener(gameServiceCloseListener, callId);
+-			callJavaMethod("showAllLeaderBoard", string.Empty, callId);
+-			callIOSMethod("showAllLeaderBoard", string.Empty, callId);
+-		}
+-
+-		public void showLeaderBoard(string leaderBoardID, INPListener gameServiceCloseListener)
+-		{
+-			string callId = generateCallId();
+-			setListener(gameServiceCloseListener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = leaderBoardID;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("showLeaderBoard", text, callId);
+-			callIOSMethod("showLeaderBoard", text, callId);
+-		}
+-
+-		public void submitScore(string leaderBoardID, long score)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = leaderBoardID;
+-			jSONArray[1] = score.ToString();
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("submitScore", text, string.Empty);
+-			callIOSMethod("submitScore", text, string.Empty);
+-		}
+-
+-		public void submitScoreImmediate(string leaderBoardID, long score, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = leaderBoardID;
+-			jSONArray[1] = score.ToString();
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("submitScoreImmediate", text, callId);
+-			callIOSMethod("submitScoreImmediate", text, callId);
+-		}
+-
+-		public void loadCurrentPlayerLeaderboardScore(string leaderBoardID, int span, int leaderboardCollection, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = leaderBoardID;
+-			jSONArray[1].AsInt = span;
+-			jSONArray[2].AsInt = leaderboardCollection;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("loadCurrentPlayerLeaderboardScore", text, callId);
+-			callIOSMethod("loadCurrentPlayerLeaderboardScore", text, callId);
+-		}
+-
+-		public void ConnectGamePlatform(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("connectGamePlatform", string.Empty, callId);
+-			callIOSMethod("connectGamePlatform", string.Empty, callId);
+-		}
+-
+-		public void DisconnectGamePlatform(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("disconnectGamePlatform", string.Empty, callId);
+-			callIOSMethod("disconnectGamePlatform", string.Empty, callId);
+-		}
+-
+-		public void LogoutGamePlatform(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("logoutGamePlatform", string.Empty, callId);
+-		}
+-
+-		public bool IsEnableGamePlatform()
+-		{
+-			callJavaMethod("isEnableGamePlatform", string.Empty, string.Empty);
+-			if (Application.platform == RuntimePlatform.Android)
+-			{
+-				using (AndroidJavaClass androidJavaClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+-				{
+-					using (androidJavaClass.GetStatic<AndroidJavaObject>("currentActivity"))
+-					{
+-						return account.Get<bool>("isEnableGamePlatform");
+-					}
+-				}
+-			}
+-			return false;
+-		}
+-
+-		public void ScreenCapture(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("screenCapture", string.Empty, callId);
+-		}
+-
+-		public void GetPlayerStats(bool forceReload, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0].AsBool = forceReload;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("getPlayerStats", text, callId);
+-		}
+-
+-		public void ShowPlate(NPCSInfo param)
+-		{
+-			ShowPlate(0, param, null);
+-		}
+-
+-		public void ShowPlate(int group, NPCSInfo param)
+-		{
+-			ShowPlate(group, param, null);
+-		}
+-
+-		public void ShowPlate(int group, NPCSInfo param, INPPlateListener plateListener)
+-		{
+-			string callId = generateCallId();
+-			setListener(plateListener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0].AsInt = group;
+-			string empty = string.Empty;
+-			if (param != null)
+-			{
+-				JSONClass jSONClass = new JSONClass();
+-				if (param.questionInfos != null)
+-				{
+-					JSONArray jSONArray2 = new JSONArray();
+-					for (int i = 0; i < param.questionInfos.Length; i++)
+-					{
+-						jSONArray2[i] = param.questionInfos[i];
+-					}
+-					jSONClass["questionInfos"] = jSONArray2;
+-				}
+-				foreach (KeyValuePair<string, string> item in param)
+-				{
+-					if (item.Value == null)
+-					{
+-						jSONClass[item.Key] = string.Empty;
+-					}
+-					else
+-					{
+-						jSONClass[item.Key] = item.Value;
+-					}
+-				}
+-				jSONArray[1] = jSONClass.ToString();
+-			}
+-			else
+-			{
+-				jSONArray[1] = string.Empty;
+-			}
+-			empty = jSONArray.ToString();
+-			ToyDebugLog(empty);
+-			callJavaMethod("showPlate", empty, callId);
+-			callIOSMethod("showPlateWithParentViewController:group:params:plateActionPerformedResultBlock", empty, callId);
+-		}
+-
+-		public void ShowTermsOfAgree(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("showTermsOfAgree", string.Empty, callId);
+-			callIOSMethod("showTermsOfAgree", string.Empty, callId);
+-		}
+-
+-		public void snsConnect(NPSnsType snsType, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0].AsInt = (int)snsType;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("snsConnect", text, callId);
+-			callIOSMethod("snsConnect", text, callId);
+-		}
+-
+-		public void snsDisconnect(NPSnsType snsType, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0].AsInt = (int)snsType;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("snsDisconnect", text, callId);
+-			callIOSMethod("snsDisconnect", text, callId);
+-		}
+-
+-		public void getSnsConnectionStatus(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("getSnsConnectionStatus", string.Empty, callId);
+-			callIOSMethod("getSnsConnectionStatus", string.Empty, callId);
+-		}
+-
+-		public void getSnsUserInfo(NPSnsType snsType, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0].AsInt = (int)snsType;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("getSnsUserInfo", text, callId);
+-			callIOSMethod("getSnsUserInfo", text, callId);
+-		}
+-
+-		public void getSnsTokenList(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("getSnsTokenList", string.Empty, callId);
+-			callIOSMethod("getSnsTokenList", string.Empty, callId);
+-		}
+-
+-		public void GetCountryFromServer(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("getCountryFromServer", string.Empty, callId);
+-			callIOSMethod("getCountryFromServer", string.Empty, callId);
+-		}
+-
+-		public string getUUID()
+-		{
+-			callJavaMethod("loadUUID", string.Empty, string.Empty);
+-			if (Application.platform == RuntimePlatform.Android)
+-			{
+-				using (AndroidJavaClass androidJavaClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+-				{
+-					using (androidJavaClass.GetStatic<AndroidJavaObject>("currentActivity"))
+-					{
+-						return account.Get<string>("uuid");
+-					}
+-				}
+-			}
+-			return string.Empty;
+-		}
+-
+-		public void ShowDataBackup(INPListener listener)
+-		{
+-			ShowDataBackup(string.Empty, listener);
+-		}
+-
+-		public void ShowDataBackup(string title, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = title;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("showDataBackup", text, callId);
+-			callIOSMethod("showDataBackup", text, callId);
+-		}
+-
+-		public void ShowDataRestore(INPListener listener)
+-		{
+-			ShowDataRestore(string.Empty, listener);
+-		}
+-
+-		public void ShowDataRestore(string title, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = title;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("showDataRestore", text, callId);
+-			callIOSMethod("showDataRestore", text, callId);
+-		}
+-
+-		public void SetDisableLoginTypes(int[] loginTypes)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			string text;
+-			if (loginTypes == null)
+-			{
+-				text = "[]";
+-			}
+-			else
+-			{
+-				for (int i = 0; i < loginTypes.Length; i++)
+-				{
+-					jSONArray[i].AsInt = loginTypes[i];
+-				}
+-				text = jSONArray.ToString();
+-			}
+-			ToyDebugLog(text);
+-		}
+-
+-		public void ResolveAlreadyLoginedUser(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("resolveAlreadyLoginedUser", string.Empty, callId);
+-			callIOSMethod("resolveAlreadyLoginedUser", string.Empty, callId);
+-		}
+-
+-		public void EnterToy(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("enterToy", string.Empty, callId);
+-			callIOSMethod("enterToyWithParentViewController", string.Empty, callId);
+-		}
+-
+-		public void ShowSettlementFund(string itemName, string itemPrice, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = itemName;
+-			jSONArray[1] = itemPrice;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("showSettlementFund", text, callId);
+-			callIOSMethod("showSettlementFundWithParentViewController", text, callId);
+-		}
+-
+-		public void ShowPushNSms(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("showPushNSmsSetting", string.Empty, callId);
+-			callIOSMethod("showPushNSmsSetting:completeBlock", string.Empty, callId);
+-		}
+-
+-		public void GetServiceInfo(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("getServiceInfo", string.Empty, callId);
+-			callIOSMethod("getServiceInfoWithCompleteBlock", string.Empty, callId);
+-		}
+-
+-		public void GetAdvertisingId(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("getAdvertisingId", string.Empty, callId);
+-			callIOSMethod("getAdvertisingIdWithCompleteBlock", string.Empty, callId);
+-		}
+-
+-		private JSONClass dicToJSON(Dictionary<string, string> dic)
+-		{
+-			JSONClass jSONClass = new JSONClass();
+-			foreach (KeyValuePair<string, string> item in dic)
+-			{
+-				if (item.Value == null)
+-				{
+-					jSONClass[item.Key] = string.Empty;
+-				}
+-				else
+-				{
+-					jSONClass[item.Key] = item.Value;
+-				}
+-			}
+-			return jSONClass;
+-		}
+-
+-		public void FBLogPurchase(double purchaseAmount, string currency, Dictionary<string, string> param)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = purchaseAmount.ToString();
+-			jSONArray[1] = currency;
+-			if (param != null && param.Count > 0)
+-			{
+-				jSONArray[2] = dicToJSON(param).ToString();
+-			}
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("fbLogPurchase", text, string.Empty);
+-			callIOSMethod("fbLogPurchase", text, string.Empty);
+-		}
+-
+-		public void FBLogEvent(string eventName)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = eventName;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("fbLogEvent", text, string.Empty);
+-			callIOSMethod("fbLogEvent", text, string.Empty);
+-		}
+-
+-		public void FBLogEvent(string eventName, Dictionary<string, string> param)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = eventName;
+-			if (param != null && param.Count > 0)
+-			{
+-				jSONArray[1] = dicToJSON(param).ToString();
+-			}
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("fbLogEvent", text, string.Empty);
+-			callIOSMethod("fbLogEvent", text, string.Empty);
+-		}
+-
+-		public void FBLogEvent(string eventName, double valueToSum)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = eventName;
+-			jSONArray[1] = valueToSum.ToString();
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("fbLogEvent", text, string.Empty);
+-			callIOSMethod("fbLogEvent", text, string.Empty);
+-		}
+-
+-		public void FBLogEvent(string eventName, double valueToSum, Dictionary<string, string> param)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = eventName;
+-			jSONArray[1] = valueToSum.ToString();
+-			if (param != null && param.Count > 0)
+-			{
+-				jSONArray[2] = dicToJSON(param).ToString();
+-			}
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("fbLogEvent", text, string.Empty);
+-			callIOSMethod("fbLogEvent", text, string.Empty);
+-		}
+-
+-		public void FBActivateApp()
+-		{
+-			callJavaMethod("fbActivateApp", string.Empty, string.Empty);
+-			callIOSMethod("fbActivateApp", string.Empty, string.Empty);
+-		}
+-
+-		public void FBDeactivateApp()
+-		{
+-			callJavaMethod("fbDeactivateApp", string.Empty, string.Empty);
+-			callIOSMethod("fbDeactivateApp", string.Empty, string.Empty);
+-		}
+-
+-		public void FBFetchDeferredAppLink(INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			callJavaMethod("fbFetchDeferredAppLink", string.Empty, callId);
+-			callIOSMethod("fbFetchDeferredAppLink", string.Empty, callId);
+-		}
+-
+-		public void FBAppInvite(string appLinkUrl, string previewImageUrl, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = appLinkUrl;
+-			jSONArray[1] = previewImageUrl;
+-			string args = jSONArray.ToString();
+-			callJavaMethod("fbAppInvite", args, callId);
+-			callIOSMethod("fbAppInvite", args, callId);
+-		}
+-
+-		public void FBShare(string title, string description, string contentUrl, string imageUrl, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = title;
+-			jSONArray[1] = description;
+-			if (contentUrl == null)
+-			{
+-				jSONArray[2] = string.Empty;
+-			}
+-			else
+-			{
+-				jSONArray[2] = contentUrl;
+-			}
+-			if (imageUrl == null)
+-			{
+-				jSONArray[3] = string.Empty;
+-			}
+-			else
+-			{
+-				jSONArray[3] = imageUrl;
+-			}
+-			string args = jSONArray.ToString();
+-			callJavaMethod("fbShare", args, callId);
+-			callIOSMethod("fbShare", args, callId);
+-		}
+-
+-		public void FBGetFriends(int nextPage, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0].AsInt = nextPage;
+-			string args = jSONArray.ToString();
+-			callJavaMethod("fbGetFriends", args, callId);
+-			callIOSMethod("fbGetFriends", args, callId);
+-		}
+-
+-		public void FBSetIsDebugEnabled(bool enabled)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0].AsBool = enabled;
+-			string args = jSONArray.ToString();
+-			callJavaMethod("fbSetIsDebugEnabled", args, string.Empty);
+-			callIOSMethod("fbSetIsDebugEnabled", args, string.Empty);
+-		}
+-
+-		public void ResetBadgeCount(int count)
+-		{
+-		}
+-
+-		public void SetPushAgreement(NPPushAgreementType agreeStatus, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0].AsInt = (int)agreeStatus;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("setPushAgreement", text, callId);
+-			callIOSMethod("setPushAgreementWithPushStatus:completeBlock", text, callId);
+-		}
+-
+-		public void RequestPermissions(List<string> permissions, int requestCode, string rationaleMsg, INPRuntimePermissionListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			JSONArray jSONArray2 = new JSONArray();
+-			if (permissions != null)
+-			{
+-				for (int i = 0; i < permissions.Count; i++)
+-				{
+-					jSONArray2[i] = permissions[i];
+-				}
+-			}
+-			jSONArray[0] = jSONArray2;
+-			jSONArray[1].AsInt = requestCode;
+-			if (rationaleMsg != null)
+-			{
+-				jSONArray[2] = rationaleMsg;
+-			}
+-			else
+-			{
+-				jSONArray[2] = string.Empty;
+-			}
+-			string args = jSONArray.ToString();
+-			callJavaMethod("requestPermissions", args, callId);
+-		}
+-
+-		public void GetPromotion(string placementId, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = placementId;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("getPromotion", text, callId);
+-			callIOSMethod("getPromotionWithPlacementId:completeBlock", text, callId);
+-		}
+-
+-		public void ShowPromotion(string placementId, INPListener listener)
+-		{
+-			string callId = generateCallId();
+-			setListener(listener, callId);
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray[0] = placementId;
+-			string text = jSONArray.ToString();
+-			ToyDebugLog(text);
+-			callJavaMethod("showPromotion", text, callId);
+-			callIOSMethod("showPromotionWithPlacementId:viewController:completeBlock", text, callId);
+-		}
+-
+-		private string generateCallId()
+-		{
+-			int num = Interlocked.Increment(ref incrementCallIdValue);
+-			return "Id" + num;
+-		}
+-
+-		public static void ToyDebugLog(string text)
+-		{
+-		}
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPAccount.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPAccount.cs.meta
+deleted file mode 100644
+index 5c6b0b5c..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPAccount.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 45e96e1cfc7e86437ff91d0839d05a18
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPAccountGameObject.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPAccountGameObject.cs
+deleted file mode 100644
+index 74cb1789..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPAccountGameObject.cs
++++ /dev/null
+@@ -1,290 +0,0 @@
+-using System.Collections;
+-using SimpleJSON;
+-using UnityEngine;
+-
+-namespace NPA
+-{
+-	public class NPAccountGameObject : MonoBehaviour
+-	{
+-		public Hashtable npaListenerTable = new Hashtable();
+-
+-		public INPRecvNotificationListener pushListener;
+-
+-		public INPGCMListener gcmListener;
+-
+-		private void setListener(object[] paramsArray)
+-		{
+-			if (npaListenerTable == null)
+-			{
+-				npaListenerTable = new Hashtable();
+-			}
+-			npaListenerTable.Add((string)paramsArray[1], paramsArray[0]);
+-		}
+-
+-		private void setPushListener(INPRecvNotificationListener pushListener)
+-		{
+-			this.pushListener = pushListener;
+-		}
+-
+-		private void setGCMListener(INPGCMListener gcmListener)
+-		{
+-			this.gcmListener = gcmListener;
+-		}
+-
+-		public void OnReceiveNotification(string msg)
+-		{
+-			NPAccount.ToyDebugLog("OnReceiveNoti " + msg);
+-			JSONNode recvNotification = JSON.Parse(msg);
+-			if (pushListener != null)
+-			{
+-				pushListener.OnRecvNotification(recvNotification);
+-			}
+-		}
+-
+-		public void OnEndingBannerClick(string msg)
+-		{
+-			NPAccount.ToyDebugLog("OnEndingBannerClick " + msg);
+-			string landInfo = msg.Substring(0, msg.LastIndexOf("$"));
+-			string key = msg.Substring(msg.LastIndexOf("$") + 1);
+-			INPEndingBannerListener iNPEndingBannerListener = null;
+-			if (npaListenerTable.ContainsKey(key))
+-			{
+-				iNPEndingBannerListener = (INPEndingBannerListener)npaListenerTable[key];
+-			}
+-			if (iNPEndingBannerListener != null)
+-			{
+-				iNPEndingBannerListener.OnEndingBannerClick(landInfo);
+-			}
+-		}
+-
+-		public void OnEndingBannerDismiss(string msg)
+-		{
+-			NPAccount.ToyDebugLog("OnEndingBannerDismiss " + msg);
+-			string key = msg.Substring(msg.LastIndexOf("$") + 1);
+-			INPEndingBannerListener iNPEndingBannerListener = null;
+-			if (npaListenerTable.ContainsKey(key))
+-			{
+-				iNPEndingBannerListener = (INPEndingBannerListener)npaListenerTable[key];
+-			}
+-			if (iNPEndingBannerListener != null)
+-			{
+-				iNPEndingBannerListener.OnEndingBannerDismiss();
+-			}
+-		}
+-
+-		public void OnEndingBannerFailed(string msg)
+-		{
+-			NPAccount.ToyDebugLog("OnEndingBannerFailed " + msg);
+-			string aJSON = msg.Substring(0, msg.LastIndexOf("$"));
+-			string key = msg.Substring(msg.LastIndexOf("$") + 1);
+-			JSONNode jSONNode = JSON.Parse(aJSON);
+-			NPResult nPResult = new NPResult();
+-			nPResult.resultJson = jSONNode;
+-			nPResult.requestTag = (NPRequestTypeTag)jSONNode["requestTag"].AsInt;
+-			nPResult.errorCode = jSONNode["errorCode"].AsInt;
+-			INPEndingBannerListener iNPEndingBannerListener = null;
+-			if (npaListenerTable.ContainsKey(key))
+-			{
+-				iNPEndingBannerListener = (INPEndingBannerListener)npaListenerTable[key];
+-			}
+-			if (iNPEndingBannerListener != null)
+-			{
+-				iNPEndingBannerListener.OnEndingBannerFailed(nPResult);
+-			}
+-		}
+-
+-		public void OnEndingBannerExit(string msg)
+-		{
+-			NPAccount.ToyDebugLog("OnEndingBannerExit " + msg);
+-			string key = msg.Substring(msg.LastIndexOf("$") + 1);
+-			INPEndingBannerListener iNPEndingBannerListener = null;
+-			if (npaListenerTable.ContainsKey(key))
+-			{
+-				iNPEndingBannerListener = (INPEndingBannerListener)npaListenerTable[key];
+-			}
+-			if (iNPEndingBannerListener != null)
+-			{
+-				iNPEndingBannerListener.OnEndingBannerExit();
+-			}
+-		}
+-
+-		public void OnBannerClick(string msg)
+-		{
+-			NPAccount.ToyDebugLog("OnBannerClick " + msg);
+-			string landInfo = msg.Substring(0, msg.LastIndexOf("$"));
+-			string key = msg.Substring(msg.LastIndexOf("$") + 1);
+-			INPBannerListener iNPBannerListener = null;
+-			if (npaListenerTable.ContainsKey(key))
+-			{
+-				iNPBannerListener = (INPBannerListener)npaListenerTable[key];
+-			}
+-			if (iNPBannerListener != null)
+-			{
+-				iNPBannerListener.OnBannerClick(landInfo);
+-			}
+-		}
+-
+-		public void OnBannerDismiss(string msg)
+-		{
+-			NPAccount.ToyDebugLog("OnBannerDismiss " + msg);
+-			string key = msg.Substring(msg.LastIndexOf("$") + 1);
+-			INPBannerListener iNPBannerListener = null;
+-			if (npaListenerTable.ContainsKey(key))
+-			{
+-				iNPBannerListener = (INPBannerListener)npaListenerTable[key];
+-			}
+-			if (iNPBannerListener != null)
+-			{
+-				iNPBannerListener.OnBannerDismiss();
+-			}
+-		}
+-
+-		public void OnBannerFailed(string msg)
+-		{
+-			NPAccount.ToyDebugLog("OnBannerFailed " + msg);
+-			string aJSON = msg.Substring(0, msg.LastIndexOf("$"));
+-			string key = msg.Substring(msg.LastIndexOf("$") + 1);
+-			JSONNode jSONNode = JSON.Parse(aJSON);
+-			NPResult nPResult = new NPResult();
+-			nPResult.resultJson = jSONNode;
+-			nPResult.requestTag = (NPRequestTypeTag)jSONNode["requestTag"].AsInt;
+-			nPResult.errorCode = jSONNode["errorCode"].AsInt;
+-			INPBannerListener iNPBannerListener = null;
+-			if (npaListenerTable.ContainsKey(key))
+-			{
+-				iNPBannerListener = (INPBannerListener)npaListenerTable[key];
+-			}
+-			if (iNPBannerListener != null)
+-			{
+-				iNPBannerListener.OnBannerFailed(nPResult);
+-			}
+-		}
+-
+-		public void OnClose(string msg)
+-		{
+-			NPAccount.ToyDebugLog("OnClose " + msg);
+-			string aJSON = msg.Substring(0, msg.LastIndexOf("$"));
+-			string key = msg.Substring(msg.LastIndexOf("$") + 1);
+-			JSONNode jSONNode = JSON.Parse(aJSON);
+-			NPCloseResult nPCloseResult = new NPCloseResult();
+-			nPCloseResult.resultJson = jSONNode;
+-			nPCloseResult.requestTag = (NPRequestTypeTag)jSONNode["requestTag"].AsInt;
+-			nPCloseResult.errorCode = jSONNode["errorCode"].AsInt;
+-			nPCloseResult.screenName = jSONNode["screenName"].Value;
+-			if (nPCloseResult.screenName.CompareTo("notice") == 0)
+-			{
+-				INPOnCloseListener iNPOnCloseListener = null;
+-				if (npaListenerTable.ContainsKey(key))
+-				{
+-					iNPOnCloseListener = (INPOnCloseListener)npaListenerTable[key];
+-				}
+-				if (iNPOnCloseListener != null)
+-				{
+-					iNPOnCloseListener.OnClose(nPCloseResult);
+-				}
+-			}
+-		}
+-
+-		public void OnGameServiceClose(string msg)
+-		{
+-			NPAccount.ToyDebugLog("OnGameServiceClose " + msg);
+-			string aJSON = msg.Substring(0, msg.LastIndexOf("$"));
+-			string key = msg.Substring(msg.LastIndexOf("$") + 1);
+-			JSONNode jSONNode = JSON.Parse(aJSON);
+-			NPResult nPResult = new NPResult();
+-			nPResult.resultJson = jSONNode;
+-			nPResult.requestTag = (NPRequestTypeTag)jSONNode["requestTag"].AsInt;
+-			nPResult.errorCode = jSONNode["errorCode"].AsInt;
+-			INPListener iNPListener = null;
+-			if (npaListenerTable.ContainsKey(key))
+-			{
+-				iNPListener = (INPListener)npaListenerTable[key];
+-			}
+-			if (iNPListener != null)
+-			{
+-				iNPListener.OnResult(nPResult);
+-			}
+-		}
+-
+-		public void OnResult(string msg)
+-		{
+-			NPAccount.ToyDebugLog("OnResult " + msg);
+-			string aJSON = msg.Substring(0, msg.LastIndexOf("$"));
+-			string key = msg.Substring(msg.LastIndexOf("$") + 1);
+-			JSONNode jSONNode = JSON.Parse(aJSON);
+-			NPResult nPResult = new NPResult();
+-			nPResult.resultJson = jSONNode;
+-			nPResult.requestTag = (NPRequestTypeTag)jSONNode["requestTag"].AsInt;
+-			nPResult.errorCode = jSONNode["errorCode"].AsInt;
+-			INPListener iNPListener = null;
+-			if (npaListenerTable.ContainsKey(key))
+-			{
+-				iNPListener = (INPListener)npaListenerTable[key];
+-			}
+-			if (iNPListener != null)
+-			{
+-				iNPListener.OnResult(nPResult);
+-			}
+-		}
+-
+-		public void OnActionPerformedResult(string msg)
+-		{
+-			NPAccount.ToyDebugLog("OnActionPerformedResult " + msg);
+-			string aJSON = msg.Substring(0, msg.LastIndexOf("$"));
+-			string key = msg.Substring(msg.LastIndexOf("$") + 1);
+-			INPPlateListener iNPPlateListener = null;
+-			if (npaListenerTable.ContainsKey(key))
+-			{
+-				iNPPlateListener = (INPPlateListener)npaListenerTable[key];
+-			}
+-			if (iNPPlateListener != null)
+-			{
+-				JSONNode jSONNode = JSON.Parse(aJSON);
+-				NPResult nPResult = new NPResult();
+-				nPResult.resultJson = jSONNode;
+-				nPResult.requestTag = (NPRequestTypeTag)jSONNode["requestTag"].AsInt;
+-				nPResult.errorCode = jSONNode["errorCode"].AsInt;
+-				iNPPlateListener.OnActionPerformedResult(nPResult);
+-			}
+-		}
+-
+-		public void OnGCMResult(string msg)
+-		{
+-			NPAccount.ToyDebugLog("OnGCMResult " + msg);
+-			if (gcmListener != null)
+-			{
+-				gcmListener.OnGCMResult(int.Parse(msg));
+-			}
+-		}
+-
+-		public void OnRequestPermissionsResult(string msg)
+-		{
+-			NPAccount.ToyDebugLog("OnRequestPermissionsResult " + msg);
+-			string aJSON = msg.Substring(0, msg.LastIndexOf("$"));
+-			string key = msg.Substring(msg.LastIndexOf("$") + 1);
+-			INPRuntimePermissionListener iNPRuntimePermissionListener = null;
+-			if (npaListenerTable.ContainsKey(key))
+-			{
+-				iNPRuntimePermissionListener = (INPRuntimePermissionListener)npaListenerTable[key];
+-			}
+-			if (iNPRuntimePermissionListener != null)
+-			{
+-				JSONNode jSONNode = JSON.Parse(aJSON);
+-				int asInt = jSONNode["requestCode"].AsInt;
+-				JSONArray asArray = jSONNode["permissions"].AsArray;
+-				string[] array = new string[asArray.Count];
+-				for (int i = 0; i < asArray.Count; i++)
+-				{
+-					array[i] = asArray[i];
+-				}
+-				JSONArray asArray2 = jSONNode["grantResults"].AsArray;
+-				int[] array2 = new int[asArray2.Count];
+-				for (int j = 0; j < asArray2.Count; j++)
+-				{
+-					array2[j] = asArray2[j].AsInt;
+-				}
+-				iNPRuntimePermissionListener.OnRequestPermissionsResult(asInt, array, array2);
+-			}
+-		}
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPAccountGameObject.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPAccountGameObject.cs.meta
+deleted file mode 100644
+index b5ec7a2b..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPAccountGameObject.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 50e93513d74f76c76bb76c8184b46c39
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPCSInfo.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPCSInfo.cs
+deleted file mode 100644
+index 38d833ba..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPCSInfo.cs
++++ /dev/null
+@@ -1,9 +0,0 @@
+-using System.Collections.Generic;
+-
+-namespace NPA
+-{
+-	public class NPCSInfo : Dictionary<string, string>
+-	{
+-		public string[] questionInfos;
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPCSInfo.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPCSInfo.cs.meta
+deleted file mode 100644
+index b5247db5..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPCSInfo.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 57babbac89fd8f31471e2b8b7663c57d
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPCloseResult.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPCloseResult.cs
+deleted file mode 100644
+index 146ea24d..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPCloseResult.cs
++++ /dev/null
+@@ -1,7 +0,0 @@
+-namespace NPA
+-{
+-	public class NPCloseResult : NPResult
+-	{
+-		public string screenName;
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPCloseResult.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPCloseResult.cs.meta
+deleted file mode 100644
+index 6a70597e..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPCloseResult.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: ce36ff92a7604452554c5b2be4f97750
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPCountry.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPCountry.cs
+deleted file mode 100644
+index 463b9c7b..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPCountry.cs
++++ /dev/null
+@@ -1,124 +0,0 @@
+-namespace NPA
+-{
+-	public enum NPCountry
+-	{
+-		ETC = -1,
+-		Australia = 0,
+-		Brunei = 1,
+-		China = 2,
+-		Guam = 3,
+-		HongKong = 4,
+-		Indonesia = 5,
+-		Japan = 6,
+-		Korea = 7,
+-		Macau = 8,
+-		Malaysia = 9,
+-		Mongolia = 10,
+-		NewZealand = 11,
+-		Philippines = 12,
+-		Singapore = 13,
+-		SriLanka = 14,
+-		Taiwan = 15,
+-		Thailand = 16,
+-		Vietnam = 17,
+-		Albania = 18,
+-		Belgium = 19,
+-		Cyprus = 20,
+-		CzechRepublic = 21,
+-		Denmark = 22,
+-		Germany = 23,
+-		Spain = 24,
+-		France = 25,
+-		Iceland = 26,
+-		Ireland = 27,
+-		Italy = 28,
+-		Liechtenstein = 29,
+-		Luxembourg = 30,
+-		Macedonia = 31,
+-		Hungary = 32,
+-		Malta = 33,
+-		Moldova = 34,
+-		Montenegro = 35,
+-		Nederland = 36,
+-		Norway = 37,
+-		Austria = 38,
+-		Poland = 39,
+-		Portugal = 40,
+-		Russia = 41,
+-		Switzerland = 42,
+-		Finland = 43,
+-		Sweden = 44,
+-		Turkey = 45,
+-		UK = 46,
+-		Anguilla = 47,
+-		AntiguaAndBarbuda = 48,
+-		Argentina = 49,
+-		Barbados = 50,
+-		Belize = 51,
+-		Bermuda = 52,
+-		Bolivia = 53,
+-		Brazil = 54,
+-		BritishVirginIslands = 55,
+-		CaymanIslands = 56,
+-		Chile = 57,
+-		Colombia = 58,
+-		CostaRica = 59,
+-		Dominica = 60,
+-		Dominican = 61,
+-		Ecuador = 62,
+-		ElSalvador = 63,
+-		Grenada = 64,
+-		Guatemala = 65,
+-		Guyana = 66,
+-		Honduras = 67,
+-		Jamaica = 68,
+-		Mexico = 69,
+-		Montserrat = 70,
+-		Nicaragua = 71,
+-		Panama = 72,
+-		Paraguay = 73,
+-		Peru = 74,
+-		SaintKittsAndNevis = 75,
+-		SaintLucia = 76,
+-		SaintVincentAndTheGrenadines = 77,
+-		Suriname = 78,
+-		Bahamas = 79,
+-		TrinidadAndTobago = 80,
+-		TurksAndCaicosIslands = 81,
+-		Uruguay = 82,
+-		Venezuela = 83,
+-		Canada = 84,
+-		PuertoRico = 85,
+-		UnitedStates = 86,
+-		Armenia = 87,
+-		Bahrain = 88,
+-		Botswana = 89,
+-		Cameroon = 90,
+-		IvoryCoast = 91,
+-		Egypt = 92,
+-		GuineaBissau = 93,
+-		Guinea = 94,
+-		EquatorialGuinea = 95,
+-		India = 96,
+-		Israel = 97,
+-		Jordan = 98,
+-		Kenya = 99,
+-		Kuwait = 100,
+-		Lebanon = 101,
+-		Madagascar = 102,
+-		Mali = 103,
+-		Morocco = 104,
+-		Mauritius = 105,
+-		Mozambique = 106,
+-		Niger = 107,
+-		Nigeria = 108,
+-		Oman = 109,
+-		Qatar = 110,
+-		CentralAfricanRepublic = 111,
+-		SaudiArabia = 112,
+-		Senegal = 113,
+-		SouthAfrica = 114,
+-		Tunisia = 115,
+-		UnitedArabEmirates = 116
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPCountry.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPCountry.cs.meta
+deleted file mode 100644
+index ce01905a..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPCountry.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: fed883045efcc4af0757db1660148c1d
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPErrorCode.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPErrorCode.cs
+deleted file mode 100644
+index d3ffeced..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPErrorCode.cs
++++ /dev/null
+@@ -1,97 +0,0 @@
+-namespace NPA
+-{
+-	public enum NPErrorCode
+-	{
+-		Success = 0,
+-		CODE_USING_NPSN_USER_NEED_RESOLVE = 1202,
+-		CODE_WITHDRAWAL_PROCESSING_BY_THE_USER = 1301,
+-		CODE_EMAIL_LOGIN_PASSWORD_INVAILD = 1405,
+-		CODE_NEED_AUTH = 2012,
+-		CODE_PARSE_ERR1 = 10001,
+-		CODE_PARSE_ERR2 = 10002,
+-		CODE_PARSE_ERR3 = 10003,
+-		CODE_INVALID_NETWORK = 10004,
+-		CODE_INVALID_ARGS = 10005,
+-		CODE_LOGIN_USER_CANCELED = 10006,
+-		CODE_NETWORK_CANCELED = 10007,
+-		CODE_NETWORK_TIMEOUT = 10008,
+-		CODE_NETWORK_UNAVAILABLE = 10009,
+-		CODE_NETWORK_CONNECTION_LOST = 10010,
+-		CODE_ALREADY_LOGIN = 10011,
+-		CODE_RECOVERY_USER_WRONG_ID_PW_ERROR = 10012,
+-		CODE_RECOVERY_USER_CANCELED = 10013,
+-		CODE_PUT_COUPON_USER_CANCELED = 10101,
+-		CODE_SETTLEMENT_FUND_USER_CANCELED = 10102,
+-		CODE_SETTLEMENT_FUND_DISAGREE = 10103,
+-		CODE_NAVERCHN_LOGIN_READ_CLIENT_INFO_ERR = 32001,
+-		CODE_NAVERCHN_NOT_EXIST_CLIENT_INFO_ERR = 32002,
+-		CODE_NAVERCHN_LOGIN_FAILED = 32003,
+-		CODE_NAVERCHN_REFRESH_TOKEN_FAILED = 32004,
+-		CODE_NOT_REGISTERED_BANNER = 90001,
+-		CODE_HAVENT_SHOW_BANNER = 90002,
+-		CODE_FAILED_GET_GOOGLE_ACCOUNT = 90010,
+-		CODE_USER_CANCEL_LINK_GOOGLE_ACCOUNT = 90011,
+-		CODE_NOT_LOGINED_NEXON_COM = 90012,
+-		CODE_GOOGLE_PLAY_SERVICE_UNAVAILABLE = 90013,
+-		CODE_UNAUTHORIZED_LOGIN_TYPE = 90014,
+-		CODE_NOT_FOUND_LOGIN_INFO = 90015,
+-		CODE_TEMP_SNS_NOT_CONNECTED = 90016,
+-		CODE_ALREADY_USING_EMAIL = 90100,
+-		CODE_BACKUP_NOT_GUEST_USER = 90101,
+-		CODE_RESTORE_NOT_SIGNUP = 90102,
+-		CODE_RESTORE_CODE_INVALID = 90103,
+-		CODE_BACKUP_CANCEL = 90104,
+-		CODE_RESTORE_CANCEL = 90105,
+-		CODE_RESTORE_FAIL_EMAIL_MIGRATION = 90106,
+-		CODE_BACKUP_FAIL_EMAIL_USING = 90107,
+-		CODE_FBLOGIN_FAIL = 90501,
+-		CODE_FBGRAPHAPI_FAIL = 90502,
+-		CODE_FB_INVALID_APPID_OR_HASHKEY = 90503,
+-		CODE_FB_UNKNOWN_ERR = 90504,
+-		CODE_FB_ME_FAILED = 90505,
+-		CODE_FB_LOAD_FBSESSION_FAILED_IN_ON_ACT_RESULT = 90506,
+-		CODE_FB_GET_WRITE_PERM_FAILED = 90507,
+-		CODE_FB_SESSION_CLOSED_DURING_FEED = 90508,
+-		CODE_FB_NOT_CONNECT = 90509,
+-		CODE_FB_GET_ACCESSTOKEN_FAILED = 90510,
+-		CODE_GPLUS_GET_PERSON_FAILED = 90601,
+-		CODE_GPLUS_GET_TOKEN_FAILED = 90602,
+-		CODE_GPLUS_GET_USERINFO_CONNECT_FAILED = 90603,
+-		CODE_GPLUS_GET_FRIENDS_CONNECT_FAILED = 90604,
+-		CODE_GPLUS_GAME_LOAD_ACHEIVE_FAIL = 90605,
+-		CODE_GPLUS_GET_FRIENDS_LOAD_DATA_FAILED = 90606,
+-		CODE_EXPIRE_GPLUS_TOKEN = 90607,
+-		CODE_GPLUSLOGIN_GET_USERINFO_FAIL = 90608,
+-		CODE_GPLUS_GET_USERINFO_FAIL = 90609,
+-		CODE_GPLUSLOGIN_FAIL = 90610,
+-		CODE_DAUMCHN_NOT_EXIST_CLIENT_INFO_ERR = 90701,
+-		CODE_DAUMCHN_INVALID_AUTH_REQUEST = 90702,
+-		CODE_DAUMCHN_UNAUTH_CLIENT = 90703,
+-		CODE_DAUMCHN_ACCESS_DENIED = 90704,
+-		CODE_DAUMCHN_UNSUPPORTED_RESPONSE_TYPE = 90705,
+-		CODE_DAUMCHN_INVALID_SCOPE = 90706,
+-		CODE_DAUMCHN_TOKEN_EXPIRED = 90707,
+-		CODE_GGAME_LOAD_ACHEIVE_FAIL = 90801,
+-		CODE_TWITTER_AUTH_FAIL = 90801,
+-		CODE_TWITTER_ALREADY_AUTH_FAIL = 90802,
+-		CODE_TWITTER_NOT_ENABLED = 90803,
+-		CODE_TWITTER_GET_REQUEST_TOKEN_FAIL = 90804,
+-		CODE_TWITTER_SHOW_USER_FAILED = 90805,
+-		CODE_NEED_CHECK_TWITTER_SETTING = 90806,
+-		CODE_TWITTER_TOKEN_SETUP_FAIL = 90807,
+-		CODE_TWITTER_GET_TOKEN_FAIL = 90808,
+-		CODE_TWITTER_GET_FRIENDS_FAIL = 90809,
+-		CODE_GET_FRIENDS_FAILED = 91001,
+-		CODE_SNS_NOT_CONNECTED = 91002,
+-		CODE_SNS_ALREADY_LOGIN = 91003,
+-		CODE_SNS_DONT_DISCONNECT_LOGINED_SNS = 91004,
+-		CODE_SNS_DONT_CONNECT_WITH_GUEST = 91005,
+-		CODE_SNS_GET_USERINFO_FAILED = 91006,
+-		CODE_SNS_INVITE_FAILED = 91007,
+-		CODE_PERMISSION_DENIED = 92000,
+-		CODE_PROMOTION_DATA_EMPTY = 95001,
+-		CODE_PROMOTION_IMAGE_LOAD_FAIL = 95002,
+-		CODE_SAVE_TERMS_OF_AGREE_FAIL = 99001,
+-		CODE_SNS_POST_FAILED = 90909090
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPErrorCode.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPErrorCode.cs.meta
+deleted file mode 100644
+index 4104085c..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPErrorCode.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 0926b51b24b83fd537f6a78b7f9220f5
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPFBAppEventName.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPFBAppEventName.cs
+deleted file mode 100644
+index afdfc3eb..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPFBAppEventName.cs
++++ /dev/null
+@@ -1,33 +0,0 @@
+-namespace NPA
+-{
+-	public class NPFBAppEventName
+-	{
+-		public const string Rated = "fb_mobile_rate";
+-
+-		public const string Purchased = "fb_mobile_purchase";
+-
+-		public const string InitiatedCheckout = "fb_mobile_initiated_checkout";
+-
+-		public const string Searched = "fb_mobile_search";
+-
+-		public const string ViewedContent = "fb_mobile_content_view";
+-
+-		public const string UnlockedAchievement = "fb_mobile_achievement_unlocked";
+-
+-		public const string SpentCredits = "fb_mobile_spent_credits";
+-
+-		public const string AddedPaymentInfo = "fb_mobile_add_payment_info";
+-
+-		public const string ActivatedApp = "fb_mobile_activate_app";
+-
+-		public const string AchievedLevel = "fb_mobile_level_achieved";
+-
+-		public const string AddedToCart = "fb_mobile_add_to_cart";
+-
+-		public const string CompletedTutorial = "fb_mobile_tutorial_completion";
+-
+-		public const string CompletedRegistration = "fb_mobile_complete_registration";
+-
+-		public const string AddedToWishlist = "fb_mobile_add_to_wishlist";
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPFBAppEventName.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPFBAppEventName.cs.meta
+deleted file mode 100644
+index 194ab723..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPFBAppEventName.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 281c2355e03eec8308e631eec4b4b50e
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPFBAppEventParameterName.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPFBAppEventParameterName.cs
+deleted file mode 100644
+index 6425a462..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPFBAppEventParameterName.cs
++++ /dev/null
+@@ -1,27 +0,0 @@
+-namespace NPA
+-{
+-	public class NPFBAppEventParameterName
+-	{
+-		public const string PaymentInfoAvailable = "fb_payment_info_available";
+-
+-		public const string NumItems = "fb_num_items";
+-
+-		public const string RegistrationMethod = "fb_registration_method";
+-
+-		public const string Success = "fb_success";
+-
+-		public const string SearchString = "fb_search_string";
+-
+-		public const string MaxRatingValue = "fb_max_rating_value";
+-
+-		public const string ContentType = "fb_content_type";
+-
+-		public const string ContentID = "fb_content_id";
+-
+-		public const string Currency = "fb_currency";
+-
+-		public const string Level = "fb_level";
+-
+-		public const string Description = "fb_description";
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPFBAppEventParameterName.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPFBAppEventParameterName.cs.meta
+deleted file mode 100644
+index 14976a5c..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPFBAppEventParameterName.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: a28a584e164efde64e43655d908b9c2e
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPLeaderboardVariant.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPLeaderboardVariant.cs
+deleted file mode 100644
+index 0bad57e8..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPLeaderboardVariant.cs
++++ /dev/null
+@@ -1,15 +0,0 @@
+-namespace NPA
+-{
+-	public static class NPLeaderboardVariant
+-	{
+-		public const int COLLECTION_PUBLIC = 0;
+-
+-		public const int COLLECTION_SOCIAL = 1;
+-
+-		public const int TIME_SPAN_ALL_TIME = 2;
+-
+-		public const int TIME_SPAN_DAILY = 0;
+-
+-		public const int TIME_SPAN_WEEKLY = 1;
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPLeaderboardVariant.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPLeaderboardVariant.cs.meta
+deleted file mode 100644
+index f3b7b81e..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPLeaderboardVariant.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 4dc3a1f1ace86c820a33e41226cd0230
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPLocale.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPLocale.cs
+deleted file mode 100644
+index 0249643b..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPLocale.cs
++++ /dev/null
+@@ -1,160 +0,0 @@
+-namespace NPA
+-{
+-	public enum NPLocale
+-	{
+-		ETC = -1,
+-		EN_AU = 0,
+-		MS_BN = 1,
+-		ZH_CN = 2,
+-		EN_GU = 3,
+-		CH_GU = 4,
+-		EN_HK = 5,
+-		ZH_HK = 6,
+-		ID_ID = 7,
+-		JA_JP = 8,
+-		KO_KR = 9,
+-		EN_MO = 10,
+-		PT_MO = 11,
+-		ZH_MO = 12,
+-		MS_MY = 13,
+-		MN_MN = 14,
+-		EN_NZ = 15,
+-		MI_NZ = 16,
+-		EN_PH = 17,
+-		TL_PH = 18,
+-		MS_SG = 19,
+-		EN_SG = 20,
+-		ZH_SG = 21,
+-		SI_LK = 22,
+-		TA_LK = 23,
+-		EN_LK = 24,
+-		ZH_TW = 25,
+-		TH_TH = 26,
+-		VI_VN = 27,
+-		SQ_AL = 28,
+-		NL_BE = 29,
+-		FR_BE = 30,
+-		DE_BE = 31,
+-		EL_CY = 32,
+-		TR_CY = 33,
+-		CS_CZ = 34,
+-		DA_DK = 35,
+-		DE_DE = 36,
+-		ES_ES = 37,
+-		FR_FR = 38,
+-		IS_IS = 39,
+-		GA_IE = 40,
+-		IT_IT = 41,
+-		DE_LI = 42,
+-		DE_LU = 43,
+-		FR_LU = 44,
+-		LB_LU = 45,
+-		MK_MK = 46,
+-		HU_HU = 47,
+-		MT_MT = 48,
+-		EN_MT = 49,
+-		IT_MT = 50,
+-		RO_MD = 51,
+-		SR_ME = 52,
+-		NL_NL = 53,
+-		NO_NO = 54,
+-		DE_AT = 55,
+-		PL_PL = 56,
+-		PT_PT = 57,
+-		RU_RU = 58,
+-		DE_CH = 59,
+-		FR_CH = 60,
+-		IT_CH = 61,
+-		FI_FI = 62,
+-		SV_FI = 63,
+-		SV_SE = 64,
+-		TR_TR = 65,
+-		EN_GB = 66,
+-		EN_AI = 67,
+-		EN_AG = 68,
+-		ET_AR = 69,
+-		EN_BB = 70,
+-		EN_BZ = 71,
+-		EN_BM = 72,
+-		ET_BO = 73,
+-		PT_BR = 74,
+-		EN_VG = 75,
+-		EN_KY = 76,
+-		ET_CL = 77,
+-		ET_CO = 78,
+-		ET_CR = 79,
+-		EN_DM = 80,
+-		ET_DO = 81,
+-		ET_EC = 82,
+-		ET_SV = 83,
+-		EN_GD = 84,
+-		ET_GT = 85,
+-		EN_GY = 86,
+-		HI_GY = 87,
+-		UR_GY = 88,
+-		ET_HN = 89,
+-		EN_JM = 90,
+-		ET_MX = 91,
+-		EN_MS = 92,
+-		ET_NI = 93,
+-		ET_PA = 94,
+-		ET_PY = 95,
+-		GN_PY = 96,
+-		AY_PE = 97,
+-		ET_PE = 98,
+-		QY_PE = 99,
+-		EN_KN = 100,
+-		EN_LC = 101,
+-		EN_VC = 102,
+-		FR_VC = 103,
+-		NL_SR = 104,
+-		EN_BS = 105,
+-		EN_TT = 106,
+-		EN_TC = 107,
+-		ET_UY = 108,
+-		ET_VE = 109,
+-		EN_CA = 110,
+-		FR_CA = 111,
+-		EN_PR = 112,
+-		ET_PR = 113,
+-		EN_US = 114,
+-		HY_AM = 115,
+-		AR_BH = 116,
+-		EN_BW = 117,
+-		EN_CM = 118,
+-		FR_CM = 119,
+-		FR_CI = 120,
+-		AR_EG = 121,
+-		PT_GW = 122,
+-		FR_GN = 123,
+-		ET_GQ = 124,
+-		FR_GQ = 125,
+-		HI_IN = 126,
+-		EN_IN = 127,
+-		HE_IL = 128,
+-		AR_IL = 129,
+-		AR_JO = 130,
+-		EN_KE = 131,
+-		AR_KW = 132,
+-		AR_LB = 133,
+-		FR_MG = 134,
+-		MG_MG = 135,
+-		FR_ML = 136,
+-		AR_MA = 137,
+-		EN_MU = 138,
+-		PT_MZ = 139,
+-		FR_NE = 140,
+-		EN_NG = 141,
+-		AR_OM = 142,
+-		AR_QA = 143,
+-		FR_CF = 144,
+-		SG_CF = 145,
+-		AR_SA = 146,
+-		FR_SN = 147,
+-		AF_ZA = 148,
+-		EN_ZA = 149,
+-		ZU_ZA = 150,
+-		AR_TN = 151,
+-		AR_AE = 152
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPLocale.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPLocale.cs.meta
+deleted file mode 100644
+index 6863a17e..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPLocale.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 7b4540142bb22f5c888ec3e6c42b6743
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPLoginType.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPLoginType.cs
+deleted file mode 100644
+index c24f39df..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPLoginType.cs
++++ /dev/null
+@@ -1,16 +0,0 @@
+-namespace NPA
+-{
+-	public enum NPLoginType
+-	{
+-		NPLoginTypeNotLogined = -1,
+-		NPLoginTypeDefault = 0,
+-		NPLoginTypeNXCom = 1,
+-		NPLoginTypeNaverChannel = 3,
+-		NPLoginTypeEmail = 4,
+-		NPLoginTypeFaceBook = 101,
+-		NPLoginTypeTwitter = 102,
+-		NPLoginTypeGooglePlus = 103,
+-		NPLoginTypeNaver = 104,
+-		NPLoginTypeGuest = 9999
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPLoginType.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPLoginType.cs.meta
+deleted file mode 100644
+index 15d6cc58..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPLoginType.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: f29c86e58747b49881be10b56fe83d5c
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPNotificationData.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPNotificationData.cs
+deleted file mode 100644
+index b3f97164..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPNotificationData.cs
++++ /dev/null
+@@ -1,24 +0,0 @@
+-namespace NPA
+-{
+-	public class NPNotificationData
+-	{
+-		public int notificationID { get; set; }
+-
+-		public string message { get; set; }
+-
+-		public string meta { get; set; }
+-
+-		public NPNotificationTime time { get; set; }
+-
+-		public int pushType { get; set; }
+-
+-		public NPNotificationData(int notificationID, string message, string meta, NPNotificationTime time, int pushType)
+-		{
+-			this.notificationID = notificationID;
+-			this.message = message;
+-			this.meta = meta;
+-			this.time = time;
+-			this.pushType = pushType;
+-		}
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPNotificationData.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPNotificationData.cs.meta
+deleted file mode 100644
+index 0f09fe83..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPNotificationData.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: eb7d0401993fa715b08c440fda0fd93a
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPNotificationTime.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPNotificationTime.cs
+deleted file mode 100644
+index ced2a401..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPNotificationTime.cs
++++ /dev/null
+@@ -1,27 +0,0 @@
+-namespace NPA
+-{
+-	public class NPNotificationTime
+-	{
+-		public int year { get; set; }
+-
+-		public int month { get; set; }
+-
+-		public int day { get; set; }
+-
+-		public int hour { get; set; }
+-
+-		public int minute { get; set; }
+-
+-		public int sec { get; set; }
+-
+-		public NPNotificationTime(int year, int month, int day, int hour, int minute, int sec)
+-		{
+-			this.year = year;
+-			this.month = month;
+-			this.day = day;
+-			this.hour = hour;
+-			this.minute = minute;
+-			this.sec = sec;
+-		}
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPNotificationTime.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPNotificationTime.cs.meta
+deleted file mode 100644
+index d387da11..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPNotificationTime.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 11e93e623390ae74cfb1782710adc878
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPPlateActionType.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPPlateActionType.cs
+deleted file mode 100644
+index d389ef41..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPPlateActionType.cs
++++ /dev/null
+@@ -1,9 +0,0 @@
+-namespace NPA
+-{
+-	public enum NPPlateActionType
+-	{
+-		NPPlateActionTypeDataBackup = 7500,
+-		NPPlateActionTypeDataRestore = 7501,
+-		NPPlateActionTypeMeta = 7600
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPPlateActionType.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPPlateActionType.cs.meta
+deleted file mode 100644
+index 5ecd69fd..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPPlateActionType.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: f493906dfb4566caefe6612241a672b9
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPPushAgreementType.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPPushAgreementType.cs
+deleted file mode 100644
+index ba4692ef..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPPushAgreementType.cs
++++ /dev/null
+@@ -1,8 +0,0 @@
+-namespace NPA
+-{
+-	public enum NPPushAgreementType
+-	{
+-		PushDisagree = 0,
+-		PushAgree = 1
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPPushAgreementType.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPPushAgreementType.cs.meta
+deleted file mode 100644
+index 938a26f5..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPPushAgreementType.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: f7dcdf3330f69dc7702c7c1b28079ad5
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPRequestTypeTag.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPRequestTypeTag.cs
+deleted file mode 100644
+index d068093f..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPRequestTypeTag.cs
++++ /dev/null
+@@ -1,106 +0,0 @@
+-namespace NPA
+-{
+-	public enum NPRequestTypeTag
+-	{
+-		NPRequestTypeLoginWithNX = 0,
+-		NPRequestTypeGetTerms = 1,
+-		NPRequestTypeAgreeTerms = 2,
+-		NPRequestTypeLogout = 3,
+-		NPRequestTypeUnregisterSVC = 4,
+-		NPRequestTypeGetUserInfo = 5,
+-		NPRequestTypeCreateNPToken = 6,
+-		NPRequestTypeEditUserInfo = 7,
+-		NPRequestTypeRegisterPush = 8,
+-		NPRequestTypeUnregisterPush = 9,
+-		NPRequestTypeGetSvcInfo = 10,
+-		NPRequestTypeEncryptForJoinNXKWithGPlus = 11,
+-		NPRequestTypeEncryptForNXKRealNameAuthentication = 12,
+-		NPRequestTypeGetFriends = 13,
+-		NPRequestTypeGetBannerList = 14,
+-		NPRequestTypeGetNexonSN = 15,
+-		NPRequestTypeGetInitData = 16,
+-		NPRequestTypePutCouponPin = 17,
+-		NPRequestTypeIncrBannerClickCount = 18,
+-		NPRequestTypeGetSvcInfoForCS = 19,
+-		NPRequestTypeRecoverUser = 20,
+-		NPRequestTypeCheckEmailAccountRegistered = 21,
+-		NPRequestTypeEmailAccountSignUp = 22,
+-		NPRequestTypeEmailAccountResetPassword = 23,
+-		NPRequestTypeGetClientID = 24,
+-		NPRequestTypeGetPlateInfo = 25,
+-		NPRequestTypeGetTermsList = 26,
+-		NPRequestTypeGetGameInfo = 27,
+-		NPRequestTypeGetNPSNs = 28,
+-		NPRequestTypeGetTokenList = 29,
+-		NPRequestTypeGameServiceScreen = 30,
+-		NPRequestTypeSaveTermsOfAgree = 31,
+-		NPRequestTypeGetCountry = 32,
+-		NPRequestTypeGetEmailUserInfo = 33,
+-		NPRequestTypeCreateMGToken = 34,
+-		NPRequestTypeValidateMGToken = 35,
+-		NPRequestTypeGetMigrationInfo = 36,
+-		NPRequestTypeMigration = 37,
+-		NPRequestTypeEnterToy = 38,
+-		NPRequestTypeOnPush = 39,
+-		NPRequestTypeOffPush = 40,
+-		NPRequestTypeGetPolicy = 41,
+-		NPRequestTypeValidatePolicy = 42,
+-		NPRequestTypeBannerClick = 43,
+-		NPRequestTypeBannerClosed = 44,
+-		NPRequestTypeEndingBannerClick = 45,
+-		NPRequestTypeEndingBannerExit = 46,
+-		NPRequestTypeEndingBannerClosed = 47,
+-		NPRequestTypeRequestPermissions = 48,
+-		NPRequestTypeGetPromotion = 49,
+-		NPRequestTypeShowPromotion = 50,
+-		NPRequestTypeRecvRemoteNotification = 51,
+-		NPRequestTypeShowNotice = 52,
+-		NPRequestTypeGetAdId = 53,
+-		NPRequestTypeSNSConnect = 7000,
+-		NPRequestTypeSNSConnectWithFacebook = 7001,
+-		NPRequestTypeSNSConnectWithTwitter = 7002,
+-		NPRequestTypeSNSConnectWithGPlus = 7003,
+-		NPRequestTypeSNSDisconnect = 7050,
+-		NPRequestTypeSNSDisconnectWithFacebook = 7051,
+-		NPRequestTypeSNSDisconnectWithTwitter = 7052,
+-		NPRequestTypeSNSDisconnectWithGPlus = 7053,
+-		NPRequestTypeSNSGetUserInfoWithFacebook = 7100,
+-		NPRequestTypeSNSGetUserInfoWithTwitter = 7101,
+-		NPRequestTypeSNSGetUserInfoWithGPlus = 7102,
+-		NPRequestTypeGetSnsConnectionStatus = 7200,
+-		NPRequestTypePostFacebook = 7300,
+-		NPRequestTypePostImageFacebook = 7301,
+-		NPRequestTypePostGooglePlus = 7302,
+-		NPRequestTypePostImageGooglePlus = 7303,
+-		NPRequestTypeFetchDeferredAppLink = 7400,
+-		NPRequestTypeAppInviteFacebook = 7401,
+-		NPRequestTypeShareFacebook = 7402,
+-		NPRequestTypeDataBackup = 7500,
+-		NPRequestTypeDataRestore = 7501,
+-		NPRequestTypePlateButtonClick = 7600,
+-		LoadAchievementData = 8002,
+-		IncrementAchievementImmediate = 8003,
+-		UnlockAchievementImmediate = 8004,
+-		SetStepsAchievementImmediate = 8005,
+-		SubmitScoreImmediate = 8006,
+-		LoadCurrentPlayerScore = 8007,
+-		ConnectGamePlatform = 8008,
+-		DisconnectGamePlatform = 8009,
+-		ScreenCapture = 8010,
+-		GetPlayerStats = 8011,
+-		LogoutGamePlatform = 8012,
+-		NPRequestTypeLogin = 9000,
+-		NPRequestTypeLoginWithNXNet = 9987,
+-		NPRequestTypeLoginWithPlayPark = 9988,
+-		NPRequestTypeLoginWithMapleId = 9989,
+-		NPRequestTypeLoginWithNaver = 9991,
+-		NPRequestTypeLoginWithTwitter = 9992,
+-		NPRequestTypeLoginWithEmail = 9993,
+-		NPRequestTypeLoginWithNaverChannel = 9995,
+-		NPRequestTypeLoginWithKakao = 9996,
+-		NPRequestTypeLoginWithGPlus = 9997,
+-		NPRequestTypeLoginWithFB = 9998,
+-		NPRequestTypeLoginWithGuest = 9999,
+-		NPRequestTypeGetLoginType = 10000
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPRequestTypeTag.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPRequestTypeTag.cs.meta
+deleted file mode 100644
+index 7ee349a0..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPRequestTypeTag.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 35aeeab5f16b324d5741d51b948d93ad
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPResult.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPResult.cs
+deleted file mode 100644
+index 7d6710a6..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPResult.cs
++++ /dev/null
+@@ -1,13 +0,0 @@
+-using SimpleJSON;
+-
+-namespace NPA
+-{
+-	public class NPResult
+-	{
+-		public NPRequestTypeTag requestTag;
+-
+-		public int errorCode;
+-
+-		public JSONNode resultJson;
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPResult.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPResult.cs.meta
+deleted file mode 100644
+index 7f94c5a2..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPResult.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 9457602aaca3768de798485da8ca2afe
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPSnsType.cs b/Assets/Scripts/Assembly-CSharp/NPA/NPSnsType.cs
+deleted file mode 100644
+index 73991d29..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPSnsType.cs
++++ /dev/null
+@@ -1,9 +0,0 @@
+-namespace NPA
+-{
+-	public enum NPSnsType
+-	{
+-		NPSnsTypeFaceBook = 101,
+-		NPSnsTypeTwitter = 102,
+-		NPSnsTypeGooglePlus = 103
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/NPSnsType.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/NPSnsType.cs.meta
+deleted file mode 100644
+index ae4d9f0e..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/NPSnsType.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: d43bb5922f9d035322502f245b8f9994
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/Permission.cs b/Assets/Scripts/Assembly-CSharp/NPA/Permission.cs
+deleted file mode 100644
+index 87d5bace..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/Permission.cs
++++ /dev/null
+@@ -1,57 +0,0 @@
+-namespace NPA
+-{
+-	public static class Permission
+-	{
+-		public const string READ_CALENDAR = "android.permission.READ_CALENDAR";
+-
+-		public const string WRITE_CALENDAR = "android.permission.WRITE_CALENDAR";
+-
+-		public const string CAMERA = "android.permission-group.CAMERA";
+-
+-		public const string READ_CONTACTS = "android.permission.READ_CONTACTS";
+-
+-		public const string WRITE_CONTACTS = "android.permission.WRITE_CONTACTS";
+-
+-		public const string GET_ACCOUNTS = "android.permission.GET_ACCOUNTS";
+-
+-		public const string ACCESS_FINE_LOCATION = "android.permission.ACCESS_FINE_LOCATION";
+-
+-		public const string ACCESS_COARSE_LOCATION = "android.permission.ACCESS_COARSE_LOCATION";
+-
+-		public const string RECORD_AUDIO = "android.permission.RECORD_AUDIO";
+-
+-		public const string READ_PHONE_STATE = "android.permission.READ_PHONE_STATE";
+-
+-		public const string CALL_PHONE = "android.permission.CALL_PHONE";
+-
+-		public const string READ_CALL_LOG = "android.permission.READ_CALL_LOG";
+-
+-		public const string WRITE_CALL_LOG = "android.permission.WRITE_CALL_LOG";
+-
+-		public const string ADD_VOICEMAIL = "com.android.voicemail.permission.ADD_VOICEMAIL";
+-
+-		public const string USE_SIP = "android.permission.USE_SIP";
+-
+-		public const string PROCESS_OUTGOING_CALLS = "android.permission.PROCESS_OUTGOING_CALLS";
+-
+-		public const string BODY_SENSORS = "android.permission.BODY_SENSORS";
+-
+-		public const string SEND_SMS = "android.permission.SEND_SMS";
+-
+-		public const string RECEIVE_SMS = "android.permission.RECEIVE_SMS";
+-
+-		public const string READ_SMS = "android.permission.READ_SMS";
+-
+-		public const string RECEIVE_WAP_PUSH = "android.permission.RECEIVE_WAP_PUSH";
+-
+-		public const string RECEIVE_MMS = "android.permission.RECEIVE_MMS";
+-
+-		public const string READ_EXTERNAL_STORAGE = "android.permission.READ_EXTERNAL_STORAGE";
+-
+-		public const string WRITE_EXTERNAL_STORAGE = "android.permission.WRITE_EXTERNAL_STORAGE";
+-
+-		public const int PERMISSION_GRANTED = 0;
+-
+-		public const int PERMISSION_DENIED = -1;
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/Permission.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/Permission.cs.meta
+deleted file mode 100644
+index a373441f..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/Permission.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 5f39f05b9abb9cd67370d409113c077d
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/ToyVersion.cs b/Assets/Scripts/Assembly-CSharp/NPA/ToyVersion.cs
+deleted file mode 100644
+index c1cb0205..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/ToyVersion.cs
++++ /dev/null
+@@ -1,7 +0,0 @@
+-namespace NPA
+-{
+-	public static class ToyVersion
+-	{
+-		public const string VERSION = "1.1.11";
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/NPA/ToyVersion.cs.meta b/Assets/Scripts/Assembly-CSharp/NPA/ToyVersion.cs.meta
+deleted file mode 100644
+index f2dfbf49..00000000
+--- a/Assets/Scripts/Assembly-CSharp/NPA/ToyVersion.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: a33631e8a71dfd676ae31171baf26056
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSON.cs b/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSON.cs
+deleted file mode 100644
+index fb51aa6b..00000000
+--- a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSON.cs
++++ /dev/null
+@@ -1,10 +0,0 @@
+-namespace SimpleJSON
+-{
+-	public static class JSON
+-	{
+-		public static JSONNode Parse(string aJSON)
+-		{
+-			return JSONNode.Parse(aJSON);
+-		}
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSON.cs.meta b/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSON.cs.meta
+deleted file mode 100644
+index f4e076a8..00000000
+--- a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSON.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 6056aab294673852e064386577c93404
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONArray.cs b/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONArray.cs
+deleted file mode 100644
+index 3b56a420..00000000
+--- a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONArray.cs
++++ /dev/null
+@@ -1,134 +0,0 @@
+-using System.Collections;
+-using System.Collections.Generic;
+-using System.IO;
+-
+-namespace SimpleJSON
+-{
+-	public class JSONArray : JSONNode, IEnumerable
+-	{
+-		private List<JSONNode> m_List = new List<JSONNode>();
+-
+-		public override JSONNode this[int aIndex]
+-		{
+-			get
+-			{
+-				if (aIndex < 0 || aIndex >= m_List.Count)
+-				{
+-					return new JSONLazyCreator(this);
+-				}
+-				return m_List[aIndex];
+-			}
+-			set
+-			{
+-				if (aIndex < 0 || aIndex >= m_List.Count)
+-				{
+-					m_List.Add(value);
+-				}
+-				else
+-				{
+-					m_List[aIndex] = value;
+-				}
+-			}
+-		}
+-
+-		public override JSONNode this[string aKey]
+-		{
+-			get
+-			{
+-				return new JSONLazyCreator(this);
+-			}
+-			set
+-			{
+-				m_List.Add(value);
+-			}
+-		}
+-
+-		public override int Count
+-		{
+-			get
+-			{
+-				return m_List.Count;
+-			}
+-		}
+-
+-		public override IEnumerable<JSONNode> Childs
+-		{
+-			get
+-			{
+-				foreach (JSONNode item in m_List)
+-				{
+-					yield return item;
+-				}
+-			}
+-		}
+-
+-		public override void Add(string aKey, JSONNode aItem)
+-		{
+-			m_List.Add(aItem);
+-		}
+-
+-		public override JSONNode Remove(int aIndex)
+-		{
+-			if (aIndex < 0 || aIndex >= m_List.Count)
+-			{
+-				return null;
+-			}
+-			JSONNode result = m_List[aIndex];
+-			m_List.RemoveAt(aIndex);
+-			return result;
+-		}
+-
+-		public override JSONNode Remove(JSONNode aNode)
+-		{
+-			m_List.Remove(aNode);
+-			return aNode;
+-		}
+-
+-		public IEnumerator GetEnumerator()
+-		{
+-			foreach (JSONNode item in m_List)
+-			{
+-				yield return item;
+-			}
+-		}
+-
+-		public override string ToString()
+-		{
+-			string text = "[ ";
+-			foreach (JSONNode item in m_List)
+-			{
+-				if (text.Length > 2)
+-				{
+-					text += ", ";
+-				}
+-				text += item.ToString();
+-			}
+-			return text + " ]";
+-		}
+-
+-		public override string ToString(string aPrefix)
+-		{
+-			string text = "[ ";
+-			foreach (JSONNode item in m_List)
+-			{
+-				if (text.Length > 3)
+-				{
+-					text += ", ";
+-				}
+-				text = text + "\n" + aPrefix + "   ";
+-				text += item.ToString(aPrefix + "   ");
+-			}
+-			return text + "\n" + aPrefix + "]";
+-		}
+-
+-		public override void Serialize(BinaryWriter aWriter)
+-		{
+-			aWriter.Write((byte)1);
+-			aWriter.Write(m_List.Count);
+-			for (int i = 0; i < m_List.Count; i++)
+-			{
+-				m_List[i].Serialize(aWriter);
+-			}
+-		}
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONArray.cs.meta b/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONArray.cs.meta
+deleted file mode 100644
+index a503957e..00000000
+--- a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONArray.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 8191f7b4f7d165c13af58018f8f2be5f
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONBinaryTag.cs b/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONBinaryTag.cs
+deleted file mode 100644
+index ac0b8e2d..00000000
+--- a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONBinaryTag.cs
++++ /dev/null
+@@ -1,13 +0,0 @@
+-namespace SimpleJSON
+-{
+-	public enum JSONBinaryTag
+-	{
+-		Array = 1,
+-		Class = 2,
+-		Value = 3,
+-		IntValue = 4,
+-		DoubleValue = 5,
+-		BoolValue = 6,
+-		FloatValue = 7
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONBinaryTag.cs.meta b/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONBinaryTag.cs.meta
+deleted file mode 100644
+index 2600365e..00000000
+--- a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONBinaryTag.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 1b3d114384a87b74c4ccf447b0fff86c
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONClass.cs b/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONClass.cs
+deleted file mode 100644
+index 8bdd288d..00000000
+--- a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONClass.cs
++++ /dev/null
+@@ -1,180 +0,0 @@
+-using System;
+-using System.Collections;
+-using System.Collections.Generic;
+-using System.IO;
+-using System.Linq;
+-
+-namespace SimpleJSON
+-{
+-	public class JSONClass : JSONNode, IEnumerable
+-	{
+-		private Dictionary<string, JSONNode> m_Dict = new Dictionary<string, JSONNode>();
+-
+-		public override JSONNode this[string aKey]
+-		{
+-			get
+-			{
+-				if (m_Dict.ContainsKey(aKey))
+-				{
+-					return m_Dict[aKey];
+-				}
+-				return new JSONLazyCreator(this, aKey);
+-			}
+-			set
+-			{
+-				if (m_Dict.ContainsKey(aKey))
+-				{
+-					m_Dict[aKey] = value;
+-				}
+-				else
+-				{
+-					m_Dict.Add(aKey, value);
+-				}
+-			}
+-		}
+-
+-		public override JSONNode this[int aIndex]
+-		{
+-			get
+-			{
+-				if (aIndex < 0 || aIndex >= m_Dict.Count)
+-				{
+-					return null;
+-				}
+-				return m_Dict.ElementAt(aIndex).Value;
+-			}
+-			set
+-			{
+-				if (aIndex >= 0 && aIndex < m_Dict.Count)
+-				{
+-					string key = m_Dict.ElementAt(aIndex).Key;
+-					m_Dict[key] = value;
+-				}
+-			}
+-		}
+-
+-		public override int Count
+-		{
+-			get
+-			{
+-				return m_Dict.Count;
+-			}
+-		}
+-
+-		public override IEnumerable<JSONNode> Childs
+-		{
+-			get
+-			{
+-				foreach (KeyValuePair<string, JSONNode> item in m_Dict)
+-				{
+-					yield return item.Value;
+-				}
+-			}
+-		}
+-
+-		public override void Add(string aKey, JSONNode aItem)
+-		{
+-			if (!string.IsNullOrEmpty(aKey))
+-			{
+-				if (m_Dict.ContainsKey(aKey))
+-				{
+-					m_Dict[aKey] = aItem;
+-				}
+-				else
+-				{
+-					m_Dict.Add(aKey, aItem);
+-				}
+-			}
+-			else
+-			{
+-				m_Dict.Add(Guid.NewGuid().ToString(), aItem);
+-			}
+-		}
+-
+-		public override JSONNode Remove(string aKey)
+-		{
+-			if (!m_Dict.ContainsKey(aKey))
+-			{
+-				return null;
+-			}
+-			JSONNode result = m_Dict[aKey];
+-			m_Dict.Remove(aKey);
+-			return result;
+-		}
+-
+-		public override JSONNode Remove(int aIndex)
+-		{
+-			if (aIndex < 0 || aIndex >= m_Dict.Count)
+-			{
+-				return null;
+-			}
+-			KeyValuePair<string, JSONNode> keyValuePair = m_Dict.ElementAt(aIndex);
+-			m_Dict.Remove(keyValuePair.Key);
+-			return keyValuePair.Value;
+-		}
+-
+-		public override JSONNode Remove(JSONNode aNode)
+-		{
+-			try
+-			{
+-				KeyValuePair<string, JSONNode> keyValuePair = m_Dict.Where((KeyValuePair<string, JSONNode> k) => k.Value == aNode).First();
+-				m_Dict.Remove(keyValuePair.Key);
+-				return aNode;
+-			}
+-			catch
+-			{
+-				return null;
+-			}
+-		}
+-
+-		public IEnumerator GetEnumerator()
+-		{
+-			foreach (KeyValuePair<string, JSONNode> N in m_Dict)
+-			{
+-				yield return N;
+-			}
+-		}
+-
+-		public override string ToString()
+-		{
+-			string text = "{";
+-			foreach (KeyValuePair<string, JSONNode> item in m_Dict)
+-			{
+-				if (text.Length > 2)
+-				{
+-					text += ", ";
+-				}
+-				string text2 = text;
+-				text = text2 + "\"" + JSONNode.Escape(item.Key) + "\":" + item.Value.ToString();
+-			}
+-			return text + "}";
+-		}
+-
+-		public override string ToString(string aPrefix)
+-		{
+-			string text = "{ ";
+-			foreach (KeyValuePair<string, JSONNode> item in m_Dict)
+-			{
+-				if (text.Length > 3)
+-				{
+-					text += ", ";
+-				}
+-				text = text + "\n" + aPrefix + "   ";
+-				string text2 = text;
+-				text = text2 + "\"" + JSONNode.Escape(item.Key) + "\" : " + item.Value.ToString(aPrefix + "   ");
+-			}
+-			return text + "\n" + aPrefix + "}";
+-		}
+-
+-		public override void Serialize(BinaryWriter aWriter)
+-		{
+-			aWriter.Write((byte)2);
+-			aWriter.Write(m_Dict.Count);
+-			foreach (string key in m_Dict.Keys)
+-			{
+-				aWriter.Write(key);
+-				m_Dict[key].Serialize(aWriter);
+-			}
+-		}
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONClass.cs.meta b/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONClass.cs.meta
+deleted file mode 100644
+index 2a5bb889..00000000
+--- a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONClass.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 6096363cf6d78fc4ab44a3ac76a2d435
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONData.cs b/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONData.cs
+deleted file mode 100644
+index 629687d4..00000000
+--- a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONData.cs
++++ /dev/null
+@@ -1,93 +0,0 @@
+-using System.IO;
+-
+-namespace SimpleJSON
+-{
+-	public class JSONData : JSONNode
+-	{
+-		private string m_Data;
+-
+-		public override string Value
+-		{
+-			get
+-			{
+-				return m_Data;
+-			}
+-			set
+-			{
+-				m_Data = value;
+-			}
+-		}
+-
+-		public JSONData(string aData)
+-		{
+-			m_Data = aData;
+-		}
+-
+-		public JSONData(float aData)
+-		{
+-			AsFloat = aData;
+-		}
+-
+-		public JSONData(double aData)
+-		{
+-			AsDouble = aData;
+-		}
+-
+-		public JSONData(bool aData)
+-		{
+-			AsBool = aData;
+-		}
+-
+-		public JSONData(int aData)
+-		{
+-			AsInt = aData;
+-		}
+-
+-		public override string ToString()
+-		{
+-			return "\"" + JSONNode.Escape(m_Data) + "\"";
+-		}
+-
+-		public override string ToString(string aPrefix)
+-		{
+-			return "\"" + JSONNode.Escape(m_Data) + "\"";
+-		}
+-
+-		public override void Serialize(BinaryWriter aWriter)
+-		{
+-			JSONData jSONData = new JSONData(string.Empty);
+-			jSONData.AsInt = AsInt;
+-			if (jSONData.m_Data == m_Data)
+-			{
+-				aWriter.Write((byte)4);
+-				aWriter.Write(AsInt);
+-				return;
+-			}
+-			jSONData.AsFloat = AsFloat;
+-			if (jSONData.m_Data == m_Data)
+-			{
+-				aWriter.Write((byte)7);
+-				aWriter.Write(AsFloat);
+-				return;
+-			}
+-			jSONData.AsDouble = AsDouble;
+-			if (jSONData.m_Data == m_Data)
+-			{
+-				aWriter.Write((byte)5);
+-				aWriter.Write(AsDouble);
+-				return;
+-			}
+-			jSONData.AsBool = AsBool;
+-			if (jSONData.m_Data == m_Data)
+-			{
+-				aWriter.Write((byte)6);
+-				aWriter.Write(AsBool);
+-			}
+-			else
+-			{
+-				aWriter.Write((byte)3);
+-				aWriter.Write(m_Data);
+-			}
+-		}
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONData.cs.meta b/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONData.cs.meta
+deleted file mode 100644
+index 5e0e6d9f..00000000
+--- a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONData.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: cdedb0bd29c26182825d7f98f7052825
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONLazyCreator.cs b/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONLazyCreator.cs
+deleted file mode 100644
+index 10b29298..00000000
+--- a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONLazyCreator.cs
++++ /dev/null
+@@ -1,194 +0,0 @@
+-namespace SimpleJSON
+-{
+-	internal class JSONLazyCreator : JSONNode
+-	{
+-		private JSONNode m_Node;
+-
+-		private string m_Key;
+-
+-		public override JSONNode this[int aIndex]
+-		{
+-			get
+-			{
+-				return new JSONLazyCreator(this);
+-			}
+-			set
+-			{
+-				JSONArray jSONArray = new JSONArray();
+-				jSONArray.Add(value);
+-				Set(jSONArray);
+-			}
+-		}
+-
+-		public override JSONNode this[string aKey]
+-		{
+-			get
+-			{
+-				return new JSONLazyCreator(this, aKey);
+-			}
+-			set
+-			{
+-				JSONClass jSONClass = new JSONClass();
+-				jSONClass.Add(aKey, value);
+-				Set(jSONClass);
+-			}
+-		}
+-
+-		public override int AsInt
+-		{
+-			get
+-			{
+-				JSONData aVal = new JSONData(0);
+-				Set(aVal);
+-				return 0;
+-			}
+-			set
+-			{
+-				JSONData aVal = new JSONData(value);
+-				Set(aVal);
+-			}
+-		}
+-
+-		public override float AsFloat
+-		{
+-			get
+-			{
+-				JSONData aVal = new JSONData(0f);
+-				Set(aVal);
+-				return 0f;
+-			}
+-			set
+-			{
+-				JSONData aVal = new JSONData(value);
+-				Set(aVal);
+-			}
+-		}
+-
+-		public override double AsDouble
+-		{
+-			get
+-			{
+-				JSONData aVal = new JSONData(0.0);
+-				Set(aVal);
+-				return 0.0;
+-			}
+-			set
+-			{
+-				JSONData aVal = new JSONData(value);
+-				Set(aVal);
+-			}
+-		}
+-
+-		public override bool AsBool
+-		{
+-			get
+-			{
+-				JSONData aVal = new JSONData(false);
+-				Set(aVal);
+-				return false;
+-			}
+-			set
+-			{
+-				JSONData aVal = new JSONData(value);
+-				Set(aVal);
+-			}
+-		}
+-
+-		public override JSONArray AsArray
+-		{
+-			get
+-			{
+-				JSONArray jSONArray = new JSONArray();
+-				Set(jSONArray);
+-				return jSONArray;
+-			}
+-		}
+-
+-		public override JSONClass AsObject
+-		{
+-			get
+-			{
+-				JSONClass jSONClass = new JSONClass();
+-				Set(jSONClass);
+-				return jSONClass;
+-			}
+-		}
+-
+-		public JSONLazyCreator(JSONNode aNode)
+-		{
+-			m_Node = aNode;
+-			m_Key = null;
+-		}
+-
+-		public JSONLazyCreator(JSONNode aNode, string aKey)
+-		{
+-			m_Node = aNode;
+-			m_Key = aKey;
+-		}
+-
+-		private void Set(JSONNode aVal)
+-		{
+-			if (m_Key == null)
+-			{
+-				m_Node.Add(aVal);
+-			}
+-			else
+-			{
+-				m_Node.Add(m_Key, aVal);
+-			}
+-			m_Node = null;
+-		}
+-
+-		public override void Add(JSONNode aItem)
+-		{
+-			JSONArray jSONArray = new JSONArray();
+-			jSONArray.Add(aItem);
+-			Set(jSONArray);
+-		}
+-
+-		public override void Add(string aKey, JSONNode aItem)
+-		{
+-			JSONClass jSONClass = new JSONClass();
+-			jSONClass.Add(aKey, aItem);
+-			Set(jSONClass);
+-		}
+-
+-		public override bool Equals(object obj)
+-		{
+-			if (obj == null)
+-			{
+-				return true;
+-			}
+-			return object.ReferenceEquals(this, obj);
+-		}
+-
+-		public override int GetHashCode()
+-		{
+-			return base.GetHashCode();
+-		}
+-
+-		public override string ToString()
+-		{
+-			return string.Empty;
+-		}
+-
+-		public override string ToString(string aPrefix)
+-		{
+-			return string.Empty;
+-		}
+-
+-		public static bool operator ==(JSONLazyCreator a, object b)
+-		{
+-			if (b == null)
+-			{
+-				return true;
+-			}
+-			return object.ReferenceEquals(a, b);
+-		}
+-
+-		public static bool operator !=(JSONLazyCreator a, object b)
+-		{
+-			return !(a == b);
+-		}
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONLazyCreator.cs.meta b/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONLazyCreator.cs.meta
+deleted file mode 100644
+index b56ea984..00000000
+--- a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONLazyCreator.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: e2fadf48359503073eb69cb87ddd27a0
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONNode.cs b/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONNode.cs
+deleted file mode 100644
+index 1e562613..00000000
+--- a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONNode.cs
++++ /dev/null
+@@ -1,564 +0,0 @@
+-using System;
+-using System.Collections.Generic;
+-using System.Globalization;
+-using System.IO;
+-
+-namespace SimpleJSON
+-{
+-	public class JSONNode
+-	{
+-		public virtual JSONNode this[int aIndex]
+-		{
+-			get
+-			{
+-				return null;
+-			}
+-			set
+-			{
+-			}
+-		}
+-
+-		public virtual JSONNode this[string aKey]
+-		{
+-			get
+-			{
+-				return null;
+-			}
+-			set
+-			{
+-			}
+-		}
+-
+-		public virtual string Value
+-		{
+-			get
+-			{
+-				return string.Empty;
+-			}
+-			set
+-			{
+-			}
+-		}
+-
+-		public virtual int Count
+-		{
+-			get
+-			{
+-				return 0;
+-			}
+-		}
+-
+-		public virtual IEnumerable<JSONNode> Childs
+-		{
+-			get
+-			{
+-				yield break;
+-			}
+-		}
+-
+-		public IEnumerable<JSONNode> DeepChilds
+-		{
+-			get
+-			{
+-				foreach (JSONNode C in Childs)
+-				{
+-					foreach (JSONNode deepChild in C.DeepChilds)
+-					{
+-						yield return deepChild;
+-					}
+-				}
+-			}
+-		}
+-
+-		public virtual int AsInt
+-		{
+-			get
+-			{
+-				int result = 0;
+-				if (int.TryParse(Value, out result))
+-				{
+-					return result;
+-				}
+-				return 0;
+-			}
+-			set
+-			{
+-				Value = value.ToString();
+-			}
+-		}
+-
+-		public virtual float AsFloat
+-		{
+-			get
+-			{
+-				float result = 0f;
+-				if (float.TryParse(Value, out result))
+-				{
+-					return result;
+-				}
+-				return 0f;
+-			}
+-			set
+-			{
+-				Value = value.ToString();
+-			}
+-		}
+-
+-		public virtual double AsDouble
+-		{
+-			get
+-			{
+-				double result = 0.0;
+-				if (double.TryParse(Value, out result))
+-				{
+-					return result;
+-				}
+-				return 0.0;
+-			}
+-			set
+-			{
+-				Value = value.ToString();
+-			}
+-		}
+-
+-		public virtual bool AsBool
+-		{
+-			get
+-			{
+-				bool result = false;
+-				if (bool.TryParse(Value, out result))
+-				{
+-					return result;
+-				}
+-				return !string.IsNullOrEmpty(Value);
+-			}
+-			set
+-			{
+-				Value = ((!value) ? "false" : "true");
+-			}
+-		}
+-
+-		public virtual JSONArray AsArray
+-		{
+-			get
+-			{
+-				return this as JSONArray;
+-			}
+-		}
+-
+-		public virtual JSONClass AsObject
+-		{
+-			get
+-			{
+-				return this as JSONClass;
+-			}
+-		}
+-
+-		public virtual void Add(string aKey, JSONNode aItem)
+-		{
+-		}
+-
+-		public virtual void Add(JSONNode aItem)
+-		{
+-			Add(string.Empty, aItem);
+-		}
+-
+-		public virtual JSONNode Remove(string aKey)
+-		{
+-			return null;
+-		}
+-
+-		public virtual JSONNode Remove(int aIndex)
+-		{
+-			return null;
+-		}
+-
+-		public virtual JSONNode Remove(JSONNode aNode)
+-		{
+-			return aNode;
+-		}
+-
+-		public override string ToString()
+-		{
+-			return "JSONNode";
+-		}
+-
+-		public virtual string ToString(string aPrefix)
+-		{
+-			return "JSONNode";
+-		}
+-
+-		public override bool Equals(object obj)
+-		{
+-			return object.ReferenceEquals(this, obj);
+-		}
+-
+-		public override int GetHashCode()
+-		{
+-			return base.GetHashCode();
+-		}
+-
+-		internal static string Escape(string aText)
+-		{
+-			string text = string.Empty;
+-			foreach (char c in aText)
+-			{
+-				switch (c)
+-				{
+-				case '\\':
+-					text += "\\\\";
+-					break;
+-				case '"':
+-					text += "\\\"";
+-					break;
+-				case '\n':
+-					text += "\\n";
+-					break;
+-				case '\r':
+-					text += "\\r";
+-					break;
+-				case '\t':
+-					text += "\\t";
+-					break;
+-				case '\b':
+-					text += "\\b";
+-					break;
+-				case '\f':
+-					text += "\\f";
+-					break;
+-				default:
+-					text += c;
+-					break;
+-				}
+-			}
+-			return text;
+-		}
+-
+-		public static JSONNode Parse(string aJSON)
+-		{
+-			Stack<JSONNode> stack = new Stack<JSONNode>();
+-			JSONNode jSONNode = null;
+-			int i = 0;
+-			string text = string.Empty;
+-			string text2 = string.Empty;
+-			bool flag = false;
+-			for (; i < aJSON.Length; i++)
+-			{
+-				switch (aJSON[i])
+-				{
+-				case '{':
+-					if (flag)
+-					{
+-						text += aJSON[i];
+-						break;
+-					}
+-					stack.Push(new JSONClass());
+-					if (jSONNode != null)
+-					{
+-						text2 = text2.Trim();
+-						if (jSONNode is JSONArray)
+-						{
+-							jSONNode.Add(stack.Peek());
+-						}
+-						else if (text2 != string.Empty)
+-						{
+-							jSONNode.Add(text2, stack.Peek());
+-						}
+-					}
+-					text2 = string.Empty;
+-					text = string.Empty;
+-					jSONNode = stack.Peek();
+-					break;
+-				case '[':
+-					if (flag)
+-					{
+-						text += aJSON[i];
+-						break;
+-					}
+-					stack.Push(new JSONArray());
+-					if (jSONNode != null)
+-					{
+-						text2 = text2.Trim();
+-						if (jSONNode is JSONArray)
+-						{
+-							jSONNode.Add(stack.Peek());
+-						}
+-						else if (text2 != string.Empty)
+-						{
+-							jSONNode.Add(text2, stack.Peek());
+-						}
+-					}
+-					text2 = string.Empty;
+-					text = string.Empty;
+-					jSONNode = stack.Peek();
+-					break;
+-				case ']':
+-				case '}':
+-					if (flag)
+-					{
+-						text += aJSON[i];
+-						break;
+-					}
+-					if (stack.Count == 0)
+-					{
+-						throw new Exception("JSON Parse: Too many closing brackets");
+-					}
+-					stack.Pop();
+-					if (text != string.Empty)
+-					{
+-						text2 = text2.Trim();
+-						if (jSONNode is JSONArray)
+-						{
+-							jSONNode.Add(text);
+-						}
+-						else if (text2 != string.Empty)
+-						{
+-							jSONNode.Add(text2, text);
+-						}
+-					}
+-					text2 = string.Empty;
+-					text = string.Empty;
+-					if (stack.Count > 0)
+-					{
+-						jSONNode = stack.Peek();
+-					}
+-					break;
+-				case ':':
+-					if (flag)
+-					{
+-						text += aJSON[i];
+-						break;
+-					}
+-					text2 = text;
+-					text = string.Empty;
+-					break;
+-				case '"':
+-					flag = (byte)((flag ? 1u : 0u) ^ 1u) != 0;
+-					break;
+-				case ',':
+-					if (flag)
+-					{
+-						text += aJSON[i];
+-						break;
+-					}
+-					if (text != string.Empty)
+-					{
+-						if (jSONNode is JSONArray)
+-						{
+-							jSONNode.Add(text);
+-						}
+-						else if (text2 != string.Empty)
+-						{
+-							jSONNode.Add(text2, text);
+-						}
+-					}
+-					text2 = string.Empty;
+-					text = string.Empty;
+-					break;
+-				case '\t':
+-				case ' ':
+-					if (flag)
+-					{
+-						text += aJSON[i];
+-					}
+-					break;
+-				case '\\':
+-					i++;
+-					if (flag)
+-					{
+-						char c = aJSON[i];
+-						switch (c)
+-						{
+-						case 't':
+-							text += '\t';
+-							break;
+-						case 'r':
+-							text += '\r';
+-							break;
+-						case 'n':
+-							text += '\n';
+-							break;
+-						case 'b':
+-							text += '\b';
+-							break;
+-						case 'f':
+-							text += '\f';
+-							break;
+-						case 'u':
+-						{
+-							string s = aJSON.Substring(i + 1, 4);
+-							text += (char)int.Parse(s, NumberStyles.AllowHexSpecifier);
+-							i += 4;
+-							break;
+-						}
+-						default:
+-							text += c;
+-							break;
+-						}
+-					}
+-					break;
+-				default:
+-					text += aJSON[i];
+-					break;
+-				case '\n':
+-				case '\r':
+-					break;
+-				}
+-			}
+-			if (flag)
+-			{
+-				throw new Exception("JSON Parse: Quotation marks seems to be messed up.");
+-			}
+-			return jSONNode;
+-		}
+-
+-		public virtual void Serialize(BinaryWriter aWriter)
+-		{
+-		}
+-
+-		public void SaveToStream(Stream aData)
+-		{
+-			BinaryWriter aWriter = new BinaryWriter(aData);
+-			Serialize(aWriter);
+-		}
+-
+-		public void SaveToCompressedStream(Stream aData)
+-		{
+-			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
+-		}
+-
+-		public void SaveToCompressedFile(string aFileName)
+-		{
+-			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
+-		}
+-
+-		public string SaveToCompressedBase64()
+-		{
+-			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
+-		}
+-
+-		public void SaveToFile(string aFileName)
+-		{
+-			Directory.CreateDirectory(new FileInfo(aFileName).Directory.FullName);
+-			using (FileStream aData = File.OpenWrite(aFileName))
+-			{
+-				SaveToStream(aData);
+-			}
+-		}
+-
+-		public string SaveToBase64()
+-		{
+-			using (MemoryStream memoryStream = new MemoryStream())
+-			{
+-				SaveToStream(memoryStream);
+-				memoryStream.Position = 0L;
+-				return Convert.ToBase64String(memoryStream.ToArray());
+-			}
+-		}
+-
+-		public static JSONNode Deserialize(BinaryReader aReader)
+-		{
+-			JSONBinaryTag jSONBinaryTag = (JSONBinaryTag)aReader.ReadByte();
+-			switch (jSONBinaryTag)
+-			{
+-			case JSONBinaryTag.Array:
+-			{
+-				int num2 = aReader.ReadInt32();
+-				JSONArray jSONArray = new JSONArray();
+-				for (int j = 0; j < num2; j++)
+-				{
+-					jSONArray.Add(Deserialize(aReader));
+-				}
+-				return jSONArray;
+-			}
+-			case JSONBinaryTag.Class:
+-			{
+-				int num = aReader.ReadInt32();
+-				JSONClass jSONClass = new JSONClass();
+-				for (int i = 0; i < num; i++)
+-				{
+-					string aKey = aReader.ReadString();
+-					JSONNode aItem = Deserialize(aReader);
+-					jSONClass.Add(aKey, aItem);
+-				}
+-				return jSONClass;
+-			}
+-			case JSONBinaryTag.Value:
+-				return new JSONData(aReader.ReadString());
+-			case JSONBinaryTag.IntValue:
+-				return new JSONData(aReader.ReadInt32());
+-			case JSONBinaryTag.DoubleValue:
+-				return new JSONData(aReader.ReadDouble());
+-			case JSONBinaryTag.BoolValue:
+-				return new JSONData(aReader.ReadBoolean());
+-			case JSONBinaryTag.FloatValue:
+-				return new JSONData(aReader.ReadSingle());
+-			default:
+-				throw new Exception("Error deserializing JSON. Unknown tag: " + jSONBinaryTag);
+-			}
+-		}
+-
+-		public static JSONNode LoadFromCompressedFile(string aFileName)
+-		{
+-			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
+-		}
+-
+-		public static JSONNode LoadFromCompressedStream(Stream aData)
+-		{
+-			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
+-		}
+-
+-		public static JSONNode LoadFromCompressedBase64(string aBase64)
+-		{
+-			throw new Exception("Can't use compressed functions. You need include the SharpZipLib and uncomment the define at the top of SimpleJSON");
+-		}
+-
+-		public static JSONNode LoadFromStream(Stream aData)
+-		{
+-			using (BinaryReader aReader = new BinaryReader(aData))
+-			{
+-				return Deserialize(aReader);
+-			}
+-		}
+-
+-		public static JSONNode LoadFromFile(string aFileName)
+-		{
+-			using (FileStream aData = File.OpenRead(aFileName))
+-			{
+-				return LoadFromStream(aData);
+-			}
+-		}
+-
+-		public static JSONNode LoadFromBase64(string aBase64)
+-		{
+-			byte[] buffer = Convert.FromBase64String(aBase64);
+-			MemoryStream memoryStream = new MemoryStream(buffer);
+-			memoryStream.Position = 0L;
+-			return LoadFromStream(memoryStream);
+-		}
+-
+-		public static implicit operator JSONNode(string s)
+-		{
+-			return new JSONData(s);
+-		}
+-
+-		public static implicit operator string(JSONNode d)
+-		{
+-			return (!(d == null)) ? d.Value : null;
+-		}
+-
+-		public static bool operator ==(JSONNode a, object b)
+-		{
+-			if (b == null && a is JSONLazyCreator)
+-			{
+-				return true;
+-			}
+-			return object.ReferenceEquals(a, b);
+-		}
+-
+-		public static bool operator !=(JSONNode a, object b)
+-		{
+-			return !(a == b);
+-		}
+-	}
+-}
+diff --git a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONNode.cs.meta b/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONNode.cs.meta
+deleted file mode 100644
+index b90cf38f..00000000
+--- a/Assets/Scripts/Assembly-CSharp/SimpleJSON/JSONNode.cs.meta
++++ /dev/null
+@@ -1,11 +0,0 @@
+-fileFormatVersion: 2
+-guid: 0df409d71c49b27b645da6e4b97a8e93
+-MonoImporter:
+-  externalObjects: {}
+-  serializedVersion: 2
+-  defaultReferences: []
+-  executionOrder: 0
+-  icon: {instanceID: 0}
+-  userData: 
+-  assetBundleName: 
+-  assetBundleVariant: 
+diff --git a/Packages/manifest.json b/Packages/manifest.json
+index f9929320..272a78ee 100644
+--- a/Packages/manifest.json
++++ b/Packages/manifest.json
+@@ -2,2 +2,3 @@
+   "dependencies": {
++    "com.tfainternal.opentoyclient": "https://github.com/TFReclaimed/OpenTOYClient.git#upm",
+     "com.unity.2d.sprite": "1.0.0",
+@@ -41,3 +42,12 @@
+     "com.unity.modules.xr": "1.0.0"
+-  }
++  },
++  "scopedRegistries": [
++    {
++      "name": "package.openupm.com",
++      "url": "https://package.openupm.com",
++      "scopes": [
++        "com.gilzoide.safe-area-layout"
++      ]
++    }
++  ]
+ }
+\ No newline at end of file
+diff --git a/Packages/packages-lock.json b/Packages/packages-lock.json
+index 1580c672..54360bc1 100644
+--- a/Packages/packages-lock.json
++++ b/Packages/packages-lock.json
+@@ -2,2 +2,20 @@
+   "dependencies": {
++    "com.gilzoide.safe-area-layout": {
++      "version": "1.1.2",
++      "depth": 1,
++      "source": "registry",
++      "dependencies": {},
++      "url": "https://package.openupm.com"
++    },
++    "com.tfainternal.opentoyclient": {
++      "version": "https://github.com/TFReclaimed/OpenTOYClient.git#upm",
++      "depth": 0,
++      "source": "git",
++      "dependencies": {
++        "com.unity.nuget.newtonsoft-json": "3.2.2",
++        "com.unity.ugui": "1.0.0",
++        "com.gilzoide.safe-area-layout": "1.1.2"
++      },
++      "hash": "bc87ee7c8f259d252deebbbc1794e52c76a544de"
++    },
+     "com.unity.2d.sprite": {
+@@ -49,2 +67,9 @@
+     },
++    "com.unity.nuget.newtonsoft-json": {
++      "version": "3.2.2",
++      "depth": 1,
++      "source": "registry",
++      "dependencies": {},
++      "url": "https://packages.unity.com"
++    },
+     "com.unity.sysroot": {
+diff --git a/ProjectSettings/PackageManagerSettings.asset b/ProjectSettings/PackageManagerSettings.asset
+index c0fd196d..8a245dde 100644
+--- a/ProjectSettings/PackageManagerSettings.asset
++++ b/ProjectSettings/PackageManagerSettings.asset
+@@ -29,2 +29,11 @@ MonoBehaviour:
+   m_UserSelectedRegistryName: 
++  - m_Id: scoped:project:package.openupm.com
++    m_Name: package.openupm.com
++    m_Url: https://package.openupm.com
++    m_Scopes:
++    - com.gilzoide.safe-area-layout
++    m_IsDefault: 0
++    m_Capabilities: 0
++    m_ConfigSource: 4
++  m_UserSelectedRegistryName: package.openupm.com
+   m_UserAddingNewScopedRegistry: 0
+@@ -33,3 +42,3 @@ MonoBehaviour:
+     m_ErrorMessage: 
+-    m_UserModificationsInstanceId: -836
++    m_UserModificationsInstanceId: -834
+     m_OriginalInstanceId: -838

@@ -6016,28 +6016,19 @@ index 00000000..568a2a76
 +timeCreated: 1775095025
 \ No newline at end of file
 diff --git a/Packages/manifest.json b/Packages/manifest.json
-index f9929320..8cf771d5 100644
+index 272a78ee..8dca66ca 100644
 --- a/Packages/manifest.json
 +++ b/Packages/manifest.json
 @@ -2,2 +2,3 @@
    "dependencies": {
 +    "com.github-glitchenzo.nugetforunity": "4.5.0",
-     "com.unity.2d.sprite": "1.0.0",
-@@ -41,3 +42,12 @@
-     "com.unity.modules.xr": "1.0.0"
--  }
-+  },
-+  "scopedRegistries": [
-+    {
-+      "name": "package.openupm.com",
-+      "url": "https://package.openupm.com",
-+      "scopes": [
+     "com.tfainternal.opentoyclient": "https://github.com/TFReclaimed/OpenTOYClient.git#upm",
+@@ -48,3 +49,4 @@
+       "scopes": [
+-        "com.gilzoide.safe-area-layout"
++        "com.gilzoide.safe-area-layout",
 +        "com.github-glitchenzo.nugetforunity"
-+      ]
-+    }
-+  ]
- }
-\ No newline at end of file
+       ]
 diff --git a/Packages/nuget-packages/NuGet.config b/Packages/nuget-packages/NuGet.config
 new file mode 100644
 index 00000000..d968e9a8
@@ -6162,11 +6153,11 @@ index 00000000..a1ca1ab4
 +  assetBundleName: 
 +  assetBundleVariant: 
 diff --git a/Packages/packages-lock.json b/Packages/packages-lock.json
-index 1580c672..253e6611 100644
+index 54360bc1..02f8a40f 100644
 --- a/Packages/packages-lock.json
 +++ b/Packages/packages-lock.json
-@@ -2,2 +2,9 @@
-   "dependencies": {
+@@ -9,2 +9,9 @@
+     },
 +    "com.github-glitchenzo.nugetforunity": {
 +      "version": "4.5.0",
 +      "depth": 0,
@@ -6174,8 +6165,8 @@ index 1580c672..253e6611 100644
 +      "dependencies": {},
 +      "url": "https://package.openupm.com"
 +    },
-     "com.unity.2d.sprite": {
-@@ -104,2 +111,8 @@
+     "com.tfainternal.opentoyclient": {
+@@ -129,2 +136,8 @@
      },
 +    "nuget-packages": {
 +      "version": "file:nuget-packages",
@@ -6185,26 +6176,14 @@ index 1580c672..253e6611 100644
 +    },
      "com.unity.modules.ai": {
 diff --git a/ProjectSettings/PackageManagerSettings.asset b/ProjectSettings/PackageManagerSettings.asset
-index c0fd196d..9f6b5e42 100644
+index 8a245dde..b06182fb 100644
 --- a/ProjectSettings/PackageManagerSettings.asset
 +++ b/ProjectSettings/PackageManagerSettings.asset
-@@ -28,3 +28,11 @@ MonoBehaviour:
+@@ -28,3 +28,2 @@ MonoBehaviour:
      m_ConfigSource: 0
 -  m_UserSelectedRegistryName: 
-+  - m_Id: scoped:project:package.openupm.com
-+    m_Name: package.openupm.com
-+    m_Url: https://package.openupm.com
-+    m_Scopes:
+   - m_Id: scoped:project:package.openupm.com
+@@ -34,2 +33,3 @@ MonoBehaviour:
+     - com.gilzoide.safe-area-layout
 +    - com.github-glitchenzo.nugetforunity
-+    m_IsDefault: 0
-+    m_Capabilities: 0
-+    m_ConfigSource: 4
-+  m_UserSelectedRegistryName: package.openupm.com
-   m_UserAddingNewScopedRegistry: 0
-@@ -33,4 +41,4 @@ MonoBehaviour:
-     m_ErrorMessage: 
--    m_UserModificationsInstanceId: -836
--    m_OriginalInstanceId: -838
-+    m_UserModificationsInstanceId: -830
-+    m_OriginalInstanceId: -832
-   m_LoadAssets: 0
+     m_IsDefault: 0
