@@ -442,7 +442,7 @@ def populate_texture_platform_settings() -> None:
     yaml.add_representer(FlowDict, represent_flow_dict)
     yaml.add_representer(type(None), represent_none)
 
-    REQUIRED_ORDER = ["DefaultTexturePlatform", "Standalone", "Android", "iPhone"]
+    REQUIRED_ORDER = ["DefaultTexturePlatform", "Standalone", "Android", "iPhone", "WebGL"]
 
     png_metas = glob.glob(os.path.join(WORKSPACE_DIR, "Assets", "**", "*.png.meta"), recursive=True)
     for meta_path in png_metas:
