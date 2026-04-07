@@ -689,6 +689,13 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
     os.remove(broken_mesh_path)
     os.remove(broken_mesh_path + ".meta")
 
+    print("[*] Deleting old lightmap data...")
+    cubemap_dir = os.path.join(WORKSPACE_DIR, "Assets", "Cubemap")
+    shutil.rmtree(cubemap_dir, ignore_errors=True)
+    gameboard_lightmap = os.path.join(WORKSPACE_DIR, "Assets", "Scenes", "GameBoard1", "Lightmap-0_comp_light.texture2D")
+    os.remove(gameboard_lightmap)
+    os.remove(gameboard_lightmap + ".meta")
+
     print("[*] Copy gitignore...")
     gitignore_src = os.path.join(os.path.dirname(__file__), "unity.gitignore")
     gitignore_dst = os.path.join(WORKSPACE_DIR, ".gitignore")
