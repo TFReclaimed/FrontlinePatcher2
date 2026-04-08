@@ -1,0 +1,350 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Wed, 8 Apr 2026 03:26:27 +0300
+Subject: [PATCH] Add WebGL support to BestHTTP
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPConnection.cs b/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPConnection.cs
+index 261baa7b..60635d06 100644
+--- a/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPConnection.cs
++++ b/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPConnection.cs
+@@ -14,2 +14,5 @@ using Org.BouncyCastle.Crypto.Tls;
+ using Org.BouncyCastle.Security;
++#if UNITY_WEBGL
++using UnityEngine.Networking;
++#endif
+ 
+@@ -33,2 +36,8 @@ namespace BestHTTP
+ 
++#if UNITY_WEBGL
++		private UnityWebRequest WebRequest;
++
++		private UnityWebRequestAsyncOperation WebRequestOperation;
++#endif
++
+ 		public override bool IsRemovable
+@@ -50,3 +59,7 @@ namespace BestHTTP
+ 		internal HTTPConnection(string serverAddress)
++#if UNITY_WEBGL
++			: base(serverAddress, false)
++#else
+ 			: base(serverAddress)
++#endif
+ 		{
+@@ -56,2 +69,5 @@ namespace BestHTTP
+ 		{
++#if UNITY_WEBGL
++			BeginWebGLRequest();
++#else
+ 			bool flag = false;
+@@ -291,4 +307,251 @@ namespace BestHTTP
+ 			}
++#endif
++		}
++
++#if UNITY_WEBGL
++		private void BeginWebGLRequest()
++		{
++			try
++			{
++				LastProcessedUri = CurrentRequest.CurrentUri;
++				lock (HTTPManager.Locker)
++				{
++					StartTime = DateTime.UtcNow;
++				}
++				WebRequest = BuildWebRequest();
++				WebRequestOperation = WebRequest.SendWebRequest();
++				WebRequestOperation.completed += OnWebRequestFinished;
++			}
++			catch (Exception exception)
++			{
++				CurrentRequest.Response = null;
++				CurrentRequest.Exception = exception;
++				CurrentRequest.State = HTTPRequestStates.Error;
++				FinishRequestLifecycle(false, false);
++			}
++		}
++
++		private void OnWebRequestFinished(UnityEngine.AsyncOperation operation)
++		{
++			var isRedirected = false;
++			try
++			{
++				if (State is HTTPConnectionStates.AbortRequested or HTTPConnectionStates.TimedOut or HTTPConnectionStates.Closed)
++				{
++					return;
++				}
++				CurrentRequest.Response = CreateResponseFromWebRequest(WebRequest);
++				if (CurrentRequest.IsCookiesEnabled)
++				{
++					CookieJar.Set(CurrentRequest.Response);
++				}
++				switch (CurrentRequest.Response.StatusCode)
++				{
++				case 301:
++				case 302:
++				case 307:
++				case 308:
++					if (CurrentRequest.RedirectCount < CurrentRequest.MaxRedirects)
++					{
++						CurrentRequest.RedirectCount++;
++						var firstHeaderValue = CurrentRequest.Response.GetFirstHeaderValue("location");
++						if (string.IsNullOrEmpty(firstHeaderValue))
++						{
++							throw new MissingFieldException($"Got redirect status({CurrentRequest.Response.StatusCode.ToString()}) without 'location' header!");
++						}
++						var redirectUri = GetRedirectUri(firstHeaderValue);
++						if (CurrentRequest.CallOnBeforeRedirection(redirectUri))
++						{
++							CurrentRequest.RemoveHeader("Host");
++							CurrentRequest.SetHeader("Referer", base.CurrentRequest.CurrentUri.ToString());
++							CurrentRequest.RedirectUri = redirectUri;
++							CurrentRequest.Response = null;
++							CurrentRequest.IsRedirected = true;
++							isRedirected = true;
++						}
++					}
++					break;
++				}
++				TryStoreInCache();
++				FinishRequestLifecycle(isRedirected, false);
++			}
++			catch (Exception exception)
++			{
++				if (CurrentRequest.UseStreaming)
++				{
++					HTTPCacheService.DeleteEntity(CurrentRequest.CurrentUri);
++				}
++				CurrentRequest.Response = null;
++				switch (State)
++				{
++				case HTTPConnectionStates.AbortRequested:
++				case HTTPConnectionStates.Closed:
++					CurrentRequest.State = HTTPRequestStates.Aborted;
++					break;
++				case HTTPConnectionStates.TimedOut:
++					CurrentRequest.State = HTTPRequestStates.TimedOut;
++					break;
++				default:
++					CurrentRequest.Exception = exception;
++					CurrentRequest.State = HTTPRequestStates.Error;
++					break;
++				}
++				FinishRequestLifecycle(false, false);
++			}
++			finally
++			{
++				if (WebRequestOperation != null)
++				{
++					WebRequestOperation.completed -= OnWebRequestFinished;
++				}
++				DisposeWebRequest();
++			}
+ 		}
+ 
++		private UnityWebRequest BuildWebRequest()
++		{
++			var text = HTTPRequest.MethodNames[(uint) CurrentRequest.MethodType];
++			var unityWebRequest = new UnityWebRequest(CurrentRequest.CurrentUri.ToString(), text);
++			unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
++			var requestPayload = GetRequestPayload();
++			if (requestPayload != null)
++			{
++				unityWebRequest.uploadHandler = new UploadHandlerRaw(requestPayload);
++				CurrentRequest.UploadLength = requestPayload.Length;
++			}
++			CurrentRequest.EnumerateHeaders(delegate(string header, List<string> values)
++			{
++				if (string.IsNullOrEmpty(header) || values == null)
++				{
++					return;
++				}
++				var text2 = header.ToLowerInvariant();
++				if (text2 is "host" or "connection" or "proxy-connection" or "content-length" or "transfer-encoding")
++				{
++					return;
++				}
++				foreach (var text3 in values)
++				{
++					if (string.IsNullOrEmpty(text3))
++					{
++						continue;
++					}
++					try
++					{
++						unityWebRequest.SetRequestHeader(header, text3);
++					}
++					catch (Exception ex)
++					{
++						HTTPManager.Logger.Warning("HTTPConnection", "Skipping header for UnityWebRequest ('" + header + "'): " + ex.Message);
++					}
++				}
++			});
++			return unityWebRequest;
++		}
++
++		private byte[] GetRequestPayload()
++		{
++			var entityBody = CurrentRequest.GetEntityBody();
++			if (entityBody != null)
++			{
++				return entityBody;
++			}
++			if (CurrentRequest.UploadStream == null)
++			{
++				return null;
++			}
++			try
++			{
++				using var memoryStream = new MemoryStream();
++				CurrentRequest.UploadStream.CopyTo(memoryStream);
++				return memoryStream.ToArray();
++			}
++			finally
++			{
++				if (CurrentRequest.UploadStream != null && CurrentRequest.DisposeUploadStream)
++				{
++					CurrentRequest.UploadStream.Dispose();
++				}
++			}
++		}
++
++		private HTTPResponse CreateResponseFromWebRequest(UnityWebRequest webRequest)
++		{
++			var dictionary = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
++			var responseHeaders = webRequest.GetResponseHeaders();
++			if (responseHeaders != null)
++			{
++				foreach (var responseHeader in responseHeaders)
++				{
++					dictionary[responseHeader.Key.ToLowerInvariant()] = new List<string>(1) { responseHeader.Value };
++				}
++			}
++			var array = webRequest.downloadHandler?.data;
++			if (array != null && !dictionary.ContainsKey("content-length"))
++			{
++				dictionary.Add("content-length", new List<string>(1) { array.Length.ToString() });
++			}
++			CurrentRequest.Downloaded = array?.Length ?? 0;
++			CurrentRequest.DownloadLength = CurrentRequest.Downloaded;
++			CurrentRequest.DownloadProgressChanged = true;
++			CurrentRequest.Uploaded = CurrentRequest.UploadLength;
++			CurrentRequest.UploadProgressChanged = true;
++			var statusCode = (int) Math.Max(0L, webRequest.responseCode);
++			var message = string.IsNullOrEmpty(webRequest.error) ? string.Empty : webRequest.error;
++			return new UnityWebRequestResponse(CurrentRequest, statusCode, message, dictionary, array);
++		}
++
++		private void FinishRequestLifecycle(bool isRedirected, bool hasOpenSocket)
++		{
++			if (CurrentRequest == null)
++			{
++				return;
++			}
++			lock (HTTPManager.Locker)
++			{
++				if (CurrentRequest.Response != null && CurrentRequest.Response.IsUpgraded)
++				{
++					State = HTTPConnectionStates.Upgraded;
++				}
++				else
++				{
++					State = isRedirected ? HTTPConnectionStates.Redirected : hasOpenSocket ? HTTPConnectionStates.WaitForRecycle : HTTPConnectionStates.Closed;
++				}
++				if (CurrentRequest.State == HTTPRequestStates.Processing && State is HTTPConnectionStates.Closed or HTTPConnectionStates.WaitForRecycle)
++				{
++					CurrentRequest.State = CurrentRequest.Response != null ? HTTPRequestStates.Finished : HTTPRequestStates.Error;
++				}
++				if (CurrentRequest.State == HTTPRequestStates.ConnectionTimedOut)
++				{
++					State = HTTPConnectionStates.Closed;
++				}
++				LastProcessTime = DateTime.UtcNow;
++				if (OnConnectionRecycled != null)
++				{
++					RecycleNow();
++				}
++			}
++			HTTPCacheService.SaveLibrary();
++			CookieJar.Persist();
++		}
++
++		private void DisposeWebRequest()
++		{
++			if (WebRequest != null)
++			{
++				try
++				{
++					WebRequest.Abort();
++				}
++				catch
++				{
++					// ignored
++				}
++				WebRequest.Dispose();
++				WebRequest = null;
++			}
++			WebRequestOperation = null;
++		}
++#endif
++
+ 		private void Connect()
+@@ -539,2 +802,16 @@ namespace BestHTTP
+ 			}
++#if UNITY_WEBGL
++			if (WebRequestOperation != null)
++			{
++				WebRequestOperation.completed -= OnWebRequestFinished;
++			}
++			DisposeWebRequest();
++			if (CurrentRequest != null && (newState == HTTPConnectionStates.AbortRequested || newState == HTTPConnectionStates.Closed))
++			{
++				CurrentRequest.State = HTTPRequestStates.Aborted;
++				CurrentRequest.Response = null;
++				State = HTTPConnectionStates.Closed;
++				LastProcessTime = DateTime.UtcNow;
++			}
++#else
+ 			if (Stream != null)
+@@ -543,2 +820,3 @@ namespace BestHTTP
+ 			}
++#endif
+ 		}
+@@ -547,2 +825,5 @@ namespace BestHTTP
+ 		{
++#if UNITY_WEBGL
++			DisposeWebRequest();
++#endif
+ 			KeepAlive = null;
+@@ -572,2 +853,19 @@ namespace BestHTTP
+ 		}
++
++#if UNITY_WEBGL
++		private sealed class UnityWebRequestResponse : HTTPResponse
++		{
++			internal UnityWebRequestResponse(HTTPRequest request, int statusCode, string message, Dictionary<string, List<string>> headers, byte[] data)
++				: base(request, Stream.Null, false, false)
++			{
++				VersionMajor = 1;
++				VersionMinor = 1;
++				StatusCode = statusCode;
++				Message = message ?? string.Empty;
++				Headers = headers ?? new Dictionary<string, List<string>>();
++				Data = data ?? new byte[0];
++				IsStreamingFinished = true;
++			}
++		}
++#endif
+ 	}
+diff --git a/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPRequest.cs b/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPRequest.cs
+index 275f8741..2eeab31d 100644
+--- a/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPRequest.cs
++++ b/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPRequest.cs
+@@ -547,2 +547,3 @@ namespace BestHTTP
+ 			}
++#if !UNITY_WEBGL
+ 			if (!HasHeader("TE"))
+@@ -555,2 +556,3 @@ namespace BestHTTP
+ 			}
++#endif
+ 			long num = -1L;
