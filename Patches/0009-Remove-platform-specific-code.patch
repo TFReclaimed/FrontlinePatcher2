@@ -59,6 +59,25 @@ index 9e18c400..652e3c25 100644
  		Screen.SetResolution(num2, num, true);
 +#endif
  		base.Start();
+diff --git a/Assets/Scripts/Assembly-CSharp/PvE/PvEMissionsTemplateParser.cs b/Assets/Scripts/Assembly-CSharp/PvE/PvEMissionsTemplateParser.cs
+index 3c92b0da..bc7e272a 100644
+--- a/Assets/Scripts/Assembly-CSharp/PvE/PvEMissionsTemplateParser.cs
++++ b/Assets/Scripts/Assembly-CSharp/PvE/PvEMissionsTemplateParser.cs
+@@ -93,4 +93,6 @@ namespace PvE
+ 					Dictionary<string, object> pages = fastJSON.JSON.Parse(text2) as Dictionary<string, object>;
++#if !UNITY_WEBGL
+ 					PlayerPrefs.SetString("PvETemplateVersion", text);
+ 					PlayerPrefs.SetString("PvETemplateData", text2);
++#endif
+ 					GameDebug.Info("PvE:Template:Local mission data bad! Using data the server sent back.");
+@@ -116,3 +118,7 @@ namespace PvE
+ 			bool finished = false;
++#if !UNITY_WEBGL
+ 			string hash = PlayerPrefs.GetString("PvETemplateVersion", string.Empty);
++#else
++			string hash = string.Empty;
++#endif
+ 			OperationGetMissionData httpOperation = new OperationGetMissionData(hash);
 diff --git a/Assets/Scripts/Assembly-CSharp/SimpleDiskUtils/DiskUtils.cs b/Assets/Scripts/Assembly-CSharp/SimpleDiskUtils/DiskUtils.cs
 index b20d3baf..fbbd256e 100644
 --- a/Assets/Scripts/Assembly-CSharp/SimpleDiskUtils/DiskUtils.cs
