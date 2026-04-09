@@ -158,6 +158,44 @@ index 06b0fd37..9d99b80a 100644
 +  m_Name: 
 +  m_EditorClassIdentifier: 
  --- !u!1660057539 &9223372036854775807
+diff --git a/Assets/Scripts/Assembly-CSharp/CameraAspectRatio.cs b/Assets/Scripts/Assembly-CSharp/CameraAspectRatio.cs
+new file mode 100644
+index 00000000..c5bd7aff
+--- /dev/null
++++ b/Assets/Scripts/Assembly-CSharp/CameraAspectRatio.cs
+@@ -0,0 +1,15 @@
++using UnityEngine;
++
++public class CameraAspectRatio : MonoBehaviour
++{
++    private void Update()
++    {
++        var aspectRatio = (float) Screen.width / Screen.height;
++        const float maxRatio = 9f / 16f;
++        var constrainedRatio = Mathf.Min(aspectRatio, maxRatio);
++        var newZ = 1.73f + 3.85f / constrainedRatio - 3.06f / (constrainedRatio * constrainedRatio);
++        var position = transform.localPosition;
++        position.z = newZ;
++        transform.localPosition = position;
++    }
++}
+diff --git a/Assets/Scripts/Assembly-CSharp/CameraAspectRatio.cs.meta b/Assets/Scripts/Assembly-CSharp/CameraAspectRatio.cs.meta
+new file mode 100644
+index 00000000..b7cf74e7
+--- /dev/null
++++ b/Assets/Scripts/Assembly-CSharp/CameraAspectRatio.cs.meta
+@@ -0,0 +1,11 @@
++fileFormatVersion: 2
++guid: 8b0a06d16649e8084bc5381a9e788278
++MonoImporter:
++  externalObjects: {}
++  serializedVersion: 2
++  defaultReferences: []
++  executionOrder: 0
++  icon: {instanceID: 0}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
 diff --git a/Assets/Scripts/Assembly-CSharp/Letterboxing.cs b/Assets/Scripts/Assembly-CSharp/Letterboxing.cs
 new file mode 100644
 index 00000000..dda1b3db
@@ -246,7 +284,7 @@ index 00000000..a463a20b
 +  assetBundleName: 
 +  assetBundleVariant: 
 diff --git a/Assets/prefabs/ui/FUE_GameUI.prefab b/Assets/prefabs/ui/FUE_GameUI.prefab
-index c3a2d471..12ff8b2e 100644
+index c3a2d471..f95e0234 100644
 --- a/Assets/prefabs/ui/FUE_GameUI.prefab
 +++ b/Assets/prefabs/ui/FUE_GameUI.prefab
 @@ -33,3 +33,3 @@ RectTransform:
@@ -346,7 +384,26 @@ index c3a2d471..12ff8b2e 100644
 -  m_Father: {fileID: 224641204913154593}
 +  m_Father: {fileID: 8873021386547117469}
    m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
-@@ -113356 +113349,155 @@ MeshRenderer:
+@@ -105575,2 +105568,3 @@ GameObject:
+   - component: {fileID: 114361059104296383}
++  - component: {fileID: 1457826357154633053}
+   m_Layer: 0
+@@ -105678,2 +105672,14 @@ MonoBehaviour:
+   scaleDiffMax: 10
++--- !u!114 &1457826357154633053
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1896002537488308}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 8b0a06d16649e8084bc5381a9e788278, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
+ --- !u!1 &1900271049623953
+@@ -113356 +113362,155 @@ MeshRenderer:
    m_AdditionalVertexStreams: {fileID: 0}
 +--- !u!1 &63417566312856283
 +GameObject:
@@ -503,7 +560,7 @@ index c3a2d471..12ff8b2e 100644
 +  m_Name: 
 +  m_EditorClassIdentifier: 
 diff --git a/Assets/prefabs/ui/GameUI.prefab b/Assets/prefabs/ui/GameUI.prefab
-index 0c98bb6d..ace0cc82 100644
+index 0c98bb6d..7523734f 100644
 --- a/Assets/prefabs/ui/GameUI.prefab
 +++ b/Assets/prefabs/ui/GameUI.prefab
 @@ -44540,3 +44540,3 @@ RectTransform:
@@ -526,64 +583,83 @@ index 0c98bb6d..ace0cc82 100644
 -  m_Father: {fileID: 224507522976744791}
 +  m_Father: {fileID: 8805909387684045227}
    m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
-@@ -68710,3 +68710,3 @@ RectTransform:
+@@ -68256,2 +68256,3 @@ GameObject:
+   - component: {fileID: 114904526249383098}
++  - component: {fileID: 1818072111929981064}
+   m_Layer: 0
+@@ -68359,2 +68360,14 @@ MonoBehaviour:
+   scaleDiffMax: 10
++--- !u!114 &1818072111929981064
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1603576887721950}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 8b0a06d16649e8084bc5381a9e788278, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
+ --- !u!1 &1611579644537198
+@@ -68710,3 +68723,3 @@ RectTransform:
    - {fileID: 4500050402096248}
 -  m_Father: {fileID: 224197515695889172}
 +  m_Father: {fileID: 2965002594564757041}
    m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
-@@ -69405,3 +69405,3 @@ RectTransform:
+@@ -69405,3 +69418,3 @@ RectTransform:
    m_Children: []
 -  m_Father: {fileID: 224197515695889172}
 +  m_Father: {fileID: 2965002594564757041}
    m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
-@@ -69878,3 +69878,3 @@ RectTransform:
+@@ -69878,3 +69891,3 @@ RectTransform:
    - {fileID: 4391225667286877}
 -  m_Father: {fileID: 224507522976744791}
 +  m_Father: {fileID: 8805909387684045227}
    m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
-@@ -76155,3 +76155,3 @@ MonoBehaviour:
+@@ -76155,3 +76168,3 @@ MonoBehaviour:
    m_EditorClassIdentifier: 
 -  errorModalName: Canvas/ErrorDialog
 +  errorModalName: Canvas/Letterbox/ErrorDialog
    gameCamera: {fileID: 20741136630752806}
-@@ -81412,3 +81412,3 @@ RectTransform:
+@@ -81412,3 +81425,3 @@ RectTransform:
    - {fileID: 224222568209840903}
 -  m_Father: {fileID: 224507522976744791}
 +  m_Father: {fileID: 8805909387684045227}
    m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
-@@ -81937,3 +81937,3 @@ RectTransform:
+@@ -81937,3 +81950,3 @@ RectTransform:
    - {fileID: 224562080017223558}
 -  m_Father: {fileID: 224197515695889172}
 +  m_Father: {fileID: 2965002594564757041}
    m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
-@@ -82109,5 +82109,3 @@ RectTransform:
+@@ -82109,5 +82122,3 @@ RectTransform:
    m_Children:
 -  - {fileID: 224446691751160785}
 -  - {fileID: 224632179142322292}
 -  - {fileID: 224344618938641724}
 +  - {fileID: 2965002594564757041}
    m_Father: {fileID: 4148353818683595}
-@@ -82158,3 +82156,3 @@ MonoBehaviour:
+@@ -82158,3 +82169,3 @@ MonoBehaviour:
    m_ReferenceResolution: {x: 1080, y: 1920}
 -  m_ScreenMatchMode: 0
 +  m_ScreenMatchMode: 1
    m_MatchWidthOrHeight: 1
-@@ -82935,3 +82933,3 @@ RectTransform:
+@@ -82935,3 +82946,3 @@ RectTransform:
    m_Children: []
 -  m_Father: {fileID: 224507522976744791}
 +  m_Father: {fileID: 8805909387684045227}
    m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
-@@ -88310,3 +88308,3 @@ RectTransform:
+@@ -88310,3 +88321,3 @@ RectTransform:
    m_Children:
 -  - {fileID: 224942066236133985}
 +  - {fileID: 6021850417493419731}
    m_Father: {fileID: 4148353818683595}
-@@ -88357,3 +88355,3 @@ MonoBehaviour:
+@@ -88357,3 +88368,3 @@ MonoBehaviour:
    m_ReferenceResolution: {x: 1080, y: 1920}
 -  m_ScreenMatchMode: 0
 +  m_ScreenMatchMode: 1
    m_MatchWidthOrHeight: 1
-@@ -109152,8 +109150,3 @@ RectTransform:
+@@ -109152,8 +109163,3 @@ RectTransform:
    m_Children:
 -  - {fileID: 224246887588868771}
 -  - {fileID: 224869737159367836}
@@ -593,12 +669,12 @@ index 0c98bb6d..ace0cc82 100644
 -  - {fileID: 224070205081729383}
 +  - {fileID: 8805909387684045227}
    m_Father: {fileID: 4148353818683595}
-@@ -109204,3 +109197,3 @@ MonoBehaviour:
+@@ -109204,3 +109210,3 @@ MonoBehaviour:
    m_ReferenceResolution: {x: 1080, y: 1920}
 -  m_ScreenMatchMode: 0
 +  m_ScreenMatchMode: 1
    m_MatchWidthOrHeight: 1
-@@ -119832 +119825,155 @@ RectTransform:
+@@ -119832 +119838,155 @@ RectTransform:
    m_Pivot: {x: 0.5, y: 0.5}
 +--- !u!1 &1722084973230201655
 +GameObject:
