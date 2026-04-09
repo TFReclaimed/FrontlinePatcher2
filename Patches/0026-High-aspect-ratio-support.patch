@@ -32,9 +32,14 @@ index bf59ce73..ed61b1b1 100644
 +  BottomEdge: 1
  --- !u!1660057539 &9223372036854775807
 diff --git a/Assets/Scenes/StoreUI.unity b/Assets/Scenes/StoreUI.unity
-index 06b0fd37..0c51ec1a 100644
+index 06b0fd37..9d99b80a 100644
 --- a/Assets/Scenes/StoreUI.unity
 +++ b/Assets/Scenes/StoreUI.unity
+@@ -4579,3 +4579,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 461}
++  m_Father: {fileID: 170100705}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
 @@ -4602,3 +4602,3 @@ RectTransform:
    - {fileID: 328}
 -  m_Father: {fileID: 461}
