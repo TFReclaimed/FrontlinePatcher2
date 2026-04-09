@@ -1,16 +1,10 @@
-name: Patch
+name: Patch Project
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+  workflow_call:
 
 jobs:
-  patch:
+  patch-project:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -57,3 +51,10 @@ jobs:
           name: failed-project-state
           path: RippedProject/
           include-hidden-files: true
+      - name: Upload patched project
+        if: success()
+        uses: actions/upload-artifact@v7
+        with:
+          name: patched-project
+          path: RippedProject/
+          retention-days: 1

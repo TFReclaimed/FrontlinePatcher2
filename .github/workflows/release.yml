@@ -1,0 +1,224 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_linux:
+        description: "Build Linux"
+        type: boolean
+        default: true
+      build_windows:
+        description: "Build Windows"
+        type: boolean
+        default: true
+      build_macos:
+        description: "Build macOS"
+        type: boolean
+        default: true
+      build_android:
+        description: "Build Android"
+        type: boolean
+        default: true
+      build_ios:
+        description: "Build iOS"
+        type: boolean
+        default: true
+
+jobs:
+  patch:
+    uses: ./.github/workflows/reusable-patch.yml
+
+  build-linux:
+    name: Build Linux
+    if: ${{ inputs.build_linux }}
+    needs: patch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download patched project
+        uses: actions/download-artifact@v8
+        with:
+          name: patched-project
+          path: RippedProject
+
+      - name: Restore NuGet packages
+        run: |
+          dotnet tool install --global NuGetForUnity.Cli
+          nugetforunity restore RippedProject
+
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@v1.3.1
+
+      - name: Build game
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: RippedProject
+          targetPlatform: StandaloneLinux64
+          buildName: Frontline
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Frontline-Linux
+          path: build/StandaloneLinux64
+
+  build-windows:
+    name: Build Windows
+    if: ${{ inputs.build_windows }}
+    needs: patch
+    runs-on: windows-latest
+    steps:
+      - name: Download patched project
+        uses: actions/download-artifact@v8
+        with:
+          name: patched-project
+          path: RippedProject
+
+      - name: Restore NuGet packages
+        run: |
+          dotnet tool install --global NuGetForUnity.Cli
+          nugetforunity restore RippedProject
+
+      - name: Build game
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: RippedProject
+          targetPlatform: StandaloneWindows64
+          buildName: Frontline
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Frontline-Windows
+          path: build/StandaloneWindows64
+
+  build-macos:
+    name: Build macOS
+    if: ${{ inputs.build_macos }}
+    needs: patch
+    runs-on: macos-latest
+    steps:
+      - name: Download patched project
+        uses: actions/download-artifact@v8
+        with:
+          name: patched-project
+          path: RippedProject
+
+      - name: Restore NuGet packages
+        run: |
+          dotnet tool install --global NuGetForUnity.Cli
+          nugetforunity restore RippedProject
+
+      - name: Build game
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: RippedProject
+          targetPlatform: StandaloneOSX
+          buildName: Frontline
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Frontline-macOS
+          path: build/StandaloneOSX
+
+  build-android:
+    name: Build Android
+    if: ${{ inputs.build_android }}
+    needs: patch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download patched project
+        uses: actions/download-artifact@v8
+        with:
+          name: patched-project
+          path: RippedProject
+
+      - name: Restore NuGet packages
+        run: |
+          dotnet tool install --global NuGetForUnity.Cli
+          nugetforunity restore RippedProject
+
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@v1.3.1
+
+      - name: Build game
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: RippedProject
+          targetPlatform: Android
+          buildName: Frontline
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Frontline.apk
+          path: build/Android/Frontline.apk
+
+  build-ios:
+    name: Build iOS
+    if: ${{ inputs.build_ios }}
+    needs: patch
+    runs-on: macos-latest
+    steps:
+      - name: Download patched project
+        uses: actions/download-artifact@v8
+        with:
+          name: patched-project
+          path: RippedProject
+
+      - name: Restore NuGet packages
+        run: |
+          dotnet tool install --global NuGetForUnity.Cli
+          nugetforunity restore RippedProject
+
+      - name: Build game
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: RippedProject
+          targetPlatform: iOS
+          buildName: Frontline
+
+      - name: Build Xcode archive
+        run: |
+          cd build/iOS
+          xcodebuild -project Unity-iPhone.xcodeproj \
+            -scheme Unity-iPhone \
+            -configuration Release \
+            -archivePath Frontline.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            clean archive
+
+      - name: Package IPA
+        run: |
+          cd build/iOS
+          mkdir Payload
+          cp -r Frontline.xcarcive/Products/Applications/*.app Payload/
+          zip -r Frontline.ipa Payload
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Frontline.ipa
+          path: build/iOS/Frontline.ipa

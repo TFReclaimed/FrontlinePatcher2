@@ -1,0 +1,14 @@
+name: Patch
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  patch:
+    uses: ./.github/workflows/reusable-patch.yml
