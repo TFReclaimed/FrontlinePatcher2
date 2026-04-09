@@ -1,0 +1,15 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Thu, 9 Apr 2026 03:49:54 +0300
+Subject: [PATCH] Fix IMC end of match victory image
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/EndOfMatchScreen.cs b/Assets/Scripts/Assembly-CSharp/EndOfMatchScreen.cs
+index 5f22fec2..58819c34 100644
+--- a/Assets/Scripts/Assembly-CSharp/EndOfMatchScreen.cs
++++ b/Assets/Scripts/Assembly-CSharp/EndOfMatchScreen.cs
+@@ -49,3 +49,3 @@ public class EndOfMatchScreen : MonoBehaviour
+ 		string.Empty,
+-		"UI_VictoryChracterIMC",
++		"UI_VictoryCharacterIMC",
+ 		"UI_VictoryCharacterMilitia"
