@@ -27,6 +27,8 @@ on:
 jobs:
   patch:
     uses: ./.github/workflows/reusable-patch.yml
+    with:
+      upload_project: true
     secrets:
       UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
       UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
