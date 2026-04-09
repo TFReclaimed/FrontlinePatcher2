@@ -1,0 +1,1211 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Thu, 9 Apr 2026 03:52:39 +0300
+Subject: [PATCH] High aspect ratio support
+
+
+diff --git a/Assets/Scenes/GameShell.unity b/Assets/Scenes/GameShell.unity
+index bf59ce73..ed61b1b1 100644
+--- a/Assets/Scenes/GameShell.unity
++++ b/Assets/Scenes/GameShell.unity
+@@ -592,2 +592,3 @@ GameObject:
+   - component: {fileID: 157}
++  - component: {fileID: 803028129}
+   m_Layer: 0
+@@ -32837,2 +32838,18 @@ MonoBehaviour:
+   m_EditorClassIdentifier: 
++--- !u!114 &803028129
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 34}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 970e6a3612105e14bbb42ae9c891cda5, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++  TopEdge: 1
++  LeftEdge: 1
++  RightEdge: 1
++  BottomEdge: 1
+ --- !u!1660057539 &9223372036854775807
+diff --git a/Assets/Scenes/StoreUI.unity b/Assets/Scenes/StoreUI.unity
+index 06b0fd37..0c51ec1a 100644
+--- a/Assets/Scenes/StoreUI.unity
++++ b/Assets/Scenes/StoreUI.unity
+@@ -4602,3 +4602,3 @@ RectTransform:
+   - {fileID: 328}
+-  m_Father: {fileID: 461}
++  m_Father: {fileID: 170100705}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -4898,3 +4898,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 461}
++  m_Father: {fileID: 170100705}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -4939,3 +4939,3 @@ RectTransform:
+   - {fileID: 344}
+-  m_Father: {fileID: 461}
++  m_Father: {fileID: 170100705}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -5035,3 +5035,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 461}
++  m_Father: {fileID: 170100705}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -5193,3 +5193,3 @@ RectTransform:
+   - {fileID: 359}
+-  m_Father: {fileID: 461}
++  m_Father: {fileID: 170100705}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -5802,3 +5802,3 @@ RectTransform:
+   - {fileID: 385}
+-  m_Father: {fileID: 461}
++  m_Father: {fileID: 170100705}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -6057,3 +6057,3 @@ RectTransform:
+   - {fileID: 398}
+-  m_Father: {fileID: 461}
++  m_Father: {fileID: 170100705}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -6198,3 +6198,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 461}
++  m_Father: {fileID: 170100705}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -7344,11 +7344,3 @@ RectTransform:
+   - {fileID: 351}
+-  - {fileID: 354}
+-  - {fileID: 339}
+-  - {fileID: 324}
+-  - {fileID: 346}
+-  - {fileID: 323}
+-  - {fileID: 341}
+-  - {fileID: 404}
+-  - {fileID: 397}
+-  - {fileID: 384}
++  - {fileID: 170100705}
+   m_Father: {fileID: 460}
+@@ -12482,3 +12474,3 @@ MonoBehaviour:
+   m_ReferenceResolution: {x: 1080, y: 1920}
+-  m_ScreenMatchMode: 0
++  m_ScreenMatchMode: 1
+   m_MatchWidthOrHeight: 1
+@@ -17446,2 +17438,59 @@ MonoBehaviour:
+   m_PixelsPerUnitMultiplier: 1
++--- !u!1 &170100704
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 170100705}
++  - component: {fileID: 170100706}
++  m_Layer: 5
++  m_Name: Letterbox
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!224 &170100705
++RectTransform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 170100704}
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children:
++  - {fileID: 354}
++  - {fileID: 339}
++  - {fileID: 324}
++  - {fileID: 346}
++  - {fileID: 323}
++  - {fileID: 341}
++  - {fileID: 404}
++  - {fileID: 397}
++  - {fileID: 384}
++  m_Father: {fileID: 461}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++  m_AnchorMin: {x: 0, y: 0}
++  m_AnchorMax: {x: 1, y: 1}
++  m_AnchoredPosition: {x: 0, y: 0}
++  m_SizeDelta: {x: 0, y: 0}
++  m_Pivot: {x: 0.5, y: 0.5}
++--- !u!114 &170100706
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 170100704}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 646c77d58539f921992633a725d778af, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
+ --- !u!1660057539 &9223372036854775807
+diff --git a/Assets/Scripts/Assembly-CSharp/Letterboxing.cs b/Assets/Scripts/Assembly-CSharp/Letterboxing.cs
+new file mode 100644
+index 00000000..dda1b3db
+--- /dev/null
++++ b/Assets/Scripts/Assembly-CSharp/Letterboxing.cs
+@@ -0,0 +1,64 @@
++using UnityEngine;
++
++[RequireComponent(typeof(RectTransform))]
++public class Letterboxing : MonoBehaviour
++{
++#if UNITY_ANDROID || UNITY_IOS
++    private const float TargetAspect = 9f / 16f;
++
++    private RectTransform _rectTransform;
++
++    private Rect _lastSafeArea = new(0, 0, 0, 0);
++
++    private Vector2 _lastScreenSize = new(0, 0);
++
++    private void Awake()
++    {
++        _rectTransform = GetComponent<RectTransform>();
++    }
++
++    private void Update()
++    {
++        if (_lastSafeArea != Screen.safeArea || _lastScreenSize.x != Screen.width || _lastScreenSize.y != Screen.height)
++        {
++            ApplyLayout();
++        }
++    }
++
++    private void ApplyLayout()
++    {
++        _lastSafeArea = Screen.safeArea;
++        _lastScreenSize = new Vector2(Screen.width, Screen.height);
++
++        var anchorMinX = _lastSafeArea.x / _lastScreenSize.x;
++        var anchorMinY = _lastSafeArea.y / _lastScreenSize.y;
++        var anchorMaxX = (_lastSafeArea.x + _lastSafeArea.width) / _lastScreenSize.x;
++        var anchorMaxY = (_lastSafeArea.y + _lastSafeArea.height) / _lastScreenSize.y;
++
++        var safeWidth = _lastSafeArea.width;
++        var safeHeight = _lastSafeArea.height;
++        var safeAspect = safeWidth / safeHeight;
++
++        if (safeAspect > TargetAspect)
++        {
++            var inset = 1f - TargetAspect / safeAspect;
++            var margin = (anchorMaxX - anchorMinX) * (inset / 2f);
++            anchorMinX += margin;
++            anchorMaxX -= margin;
++        }
++        else
++        {
++            var inset = 1f - safeAspect / TargetAspect;
++            var margin = (anchorMaxY - anchorMinY) * (inset / 2f);
++            anchorMinY += margin;
++            anchorMaxY -= margin;
++        }
++
++        _rectTransform.anchorMin = new Vector2(anchorMinX, anchorMinY);
++        _rectTransform.anchorMax = new Vector2(anchorMaxX, anchorMaxY);
++
++        _rectTransform.offsetMin = Vector2.zero;
++        _rectTransform.offsetMax = Vector2.zero;
++    }
++#endif
++}
+diff --git a/Assets/Scripts/Assembly-CSharp/Letterboxing.cs.meta b/Assets/Scripts/Assembly-CSharp/Letterboxing.cs.meta
+new file mode 100644
+index 00000000..a463a20b
+--- /dev/null
++++ b/Assets/Scripts/Assembly-CSharp/Letterboxing.cs.meta
+@@ -0,0 +1,11 @@
++fileFormatVersion: 2
++guid: 646c77d58539f921992633a725d778af
++MonoImporter:
++  externalObjects: {}
++  serializedVersion: 2
++  defaultReferences: []
++  executionOrder: 0
++  icon: {instanceID: 0}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
+diff --git a/Assets/prefabs/ui/FUE_GameUI.prefab b/Assets/prefabs/ui/FUE_GameUI.prefab
+index c3a2d471..12ff8b2e 100644
+--- a/Assets/prefabs/ui/FUE_GameUI.prefab
++++ b/Assets/prefabs/ui/FUE_GameUI.prefab
+@@ -33,3 +33,3 @@ RectTransform:
+   m_Children:
+-  - {fileID: 224428560594236482}
++  - {fileID: 1457451991078707305}
+   m_Father: {fileID: 4817325062191328}
+@@ -80,3 +80,3 @@ MonoBehaviour:
+   m_ReferenceResolution: {x: 1080, y: 1920}
+-  m_ScreenMatchMode: 0
++  m_ScreenMatchMode: 1
+   m_MatchWidthOrHeight: 1
+@@ -137,3 +137,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 224294885792020211}
++  m_Father: {fileID: 1239884614981467468}
+   m_LocalEulerAnglesHint: {x: 1.5918432e-18, y: -4.885332e-12, z: -0.000037338672}
+@@ -5245,3 +5245,3 @@ RectTransform:
+   - {fileID: 224386568470988373}
+-  m_Father: {fileID: 224641204913154593}
++  m_Father: {fileID: 8873021386547117469}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -48323,3 +48323,3 @@ RectTransform:
+   - {fileID: 4777414246829702}
+-  m_Father: {fileID: 224641204913154593}
++  m_Father: {fileID: 8873021386547117469}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -48528,3 +48528,3 @@ RectTransform:
+   - {fileID: 224998495239010246}
+-  m_Father: {fileID: 224641204913154593}
++  m_Father: {fileID: 8873021386547117469}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -54289,3 +54289,3 @@ RectTransform:
+   - {fileID: 224070205081729383}
+-  m_Father: {fileID: 224033903555039309}
++  m_Father: {fileID: 1457451991078707305}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -55778,8 +55778,3 @@ RectTransform:
+   m_Children:
+-  - {fileID: 224422702022971346}
+-  - {fileID: 224346445019804701}
+-  - {fileID: 224387228018655110}
+-  - {fileID: 224344618938641724}
+-  - {fileID: 224232415838589296}
+-  - {fileID: 224134286944189183}
++  - {fileID: 8873021386547117469}
+   m_Father: {fileID: 4817325062191328}
+@@ -55830,3 +55825,3 @@ MonoBehaviour:
+   m_ReferenceResolution: {x: 1080, y: 1920}
+-  m_ScreenMatchMode: 0
++  m_ScreenMatchMode: 1
+   m_MatchWidthOrHeight: 1
+@@ -88093,3 +88088,3 @@ RectTransform:
+   - {fileID: 224696792502030561}
+-  m_Father: {fileID: 224641204913154593}
++  m_Father: {fileID: 8873021386547117469}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -88769,3 +88764,3 @@ RectTransform:
+   - {fileID: 224696919880513765}
+-  m_Father: {fileID: 224294885792020211}
++  m_Father: {fileID: 1239884614981467468}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -88924,3 +88919,3 @@ MonoBehaviour:
+   m_EditorClassIdentifier: 
+-  errorModalName: Canvas/ErrorDialog
++  errorModalName: Canvas/Letterbox/ErrorDialog
+   gameCamera: {fileID: 20742177870120833}
+@@ -89036,3 +89031,3 @@ MonoBehaviour:
+   TutorialArrow: {fileID: 114652820779262545}
+-  TalkBubbleName: Canvas/TalkBubble
++  TalkBubbleName: Canvas/Letterbox/TalkBubble
+   EndTurnHighlightFX: {fileID: 1709254077376921, guid: ef8e89317be4109fd91020a78cc8b505,
+@@ -89499,3 +89494,3 @@ RectTransform:
+   - {fileID: 224321827775029018}
+-  m_Father: {fileID: 224294885792020211}
++  m_Father: {fileID: 1239884614981467468}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -89538,3 +89533,3 @@ RectTransform:
+   - {fileID: 224517377532936435}
+-  m_Father: {fileID: 224641204913154593}
++  m_Father: {fileID: 8873021386547117469}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -89678,5 +89673,3 @@ RectTransform:
+   m_Children:
+-  - {fileID: 224320592835458227}
+-  - {fileID: 224416529295595857}
+-  - {fileID: 224007271993718322}
++  - {fileID: 1239884614981467468}
+   m_Father: {fileID: 4817325062191328}
+@@ -89727,3 +89720,3 @@ MonoBehaviour:
+   m_ReferenceResolution: {x: 1080, y: 1920}
+-  m_ScreenMatchMode: 0
++  m_ScreenMatchMode: 1
+   m_MatchWidthOrHeight: 1
+@@ -95249,3 +95242,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 224641204913154593}
++  m_Father: {fileID: 8873021386547117469}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -113356 +113349,155 @@ MeshRenderer:
+   m_AdditionalVertexStreams: {fileID: 0}
++--- !u!1 &63417566312856283
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 1239884614981467468}
++  - component: {fileID: 1820757300224602494}
++  m_Layer: 0
++  m_Name: Letterbox
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!224 &1239884614981467468
++RectTransform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 63417566312856283}
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0.0000030971485}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children:
++  - {fileID: 224320592835458227}
++  - {fileID: 224416529295595857}
++  - {fileID: 224007271993718322}
++  m_Father: {fileID: 224294885792020211}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++  m_AnchorMin: {x: 0, y: 0}
++  m_AnchorMax: {x: 1, y: 1}
++  m_AnchoredPosition: {x: 0, y: 0}
++  m_SizeDelta: {x: 0, y: 0}
++  m_Pivot: {x: 0.5, y: 0.5}
++--- !u!114 &1820757300224602494
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 63417566312856283}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 646c77d58539f921992633a725d778af, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!1 &4641145962426557011
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 1457451991078707305}
++  - component: {fileID: 3169692228009350092}
++  m_Layer: 5
++  m_Name: Letterbox
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!224 &1457451991078707305
++RectTransform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 4641145962426557011}
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0.0000030971485}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children:
++  - {fileID: 224428560594236482}
++  m_Father: {fileID: 224033903555039309}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++  m_AnchorMin: {x: 0, y: 0}
++  m_AnchorMax: {x: 1, y: 1}
++  m_AnchoredPosition: {x: 0, y: 0}
++  m_SizeDelta: {x: 0, y: 0}
++  m_Pivot: {x: 0.5, y: 0.5}
++--- !u!114 &3169692228009350092
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 4641145962426557011}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 646c77d58539f921992633a725d778af, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!1 &9165414003211397212
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 8873021386547117469}
++  - component: {fileID: 5915632463626249752}
++  m_Layer: 5
++  m_Name: Letterbox
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!224 &8873021386547117469
++RectTransform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 9165414003211397212}
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0.0000030971485}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children:
++  - {fileID: 224422702022971346}
++  - {fileID: 224346445019804701}
++  - {fileID: 224387228018655110}
++  - {fileID: 224344618938641724}
++  - {fileID: 224232415838589296}
++  - {fileID: 224134286944189183}
++  m_Father: {fileID: 224641204913154593}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++  m_AnchorMin: {x: 0, y: 0}
++  m_AnchorMax: {x: 1, y: 1}
++  m_AnchoredPosition: {x: 0, y: 0}
++  m_SizeDelta: {x: 0, y: 0}
++  m_Pivot: {x: 0.5, y: 0.5}
++--- !u!114 &5915632463626249752
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 9165414003211397212}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 646c77d58539f921992633a725d778af, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
+diff --git a/Assets/prefabs/ui/GameUI.prefab b/Assets/prefabs/ui/GameUI.prefab
+index 0c98bb6d..ace0cc82 100644
+--- a/Assets/prefabs/ui/GameUI.prefab
++++ b/Assets/prefabs/ui/GameUI.prefab
+@@ -44540,3 +44540,3 @@ RectTransform:
+   - {fileID: 224238834308295387}
+-  m_Father: {fileID: 224507522976744791}
++  m_Father: {fileID: 8805909387684045227}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -52465,3 +52465,3 @@ RectTransform:
+   - {fileID: 4688331903957256}
+-  m_Father: {fileID: 224507522976744791}
++  m_Father: {fileID: 8805909387684045227}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -61446,3 +61446,3 @@ RectTransform:
+   - {fileID: 224807338725288812}
+-  m_Father: {fileID: 224191838273672616}
++  m_Father: {fileID: 6021850417493419731}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -62544,3 +62544,3 @@ RectTransform:
+   - {fileID: 224290410981445608}
+-  m_Father: {fileID: 224507522976744791}
++  m_Father: {fileID: 8805909387684045227}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -68710,3 +68710,3 @@ RectTransform:
+   - {fileID: 4500050402096248}
+-  m_Father: {fileID: 224197515695889172}
++  m_Father: {fileID: 2965002594564757041}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -69405,3 +69405,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 224197515695889172}
++  m_Father: {fileID: 2965002594564757041}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -69878,3 +69878,3 @@ RectTransform:
+   - {fileID: 4391225667286877}
+-  m_Father: {fileID: 224507522976744791}
++  m_Father: {fileID: 8805909387684045227}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -76155,3 +76155,3 @@ MonoBehaviour:
+   m_EditorClassIdentifier: 
+-  errorModalName: Canvas/ErrorDialog
++  errorModalName: Canvas/Letterbox/ErrorDialog
+   gameCamera: {fileID: 20741136630752806}
+@@ -81412,3 +81412,3 @@ RectTransform:
+   - {fileID: 224222568209840903}
+-  m_Father: {fileID: 224507522976744791}
++  m_Father: {fileID: 8805909387684045227}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -81937,3 +81937,3 @@ RectTransform:
+   - {fileID: 224562080017223558}
+-  m_Father: {fileID: 224197515695889172}
++  m_Father: {fileID: 2965002594564757041}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -82109,5 +82109,3 @@ RectTransform:
+   m_Children:
+-  - {fileID: 224446691751160785}
+-  - {fileID: 224632179142322292}
+-  - {fileID: 224344618938641724}
++  - {fileID: 2965002594564757041}
+   m_Father: {fileID: 4148353818683595}
+@@ -82158,3 +82156,3 @@ MonoBehaviour:
+   m_ReferenceResolution: {x: 1080, y: 1920}
+-  m_ScreenMatchMode: 0
++  m_ScreenMatchMode: 1
+   m_MatchWidthOrHeight: 1
+@@ -82935,3 +82933,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 224507522976744791}
++  m_Father: {fileID: 8805909387684045227}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -88310,3 +88308,3 @@ RectTransform:
+   m_Children:
+-  - {fileID: 224942066236133985}
++  - {fileID: 6021850417493419731}
+   m_Father: {fileID: 4148353818683595}
+@@ -88357,3 +88355,3 @@ MonoBehaviour:
+   m_ReferenceResolution: {x: 1080, y: 1920}
+-  m_ScreenMatchMode: 0
++  m_ScreenMatchMode: 1
+   m_MatchWidthOrHeight: 1
+@@ -109152,8 +109150,3 @@ RectTransform:
+   m_Children:
+-  - {fileID: 224246887588868771}
+-  - {fileID: 224869737159367836}
+-  - {fileID: 224372353275341440}
+-  - {fileID: 224782439640980787}
+-  - {fileID: 224891103352497787}
+-  - {fileID: 224070205081729383}
++  - {fileID: 8805909387684045227}
+   m_Father: {fileID: 4148353818683595}
+@@ -109204,3 +109197,3 @@ MonoBehaviour:
+   m_ReferenceResolution: {x: 1080, y: 1920}
+-  m_ScreenMatchMode: 0
++  m_ScreenMatchMode: 1
+   m_MatchWidthOrHeight: 1
+@@ -119832 +119825,155 @@ RectTransform:
+   m_Pivot: {x: 0.5, y: 0.5}
++--- !u!1 &1722084973230201655
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 6021850417493419731}
++  - component: {fileID: 7419545107864154555}
++  m_Layer: 5
++  m_Name: Letterbox
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!224 &6021850417493419731
++RectTransform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1722084973230201655}
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0.0000030971485}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children:
++  - {fileID: 224942066236133985}
++  m_Father: {fileID: 224191838273672616}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++  m_AnchorMin: {x: 0, y: 0}
++  m_AnchorMax: {x: 1, y: 1}
++  m_AnchoredPosition: {x: 0, y: 0}
++  m_SizeDelta: {x: 0, y: 0}
++  m_Pivot: {x: 0.5, y: 0.5}
++--- !u!114 &7419545107864154555
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1722084973230201655}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 646c77d58539f921992633a725d778af, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!1 &7078847421843250443
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 2965002594564757041}
++  - component: {fileID: 7937622386177786946}
++  m_Layer: 0
++  m_Name: Letterbox
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!224 &2965002594564757041
++RectTransform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 7078847421843250443}
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0.0000030971485}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children:
++  - {fileID: 224446691751160785}
++  - {fileID: 224632179142322292}
++  - {fileID: 224344618938641724}
++  m_Father: {fileID: 224197515695889172}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++  m_AnchorMin: {x: 0, y: 0}
++  m_AnchorMax: {x: 1, y: 1}
++  m_AnchoredPosition: {x: 0, y: 0}
++  m_SizeDelta: {x: 0, y: 0}
++  m_Pivot: {x: 0.5, y: 0.5}
++--- !u!114 &7937622386177786946
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 7078847421843250443}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 646c77d58539f921992633a725d778af, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!1 &8135834902452030036
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 8805909387684045227}
++  - component: {fileID: 5297665115188599629}
++  m_Layer: 5
++  m_Name: Letterbox
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!224 &8805909387684045227
++RectTransform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 8135834902452030036}
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0.0000030971485}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children:
++  - {fileID: 224246887588868771}
++  - {fileID: 224869737159367836}
++  - {fileID: 224372353275341440}
++  - {fileID: 224782439640980787}
++  - {fileID: 224891103352497787}
++  - {fileID: 224070205081729383}
++  m_Father: {fileID: 224507522976744791}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++  m_AnchorMin: {x: 0, y: 0}
++  m_AnchorMax: {x: 1, y: 1}
++  m_AnchoredPosition: {x: 0, y: 0}
++  m_SizeDelta: {x: 0, y: 0}
++  m_Pivot: {x: 0.5, y: 0.5}
++--- !u!114 &5297665115188599629
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 8135834902452030036}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 646c77d58539f921992633a725d778af, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
+diff --git a/Assets/prefabs/ui/MainUI.prefab b/Assets/prefabs/ui/MainUI.prefab
+index 091535a0..ff0f98f2 100644
+--- a/Assets/prefabs/ui/MainUI.prefab
++++ b/Assets/prefabs/ui/MainUI.prefab
+@@ -147236,4 +147236,4 @@ MonoBehaviour:
+   m_Spacing: {x: 116, y: 0}
+-  m_Constraint: 0
+-  m_ConstraintCount: 2
++  m_Constraint: 2
++  m_ConstraintCount: 1
+ --- !u!1 &1712091639049384
+diff --git a/Assets/prefabs/ui/accountcutomize/AccountProfileCustomizer.prefab b/Assets/prefabs/ui/accountcutomize/AccountProfileCustomizer.prefab
+index 4a9f3228..f119669e 100644
+--- a/Assets/prefabs/ui/accountcutomize/AccountProfileCustomizer.prefab
++++ b/Assets/prefabs/ui/accountcutomize/AccountProfileCustomizer.prefab
+@@ -182,3 +182,3 @@ RectTransform:
+   - {fileID: 224094320201520353}
+-  m_Father: {fileID: 224634108722742392}
++  m_Father: {fileID: 2930098735298240092}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -257,3 +257,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 224634108722742392}
++  m_Father: {fileID: 2930098735298240092}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -896,3 +896,3 @@ RectTransform:
+   - {fileID: 224699617135816954}
+-  m_Father: {fileID: 224634108722742392}
++  m_Father: {fileID: 2930098735298240092}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -1444,3 +1444,3 @@ RectTransform:
+   - {fileID: 224581786255902400}
+-  m_Father: {fileID: 224634108722742392}
++  m_Father: {fileID: 2930098735298240092}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -1575,3 +1575,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 224634108722742392}
++  m_Father: {fileID: 2930098735298240092}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -1709,3 +1709,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 224634108722742392}
++  m_Father: {fileID: 2930098735298240092}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -2212,9 +2212,3 @@ RectTransform:
+   - {fileID: 224946936116752871}
+-  - {fileID: 224587397909062814}
+-  - {fileID: 224694121525821480}
+-  - {fileID: 224733206282342372}
+-  - {fileID: 224726790013014859}
+-  - {fileID: 224801075752484240}
+-  - {fileID: 224722951815217645}
+-  - {fileID: 224574304967836189}
++  - {fileID: 2930098735298240092}
+   m_Father: {fileID: 4621510681728303}
+@@ -2265,3 +2259,3 @@ MonoBehaviour:
+   m_ReferenceResolution: {x: 1080, y: 1920}
+-  m_ScreenMatchMode: 0
++  m_ScreenMatchMode: 1
+   m_MatchWidthOrHeight: 1
+@@ -2322,3 +2316,3 @@ RectTransform:
+   - {fileID: 224967328832014496}
+-  m_Father: {fileID: 224634108722742392}
++  m_Father: {fileID: 2930098735298240092}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -2610 +2604,56 @@ MonoBehaviour:
+   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
++--- !u!1 &4970030639872437324
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 2930098735298240092}
++  - component: {fileID: 2992351548791584472}
++  m_Layer: 0
++  m_Name: Letterbox
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!224 &2930098735298240092
++RectTransform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 4970030639872437324}
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children:
++  - {fileID: 224587397909062814}
++  - {fileID: 224694121525821480}
++  - {fileID: 224733206282342372}
++  - {fileID: 224726790013014859}
++  - {fileID: 224801075752484240}
++  - {fileID: 224722951815217645}
++  - {fileID: 224574304967836189}
++  m_Father: {fileID: 224634108722742392}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++  m_AnchorMin: {x: 0, y: 0}
++  m_AnchorMax: {x: 1, y: 1}
++  m_AnchoredPosition: {x: 0, y: 0}
++  m_SizeDelta: {x: 0, y: 0}
++  m_Pivot: {x: 0.5, y: 0.5}
++--- !u!114 &2992351548791584472
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 4970030639872437324}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 646c77d58539f921992633a725d778af, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
+diff --git a/Assets/prefabs/ui/entermatch/EnteringMatch.prefab b/Assets/prefabs/ui/entermatch/EnteringMatch.prefab
+index f14aee9d..4d97cd63 100644
+--- a/Assets/prefabs/ui/entermatch/EnteringMatch.prefab
++++ b/Assets/prefabs/ui/entermatch/EnteringMatch.prefab
+@@ -6867,3 +6867,3 @@ RectTransform:
+   m_Children:
+-  - {fileID: 224291844617409189}
++  - {fileID: 3293737862633539439}
+   m_Father: {fileID: 4918264173551851}
+@@ -6914,3 +6914,3 @@ MonoBehaviour:
+   m_ReferenceResolution: {x: 1080, y: 1920}
+-  m_ScreenMatchMode: 0
++  m_ScreenMatchMode: 1
+   m_MatchWidthOrHeight: 1
+@@ -7452,3 +7452,3 @@ RectTransform:
+   - {fileID: 224264357844037074}
+-  m_Father: {fileID: 224518489005915545}
++  m_Father: {fileID: 3293737862633539439}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -7730 +7730,50 @@ MonoBehaviour:
+   m_PixelsPerUnitMultiplier: 1
++--- !u!1 &7396739011805454673
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 3293737862633539439}
++  - component: {fileID: 5760355251805711846}
++  m_Layer: 0
++  m_Name: Letterbox
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!224 &3293737862633539439
++RectTransform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 7396739011805454673}
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children:
++  - {fileID: 224291844617409189}
++  m_Father: {fileID: 224518489005915545}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++  m_AnchorMin: {x: 0, y: 0}
++  m_AnchorMax: {x: 1, y: 1}
++  m_AnchoredPosition: {x: 0, y: 0}
++  m_SizeDelta: {x: 0, y: 0}
++  m_Pivot: {x: 0.5, y: 0.5}
++--- !u!114 &5760355251805711846
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 7396739011805454673}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 646c77d58539f921992633a725d778af, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
+diff --git a/Assets/prefabs/ui/hangar/Hangar.prefab b/Assets/prefabs/ui/hangar/Hangar.prefab
+index 7489c7c4..147acb54 100644
+--- a/Assets/prefabs/ui/hangar/Hangar.prefab
++++ b/Assets/prefabs/ui/hangar/Hangar.prefab
+@@ -259,3 +259,3 @@ RectTransform:
+   - {fileID: 224230966497242822}
+-  m_Father: {fileID: 224204441828584148}
++  m_Father: {fileID: 8527147422018472618}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -10156,3 +10156,3 @@ RectTransform:
+   - {fileID: 224352011064324812}
+-  m_Father: {fileID: 224204441828584148}
++  m_Father: {fileID: 8527147422018472618}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -21846,3 +21846,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 224773444755742462}
++  m_Father: {fileID: 7279979196499543105}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -24756,17 +24756,3 @@ RectTransform:
+   m_Children:
+-  - {fileID: 224482944766068390}
+-  - {fileID: 224521544528842275}
+-  - {fileID: 224426063687951055}
+-  - {fileID: 224267666665886709}
+-  - {fileID: 224632417286455428}
+-  - {fileID: 224201922557545720}
+-  - {fileID: 224169724878666316}
+-  - {fileID: 224339233731988052}
+-  - {fileID: 224652772201358856}
+-  - {fileID: 224323426534070284}
+-  - {fileID: 224110695983623241}
+-  - {fileID: 224353142603621049}
+-  - {fileID: 224570574854107358}
+-  - {fileID: 224721771735186168}
+-  - {fileID: 224750718133248448}
++  - {fileID: 8527147422018472618}
+   m_Father: {fileID: 4311302786208047}
+@@ -24817,3 +24803,3 @@ MonoBehaviour:
+   m_ReferenceResolution: {x: 1080, y: 1920}
+-  m_ScreenMatchMode: 0
++  m_ScreenMatchMode: 1
+   m_MatchWidthOrHeight: 1
+@@ -26173,3 +26159,3 @@ RectTransform:
+   - {fileID: 224817437097071592}
+-  m_Father: {fileID: 224204441828584148}
++  m_Father: {fileID: 8527147422018472618}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -33994,3 +33980,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 224204441828584148}
++  m_Father: {fileID: 8527147422018472618}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -34339,3 +34325,3 @@ RectTransform:
+   - {fileID: 224048959850048464}
+-  m_Father: {fileID: 224204441828584148}
++  m_Father: {fileID: 8527147422018472618}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -42003,3 +41989,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 224773444755742462}
++  m_Father: {fileID: 7279979196499543105}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -42464,3 +42450,3 @@ RectTransform:
+   - {fileID: 224823255336525011}
+-  m_Father: {fileID: 224773444755742462}
++  m_Father: {fileID: 7279979196499543105}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -45867,3 +45853,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 224204441828584148}
++  m_Father: {fileID: 8527147422018472618}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -72561,3 +72547,3 @@ RectTransform:
+   - {fileID: 224378968365236681}
+-  m_Father: {fileID: 224204441828584148}
++  m_Father: {fileID: 8527147422018472618}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -79677,3 +79663,3 @@ RectTransform:
+   - {fileID: 224292186548821649}
+-  m_Father: {fileID: 224204441828584148}
++  m_Father: {fileID: 8527147422018472618}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -80477,8 +80463,3 @@ RectTransform:
+   m_Children:
+-  - {fileID: 224175471118791931}
+-  - {fileID: 224535494885597757}
+-  - {fileID: 224284236632188647}
+-  - {fileID: 224773901075305173}
+-  - {fileID: 224998410714550343}
+-  - {fileID: 224298831008309294}
++  - {fileID: 7279979196499543105}
+   m_Father: {fileID: 4311302786208047}
+@@ -80529,3 +80510,3 @@ MonoBehaviour:
+   m_ReferenceResolution: {x: 1080, y: 1920}
+-  m_ScreenMatchMode: 0
++  m_ScreenMatchMode: 1
+   m_MatchWidthOrHeight: 1
+@@ -81539,3 +81520,3 @@ RectTransform:
+   - {fileID: 224062514613964444}
+-  m_Father: {fileID: 224773444755742462}
++  m_Father: {fileID: 7279979196499543105}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -82882,3 +82863,3 @@ RectTransform:
+   m_Children: []
+-  m_Father: {fileID: 224204441828584148}
++  m_Father: {fileID: 8527147422018472618}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -84049,3 +84030,3 @@ RectTransform:
+   - {fileID: 224660002629564845}
+-  m_Father: {fileID: 224204441828584148}
++  m_Father: {fileID: 8527147422018472618}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -87540,3 +87521,3 @@ RectTransform:
+   - {fileID: 224414658627845446}
+-  m_Father: {fileID: 224204441828584148}
++  m_Father: {fileID: 8527147422018472618}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -93704,3 +93685,3 @@ RectTransform:
+   - {fileID: 224296734738863193}
+-  m_Father: {fileID: 224204441828584148}
++  m_Father: {fileID: 8527147422018472618}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -99875,3 +99856,3 @@ RectTransform:
+   - {fileID: 224154837268754424}
+-  m_Father: {fileID: 224773444755742462}
++  m_Father: {fileID: 7279979196499543105}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -120809,3 +120790,3 @@ RectTransform:
+   - {fileID: 224744560673490417}
+-  m_Father: {fileID: 224773444755742462}
++  m_Father: {fileID: 7279979196499543105}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -124120,3 +124101,3 @@ RectTransform:
+   - {fileID: 224694639183429369}
+-  m_Father: {fileID: 224204441828584148}
++  m_Father: {fileID: 8527147422018472618}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -142892,3 +142873,3 @@ RectTransform:
+   - {fileID: 224799943307865026}
+-  m_Father: {fileID: 224204441828584148}
++  m_Father: {fileID: 8527147422018472618}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -143648,3 +143629,3 @@ RectTransform:
+   - {fileID: 224994201229282240}
+-  m_Father: {fileID: 224204441828584148}
++  m_Father: {fileID: 8527147422018472618}
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+@@ -150902 +150883,118 @@ MonoBehaviour:
+   m_PixelsPerUnitMultiplier: 1
++--- !u!1 &1130645967893912070
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 7279979196499543105}
++  - component: {fileID: 2462267279177524139}
++  m_Layer: 31
++  m_Name: Letterbox
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!224 &7279979196499543105
++RectTransform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1130645967893912070}
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children:
++  - {fileID: 224175471118791931}
++  - {fileID: 224535494885597757}
++  - {fileID: 224284236632188647}
++  - {fileID: 224773901075305173}
++  - {fileID: 224998410714550343}
++  - {fileID: 224298831008309294}
++  m_Father: {fileID: 224773444755742462}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++  m_AnchorMin: {x: 0, y: 0}
++  m_AnchorMax: {x: 1, y: 1}
++  m_AnchoredPosition: {x: 0, y: 0}
++  m_SizeDelta: {x: 0, y: 0}
++  m_Pivot: {x: 0.5, y: 0.5}
++--- !u!114 &2462267279177524139
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1130645967893912070}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 646c77d58539f921992633a725d778af, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!1 &8589907323216035948
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 8527147422018472618}
++  - component: {fileID: 5872963842729525819}
++  m_Layer: 0
++  m_Name: Letterbox
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!224 &8527147422018472618
++RectTransform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 8589907323216035948}
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children:
++  - {fileID: 224482944766068390}
++  - {fileID: 224521544528842275}
++  - {fileID: 224426063687951055}
++  - {fileID: 224267666665886709}
++  - {fileID: 224632417286455428}
++  - {fileID: 224201922557545720}
++  - {fileID: 224169724878666316}
++  - {fileID: 224339233731988052}
++  - {fileID: 224652772201358856}
++  - {fileID: 224323426534070284}
++  - {fileID: 224110695983623241}
++  - {fileID: 224353142603621049}
++  - {fileID: 224570574854107358}
++  - {fileID: 224721771735186168}
++  - {fileID: 224750718133248448}
++  m_Father: {fileID: 224204441828584148}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++  m_AnchorMin: {x: 0, y: 0}
++  m_AnchorMax: {x: 1, y: 1}
++  m_AnchoredPosition: {x: 0, y: 0}
++  m_SizeDelta: {x: 0, y: 0}
++  m_Pivot: {x: 0.5, y: 0.5}
++--- !u!114 &5872963842729525819
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 8589907323216035948}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 646c77d58539f921992633a725d778af, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
