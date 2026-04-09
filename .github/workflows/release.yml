@@ -70,7 +70,9 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: Frontline-Linux
-          path: build/StandaloneLinux64
+          path: |
+            build/StandaloneLinux64
+            !build/**/*_BackUpThisFolder_ButDontShipItWithYourGame
 
   build-windows:
     name: Build Windows
@@ -105,7 +107,9 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: Frontline-Windows
-          path: build/StandaloneWindows64
+          path: |
+            build/StandaloneWindows64
+            !build/**/*_BackUpThisFolder_ButDontShipItWithYourGame
 
   build-macos:
     name: Build macOS
@@ -140,7 +144,9 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: Frontline-macOS
-          path: build/StandaloneOSX
+          path: |
+            build/StandaloneOSX
+            !build/**/*_BackUpThisFolder_ButDontShipItWithYourGame
 
   build-android:
     name: Build Android
