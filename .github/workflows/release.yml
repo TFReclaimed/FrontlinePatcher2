@@ -27,6 +27,10 @@ on:
 jobs:
   patch:
     uses: ./.github/workflows/reusable-patch.yml
+    secrets:
+      UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+      UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+      UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
 
   build-linux:
     name: Build Linux

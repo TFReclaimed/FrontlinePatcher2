@@ -5,6 +5,7 @@ on:
 
 jobs:
   patch-project:
+    name: Patch Project
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -51,6 +52,7 @@ jobs:
           name: failed-project-state
           path: RippedProject/
           include-hidden-files: true
+          retention-days: 1
       - name: Upload patched project
         if: success()
         uses: actions/upload-artifact@v7
