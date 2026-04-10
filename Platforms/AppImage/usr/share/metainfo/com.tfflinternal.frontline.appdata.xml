@@ -11,7 +11,7 @@
 	<description>
 		<p>Collectible card battle game featuring Pilots and Titans from the Titanfall universe.</p>
 	</description>
-	<launchable type="desktop-id">frontline.desktop</launchable>
+	<launchable type="desktop-id">com.tfflinternal.frontline.desktop</launchable>
 	<url type="homepage">https://tfflinternal.com/</url>
 	<content_rating type="oars-1.1">
 		<content_attribute id="social-chat">moderate</content_attribute>
