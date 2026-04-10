@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+	<id>frontline</id>
+	<metadata_license>MIT</metadata_license>
+	<project_license>MIT</project_license>
+	<name>Frontline</name>
+	<summary>Titanfall Frontline</summary>
+	<description>
+		<p>Card battle video game in the Titanfall universe.</p>
+	</description>
+	<launchable type="desktop-id">frontline.desktop</launchable>
+	<url type="homepage">https://tfflinternal.com/</url>
+</component>
