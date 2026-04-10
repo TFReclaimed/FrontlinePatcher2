@@ -92,6 +92,9 @@ jobs:
     needs: patch
     runs-on: windows-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
       - name: Download patched project
         uses: actions/download-artifact@v8
         with:
@@ -115,13 +118,25 @@ jobs:
           buildName: Frontline
           versioning: None
 
+      - name: Install NSIS
+        run: |
+          iwr -useb get.scoop.sh -outfile 'install.ps1'
+          .\install.ps1 -RunAsAdmin
+          scoop update
+          scoop bucket add extras
+          scoop install nsis
+
+      - name: Create installer
+        shell: pwsh
+        run: |
+          Remove-Item -Path "build\StandaloneWindows64\Frontline_BackUpThisFolder_ButDontShipItWithYourGame" -Recurse -Force
+          makensis /DSOURCE_PATH="build\StandaloneWindows64" "Platforms\Windows\Installer.nsi"
+
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: Frontline-Windows
-          path: |
-            build/StandaloneWindows64
-            !build/**/*_BackUpThisFolder_ButDontShipItWithYourGame
+          name: Frontline-Setup.exe
+          path: Frontline-Setup.exe
 
   build-macos:
     name: Build macOS
