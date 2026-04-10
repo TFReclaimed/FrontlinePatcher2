@@ -119,7 +119,7 @@ jobs:
           versioning: None
 
       - name: Install NSIS
-        uses: repolevedavaj/install-nsis@v1
+        uses: repolevedavaj/install-nsis@v1.1.0
         with:
           nsis-version: 3.11
 
