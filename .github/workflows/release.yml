@@ -126,14 +126,16 @@ jobs:
       - name: Create installer
         shell: pwsh
         run: |
-          Remove-Item -Path "build\StandaloneWindows64\Frontline_BackUpThisFolder_ButDontShipItWithYourGame" -Recurse -Force
-          makensis /DSOURCE_PATH="build\StandaloneWindows64" "Platforms\Windows\Installer.nsi"
+          Remove-Item -Path "build/StandaloneWindows64/Frontline_BackUpThisFolder_ButDontShipItWithYourGame" -Recurse -Force
+          $buildPath = "${{ github.workspace }}/build/StandaloneWindows64"
+          $scriptPath = "${{ github.workspace }}/Platforms/Windows/Installer.nsi"
+          makensis /DSOURCE_PATH="$buildPath" "$scriptPath"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
           name: Frontline-Setup.exe
-          path: Frontline-Setup.exe
+          path: Platforms/Windows/Frontline-Setup.exe
 
   build-macos:
     name: Build macOS
