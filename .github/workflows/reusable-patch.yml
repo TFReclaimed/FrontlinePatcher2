@@ -2,9 +2,22 @@ name: Patch Project
 
 on:
   workflow_call:
+    inputs:
+      upload_project:
+        type: boolean
+        required: false
+        default: false
+    secrets:
+      UNITY_SERIAL:
+        required: true
+      UNITY_EMAIL:
+        required: true
+      UNITY_PASSWORD:
+        required: true
 
 jobs:
   patch-project:
+    name: Patch Project
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -51,8 +64,9 @@ jobs:
           name: failed-project-state
           path: RippedProject/
           include-hidden-files: true
+          retention-days: 1
       - name: Upload patched project
-        if: success()
+        if: success() && inputs.upload_project
         uses: actions/upload-artifact@v7
         with:
           name: patched-project

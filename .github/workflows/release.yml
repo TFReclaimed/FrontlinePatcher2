@@ -27,6 +27,12 @@ on:
 jobs:
   patch:
     uses: ./.github/workflows/reusable-patch.yml
+    with:
+      upload_project: true
+    secrets:
+      UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+      UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+      UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
 
   build-linux:
     name: Build Linux
@@ -34,6 +40,9 @@ jobs:
     needs: patch
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
       - name: Download patched project
         uses: actions/download-artifact@v8
         with:
@@ -51,19 +60,31 @@ jobs:
       - name: Build game
         uses: game-ci/unity-builder@v4
         env:
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           projectPath: RippedProject
           targetPlatform: StandaloneLinux64
           buildName: Frontline
+          versioning: None
+
+      - name: Build AppImage
+        run: |
+          wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool.AppImage
+          chmod +x appimagetool.AppImage
+          cp -r build/StandaloneLinux64/* Platforms/AppImage/
+          rm -rf Platforms/AppImage/Frontline_BackUpThisFolder_ButDontShipItWithYourGame
+          cp RippedProject/Assets/Texture2D/app_icon.png Platforms/AppImage/
+          ./appimagetool.AppImage Platforms/AppImage Frontline.AppImage
+        env:
+          APPIMAGE_EXTRACT_AND_RUN: 1
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: Frontline-Linux
-          path: build/StandaloneLinux64
+          name: Frontline.AppImage
+          path: Frontline.AppImage
 
   build-windows:
     name: Build Windows
@@ -71,6 +92,9 @@ jobs:
     needs: patch
     runs-on: windows-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
       - name: Download patched project
         uses: actions/download-artifact@v8
         with:
@@ -85,19 +109,33 @@ jobs:
       - name: Build game
         uses: game-ci/unity-builder@v4
         env:
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           projectPath: RippedProject
           targetPlatform: StandaloneWindows64
           buildName: Frontline
+          versioning: None
+
+      - name: Install NSIS
+        uses: repolevedavaj/install-nsis@v1.1.0
+        with:
+          nsis-version: 3.11
+
+      - name: Create installer
+        shell: pwsh
+        run: |
+          Remove-Item -Path "build/StandaloneWindows64/Frontline_BackUpThisFolder_ButDontShipItWithYourGame" -Recurse -Force
+          $buildPath = "${{ github.workspace }}/build/StandaloneWindows64"
+          $scriptPath = "${{ github.workspace }}/Platforms/Windows/Installer.nsi"
+          makensis /DSOURCE_PATH="$buildPath" "$scriptPath"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: Frontline-Windows
-          path: build/StandaloneWindows64
+          name: Frontline-Setup.exe
+          path: Platforms/Windows/Frontline-Setup.exe
 
   build-macos:
     name: Build macOS
@@ -111,6 +149,11 @@ jobs:
           name: patched-project
           path: RippedProject
 
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.x
+
       - name: Restore NuGet packages
         run: |
           dotnet tool install --global NuGetForUnity.Cli
@@ -119,19 +162,29 @@ jobs:
       - name: Build game
         uses: game-ci/unity-builder@v4
         env:
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           projectPath: RippedProject
           targetPlatform: StandaloneOSX
           buildName: Frontline
+          versioning: None
+
+      - name: Create DMG
+        run: |
+          npm install --global create-dmg
+          create-dmg build/StandaloneOSX/Frontline.app \
+            build/StandaloneOSX/ \
+            --no-version-in-filename \
+            --no-code-sign \
+            --dmg-title=Frontline
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: Frontline-macOS
-          path: build/StandaloneOSX
+          name: Frontline.dmg
+          path: build/StandaloneOSX/Frontline.dmg
 
   build-android:
     name: Build Android
@@ -156,13 +209,14 @@ jobs:
       - name: Build game
         uses: game-ci/unity-builder@v4
         env:
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           projectPath: RippedProject
           targetPlatform: Android
           buildName: Frontline
+          versioning: None
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7
@@ -182,6 +236,11 @@ jobs:
           name: patched-project
           path: RippedProject
 
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.x
+
       - name: Restore NuGet packages
         run: |
           dotnet tool install --global NuGetForUnity.Cli
@@ -190,17 +249,18 @@ jobs:
       - name: Build game
         uses: game-ci/unity-builder@v4
         env:
-          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           projectPath: RippedProject
           targetPlatform: iOS
           buildName: Frontline
+          versioning: None
 
       - name: Build Xcode archive
         run: |
-          cd build/iOS
+          cd build/iOS/Frontline
           xcodebuild -project Unity-iPhone.xcodeproj \
             -scheme Unity-iPhone \
             -configuration Release \
@@ -212,13 +272,13 @@ jobs:
 
       - name: Package IPA
         run: |
-          cd build/iOS
+          cd build/iOS/Frontline
           mkdir Payload
-          cp -r Frontline.xcarcive/Products/Applications/*.app Payload/
+          cp -r Frontline.xcarchive/Products/Applications/*.app Payload/
           zip -r Frontline.ipa Payload
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
           name: Frontline.ipa
-          path: build/iOS/Frontline.ipa
+          path: build/iOS/Frontline/Frontline.ipa
