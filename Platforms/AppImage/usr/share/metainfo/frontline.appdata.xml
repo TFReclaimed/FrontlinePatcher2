@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-	<id>frontline</id>
+	<id>com.tfflinternal.frontline</id>
 	<metadata_license>MIT</metadata_license>
 	<project_license>MIT</project_license>
 	<name>Frontline</name>
+	<developer id="com.tfflinternal">
+		<name>TF Reclaimed</name>
+	</developer>
 	<summary>Titanfall Frontline</summary>
 	<description>
-		<p>Card battle video game in the Titanfall universe.</p>
+		<p>Collectible card battle game featuring Pilots and Titans from the Titanfall universe.</p>
 	</description>
 	<launchable type="desktop-id">frontline.desktop</launchable>
 	<url type="homepage">https://tfflinternal.com/</url>
+	<content_rating type="oars-1.1">
+		<content_attribute id="social-chat">moderate</content_attribute>
+		<content_attribute id="money-gambling">mild</content_attribute>
+	</content_rating>
 </component>
