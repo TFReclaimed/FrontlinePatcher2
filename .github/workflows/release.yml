@@ -149,7 +149,7 @@ jobs:
         run: |
           npm install --global create-dmg
           create-dmg build/StandaloneOSX/Frontline.app \
-            build/StandaloneOSX/Frontline.dmg \
+            build/StandaloneOSX/ \
             --no-version-in-filename \
             --no-code-sign \
             --dmg-title=Frontline
@@ -248,7 +248,7 @@ jobs:
         run: |
           cd build/iOS/Frontline
           mkdir Payload
-          cp -r Frontline.xcarcive/Products/Applications/*.app Payload/
+          cp -r Frontline.xcarchive/Products/Applications/*.app Payload/
           zip -r Frontline.ipa Payload
 
       - name: Upload artifact
