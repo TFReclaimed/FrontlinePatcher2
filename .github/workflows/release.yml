@@ -40,6 +40,9 @@ jobs:
     needs: patch
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
       - name: Download patched project
         uses: actions/download-artifact@v8
         with:
@@ -66,13 +69,22 @@ jobs:
           buildName: Frontline
           versioning: None
 
+      - name: Build AppImage
+        run: |
+          wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool.AppImage
+          chmod +x appimagetool.AppImage
+          cp -r build/StandaloneLinux64/ Platforms/AppImage/
+          rm -rf Platforms/AppImage/Frontline_BackUpThisFolder_ButDontShipItWithYourGame
+          cp RippedProject/Assets/Texture2D/app_icon.png Platforms/AppImage/
+          ./appimagetool.AppImage Platforms/AppImage Frontline.AppImage
+        env:
+          APPIMAGE_EXTRACT_AND_RUN: 1
+
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: Frontline-Linux
-          path: |
-            build/StandaloneLinux64
-            !build/**/*_BackUpThisFolder_ButDontShipItWithYourGame
+          name: Frontline.AppImage
+          path: Frontline.AppImage
 
   build-windows:
     name: Build Windows
