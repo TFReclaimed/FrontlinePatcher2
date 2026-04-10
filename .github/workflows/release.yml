@@ -234,7 +234,7 @@ jobs:
 
       - name: Build Xcode archive
         run: |
-          cd build/iOS
+          cd build/iOS/Frontline
           xcodebuild -project Unity-iPhone.xcodeproj \
             -scheme Unity-iPhone \
             -configuration Release \
@@ -246,7 +246,7 @@ jobs:
 
       - name: Package IPA
         run: |
-          cd build/iOS
+          cd build/iOS/Frontline
           mkdir Payload
           cp -r Frontline.xcarcive/Products/Applications/*.app Payload/
           zip -r Frontline.ipa Payload
@@ -255,4 +255,4 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: Frontline.ipa
-          path: build/iOS/Frontline.ipa
+          path: build/iOS/Frontline/Frontline.ipa
