@@ -145,13 +145,20 @@ jobs:
           buildName: Frontline
           versioning: None
 
+      - name: Create DMG
+        run: |
+          npm install --global create-dmg
+          create-dmg build/StandaloneOSX/Frontline.app \
+            build/StandaloneOSX/Frontline.dmg \
+            --no-version-in-filename \
+            --no-code-sign \
+            --dmg-title=Frontline
+
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: Frontline-macOS
-          path: |
-            build/StandaloneOSX
-            !build/**/*_BackUpThisFolder_ButDontShipItWithYourGame
+          name: Frontline.dmg
+          path: build/StandaloneOSX/Frontline.dmg
 
   build-android:
     name: Build Android
