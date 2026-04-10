@@ -73,7 +73,7 @@ jobs:
         run: |
           wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool.AppImage
           chmod +x appimagetool.AppImage
-          cp -r build/StandaloneLinux64/ Platforms/AppImage/
+          cp -r build/StandaloneLinux64/* Platforms/AppImage/
           rm -rf Platforms/AppImage/Frontline_BackUpThisFolder_ButDontShipItWithYourGame
           cp RippedProject/Assets/Texture2D/app_icon.png Platforms/AppImage/
           ./appimagetool.AppImage Platforms/AppImage Frontline.AppImage
