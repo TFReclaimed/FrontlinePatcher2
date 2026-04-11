@@ -1290,3 +1290,76 @@ index 7489c7c4..147acb54 100644
 +  m_Script: {fileID: 11500000, guid: 646c77d58539f921992633a725d778af, type: 3}
 +  m_Name: 
 +  m_EditorClassIdentifier: 
+diff --git a/Assets/pve/prefabs/ui/MissionMenu.prefab b/Assets/pve/prefabs/ui/MissionMenu.prefab
+index 43d60da1..f2090f6f 100644
+--- a/Assets/pve/prefabs/ui/MissionMenu.prefab
++++ b/Assets/pve/prefabs/ui/MissionMenu.prefab
+@@ -3331,2 +3331,3 @@ GameObject:
+   - component: {fileID: 114318451417473684}
++  - component: {fileID: 2208731076450512792}
+   m_Layer: 5
+@@ -3421,2 +3422,18 @@ MonoBehaviour:
+     m_Bits: 4294967295
++--- !u!114 &2208731076450512792
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1033903555039309}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 970e6a3612105e14bbb42ae9c891cda5, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++  TopEdge: 1
++  LeftEdge: 1
++  RightEdge: 1
++  BottomEdge: 1
+ --- !u!1 &1036828218548272
+@@ -14288,2 +14305,3 @@ GameObject:
+   - component: {fileID: 114521604562973748}
++  - component: {fileID: 5432673673464084571}
+   m_Layer: 5
+@@ -14382,2 +14400,18 @@ MonoBehaviour:
+     m_Bits: 4294967295
++--- !u!114 &5432673673464084571
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1150646884989824}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 970e6a3612105e14bbb42ae9c891cda5, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++  TopEdge: 1
++  LeftEdge: 1
++  RightEdge: 1
++  BottomEdge: 1
+ --- !u!1 &1151117949762783
+@@ -118321,2 +118355,3 @@ GameObject:
+   - component: {fileID: 114589764629096075}
++  - component: {fileID: 647044817483475472}
+   m_Layer: 5
+@@ -118425,2 +118460,18 @@ MonoBehaviour:
+     m_Bits: 4294967295
++--- !u!114 &647044817483475472
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1919715546813240}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 970e6a3612105e14bbb42ae9c891cda5, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++  TopEdge: 1
++  LeftEdge: 1
++  RightEdge: 1
++  BottomEdge: 1
+ --- !u!1 &1919942235722503
