@@ -1,0 +1,186 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Sat, 11 Apr 2026 05:18:23 +0300
+Subject: [PATCH] Fix card background alpha textures
+
+
+diff --git a/Assets/Texture2D/cardlayer_02_diff.png.meta b/Assets/Texture2D/cardlayer_02_diff.png.meta
+index b137197c..70c2d3ea 100644
+--- a/Assets/Texture2D/cardlayer_02_diff.png.meta
++++ b/Assets/Texture2D/cardlayer_02_diff.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGBurn_IMC_DIFF.png.meta b/Assets/art/tokens/textures/CardBGBurn_IMC_DIFF.png.meta
+index 8051fb62..3f2ff944 100644
+--- a/Assets/art/tokens/textures/CardBGBurn_IMC_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGBurn_IMC_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGBurn_MILI_DIFF.png.meta b/Assets/art/tokens/textures/CardBGBurn_MILI_DIFF.png.meta
+index c557d7e1..f9896c4b 100644
+--- a/Assets/art/tokens/textures/CardBGBurn_MILI_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGBurn_MILI_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGBurn_Neutral_DIFF.png.meta b/Assets/art/tokens/textures/CardBGBurn_Neutral_DIFF.png.meta
+index 763cae6f..1bbb5e9f 100644
+--- a/Assets/art/tokens/textures/CardBGBurn_Neutral_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGBurn_Neutral_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGCommander_IMC_DIFF.png.meta b/Assets/art/tokens/textures/CardBGCommander_IMC_DIFF.png.meta
+index 504a4c2b..6cf94aea 100644
+--- a/Assets/art/tokens/textures/CardBGCommander_IMC_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGCommander_IMC_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGCommander_MILI_DIFF.png.meta b/Assets/art/tokens/textures/CardBGCommander_MILI_DIFF.png.meta
+index 487badef..42e4c213 100644
+--- a/Assets/art/tokens/textures/CardBGCommander_MILI_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGCommander_MILI_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGCommander_Neutral_DIFF.png.meta b/Assets/art/tokens/textures/CardBGCommander_Neutral_DIFF.png.meta
+index d8cafce6..2d723810 100644
+--- a/Assets/art/tokens/textures/CardBGCommander_Neutral_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGCommander_Neutral_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGPilot_IMC_DIFF.png.meta b/Assets/art/tokens/textures/CardBGPilot_IMC_DIFF.png.meta
+index 94dbc34f..895c9722 100644
+--- a/Assets/art/tokens/textures/CardBGPilot_IMC_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGPilot_IMC_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGPilot_MILI_DIFF.png.meta b/Assets/art/tokens/textures/CardBGPilot_MILI_DIFF.png.meta
+index 4e1b97d2..fd7273e2 100644
+--- a/Assets/art/tokens/textures/CardBGPilot_MILI_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGPilot_MILI_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGPilot_Neutral_DIFF.png.meta b/Assets/art/tokens/textures/CardBGPilot_Neutral_DIFF.png.meta
+index 26d6a5d9..e135553e 100644
+--- a/Assets/art/tokens/textures/CardBGPilot_Neutral_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGPilot_Neutral_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGResource_DIFF.png.meta b/Assets/art/tokens/textures/CardBGResource_DIFF.png.meta
+index aecc786a..3dd54db8 100644
+--- a/Assets/art/tokens/textures/CardBGResource_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGResource_DIFF.png.meta
+@@ -53,3 +53,3 @@ TextureImporter:
+   spriteGenerateFallbackPhysicsShape: 1
+-  alphaUsage: 1
++  alphaUsage: 0
+   alphaIsTransparency: 1
+diff --git a/Assets/art/tokens/textures/CardBGSecret_IMC_DIFF.png.meta b/Assets/art/tokens/textures/CardBGSecret_IMC_DIFF.png.meta
+index 6e9636e8..9f05de71 100644
+--- a/Assets/art/tokens/textures/CardBGSecret_IMC_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGSecret_IMC_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGSecret_MILI_DIFF.png.meta b/Assets/art/tokens/textures/CardBGSecret_MILI_DIFF.png.meta
+index ff0694b1..3a24282b 100644
+--- a/Assets/art/tokens/textures/CardBGSecret_MILI_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGSecret_MILI_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGSecret_Neutral_DIFF.png.meta b/Assets/art/tokens/textures/CardBGSecret_Neutral_DIFF.png.meta
+index 153c3ab6..35cd6363 100644
+--- a/Assets/art/tokens/textures/CardBGSecret_Neutral_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGSecret_Neutral_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGSupport_IMC_DIFF.png.meta b/Assets/art/tokens/textures/CardBGSupport_IMC_DIFF.png.meta
+index 1d61bb47..f9b917bb 100644
+--- a/Assets/art/tokens/textures/CardBGSupport_IMC_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGSupport_IMC_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGSupport_MILI_DIFF.png.meta b/Assets/art/tokens/textures/CardBGSupport_MILI_DIFF.png.meta
+index d67bd708..1f130f4d 100644
+--- a/Assets/art/tokens/textures/CardBGSupport_MILI_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGSupport_MILI_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGSupport_Neutral_DIFF.png.meta b/Assets/art/tokens/textures/CardBGSupport_Neutral_DIFF.png.meta
+index 3899d0ae..55f1d343 100644
+--- a/Assets/art/tokens/textures/CardBGSupport_Neutral_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGSupport_Neutral_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGTitan_IMC_DIFF.png.meta b/Assets/art/tokens/textures/CardBGTitan_IMC_DIFF.png.meta
+index 39454efa..4822b12f 100644
+--- a/Assets/art/tokens/textures/CardBGTitan_IMC_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGTitan_IMC_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGTitan_MILI_DIFF.png.meta b/Assets/art/tokens/textures/CardBGTitan_MILI_DIFF.png.meta
+index 3e7f618b..3586deee 100644
+--- a/Assets/art/tokens/textures/CardBGTitan_MILI_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGTitan_MILI_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
+diff --git a/Assets/art/tokens/textures/CardBGTitan_Neutral_DIFF.png.meta b/Assets/art/tokens/textures/CardBGTitan_Neutral_DIFF.png.meta
+index 3f78fbbc..540ca6c4 100644
+--- a/Assets/art/tokens/textures/CardBGTitan_Neutral_DIFF.png.meta
++++ b/Assets/art/tokens/textures/CardBGTitan_Neutral_DIFF.png.meta
+@@ -54,3 +54,3 @@ TextureImporter:
+   alphaUsage: 1
+-  alphaIsTransparency: 1
++  alphaIsTransparency: 0
+   spriteTessellationDetail: -1
