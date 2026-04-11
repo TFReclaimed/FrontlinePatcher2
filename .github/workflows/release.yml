@@ -90,7 +90,7 @@ jobs:
           targetPlatform: StandaloneLinux64
           buildMethod: AssetTools.BuildAssetBundlesCi
           customParameters: >
-            -assetbundlePath ${{ github.workspace }}/AssetBundles
+            -assetbundlePath /github/workspace/AssetBundles
           versioning: None
           allowDirtyBuild: true
 
@@ -167,7 +167,7 @@ jobs:
           targetPlatform: StandaloneWindows64
           buildMethod: AssetTools.BuildAssetBundlesCi
           customParameters: >
-            -assetbundlePath ${{ github.workspace }}/AssetBundles
+            -assetbundlePath /github/workspace/AssetBundles
           versioning: None
           allowDirtyBuild: true
 
@@ -248,7 +248,7 @@ jobs:
           targetPlatform: StandaloneOSX
           buildMethod: AssetTools.BuildAssetBundlesCi
           customParameters: >
-            -assetbundlePath ${{ github.workspace }}/AssetBundles
+            -assetbundlePath /github/workspace/AssetBundles
           versioning: None
           allowDirtyBuild: true
 
@@ -323,7 +323,7 @@ jobs:
           targetPlatform: Android
           buildMethod: AssetTools.BuildAssetBundlesCi
           customParameters: >
-            -assetbundlePath ${{ github.workspace }}/AssetBundles
+            -assetbundlePath /github/workspace/AssetBundles
           versioning: None
           allowDirtyBuild: true
 
@@ -391,7 +391,7 @@ jobs:
           targetPlatform: iOS
           buildMethod: AssetTools.BuildAssetBundlesCi
           customParameters: >
-            -assetbundlePath ${{ github.workspace }}/AssetBundles
+            -assetbundlePath /github/workspace/AssetBundles
           versioning: None
           allowDirtyBuild: true
 
