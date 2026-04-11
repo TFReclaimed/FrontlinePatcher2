@@ -23,6 +23,10 @@ on:
         description: "Build iOS"
         type: boolean
         default: true
+      build_asset_bundles:
+        description: "Build asset bundles"
+        type: boolean
+        default: true
 
 jobs:
   patch:
@@ -69,6 +73,27 @@ jobs:
           buildName: Frontline
           versioning: None
 
+      - name: Make asset bundles directory
+        if: ${{ inputs.build_asset_bundles }}
+        shell: bash
+        run: mkdir -p ${{ github.workspace }}/AssetBundles
+
+      - name: Build asset bundles
+        if: ${{ inputs.build_asset_bundles }}
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: RippedProject
+          targetPlatform: StandaloneLinux64
+          buildMethod: AssetTools.BuildAssetBundlesCi
+          customParameters: >
+            -assetbundlePath ${{ github.workspace }}/AssetBundles
+          versioning: None
+          allowDirtyBuild: true
+
       - name: Build AppImage
         run: |
           wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool.AppImage
@@ -85,6 +110,13 @@ jobs:
         with:
           name: Frontline.AppImage
           path: Frontline.AppImage
+
+      - name: Upload asset bundles
+        if: ${{ inputs.build_asset_bundles }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: AssetBundles-Linux
+          path: ${{ github.workspace }}/AssetBundles
 
   build-windows:
     name: Build Windows
@@ -118,6 +150,27 @@ jobs:
           buildName: Frontline
           versioning: None
 
+      - name: Make asset bundles directory
+        if: ${{ inputs.build_asset_bundles }}
+        shell: bash
+        run: mkdir -p ${{ github.workspace }}/AssetBundles
+
+      - name: Build asset bundles
+        if: ${{ inputs.build_asset_bundles }}
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: RippedProject
+          targetPlatform: StandaloneWindows64
+          buildMethod: AssetTools.BuildAssetBundlesCi
+          customParameters: >
+            -assetbundlePath ${{ github.workspace }}/AssetBundles
+          versioning: None
+          allowDirtyBuild: true
+
       - name: Install NSIS
         uses: repolevedavaj/install-nsis@v1.1.0
         with:
@@ -136,6 +189,13 @@ jobs:
         with:
           name: Frontline-Setup.exe
           path: Platforms/Windows/Frontline-Setup.exe
+
+      - name: Upload asset bundles
+        if: ${{ inputs.build_asset_bundles }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: AssetBundles-Windows
+          path: ${{ github.workspace }}/AssetBundles
 
   build-macos:
     name: Build macOS
@@ -171,6 +231,27 @@ jobs:
           buildName: Frontline
           versioning: None
 
+      - name: Make asset bundles directory
+        if: ${{ inputs.build_asset_bundles }}
+        shell: bash
+        run: mkdir -p ${{ github.workspace }}/AssetBundles
+
+      - name: Build asset bundles
+        if: ${{ inputs.build_asset_bundles }}
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: RippedProject
+          targetPlatform: StandaloneOSX
+          buildMethod: AssetTools.BuildAssetBundlesCi
+          customParameters: >
+            -assetbundlePath ${{ github.workspace }}/AssetBundles
+          versioning: None
+          allowDirtyBuild: true
+
       - name: Create DMG
         run: |
           npm install --global create-dmg
@@ -185,6 +266,13 @@ jobs:
         with:
           name: Frontline.dmg
           path: build/StandaloneOSX/Frontline.dmg
+
+      - name: Upload asset bundles
+        if: ${{ inputs.build_asset_bundles }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: AssetBundles-macOS
+          path: ${{ github.workspace }}/AssetBundles
 
   build-android:
     name: Build Android
@@ -218,11 +306,39 @@ jobs:
           buildName: Frontline
           versioning: None
 
+      - name: Make asset bundles directory
+        if: ${{ inputs.build_asset_bundles }}
+        shell: bash
+        run: mkdir -p ${{ github.workspace }}/AssetBundles
+
+      - name: Build asset bundles
+        if: ${{ inputs.build_asset_bundles }}
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: RippedProject
+          targetPlatform: Android
+          buildMethod: AssetTools.BuildAssetBundlesCi
+          customParameters: >
+            -assetbundlePath ${{ github.workspace }}/AssetBundles
+          versioning: None
+          allowDirtyBuild: true
+
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
           name: Frontline.apk
           path: build/Android/Frontline.apk
+
+      - name: Upload asset bundles
+        if: ${{ inputs.build_asset_bundles }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: AssetBundles-Android
+          path: ${{ github.workspace }}/AssetBundles
 
   build-ios:
     name: Build iOS
@@ -258,6 +374,27 @@ jobs:
           buildName: Frontline
           versioning: None
 
+      - name: Make asset bundles directory
+        if: ${{ inputs.build_asset_bundles }}
+        shell: bash
+        run: mkdir -p ${{ github.workspace }}/AssetBundles
+
+      - name: Build asset bundles
+        if: ${{ inputs.build_asset_bundles }}
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: RippedProject
+          targetPlatform: iOS
+          buildMethod: AssetTools.BuildAssetBundlesCi
+          customParameters: >
+            -assetbundlePath ${{ github.workspace }}/AssetBundles
+          versioning: None
+          allowDirtyBuild: true
+
       - name: Build Xcode archive
         run: |
           cd build/iOS/Frontline
@@ -282,3 +419,10 @@ jobs:
         with:
           name: Frontline.ipa
           path: build/iOS/Frontline/Frontline.ipa
+
+      - name: Upload asset bundles
+        if: ${{ inputs.build_asset_bundles }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: AssetBundles-iOS
+          path: ${{ github.workspace }}/AssetBundles
