@@ -673,7 +673,7 @@ def cmd_setup(apk_path: str, bundles_path: str) -> None:
             break
 
     print("[*] Copy overrides...")
-    overrides_dst = os.path.join(WORKSPACE_DIR, "Assets")
+    overrides_dst = os.path.join(WORKSPACE_DIR)
     shutil.copytree(OVERRIDES_DIR, overrides_dst, dirs_exist_ok=True)
 
     print("[*] Extract app icon...")
