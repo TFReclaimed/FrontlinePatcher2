@@ -27,6 +27,10 @@ on:
         description: "Build asset bundles"
         type: boolean
         default: true
+      deploy:
+        description: "Deploy after build"
+        type: boolean
+        default: true
 
 jobs:
   patch:
@@ -426,3 +430,57 @@ jobs:
         with:
           name: AssetBundles-iOS
           path: ${{ github.workspace }}/AssetBundles/iOS
+
+  deploy:
+    name: Deploy
+    if: ${{ inputs.deploy && always() }}
+    needs: [build-linux, build-windows, build-macos, build-android, build-ios]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check build status
+        run: |
+          if [[ "${{ contains(needs.*.result, 'failure') }}" == "true" ]]; then
+            echo "One or more builds failed. Skipping deployment."
+            exit 1
+          fi
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v8
+        with:
+          path: build-artifacts
+          merge-multiple: true
+
+      - name: Organize artifacts
+        run: |
+          mkdir -p deploy/Android deploy/iOS deploy/Linux deploy/Windows deploy/Mac
+
+          [ -d "build-artifacts/AssetBundles-Android" ] && mv build-artifacts/AssetBundles-Android/* deploy/Android/
+          [ -d "build-artifacts/AssetBundles-iOS" ] && mv build-artifacts/AssetBundles-iOS/* deploy/iOS/
+          [ -d "build-artifacts/AssetBundles-Linux" ] && mv build-artifacts/AssetBundles-Linux/* deploy/Linux/
+          [ -d "build-artifacts/AssetBundles-Windows" ] && mv build-artifacts/AssetBundles-Windows/* deploy/Windows/
+          [ -d "build-artifacts/AssetBundles-macOS" ] && mv build-artifacts/AssetBundles-macOS/* deploy/Mac/
+
+          [ -f "build-artifacts/Frontline.apk" ] && mv build-artifacts/Frontline.apk deploy/
+          [ -f "build-artifacts/Frontline.ipa" ] && mv build-artifacts/Frontline.ipa deploy/
+          [ -f "build-artifacts/Frontline.AppImage" ] && mv build-artifacts/Frontline.AppImage deploy/
+          [ -f "build-artifacts/Frontline-Setup.exe" ] && mv build-artifacts/Frontline-Setup.exe deploy/
+          [ -f "build-artifacts/Frontline.dmg" ] && mv build-artifacts/Frontline.dmg deploy/
+
+          rm -rf build-artifacts/patched-project
+
+      - name: Install Rclone
+        run: |
+          sudo apt-get install rclone
+
+      - name: Configure Rclone
+        run: |
+          rclone config create r2 s3 \
+            provider Cloudflare \
+            access_key_id ${{ secrets.R2_ACCESS_KEY }} \
+            secret_access_key ${{ secrets.R2_SECRET_KEY }} \
+            endpoint ${{ secrets.R2_ENDPOINT }} \
+            acl private
+
+      - name: Upload artifacts to R2
+        run: |
+          rclone sync deploy/ r2:frontline --progress
