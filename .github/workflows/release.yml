@@ -292,7 +292,6 @@ jobs:
             -assetbundlePath ${{ github.workspace }}/AssetBundles/StandaloneOSX
           versioning: None
           allowDirtyBuild: true
-          skipActivation: true
 
       - name: Upload asset bundles
         if: ${{ inputs.build_asset_bundles }}
@@ -436,6 +435,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: patched-project
+          path: RippedProject
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
@@ -467,7 +467,6 @@ jobs:
             -assetbundlePath ${{ github.workspace }}/AssetBundles/iOS
           versioning: None
           allowDirtyBuild: true
-          skipActivation: true
 
       - name: Upload asset bundles
         if: ${{ inputs.build_asset_bundles }}
