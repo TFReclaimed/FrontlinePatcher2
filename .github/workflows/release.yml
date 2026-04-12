@@ -171,7 +171,7 @@ jobs:
           targetPlatform: StandaloneWindows64
           buildMethod: AssetTools.BuildAssetBundlesCi
           customParameters: >
-            -assetbundlePath /github/workspace/AssetBundles/StandaloneWindows64
+            -assetbundlePath C:/github/workspace/AssetBundles/StandaloneWindows64
           versioning: None
           allowDirtyBuild: true
 
@@ -252,9 +252,10 @@ jobs:
           targetPlatform: StandaloneOSX
           buildMethod: AssetTools.BuildAssetBundlesCi
           customParameters: >
-            -assetbundlePath /github/workspace/AssetBundles/StandaloneOSX
+            -assetbundlePath ${{ github.workspace }}/AssetBundles/StandaloneOSX
           versioning: None
           allowDirtyBuild: true
+          skipActivation: true
 
       - name: Create DMG
         run: |
@@ -395,9 +396,10 @@ jobs:
           targetPlatform: iOS
           buildMethod: AssetTools.BuildAssetBundlesCi
           customParameters: >
-            -assetbundlePath /github/workspace/AssetBundles/iOS
+            -assetbundlePath ${{ github.workspace }}/AssetBundles/iOS
           versioning: None
           allowDirtyBuild: true
+          skipActivation: true
 
       - name: Build Xcode archive
         run: |
