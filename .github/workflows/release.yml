@@ -448,6 +448,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           path: build-artifacts
+          merge-multiple: true
 
       - name: Organize artifacts
         run: |
