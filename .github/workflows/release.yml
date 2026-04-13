@@ -157,7 +157,7 @@ jobs:
       - name: Make asset bundles directory
         if: ${{ inputs.build_asset_bundles }}
         shell: bash
-        run: mkdir -p ${{ github.workspace }}/AssetBundles/StandaloneWindows64
+        run: mkdir -p RippedProject/AssetBundles/StandaloneWindows64
 
       - name: Build asset bundles
         if: ${{ inputs.build_asset_bundles }}
@@ -171,7 +171,7 @@ jobs:
           targetPlatform: StandaloneWindows64
           buildMethod: AssetTools.BuildAssetBundlesCi
           customParameters: >
-            -assetbundlePath C:/github/workspace/AssetBundles/StandaloneWindows64
+            -assetbundlePath AssetBundles/StandaloneWindows64
           versioning: None
           allowDirtyBuild: true
 
@@ -199,7 +199,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: AssetBundles-Windows
-          path: ${{ github.workspace }}/AssetBundles/StandaloneWindows64
+          path: RippedProject/AssetBundles/StandaloneWindows64
 
   build-macos:
     name: Build macOS
