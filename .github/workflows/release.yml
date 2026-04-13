@@ -492,7 +492,6 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           path: build-artifacts
-          merge-multiple: true
 
       - name: Organize artifacts
         run: |
@@ -504,11 +503,11 @@ jobs:
           [ -d "build-artifacts/AssetBundles-Windows" ] && mv build-artifacts/AssetBundles-Windows/* deploy/Windows/
           [ -d "build-artifacts/AssetBundles-macOS" ] && mv build-artifacts/AssetBundles-macOS/* deploy/Mac/
 
-          [ -f "build-artifacts/Frontline.apk" ] && mv build-artifacts/Frontline.apk deploy/
-          [ -f "build-artifacts/Frontline.ipa" ] && mv build-artifacts/Frontline.ipa deploy/
-          [ -f "build-artifacts/Frontline.AppImage" ] && mv build-artifacts/Frontline.AppImage deploy/
-          [ -f "build-artifacts/Frontline-Setup.exe" ] && mv build-artifacts/Frontline-Setup.exe deploy/
-          [ -f "build-artifacts/Frontline.dmg" ] && mv build-artifacts/Frontline.dmg deploy/
+          [ -f "build-artifacts/Frontline.apk/Frontline.apk" ] && mv build-artifacts/Frontline.apk/Frontline.apk deploy/
+          [ -f "build-artifacts/Frontline.ipa/Frontline.ipa" ] && mv build-artifacts/Frontline.ipa/Frontline.ipa deploy/
+          [ -f "build-artifacts/Frontline.AppImage/Frontline.AppImage" ] && mv build-artifacts/Frontline.AppImage/Frontline.AppImage deploy/
+          [ -f "build-artifacts/Frontline-Setup.exe/Frontline-Setup.exe" ] && mv build-artifacts/Frontline-Setup.exe/Frontline-Setup.exe deploy/
+          [ -f "build-artifacts/Frontline.dmg/Frontline.dmg" ] && mv build-artifacts/Frontline.dmg/Frontline.dmg deploy/
 
           rm -rf build-artifacts/patched-project
 
