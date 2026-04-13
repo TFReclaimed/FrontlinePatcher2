@@ -331,6 +331,12 @@ jobs:
           targetPlatform: Android
           buildName: Frontline
           versioning: None
+          androidExportType: androidPackage
+          androidKeystoreName: tfreclaimed.keystore
+          androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          androidKeyaliasName: tfreclaimed
+          androidKeyaliasPass: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
 
       - name: Make asset bundles directory
         if: ${{ inputs.build_asset_bundles }}
