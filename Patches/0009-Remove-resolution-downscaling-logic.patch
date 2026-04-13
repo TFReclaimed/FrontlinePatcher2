@@ -1,0 +1,21 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Mon, 13 Apr 2026 20:54:04 +0300
+Subject: [PATCH] Remove resolution downscaling logic
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/MainUI.cs b/Assets/Scripts/Assembly-CSharp/MainUI.cs
+index 9e18c400..1b2dede5 100644
+--- a/Assets/Scripts/Assembly-CSharp/MainUI.cs
++++ b/Assets/Scripts/Assembly-CSharp/MainUI.cs
+@@ -206,10 +206,2 @@ public class MainUI : BaseUI
+ 	{
+-		int num = Screen.height;
+-		int num2 = Screen.width;
+-		for (int num3 = ((num2 <= num) ? num : num2); num3 > 1280; num3 /= 2)
+-		{
+-			num /= 2;
+-			num2 /= 2;
+-		}
+-		Screen.SetResolution(num2, num, true);
+ 		base.Start();
