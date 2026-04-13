@@ -157,7 +157,7 @@ jobs:
       - name: Make asset bundles directory
         if: ${{ inputs.build_asset_bundles }}
         shell: bash
-        run: mkdir -p ${{ github.workspace }}/AssetBundles/StandaloneWindows64
+        run: mkdir -p RippedProject/AssetBundles/StandaloneWindows64
 
       - name: Build asset bundles
         if: ${{ inputs.build_asset_bundles }}
@@ -171,7 +171,7 @@ jobs:
           targetPlatform: StandaloneWindows64
           buildMethod: AssetTools.BuildAssetBundlesCi
           customParameters: >
-            -assetbundlePath /github/workspace/AssetBundles/StandaloneWindows64
+            -assetbundlePath AssetBundles/StandaloneWindows64
           versioning: None
           allowDirtyBuild: true
 
@@ -199,7 +199,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: AssetBundles-Windows
-          path: ${{ github.workspace }}/AssetBundles/StandaloneWindows64
+          path: RippedProject/AssetBundles/StandaloneWindows64
 
   build-macos:
     name: Build macOS
@@ -235,6 +235,43 @@ jobs:
           buildName: Frontline
           versioning: None
 
+      - name: Create DMG
+        run: |
+          npm install --global create-dmg
+          create-dmg build/StandaloneOSX/Frontline.app \
+            build/StandaloneOSX/ \
+            --no-version-in-filename \
+            --no-code-sign \
+            --dmg-title=Frontline
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Frontline.dmg
+          path: build/StandaloneOSX/Frontline.dmg
+
+  build-macos-bundles:
+    name: Build macOS asset bundles
+    if: ${{ inputs.build_macos && inputs.build_asset_bundles }}
+    needs: patch
+    runs-on: macos-latest
+    steps:
+      - name: Download patched project
+        uses: actions/download-artifact@v8
+        with:
+          name: patched-project
+          path: RippedProject
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.x
+
+      - name: Restore NuGet packages
+        run: |
+          dotnet tool install --global NuGetForUnity.Cli
+          nugetforunity restore RippedProject
+
       - name: Make asset bundles directory
         if: ${{ inputs.build_asset_bundles }}
         shell: bash
@@ -252,24 +289,9 @@ jobs:
           targetPlatform: StandaloneOSX
           buildMethod: AssetTools.BuildAssetBundlesCi
           customParameters: >
-            -assetbundlePath /github/workspace/AssetBundles/StandaloneOSX
+            -assetbundlePath ${{ github.workspace }}/AssetBundles/StandaloneOSX
           versioning: None
           allowDirtyBuild: true
-
-      - name: Create DMG
-        run: |
-          npm install --global create-dmg
-          create-dmg build/StandaloneOSX/Frontline.app \
-            build/StandaloneOSX/ \
-            --no-version-in-filename \
-            --no-code-sign \
-            --dmg-title=Frontline
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: Frontline.dmg
-          path: build/StandaloneOSX/Frontline.dmg
 
       - name: Upload asset bundles
         if: ${{ inputs.build_asset_bundles }}
@@ -378,27 +400,6 @@ jobs:
           buildName: Frontline
           versioning: None
 
-      - name: Make asset bundles directory
-        if: ${{ inputs.build_asset_bundles }}
-        shell: bash
-        run: mkdir -p ${{ github.workspace }}/AssetBundles/iOS
-
-      - name: Build asset bundles
-        if: ${{ inputs.build_asset_bundles }}
-        uses: game-ci/unity-builder@v4
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          projectPath: RippedProject
-          targetPlatform: iOS
-          buildMethod: AssetTools.BuildAssetBundlesCi
-          customParameters: >
-            -assetbundlePath /github/workspace/AssetBundles/iOS
-          versioning: None
-          allowDirtyBuild: true
-
       - name: Build Xcode archive
         run: |
           cd build/iOS/Frontline
@@ -424,6 +425,49 @@ jobs:
           name: Frontline.ipa
           path: build/iOS/Frontline/Frontline.ipa
 
+  build-ios-bundles:
+    name: Build iOS asset bundles
+    if: ${{ inputs.build_ios && inputs.build_asset_bundles }}
+    needs: patch
+    runs-on: macos-latest
+    steps:
+      - name: Download patched project
+        uses: actions/download-artifact@v8
+        with:
+          name: patched-project
+          path: RippedProject
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.x
+
+      - name: Restore NuGet packages
+        run: |
+          dotnet tool install --global NuGetForUnity.Cli
+          nugetforunity restore RippedProject
+
+      - name: Make asset bundles directory
+        if: ${{ inputs.build_asset_bundles }}
+        shell: bash
+        run: mkdir -p ${{ github.workspace }}/AssetBundles/iOS
+
+      - name: Build asset bundles
+        if: ${{ inputs.build_asset_bundles }}
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: RippedProject
+          targetPlatform: iOS
+          buildMethod: AssetTools.BuildAssetBundlesCi
+          customParameters: >
+            -assetbundlePath ${{ github.workspace }}/AssetBundles/iOS
+          versioning: None
+          allowDirtyBuild: true
+
       - name: Upload asset bundles
         if: ${{ inputs.build_asset_bundles }}
         uses: actions/upload-artifact@v7
@@ -434,7 +478,7 @@ jobs:
   deploy:
     name: Deploy
     if: ${{ inputs.deploy && always() }}
-    needs: [build-linux, build-windows, build-macos, build-android, build-ios]
+    needs: [build-linux, build-windows, build-macos, build-android, build-ios, build-macos-bundles, build-ios-bundles]
     runs-on: ubuntu-latest
     steps:
       - name: Check build status
