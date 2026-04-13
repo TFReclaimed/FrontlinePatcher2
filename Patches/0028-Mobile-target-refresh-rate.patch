@@ -5,7 +5,7 @@ Subject: [PATCH] Mobile target refresh rate
 
 
 diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
-index 779713d6..2d99ce24 100644
+index 537f29d3..3113c09f 100644
 --- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
 +++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
 @@ -149,2 +149,6 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP

@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Tue, 14 Apr 2026 02:29:44 +0300
+Subject: [PATCH] Change game update link to open our website
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
+index 779713d6..537f29d3 100644
+--- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
++++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
+@@ -903,3 +903,15 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+ 	{
+-		string url = string.Format("market://details?id={0}", Application.identifier);
++#if UNITY_ANDROID
++		const string url = "https://tfflinternal.com/docs/frontline/installation/android";
++#elif UNITY_IOS
++		const string url = "https://tfflinternal.com/docs/frontline/installation/ios";
++#elif UNITY_STANDALONE_LINUX
++		const string url = "https://tfflinternal.com/docs/frontline/installation/linux";
++#elif UNITY_STANDALONE_WIN
++		const string url = "https://tfflinternal.com/docs/frontline/installation/windows";
++#elif UNITY_STANDALONE_OSX
++		const string url = "https://tfflinternal.com/docs/frontline/installation/mac";
++#else
++		const string url = "https://tfflinternal.com/docs/category/installation";
++#endif
+ 		Application.OpenURL(url);
