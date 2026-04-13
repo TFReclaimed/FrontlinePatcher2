@@ -1,0 +1,39 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Mon, 13 Apr 2026 23:48:22 +0300
+Subject: [PATCH] Fix frame rate tied animations
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/CardCarousel.cs b/Assets/Scripts/Assembly-CSharp/CardCarousel.cs
+index 07035e1c..44b44873 100644
+--- a/Assets/Scripts/Assembly-CSharp/CardCarousel.cs
++++ b/Assets/Scripts/Assembly-CSharp/CardCarousel.cs
+@@ -309,3 +309,4 @@ public class CardCarousel : MonoBehaviour
+ 		WaitForEndOfFrame wait = new WaitForEndOfFrame();
+-		for (int i = 0; i < 30; i++)
++		var time = 0f;
++		while (time < 0.5f)
+ 		{
+@@ -320,2 +321,3 @@ public class CardCarousel : MonoBehaviour
+ 			TargetPosition = 0f - focus.transform.localPosition.x;
++			time += Time.deltaTime;
+ 			yield return wait;
+@@ -405,3 +407,3 @@ public class CardCarousel : MonoBehaviour
+ 		{
+-			_currentVelocity *= 0.8f;
++			_currentVelocity *= Mathf.Pow(0.8f, Time.deltaTime * 60f);
+ 			ApplyVelocity(_currentVelocity);
+@@ -525,3 +527,3 @@ public class CardCarousel : MonoBehaviour
+ 	{
+-		TargetPosition -= velocity * Time.deltaTime;
++		TargetPosition -= velocity * 0.0166666f;
+ 	}
+diff --git a/Assets/Scripts/Assembly-CSharp/Ease.cs b/Assets/Scripts/Assembly-CSharp/Ease.cs
+index d34ba3b7..e0452392 100644
+--- a/Assets/Scripts/Assembly-CSharp/Ease.cs
++++ b/Assets/Scripts/Assembly-CSharp/Ease.cs
+@@ -11,3 +11,3 @@ public static class Ease
+ 		{
+-			return Mathf.Clamp(Time.smoothDeltaTime, 0.01f, 0.1f) * 7.5f;
++			return 1f - Mathf.Pow(0.875f, Time.deltaTime * 60f);
+ 		}
