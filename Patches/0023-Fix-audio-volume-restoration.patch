@@ -1,0 +1,23 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Thu, 16 Apr 2026 01:33:53 +0300
+Subject: [PATCH] Fix audio volume restoration
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/SettingsManager.cs b/Assets/Scripts/Assembly-CSharp/SettingsManager.cs
+index 94dd0e34..2f7210d8 100644
+--- a/Assets/Scripts/Assembly-CSharp/SettingsManager.cs
++++ b/Assets/Scripts/Assembly-CSharp/SettingsManager.cs
+@@ -223,3 +223,3 @@ public class SettingsManager : SingletonMonoBehaviour<SettingsManager>
+ 
+-	private void FireOnSettingsVolumeChanged()
++	public void FireOnSettingsVolumeChanged()
+ 	{
+diff --git a/Assets/Scripts/Assembly-CSharp/StartupUIState.cs b/Assets/Scripts/Assembly-CSharp/StartupUIState.cs
+index 9c686824..1e13834b 100644
+--- a/Assets/Scripts/Assembly-CSharp/StartupUIState.cs
++++ b/Assets/Scripts/Assembly-CSharp/StartupUIState.cs
+@@ -162,2 +162,3 @@ public class StartupUIState : UIState
+ 		AudioManager.Initialize(assets);
++		SettingsManager.Instance.FireOnSettingsVolumeChanged();
+ 		Singleton<AssetManager>.Instance.UnloadAllAssets(AssetBundle.Audio, OnAudioAssetLoaded);
