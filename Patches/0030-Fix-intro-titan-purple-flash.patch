@@ -1,0 +1,20 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Thu, 16 Apr 2026 18:58:30 +0300
+Subject: [PATCH] Fix intro titan purple flash
+
+
+diff --git a/Assets/AnimationClip/MainGameIntro.anim b/Assets/AnimationClip/MainGameIntro.anim
+index 4190058e..e9f8da65 100644
+--- a/Assets/AnimationClip/MainGameIntro.anim
++++ b/Assets/AnimationClip/MainGameIntro.anim
+@@ -382,3 +382,3 @@ AnimationClip:
+         time: 1
+-        value: 1
++        value: 0
+         inSlope: 0
+@@ -1099,3 +1099,3 @@ AnimationClip:
+         time: 1
+-        value: 1
++        value: 0
+         inSlope: 0
