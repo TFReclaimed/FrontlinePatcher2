@@ -93,6 +93,25 @@ index 3113c09f..bcbbc070 100644
 +		}
 +#endif
  	}
+diff --git a/Assets/Scripts/Assembly-CSharp/PromotionTrackUI.cs b/Assets/Scripts/Assembly-CSharp/PromotionTrackUI.cs
+index a35b34d5..282fa69e 100644
+--- a/Assets/Scripts/Assembly-CSharp/PromotionTrackUI.cs
++++ b/Assets/Scripts/Assembly-CSharp/PromotionTrackUI.cs
+@@ -146,2 +146,14 @@ public class PromotionTrackUI : MonoBehaviour
+ 	{
++#if UNITY_STANDALONE
++		if (_interactable)
++		{
++			var axis = Input.GetAxis("Mouse ScrollWheel");
++			if (axis != 0f)
++			{
++				_refocussing = false;
++				TargetPosition -= Mathf.Sign(axis) * _itemWidth;
++				TargetPosition = Mathf.RoundToInt(TargetPosition / _itemWidth) * _itemWidth;
++			}
++		}
++#endif
+ 		if (_refocussing)
 diff --git a/Assets/prefabs/ui/MainUI.prefab b/Assets/prefabs/ui/MainUI.prefab
 index 302fcf32..d2103352 100644
 --- a/Assets/prefabs/ui/MainUI.prefab
