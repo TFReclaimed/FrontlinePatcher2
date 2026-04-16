@@ -160,10 +160,10 @@ index 06b0fd37..9d99b80a 100644
  --- !u!1660057539 &9223372036854775807
 diff --git a/Assets/Scripts/Assembly-CSharp/CameraAspectRatio.cs b/Assets/Scripts/Assembly-CSharp/CameraAspectRatio.cs
 new file mode 100644
-index 00000000..c5bd7aff
+index 00000000..6e8dc293
 --- /dev/null
 +++ b/Assets/Scripts/Assembly-CSharp/CameraAspectRatio.cs
-@@ -0,0 +1,15 @@
+@@ -0,0 +1,24 @@
 +using UnityEngine;
 +
 +public class CameraAspectRatio : MonoBehaviour
@@ -175,8 +175,17 @@ index 00000000..c5bd7aff
 +        var constrainedRatio = Mathf.Min(aspectRatio, maxRatio);
 +        var newZ = 1.73f + 3.85f / constrainedRatio - 3.06f / (constrainedRatio * constrainedRatio);
 +        var position = transform.localPosition;
++        var deltaZ = newZ - position.z;
 +        position.z = newZ;
 +        transform.localPosition = position;
++
++        for (var i = 0; i < transform.childCount; i++)
++        {
++            var child = transform.GetChild(i);
++            var childPos = child.localPosition;
++            childPos.z -= deltaZ;
++            child.localPosition = childPos;
++        }
 +    }
 +}
 diff --git a/Assets/Scripts/Assembly-CSharp/CameraAspectRatio.cs.meta b/Assets/Scripts/Assembly-CSharp/CameraAspectRatio.cs.meta
