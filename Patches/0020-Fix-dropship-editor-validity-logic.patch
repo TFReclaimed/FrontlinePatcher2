@@ -21,3 +21,23 @@ index ec2d4b92..3e1daf33 100644
 -		_validForSave = Array.IndexOf(_dropship.slottedCards, null) < 0;
 +		_validForSave = !_dropship.slottedCards.Any(c => c == null || c.instanceId == 0);
  		ColorBlock defaultColorBlock = ColorBlock.defaultColorBlock;
+diff --git a/Assets/Scripts/Assembly-CSharp/HangarMain.cs b/Assets/Scripts/Assembly-CSharp/HangarMain.cs
+index 61ce9d2e..8d67d007 100644
+--- a/Assets/Scripts/Assembly-CSharp/HangarMain.cs
++++ b/Assets/Scripts/Assembly-CSharp/HangarMain.cs
+@@ -3,2 +3,3 @@ using System.Collections;
+ using System.Collections.Generic;
++using System.Linq;
+ using TMPro;
+@@ -764,2 +765,11 @@ public class HangarMain : SingletonMonoBehaviour<HangarMain>
+ 		}
++		if (dropshipID != 0 && dropshipID != 1)
++		{
++			var newDropship = _dropships.Find(d => d.instanceId == dropshipID);
++			var isValidDropship = newDropship != null && !newDropship.slottedCards.Any(c => c == null || c.instanceId == 0);
++			if (!isValidDropship)
++			{
++				return;
++			}
++		}
+ 		PlayerProfile.Details.Data data = AccountManager.profile.details.gameProfiles[0];
