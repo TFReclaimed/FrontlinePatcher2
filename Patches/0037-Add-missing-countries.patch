@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Fri, 17 Apr 2026 22:45:48 +0300
+Subject: [PATCH] Add missing countries
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/CountryManager.cs b/Assets/Scripts/Assembly-CSharp/CountryManager.cs
+index c1202706..38871636 100644
+--- a/Assets/Scripts/Assembly-CSharp/CountryManager.cs
++++ b/Assets/Scripts/Assembly-CSharp/CountryManager.cs
+@@ -19,3 +19,3 @@ public class CountryManager : Singleton<CountryManager>
+ 
+-	private Country[] _countries = new Country[12]
++	private Country[] _countries = new Country[]
+ 	{
+@@ -32,3 +32,10 @@ public class CountryManager : Singleton<CountryManager>
+ 		new Country("CHN", "China"),
+-		new Country("THA", "Thailand")
++		new Country("THA", "Thailand"),
++		new Country("afghanistan", "Afghanistan"),
++		new Country("brazil", "Brazil"),
++		new Country("canada", "Canada"),
++		new Country("england", "United Kingdom"),
++		new Country("finland", "Finland"),
++		new Country("mexico", "Mexico"),
++		new Country("sweden", "Sweden"),
+ 	};
