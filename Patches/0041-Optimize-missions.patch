@@ -5,7 +5,7 @@ Subject: [PATCH] Optimize missions
 
 
 diff --git a/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs b/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs
-index 233e491c..2a760a78 100644
+index 29c2cc39..2367950c 100644
 --- a/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs
 +++ b/Assets/Scripts/Assembly-CSharp/PvE/PvEClientManager.cs
 @@ -110,2 +110,4 @@ namespace PvE
@@ -13,7 +13,7 @@ index 233e491c..2a760a78 100644
 +		private float _missionUpdateTimer;
 +
  		public ePvEState PvEState;
-@@ -676,2 +678,9 @@ namespace PvE
+@@ -717,2 +719,9 @@ namespace PvE
  		{
 +			const float missionUpdateInterval = 0.5f;
 +			_missionUpdateTimer += Time.deltaTime;
@@ -23,7 +23,7 @@ index 233e491c..2a760a78 100644
 +			}
 +			_missionUpdateTimer = 0f;
  			if (_Regions == null)
-@@ -680,10 +689,5 @@ namespace PvE
+@@ -721,10 +730,5 @@ namespace PvE
  			}
 -			Dictionary<eRegion, Region>.Enumerator enumerator = _Regions.GetEnumerator();
 -			while (enumerator.MoveNext())
