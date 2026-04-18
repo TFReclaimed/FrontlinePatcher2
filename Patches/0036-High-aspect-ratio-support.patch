@@ -840,7 +840,7 @@ index 0c98bb6d..7523734f 100644
 +  m_Name: 
 +  m_EditorClassIdentifier: 
 diff --git a/Assets/prefabs/ui/MainUI.prefab b/Assets/prefabs/ui/MainUI.prefab
-index d2103352..bd4abb89 100644
+index 71cf6716..77491f9b 100644
 --- a/Assets/prefabs/ui/MainUI.prefab
 +++ b/Assets/prefabs/ui/MainUI.prefab
 @@ -147236,4 +147236,4 @@ MonoBehaviour:

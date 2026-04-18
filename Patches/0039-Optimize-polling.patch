@@ -5,7 +5,7 @@ Subject: [PATCH] Optimize polling
 
 
 diff --git a/Assets/Scripts/Assembly-CSharp/PollingManager.cs b/Assets/Scripts/Assembly-CSharp/PollingManager.cs
-index a943ac79..a3f130df 100644
+index 376a1ab2..9fcee146 100644
 --- a/Assets/Scripts/Assembly-CSharp/PollingManager.cs
 +++ b/Assets/Scripts/Assembly-CSharp/PollingManager.cs
 @@ -29,2 +29,6 @@ public class PollingManager : MonoBehaviour

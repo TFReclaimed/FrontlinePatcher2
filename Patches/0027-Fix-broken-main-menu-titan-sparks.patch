@@ -5,7 +5,7 @@ Subject: [PATCH] Fix broken main menu titan sparks
 
 
 diff --git a/Assets/prefabs/ui/MainUI.prefab b/Assets/prefabs/ui/MainUI.prefab
-index 662dd7c2..302fcf32 100644
+index 7ef0bae0..19305d84 100644
 --- a/Assets/prefabs/ui/MainUI.prefab
 +++ b/Assets/prefabs/ui/MainUI.prefab
 @@ -121389,3 +121389,3 @@ GameObject:
