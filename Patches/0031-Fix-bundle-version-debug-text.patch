@@ -1,0 +1,15 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Tue, 21 Apr 2026 22:33:35 +0300
+Subject: [PATCH] Fix bundle version debug text
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/BundleVersionField.cs b/Assets/Scripts/Assembly-CSharp/BundleVersionField.cs
+index c05c2e44..3d97b505 100644
+--- a/Assets/Scripts/Assembly-CSharp/BundleVersionField.cs
++++ b/Assets/Scripts/Assembly-CSharp/BundleVersionField.cs
+@@ -42,3 +42,3 @@ public class BundleVersionField : MonoBehaviour
+ 		enableFlag = !enableFlag;
+-		bundleVersionTextComponent.text = string.Empty;
++		bundleVersionTextComponent.text = _buildVersion;
+ 	}
