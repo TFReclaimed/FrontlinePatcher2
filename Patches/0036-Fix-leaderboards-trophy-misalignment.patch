@@ -1,0 +1,22 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Tue, 21 Apr 2026 22:34:34 +0300
+Subject: [PATCH] Fix leaderboards trophy misalignment
+
+
+diff --git a/Assets/GameObject/LeaderboardPlayerUI.prefab b/Assets/GameObject/LeaderboardPlayerUI.prefab
+index e716997d..32eeefdb 100644
+--- a/Assets/GameObject/LeaderboardPlayerUI.prefab
++++ b/Assets/GameObject/LeaderboardPlayerUI.prefab
+@@ -498,7 +498,7 @@ RectTransform:
+   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+-  m_AnchorMin: {x: 0, y: 0.5}
+-  m_AnchorMax: {x: 0, y: 0.5}
+-  m_AnchoredPosition: {x: 884, y: 0}
++  m_AnchorMin: {x: 1, y: 0.5}
++  m_AnchorMax: {x: 1, y: 0.5}
++  m_AnchoredPosition: {x: -160, y: 0}
+   m_SizeDelta: {x: 175.2, y: 60}
+-  m_Pivot: {x: 0.5, y: 0.5}
++  m_Pivot: {x: 1, y: 0.5}
+ --- !u!222 &222025901758691103
