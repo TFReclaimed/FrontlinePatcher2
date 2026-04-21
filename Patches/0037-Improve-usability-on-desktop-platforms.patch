@@ -58,23 +58,23 @@ index 44b44873..b2b2b3cb 100644
 +
  	private void OnBeginDrag(PointerInfo info)
 diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
-index 3113c09f..bcbbc070 100644
+index 171ec1d3..9262f10d 100644
 --- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
 +++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
-@@ -55,2 +55,6 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+@@ -56,2 +56,6 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
  
 +	private int _prevScreenWidth;
 +
 +	private int _prevScreenHeight;
 +
  	private static RandomNumberGenerator rng = new RandomNumberGenerator();
-@@ -152,2 +156,5 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+@@ -153,2 +157,5 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
  		Application.targetFrameRate = (int) Screen.currentResolution.refreshRateRatio.value;
 +#endif
 +#if UNITY_STANDALONE
 +		Screen.SetResolution(600, 900, FullScreenMode.Windowed);
  #endif
-@@ -185,2 +192,18 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+@@ -186,2 +193,18 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
  		}
 +#if UNITY_STANDALONE
 +		if (Input.GetKeyDown(KeyCode.F11))
