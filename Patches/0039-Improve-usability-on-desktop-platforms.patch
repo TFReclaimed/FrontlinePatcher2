@@ -58,7 +58,7 @@ index 44b44873..b2b2b3cb 100644
 +
  	private void OnBeginDrag(PointerInfo info)
 diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
-index 171ec1d3..9262f10d 100644
+index 4e01a722..6e6c544f 100644
 --- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
 +++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
 @@ -56,2 +56,6 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
