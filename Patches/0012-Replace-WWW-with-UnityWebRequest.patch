@@ -14,7 +14,7 @@ index 182dd89b..7038f5ec 100644
 +			Singleton<WWWManager>.Instance.RequestText(GameShell.GetServerInterface().GetServerAddress() + "session/ping", OnPingComplete);
  		}
 diff --git a/Assets/Scripts/Assembly-CSharp/ServerInterface.cs b/Assets/Scripts/Assembly-CSharp/ServerInterface.cs
-index 0564662f..98fc5a64 100644
+index 5702d97d..b12ec270 100644
 --- a/Assets/Scripts/Assembly-CSharp/ServerInterface.cs
 +++ b/Assets/Scripts/Assembly-CSharp/ServerInterface.cs
 @@ -9,2 +9,3 @@ using hg.ApiWebKit;

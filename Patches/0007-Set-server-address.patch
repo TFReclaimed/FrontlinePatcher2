@@ -4,6 +4,18 @@ Date: Tue, 24 Mar 2026 00:37:31 +0200
 Subject: [PATCH] Set server address
 
 
+diff --git a/Assets/Scripts/Assembly-CSharp/ServerInterface.cs b/Assets/Scripts/Assembly-CSharp/ServerInterface.cs
+index 0564662f..5702d97d 100644
+--- a/Assets/Scripts/Assembly-CSharp/ServerInterface.cs
++++ b/Assets/Scripts/Assembly-CSharp/ServerInterface.cs
+@@ -200,5 +200,5 @@ public class ServerInterface
+ 
+-	private static string serverAddress = "http://auto-1589225205.us-west-2.elb.amazonaws.com:8080/";
++	private static string serverAddress = "https://prod-us-east-1-gameserver-lb.tfflinternal.com/";
+ 
+-	private static string leaderboardAddress = "https://s3-us-west-2.amazonaws.com/tfccg-leaderboards/";
++	private static string leaderboardAddress = "https://prod-us-east-1-gameserver-lb.tfflinternal.com/";
+ 
 diff --git a/Assets/StreamingAssets.meta b/Assets/StreamingAssets.meta
 new file mode 100644
 index 00000000..99ca9d20
