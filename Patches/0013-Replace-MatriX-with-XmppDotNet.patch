@@ -5463,7 +5463,7 @@ z(5iK=tREL>PWyN9aYves!*}TW;5S43nvJ4)J$T0%j2me6F8tpq_OIymIo2CQEyeez
 hF2EPa{zkd{M|J<N9%?z|NKw>i_;~IA9{=AR{|A6>@23C&
 
 diff --git a/Assets/Scripts/Assembly-CSharp/ChatManager.cs b/Assets/Scripts/Assembly-CSharp/ChatManager.cs
-index 29fee990..1c379a6c 100644
+index 29fee990..a9cdbee6 100644
 --- a/Assets/Scripts/Assembly-CSharp/ChatManager.cs
 +++ b/Assets/Scripts/Assembly-CSharp/ChatManager.cs
 @@ -133,3 +133,2 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
@@ -5487,6 +5487,21 @@ index 29fee990..1c379a6c 100644
 -		}
 +		_client.Disconnect();
  		SetState(ChatState.OFFLINE);
+@@ -525,2 +520,6 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
+ 			}
++			else if (e is MatrixDisconnectEventArgs)
++			{
++				onChatConnectEvent?.Invoke(false);
++			}
+ 			else if (e is IChatErrorEventArgs)
+diff --git a/Assets/Scripts/Assembly-CSharp/ChatPanel.cs b/Assets/Scripts/Assembly-CSharp/ChatPanel.cs
+index 13fe9a4e..6c9b0062 100644
+--- a/Assets/Scripts/Assembly-CSharp/ChatPanel.cs
++++ b/Assets/Scripts/Assembly-CSharp/ChatPanel.cs
+@@ -85,2 +85,3 @@ public class ChatPanel : MonoBehaviour
+ 		{
++			ChatInput.interactable = SingletonMonoBehaviour<ChatManager>.Instance.IsConnected;
+ 			SingletonMonoBehaviour<ChatManager>.Instance.onChatConnectEvent += HandleConnectEvent;
 diff --git a/Assets/Scripts/Assembly-CSharp/IChatClient.cs b/Assets/Scripts/Assembly-CSharp/IChatClient.cs
 index 6256bdf7..340c1697 100644
 --- a/Assets/Scripts/Assembly-CSharp/IChatClient.cs
@@ -5497,7 +5512,7 @@ index 6256bdf7..340c1697 100644
 -
  	bool Connect(ChatConfiguration config);
 diff --git a/Assets/Scripts/Assembly-CSharp/MatrixClient.cs b/Assets/Scripts/Assembly-CSharp/MatrixClient.cs
-index 7ead7fd5..1de3137b 100644
+index 7ead7fd5..f32caf9f 100644
 --- a/Assets/Scripts/Assembly-CSharp/MatrixClient.cs
 +++ b/Assets/Scripts/Assembly-CSharp/MatrixClient.cs
 @@ -3,12 +3,11 @@ using System.Collections.Generic;
@@ -5545,7 +5560,7 @@ index 7ead7fd5..1de3137b 100644
 -	}
 -
  	private bool SetupClient(ChatConfiguration config)
-@@ -80,33 +67,39 @@ public class MatrixClient : IDisposable, IChatClient
+@@ -80,33 +67,45 @@ public class MatrixClient : IDisposable, IChatClient
  		{
 -			_xmppClient = new XmppClient();
 +			_xmppClient = new XmppClient(conf =>
@@ -5585,6 +5600,12 @@ index 7ead7fd5..1de3137b 100644
 -			_xmppClient.OnResumeFailed += OnResumeFailed;
 -			_xmppClient.Open();
 +			_xmppClient.StateChanged
++				.Where(s => s == SessionState.Disconnected)
++				.Subscribe(_ =>
++				{
++					OnDisconnected();
++				});
++			_xmppClient.StateChanged
 +				.Where(s => s == SessionState.Binded)
 +				.Subscribe(_ =>
 +				{
@@ -5614,12 +5635,15 @@ index 7ead7fd5..1de3137b 100644
 +				});
 +			_xmppClient.ConnectAsync();
  		}
-@@ -115,101 +108,13 @@ public class MatrixClient : IDisposable, IChatClient
+@@ -115,101 +114,19 @@ public class MatrixClient : IDisposable, IChatClient
  
 -	private void OnReceiveBody(object sender, BodyEventArgs e)
--	{
--	}
--
++	private void OnDisconnected()
+ 	{
++		_isConnected = false;
++		EventEnqueue(new MatrixDisconnectEventArgs());
+ 	}
+ 
 -	private void OnSendBody(object sender, BodyEventArgs e)
 -	{
 -	}
@@ -5660,20 +5684,20 @@ index 7ead7fd5..1de3137b 100644
 -
 -	private void OnReceiveXml(object sender, TextEventArgs e)
 -	{
-+		EventEnqueue(new MatrixConnectEventArgs());
- 	}
- 
+-	}
+-
 -	private void OnSendXml(object sender, TextEventArgs e)
-+	private void OnRosterItem(RosterItem rosterItem)
- 	{
+-	{
 -	}
 -
 -	private void OnXmlError(object sender, ExceptionEventArgs e)
 -	{
--	}
--
++		EventEnqueue(new MatrixConnectEventArgs());
+ 	}
+ 
 -	private void OnLogin(object sender, Matrix.EventArgs e)
--	{
++	private void OnRosterItem(RosterItem rosterItem)
+ 	{
 -	}
 -
 -	private void OnRegisterError(object sender, IqEventArgs e)
@@ -5721,7 +5745,7 @@ index 7ead7fd5..1de3137b 100644
 -			EventEnqueue(new MatrixErrorEventArgs(ChatErrorType.Error, e.Exception.Message));
 +			EventEnqueue(new MatrixRosterEventArgs(rosterItem));
  		}
-@@ -217,10 +122,10 @@ public class MatrixClient : IDisposable, IChatClient
+@@ -217,10 +134,10 @@ public class MatrixClient : IDisposable, IChatClient
  
 -	private void OnMessage(object sender, MessageEventArgs e)
 +	private void OnPresence(Presence presence)
@@ -5736,46 +5760,46 @@ index 7ead7fd5..1de3137b 100644
 -		RegisterLicense();
 +		EventEnqueue(new MatrixMessageEventArgs(message));
  	}
-@@ -229,3 +134,2 @@ public class MatrixClient : IDisposable, IChatClient
+@@ -229,3 +146,2 @@ public class MatrixClient : IDisposable, IChatClient
  	{
 -		RegisterLicense();
  		return SetupClient(config);
-@@ -241,3 +145,3 @@ public class MatrixClient : IDisposable, IChatClient
+@@ -241,3 +157,3 @@ public class MatrixClient : IDisposable, IChatClient
  		{
 -			_xmppClient.Close();
 +			_xmppClient.DisconnectAsync();
  			_xmppClient = null;
-@@ -263,3 +167,3 @@ public class MatrixClient : IDisposable, IChatClient
+@@ -263,3 +179,3 @@ public class MatrixClient : IDisposable, IChatClient
  		iq.Query = xmppXElement2;
 -		_xmppClient.Send(iq);
 +		_xmppClient.SendAsync(iq);
  		XmppXElement xmppXElement3 = new XmppXElement("http://jabber.org/protocol/nick", "nick");
-@@ -269,3 +173,3 @@ public class MatrixClient : IDisposable, IChatClient
+@@ -269,3 +185,3 @@ public class MatrixClient : IDisposable, IChatClient
  		presence.Add(xmppXElement3);
 -		_xmppClient.Send(presence);
 +		_xmppClient.SendAsync(presence);
  		return true;
-@@ -299,3 +203,3 @@ public class MatrixClient : IDisposable, IChatClient
+@@ -299,3 +215,3 @@ public class MatrixClient : IDisposable, IChatClient
  		SetupAttributes(message2, message.Attributes);
 -		_xmppClient.Send(message2);
 +		_xmppClient.SendAsync(message2);
  		return true;
-@@ -318,3 +222,3 @@ public class MatrixClient : IDisposable, IChatClient
+@@ -318,3 +234,3 @@ public class MatrixClient : IDisposable, IChatClient
  		}
 -		_mucManager.EnterRoom(room, ChatUtility.GetUserID(roomId));
 +		_mucManager.EnterRoomAsync(room, ChatUtility.GetUserID(roomId));
  		return true;
-@@ -327,3 +231,3 @@ public class MatrixClient : IDisposable, IChatClient
+@@ -327,3 +243,3 @@ public class MatrixClient : IDisposable, IChatClient
  			Jid room = new Jid(roomId);
 -			_mucManager.ExitRoom(room, ChatUtility.GetUserID(roomId));
 +			_mucManager.ExitRoomAsync(room, ChatUtility.GetUserID(roomId));
  		}
-@@ -342,3 +246,3 @@ public class MatrixClient : IDisposable, IChatClient
+@@ -342,3 +258,3 @@ public class MatrixClient : IDisposable, IChatClient
  		Jid jid = new Jid(roomId);
 -		Jid to = new Jid(jid.User + "@" + jid.Server);
 +		Jid to = new Jid(jid.Local + "@" + jid.Domain);
  		Message message2 = new Message(to);
-@@ -358,3 +262,3 @@ public class MatrixClient : IDisposable, IChatClient
+@@ -358,3 +274,3 @@ public class MatrixClient : IDisposable, IChatClient
  		SetupAttributes(message2, message.Attributes);
 -		_xmppClient.Send(message2);
 +		_xmppClient.SendAsync(message2);
@@ -5792,6 +5816,26 @@ index 7ba7869a..b24b88b2 100644
 -	public MatrixConnectEventArgs(EventArgs e)
 +	public MatrixConnectEventArgs()
  	{
+diff --git a/Assets/Scripts/Assembly-CSharp/MatrixDisconnectEventArgs.cs b/Assets/Scripts/Assembly-CSharp/MatrixDisconnectEventArgs.cs
+new file mode 100644
+index 00000000..31f56f58
+--- /dev/null
++++ b/Assets/Scripts/Assembly-CSharp/MatrixDisconnectEventArgs.cs
+@@ -0,0 +1,3 @@
++public class MatrixDisconnectEventArgs : IChatEventArgs
++{
++}
+\ No newline at end of file
+diff --git a/Assets/Scripts/Assembly-CSharp/MatrixDisconnectEventArgs.cs.meta b/Assets/Scripts/Assembly-CSharp/MatrixDisconnectEventArgs.cs.meta
+new file mode 100644
+index 00000000..911fc9e4
+--- /dev/null
++++ b/Assets/Scripts/Assembly-CSharp/MatrixDisconnectEventArgs.cs.meta
+@@ -0,0 +1,3 @@
++fileFormatVersion: 2
++guid: 4cced73fda154118bf8e34bcd1a9c726
++timeCreated: 1776993873
+\ No newline at end of file
 diff --git a/Assets/Scripts/Assembly-CSharp/MatrixJID.cs b/Assets/Scripts/Assembly-CSharp/MatrixJID.cs
 index 589fbb9a..5b8b92ce 100644
 --- a/Assets/Scripts/Assembly-CSharp/MatrixJID.cs

@@ -5,10 +5,10 @@ Subject: [PATCH] Fix chat room resetting to guild sometimes
 
 
 diff --git a/Assets/Scripts/Assembly-CSharp/ChatPanel.cs b/Assets/Scripts/Assembly-CSharp/ChatPanel.cs
-index 13fe9a4e..fa686b33 100644
+index 6c9b0062..a63905f5 100644
 --- a/Assets/Scripts/Assembly-CSharp/ChatPanel.cs
 +++ b/Assets/Scripts/Assembly-CSharp/ChatPanel.cs
-@@ -254,3 +254,6 @@ public class ChatPanel : MonoBehaviour
+@@ -255,3 +255,6 @@ public class ChatPanel : MonoBehaviour
  		{
 -			SingletonMonoBehaviour<ChatManager>.Instance.SetActiveChannel(ChatManager.ChannelType.GUILD);
 +			if (_setGuildChannelFirstTime)

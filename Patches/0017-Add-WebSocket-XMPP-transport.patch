@@ -5,7 +5,7 @@ Subject: [PATCH] Add WebSocket XMPP transport
 
 
 diff --git a/Assets/Scripts/Assembly-CSharp/MatrixClient.cs b/Assets/Scripts/Assembly-CSharp/MatrixClient.cs
-index 1de3137b..d28c6e52 100644
+index f32caf9f..05495792 100644
 --- a/Assets/Scripts/Assembly-CSharp/MatrixClient.cs
 +++ b/Assets/Scripts/Assembly-CSharp/MatrixClient.cs
 @@ -70,3 +70,7 @@ public class MatrixClient : IDisposable, IChatClient
