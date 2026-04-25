@@ -1,0 +1,15 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Sat, 25 Apr 2026 20:31:07 +0300
+Subject: [PATCH] Fix challenge accepting from all screens
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/MainUI.cs b/Assets/Scripts/Assembly-CSharp/MainUI.cs
+index 1b2dede5..9d05fbba 100644
+--- a/Assets/Scripts/Assembly-CSharp/MainUI.cs
++++ b/Assets/Scripts/Assembly-CSharp/MainUI.cs
+@@ -174,3 +174,3 @@ public class MainUI : BaseUI
+ 			Mode mode = currentMode;
+-			if (mode == Mode.ChatUI)
++			if (mode is Mode.ChatUI or Mode.MenuScreen or Mode.EventLeaderboard)
+ 			{
