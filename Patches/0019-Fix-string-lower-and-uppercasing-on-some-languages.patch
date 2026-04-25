@@ -1,0 +1,179 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Sat, 25 Apr 2026 18:10:35 +0300
+Subject: [PATCH] Fix string lower and uppercasing on some languages
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/AssetManager.cs b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
+index e921edf0..bd1cc0f8 100644
+--- a/Assets/Scripts/Assembly-CSharp/AssetManager.cs
++++ b/Assets/Scripts/Assembly-CSharp/AssetManager.cs
+@@ -178,3 +178,3 @@ public class AssetManager : Singleton<AssetManager>
+ 	{
+-		LoadAssetBundle(bundleId.ToString().ToLower(), priority, permanent, onComplete, onProgress);
++		LoadAssetBundle(bundleId.ToString().ToLowerInvariant(), priority, permanent, onComplete, onProgress);
+ 	}
+@@ -242,3 +242,3 @@ public class AssetManager : Singleton<AssetManager>
+ 	{
+-		UnloadAssetBundle(bundleId.ToString().ToLower(), unloadAll, onComplete);
++		UnloadAssetBundle(bundleId.ToString().ToLowerInvariant(), unloadAll, onComplete);
+ 	}
+@@ -283,3 +283,3 @@ public class AssetManager : Singleton<AssetManager>
+ 		{
+-			list.Add(bundleIds[i].ToString().ToLower());
++			list.Add(bundleIds[i].ToString().ToLowerInvariant());
+ 		}
+@@ -334,3 +334,3 @@ public class AssetManager : Singleton<AssetManager>
+ 	{
+-		LoadAllAssets(bundleId.ToString().ToLower(), priority, onComplete);
++		LoadAllAssets(bundleId.ToString().ToLowerInvariant(), priority, onComplete);
+ 	}
+@@ -379,3 +379,3 @@ public class AssetManager : Singleton<AssetManager>
+ 	{
+-		UnloadAllAssets(bundleId.ToString().ToLower(), onComplete);
++		UnloadAllAssets(bundleId.ToString().ToLowerInvariant(), onComplete);
+ 	}
+diff --git a/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPRequest.cs b/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPRequest.cs
+index 2eeab31d..4971a5c7 100644
+--- a/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPRequest.cs
++++ b/Assets/Scripts/Assembly-CSharp/BestHTTP/HTTPRequest.cs
+@@ -21,8 +21,8 @@ namespace BestHTTP
+ 		{
+-			HTTPMethods.Get.ToString().ToUpper(),
+-			HTTPMethods.Head.ToString().ToUpper(),
+-			HTTPMethods.Post.ToString().ToUpper(),
+-			HTTPMethods.Put.ToString().ToUpper(),
+-			HTTPMethods.Delete.ToString().ToUpper(),
+-			HTTPMethods.Patch.ToString().ToUpper()
++			HTTPMethods.Get.ToString().ToUpperInvariant(),
++			HTTPMethods.Head.ToString().ToUpperInvariant(),
++			HTTPMethods.Post.ToString().ToUpperInvariant(),
++			HTTPMethods.Put.ToString().ToUpperInvariant(),
++			HTTPMethods.Delete.ToString().ToUpperInvariant(),
++			HTTPMethods.Patch.ToString().ToUpperInvariant()
+ 		};
+diff --git a/Assets/Scripts/Assembly-CSharp/BoolParser.cs b/Assets/Scripts/Assembly-CSharp/BoolParser.cs
+index ef49a6d5..d7532365 100644
+--- a/Assets/Scripts/Assembly-CSharp/BoolParser.cs
++++ b/Assets/Scripts/Assembly-CSharp/BoolParser.cs
+@@ -21,3 +21,3 @@ public static class BoolParser
+ 			value = value.Trim();
+-			value = value.ToLower();
++			value = value.ToLowerInvariant();
+ 			switch (value)
+diff --git a/Assets/Scripts/Assembly-CSharp/BuyBoosterPackGroup.cs b/Assets/Scripts/Assembly-CSharp/BuyBoosterPackGroup.cs
+index 40b3a508..e3dfaad0 100644
+--- a/Assets/Scripts/Assembly-CSharp/BuyBoosterPackGroup.cs
++++ b/Assets/Scripts/Assembly-CSharp/BuyBoosterPackGroup.cs
+@@ -63,3 +63,3 @@ public class BuyBoosterPackGroup : MonoBehaviour
+ 		_product = boosterPackProduct;
+-		NameLabel.SetText(boosterPackProduct.Title.ToUpper());
++		NameLabel.SetText(boosterPackProduct.Title.ToUpperInvariant());
+ 		VirtualPriceLabel.SetText(boosterPackProduct.HardVirtualPrice.ToString());
+diff --git a/Assets/Scripts/Assembly-CSharp/CardDetailView.cs b/Assets/Scripts/Assembly-CSharp/CardDetailView.cs
+index 16c050ed..6e1dce04 100644
+--- a/Assets/Scripts/Assembly-CSharp/CardDetailView.cs
++++ b/Assets/Scripts/Assembly-CSharp/CardDetailView.cs
+@@ -517,3 +517,3 @@ public class CardDetailView : MonoBehaviour
+ 			string uiElem = string.Format("Hangar:DeckName{0}", num - 10);
+-			stringBuilder.Append(SingletonMonoBehaviour<LocalizationManager>.Instance.GetUIText(uiElem).ToUpper());
++			stringBuilder.Append(SingletonMonoBehaviour<LocalizationManager>.Instance.GetUIText(uiElem).ToUpperInvariant());
+ 		}
+diff --git a/Assets/Scripts/Assembly-CSharp/DetailedTokenView.cs b/Assets/Scripts/Assembly-CSharp/DetailedTokenView.cs
+index b7abba05..22565191 100644
+--- a/Assets/Scripts/Assembly-CSharp/DetailedTokenView.cs
++++ b/Assets/Scripts/Assembly-CSharp/DetailedTokenView.cs
+@@ -172,3 +172,3 @@ public class DetailedTokenView : MonoBehaviour
+ 					FusionBenefits.text = stringBuilder.ToString();
+-					FusionTitle.text = fusionUpgradeData.title.ToUpper();
++					FusionTitle.text = fusionUpgradeData.title.ToUpperInvariant();
+ 				}
+diff --git a/Assets/Scripts/Assembly-CSharp/DropshipSlotUI.cs b/Assets/Scripts/Assembly-CSharp/DropshipSlotUI.cs
+index 01b9162f..21dc9665 100644
+--- a/Assets/Scripts/Assembly-CSharp/DropshipSlotUI.cs
++++ b/Assets/Scripts/Assembly-CSharp/DropshipSlotUI.cs
+@@ -90,3 +90,3 @@ public class DropshipSlotUI : MonoBehaviour
+ 			CostLabel.text = cardTemplate.cost.ToString();
+-			NameLabel.text = CardView.GetDisplayName(data, cardTemplate).ToUpper();
++			NameLabel.text = CardView.GetDisplayName(data, cardTemplate).ToUpperInvariant();
+ 		}
+diff --git a/Assets/Scripts/Assembly-CSharp/MessagesManager.cs b/Assets/Scripts/Assembly-CSharp/MessagesManager.cs
+index b76ed8b2..1d466afa 100644
+--- a/Assets/Scripts/Assembly-CSharp/MessagesManager.cs
++++ b/Assets/Scripts/Assembly-CSharp/MessagesManager.cs
+@@ -118,3 +118,3 @@ public class MessagesManager : SingletonMonoBehaviour<MessagesManager>
+ 	{
+-		msgTypeAsString = msgTypeAsString.ToUpper();
++		msgTypeAsString = msgTypeAsString.ToUpperInvariant();
+ 		try
+diff --git a/Assets/Scripts/Assembly-CSharp/PromotionTrackItem.cs b/Assets/Scripts/Assembly-CSharp/PromotionTrackItem.cs
+index ad4c9c26..340834d8 100644
+--- a/Assets/Scripts/Assembly-CSharp/PromotionTrackItem.cs
++++ b/Assets/Scripts/Assembly-CSharp/PromotionTrackItem.cs
+@@ -85,3 +85,3 @@ public class PromotionTrackItem : MonoBehaviour
+ 				SingletonMonoBehaviour<LocalizationManager>.Instance.GetTraitPopup(num2.ToString(), out title2, out description);
+-				stringBuilder.AppendFormat("<size=70%>+<b>{0}:</b> {1}</size>\n", title2.ToUpper(), description);
++				stringBuilder.AppendFormat("<size=70%>+<b>{0}:</b> {1}</size>\n", title2.ToUpperInvariant(), description);
+ 			}
+@@ -114,3 +114,3 @@ public class PromotionTrackItem : MonoBehaviour
+ 		Chevron.color = (((int)state >= 3) ? LockedChevron : UnlockedChevron);
+-		Header.text = title.ToUpper();
++		Header.text = title.ToUpperInvariant();
+ 		bool flag = readyToPromote && state == State.Next;
+diff --git a/Assets/Scripts/Assembly-CSharp/fastJSON/JSONSerializer.cs b/Assets/Scripts/Assembly-CSharp/fastJSON/JSONSerializer.cs
+index 1b76b7ad..6ba88cd8 100644
+--- a/Assets/Scripts/Assembly-CSharp/fastJSON/JSONSerializer.cs
++++ b/Assets/Scripts/Assembly-CSharp/fastJSON/JSONSerializer.cs
+@@ -141,3 +141,3 @@ namespace fastJSON
+ 					{
+-						WritePair(item.ToLower(), nameValueCollection[item]);
++						WritePair(item.ToLowerInvariant(), nameValueCollection[item]);
+ 					}
+@@ -168,3 +168,3 @@ namespace fastJSON
+ 					{
+-						WritePair(text.ToLower(), item.Value);
++						WritePair(text.ToLowerInvariant(), item.Value);
+ 					}
+@@ -388,3 +388,3 @@ namespace fastJSON
+ 					{
+-						WritePair(text.ToLower(), item.Value);
++						WritePair(text.ToLowerInvariant(), item.Value);
+ 					}
+@@ -415,3 +415,3 @@ namespace fastJSON
+ 					{
+-						WritePair(key.ToLower(), item.Value);
++						WritePair(key.ToLowerInvariant(), item.Value);
+ 					}
+diff --git a/Assets/Scripts/Assembly-CSharp/fastJSON/Reflection.cs b/Assets/Scripts/Assembly-CSharp/fastJSON/Reflection.cs
+index 3c6340e9..39dc0d77 100644
+--- a/Assets/Scripts/Assembly-CSharp/fastJSON/Reflection.cs
++++ b/Assets/Scripts/Assembly-CSharp/fastJSON/Reflection.cs
+@@ -124,3 +124,3 @@ namespace fastJSON
+ 					value2.getter = CreateGetMethod(type, propertyInfo);
+-					value.Add(propertyInfo.Name.ToLower(), value2);
++					value.Add(propertyInfo.Name.ToLowerInvariant(), value2);
+ 				}
+@@ -140,3 +140,3 @@ namespace fastJSON
+ 					value3.getter = CreateGetField(type, fieldInfo);
+-					value.Add(fieldInfo.Name.ToLower(), value3);
++					value.Add(fieldInfo.Name.ToLowerInvariant(), value3);
+ 				}
+@@ -344,3 +344,3 @@ namespace fastJSON
+ 						Name = propertyInfo.Name,
+-						lcName = propertyInfo.Name.ToLower()
++						lcName = propertyInfo.Name.ToLowerInvariant()
+ 					});
+@@ -377,3 +377,3 @@ namespace fastJSON
+ 							Name = fieldInfo.Name,
+-							lcName = fieldInfo.Name.ToLower()
++							lcName = fieldInfo.Name.ToLowerInvariant()
+ 						});
+diff --git a/Assets/Scripts/Assembly-CSharp/fastJSON/deserializer.cs b/Assets/Scripts/Assembly-CSharp/fastJSON/deserializer.cs
+index 12650a4b..3a97a93d 100644
+--- a/Assets/Scripts/Assembly-CSharp/fastJSON/deserializer.cs
++++ b/Assets/Scripts/Assembly-CSharp/fastJSON/deserializer.cs
+@@ -275,3 +275,3 @@ namespace fastJSON
+ 				object value5 = item2.Value;
+-				string text = key.ToLower();
++				string text = key.ToLowerInvariant();
+ 				if (text == "$map")
