@@ -5,7 +5,7 @@ Subject: [PATCH] Fix dropship editor validity logic
 
 
 diff --git a/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs b/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs
-index ec2d4b92..3e1daf33 100644
+index ec2d4b92..2d05bad7 100644
 --- a/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs
 +++ b/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs
 @@ -3,2 +3,3 @@ using System.Collections;
@@ -16,28 +16,48 @@ index ec2d4b92..3e1daf33 100644
  		_dropship = SingletonMonoBehaviour<HangarMain>.Instance.GetCurrentDropship();
 +		SetSaveValidity();
  		_unsavedChanges = false;
-@@ -695,3 +697,3 @@ public class DropshipEditView : MonoBehaviour
+@@ -633,2 +635,10 @@ public class DropshipEditView : MonoBehaviour
+ 		{
++			if (IsAnyCardInjured())
++			{
++				SavePopup.SetCallbacks(null, null);
++				SavePopup.SetButtonColors();
++				SavePopup.SetText("INJURED CARDS", "One or more cards in this dropship are currently injured. Revive them first.", "OKAY");
++				SavePopup.Show();
++				return;
++			}
+ 			SingletonMonoBehaviour<HangarMain>.Instance.SaveDropship(_dropship, SaveCompleted, null);
+@@ -695,3 +705,3 @@ public class DropshipEditView : MonoBehaviour
  	{
 -		_validForSave = Array.IndexOf(_dropship.slottedCards, null) < 0;
 +		_validForSave = !_dropship.slottedCards.Any(c => c == null || c.instanceId == 0);
  		ColorBlock defaultColorBlock = ColorBlock.defaultColorBlock;
+@@ -704,2 +714,7 @@ public class DropshipEditView : MonoBehaviour
+ 
++	private bool IsAnyCardInjured()
++	{
++		return _dropship.slottedCards.Any(c => c != null && c.availability != null && c.availability.PvEIsCasualty());
++	}
++
+ 	private void Update()
 diff --git a/Assets/Scripts/Assembly-CSharp/HangarMain.cs b/Assets/Scripts/Assembly-CSharp/HangarMain.cs
-index 61ce9d2e..8d67d007 100644
+index 61ce9d2e..904da59c 100644
 --- a/Assets/Scripts/Assembly-CSharp/HangarMain.cs
 +++ b/Assets/Scripts/Assembly-CSharp/HangarMain.cs
 @@ -3,2 +3,3 @@ using System.Collections;
  using System.Collections.Generic;
 +using System.Linq;
  using TMPro;
-@@ -764,2 +765,11 @@ public class HangarMain : SingletonMonoBehaviour<HangarMain>
- 		}
+@@ -766,2 +767,12 @@ public class HangarMain : SingletonMonoBehaviour<HangarMain>
+ 		data.activeDeckId = dropshipID;
 +		if (dropshipID != 0 && dropshipID != 1)
 +		{
 +			var newDropship = _dropships.Find(d => d.instanceId == dropshipID);
 +			var isValidDropship = newDropship != null && !newDropship.slottedCards.Any(c => c == null || c.instanceId == 0);
 +			if (!isValidDropship)
 +			{
++				ErrorPopup.Show("Unable to set active dropship. Please ensure all slots are filled.");
 +				return;
 +			}
 +		}
- 		PlayerProfile.Details.Data data = AccountManager.profile.details.gameProfiles[0];
+ 		string request = JSON.ToJSON(data);
