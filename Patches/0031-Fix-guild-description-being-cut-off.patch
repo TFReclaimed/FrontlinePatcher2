@@ -1,0 +1,15 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Wed, 29 Apr 2026 22:02:38 +0300
+Subject: [PATCH] Fix guild description being cut off
+
+
+diff --git a/Assets/prefabs/ui/MainUI.prefab b/Assets/prefabs/ui/MainUI.prefab
+index 7ef0bae0..d7682543 100644
+--- a/Assets/prefabs/ui/MainUI.prefab
++++ b/Assets/prefabs/ui/MainUI.prefab
+@@ -58332,3 +58332,3 @@ MonoBehaviour:
+   m_wordWrappingRatios: 0.4
+-  m_overflowMode: 3
++  m_overflowMode: 0
+   m_linkedTextComponent: {fileID: 0}
