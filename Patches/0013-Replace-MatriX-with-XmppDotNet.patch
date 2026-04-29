@@ -5463,7 +5463,7 @@ z(5iK=tREL>PWyN9aYves!*}TW;5S43nvJ4)J$T0%j2me6F8tpq_OIymIo2CQEyeez
 hF2EPa{zkd{M|J<N9%?z|NKw>i_;~IA9{=AR{|A6>@23C&
 
 diff --git a/Assets/Scripts/Assembly-CSharp/ChatManager.cs b/Assets/Scripts/Assembly-CSharp/ChatManager.cs
-index 29fee990..a9cdbee6 100644
+index 29fee990..142b8783 100644
 --- a/Assets/Scripts/Assembly-CSharp/ChatManager.cs
 +++ b/Assets/Scripts/Assembly-CSharp/ChatManager.cs
 @@ -133,3 +133,2 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
@@ -5487,7 +5487,14 @@ index 29fee990..a9cdbee6 100644
 -		}
 +		_client.Disconnect();
  		SetState(ChatState.OFFLINE);
-@@ -525,2 +520,6 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
+@@ -359,2 +354,6 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
+ 		}
++		else if (AccountManager.profile != null && AccountManager.profile.details != null && !string.IsNullOrEmpty(AccountManager.profile.details.displayName))
++		{
++			SetNickname(AccountManager.profile.details.displayName);
++		}
+ 		for (int i = 0; i < _channelData.Count; i++)
+@@ -525,2 +524,6 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
  			}
 +			else if (e is MatrixDisconnectEventArgs)
 +			{

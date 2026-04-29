@@ -5,7 +5,7 @@ Subject: [PATCH] Add server alert system
 
 
 diff --git a/Assets/Scripts/Assembly-CSharp/ChatManager.cs b/Assets/Scripts/Assembly-CSharp/ChatManager.cs
-index a9cdbee6..1617c524 100644
+index 142b8783..313f1d26 100644
 --- a/Assets/Scripts/Assembly-CSharp/ChatManager.cs
 +++ b/Assets/Scripts/Assembly-CSharp/ChatManager.cs
 @@ -140,2 +140,3 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
