@@ -1,0 +1,15 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Wed, 29 Apr 2026 22:04:12 +0300
+Subject: [PATCH] Improve leaderboards scroll experience
+
+
+diff --git a/Assets/prefabs/ui/MainUI.prefab b/Assets/prefabs/ui/MainUI.prefab
+index 5e193faf..b288a842 100644
+--- a/Assets/prefabs/ui/MainUI.prefab
++++ b/Assets/prefabs/ui/MainUI.prefab
+@@ -93540,3 +93540,3 @@ MonoBehaviour:
+   m_Elasticity: 0.1
+-  m_Inertia: 0
++  m_Inertia: 1
+   m_DecelerationRate: 0.135

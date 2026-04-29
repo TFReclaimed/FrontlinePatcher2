@@ -5,7 +5,7 @@ Subject: [PATCH] Add online player counter to chat
 
 
 diff --git a/Assets/prefabs/ui/MainUI.prefab b/Assets/prefabs/ui/MainUI.prefab
-index 764c2c70..92b89c7c 100644
+index 490568d3..0f7b698a 100644
 --- a/Assets/prefabs/ui/MainUI.prefab
 +++ b/Assets/prefabs/ui/MainUI.prefab
 @@ -117796,3 +117796,4 @@ RectTransform:
