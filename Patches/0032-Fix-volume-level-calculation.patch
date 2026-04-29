@@ -5,7 +5,7 @@ Subject: [PATCH] Fix volume level calculation
 
 
 diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
-index ef6646f4..599c9501 100644
+index be5a302f..518414fc 100644
 --- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
 +++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
 @@ -407,5 +407,5 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
