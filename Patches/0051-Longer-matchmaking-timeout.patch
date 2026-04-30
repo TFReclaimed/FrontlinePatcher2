@@ -1,0 +1,130 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Thu, 30 Apr 2026 03:43:04 +0300
+Subject: [PATCH] Longer matchmaking timeout
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/EnteringMatchLogic.cs b/Assets/Scripts/Assembly-CSharp/EnteringMatchLogic.cs
+index 115675a5..a11d79bd 100644
+--- a/Assets/Scripts/Assembly-CSharp/EnteringMatchLogic.cs
++++ b/Assets/Scripts/Assembly-CSharp/EnteringMatchLogic.cs
+@@ -31,4 +31,8 @@ public class EnteringMatchLogic : MonoBehaviour
+ 
++	private float timeStartedAttemptingToFindMatch = -10f;
++
+ 	private Process currentProcess;
+ 
++	private bool isRetryingMatchmaking;
++
+ 	private void Start()
+@@ -36,2 +40,3 @@ public class EnteringMatchLogic : MonoBehaviour
+ 		timeMatchWasRequested = Time.realtimeSinceStartup;
++		timeStartedAttemptingToFindMatch = Time.realtimeSinceStartup;
+ 	}
+@@ -51,10 +56,18 @@ public class EnteringMatchLogic : MonoBehaviour
+ 			{
+-				timeMatchWasRequested = -10f;
+-				EnteringMatchScreen component = GetComponent<EnteringMatchScreen>();
+-				if ((bool)component && component.CancelMatchmakingButton != null)
++				if (Time.realtimeSinceStartup > timeStartedAttemptingToFindMatch + 120f)
+ 				{
+-					component.CancelMatchmakingButton.SetActive(false);
++					timeMatchWasRequested = -10f;
++					var component = GetComponent<EnteringMatchScreen>();
++					if (component && component.CancelMatchmakingButton != null)
++					{
++						component.CancelMatchmakingButton.SetActive(false);
++					}
++					PopUpManager.ShowOk("Matchmaking timeout", "No match was found. Please try again later.", null);
++					LeaveMatchMaking();
++				}
++				else
++				{
++					isRetryingMatchmaking = true;
++					OnCancelMatchmaking();
+ 				}
+-				PopUpManager.ShowOk("Matchmaking timeout", "No match was found. Please try again later.", null);
+-				LeaveMatchMaking();
+ 			}
+@@ -134,3 +147,19 @@ public class EnteringMatchLogic : MonoBehaviour
+ 		{
+-			LeaveMatchMaking();
++			if (isRetryingMatchmaking)
++			{
++				isRetryingMatchmaking = false;
++				if (GameShell.LastGameRequestParams != null)
++				{
++					GameShell.GetServerInterface().RequestGame(0, GameShell.LastGameRequestParams, RetryRequestGameDone);
++				}
++				else
++				{
++					timeMatchWasRequested = Time.realtimeSinceStartup;
++					currentProcess = Process.waitForGameRequest;
++				}
++			}
++			else
++			{
++				LeaveMatchMaking();
++			}
+ 			return;
+@@ -140,2 +169,19 @@ public class EnteringMatchLogic : MonoBehaviour
+ 	}
++
++	private void RetryRequestGameDone(short code, string response)
++	{
++		if (code >= 200 && code < 300)
++		{
++			timeMatchWasRequested = Time.realtimeSinceStartup;
++			currentProcess = Process.waitForGameRequest;
++		}
++		else
++		{
++			currentProcess = Process.waitForGameRequest;
++			if (CancelMatchmaking != null)
++			{
++				CancelMatchmaking.SetActive(true);
++			}
++		}
++	}
+ }
+diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
+index 06444b14..c061e8a0 100644
+--- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
++++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
+@@ -84,2 +84,4 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+ 
++	public static GameRequestParams LastGameRequestParams = null;
++
+ 	private static Fue_MockServerInterface fueMockServerInterface = null;
+diff --git a/Assets/Scripts/Assembly-CSharp/MainUI.cs b/Assets/Scripts/Assembly-CSharp/MainUI.cs
+index 9d05fbba..e66da47e 100644
+--- a/Assets/Scripts/Assembly-CSharp/MainUI.cs
++++ b/Assets/Scripts/Assembly-CSharp/MainUI.cs
+@@ -359,6 +359,10 @@ public class MainUI : BaseUI
+ 		case Process.requestPVPRankedGame:
+-			if (profileInfo != null && GameShell.GetServerInterface().RequestGame(0, gameRequestParams, GameRequestDone))
++			if (profileInfo != null)
+ 			{
+-				profileInfo.currentGameInstance = "-1";
+-				SwitchMode(Mode.Matchmaking);
++				GameShell.LastGameRequestParams = gameRequestParams;
++				if (GameShell.GetServerInterface().RequestGame(0, gameRequestParams, GameRequestDone))
++				{
++					profileInfo.currentGameInstance = "-1";
++					SwitchMode(Mode.Matchmaking);
++				}
+ 			}
+@@ -366,6 +370,10 @@ public class MainUI : BaseUI
+ 		case Process.requestPVPCasualGame:
+-			if (profileInfo != null && GameShell.GetServerInterface().RequestGame(0, gameRequestParams, GameRequestDone))
++			if (profileInfo != null)
+ 			{
+-				profileInfo.currentGameInstance = "-1";
+-				SwitchMode(Mode.Matchmaking);
++				GameShell.LastGameRequestParams = gameRequestParams;
++				if (GameShell.GetServerInterface().RequestGame(0, gameRequestParams, GameRequestDone))
++				{
++					profileInfo.currentGameInstance = "-1";
++					SwitchMode(Mode.Matchmaking);
++				}
+ 			}
