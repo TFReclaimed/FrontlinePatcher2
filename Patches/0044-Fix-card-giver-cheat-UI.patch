@@ -1,0 +1,52 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Sat, 9 May 2026 23:04:53 +0300
+Subject: [PATCH] Fix card giver cheat UI
+
+
+diff --git a/Assets/Resources/CardGiverCanvas.prefab b/Assets/Resources/CardGiverCanvas.prefab
+index f8654531..8413b458 100644
+--- a/Assets/Resources/CardGiverCanvas.prefab
++++ b/Assets/Resources/CardGiverCanvas.prefab
+@@ -210,3 +210,3 @@ MonoBehaviour:
+     m_RichText: 0
+-    m_HorizontalOverflow: 0
++    m_HorizontalOverflow: 1
+     m_VerticalOverflow: 0
+@@ -289,3 +289,3 @@ MonoBehaviour:
+     m_RichText: 0
+-    m_HorizontalOverflow: 0
++    m_HorizontalOverflow: 1
+     m_VerticalOverflow: 0
+@@ -411,5 +411,5 @@ MonoBehaviour:
+   m_Interactable: 1
+-  m_TargetGraphic: {fileID: 0}
+-  m_TextComponent: {fileID: 0}
+-  m_Placeholder: {fileID: 0}
++  m_TargetGraphic: {fileID: 114089843903986396}
++  m_TextComponent: {fileID: 114220653531496868}
++  m_Placeholder: {fileID: 114900271049623953}
+   m_ContentType: 0
+@@ -873,5 +873,5 @@ MonoBehaviour:
+   m_Interactable: 1
+-  m_TargetGraphic: {fileID: 0}
+-  m_TextComponent: {fileID: 0}
+-  m_Placeholder: {fileID: 0}
++  m_TargetGraphic: {fileID: 114291844617409189}
++  m_TextComponent: {fileID: 114726790013014859}
++  m_Placeholder: {fileID: 114833703512093738}
+   m_ContentType: 0
+@@ -1098,5 +1098,5 @@ MonoBehaviour:
+   m_Interactable: 1
+-  m_TargetGraphic: {fileID: 0}
+-  m_TextComponent: {fileID: 0}
+-  m_Placeholder: {fileID: 0}
++  m_TargetGraphic: {fileID: 114711914853252429}
++  m_TextComponent: {fileID: 114017697238300914}
++  m_Placeholder: {fileID: 114371939378208658}
+   m_ContentType: 0
+@@ -1730,3 +1730,3 @@ MonoBehaviour:
+     m_RichText: 0
+-    m_HorizontalOverflow: 0
++    m_HorizontalOverflow: 1
+     m_VerticalOverflow: 0
