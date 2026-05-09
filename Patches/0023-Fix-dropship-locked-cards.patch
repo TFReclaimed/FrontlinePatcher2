@@ -1,0 +1,15 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nuutti <snuutti@protonmail.com>
+Date: Sat, 9 May 2026 23:03:11 +0300
+Subject: [PATCH] Fix dropship locked cards
+
+
+diff --git a/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs b/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs
+index ec2d4b92..9561f61e 100644
+--- a/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs
++++ b/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs
+@@ -209,3 +209,3 @@ public class DropshipEditView : MonoBehaviour
+ 				{
+-					slot.SetData(card2, style.slotHeader, !_editMode || j == 31 || j == 40);
++					slot.SetData(card2, style.slotHeader, !_editMode);
+ 				}

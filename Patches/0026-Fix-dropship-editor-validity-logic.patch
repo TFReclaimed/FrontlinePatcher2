@@ -5,7 +5,7 @@ Subject: [PATCH] Fix dropship editor validity logic
 
 
 diff --git a/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs b/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs
-index ec2d4b92..2d05bad7 100644
+index 9561f61e..5fe5d1c7 100644
 --- a/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs
 +++ b/Assets/Scripts/Assembly-CSharp/DropshipEditView.cs
 @@ -3,2 +3,3 @@ using System.Collections;
