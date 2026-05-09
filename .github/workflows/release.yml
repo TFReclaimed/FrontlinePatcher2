@@ -15,6 +15,10 @@ on:
         description: "Build macOS"
         type: boolean
         default: true
+      build_webgl:
+        description: "Build WebGL"
+        type: boolean
+        default: false
       build_android:
         description: "Build Android"
         type: boolean
@@ -300,6 +304,75 @@ jobs:
           name: AssetBundles-macOS
           path: ${{ github.workspace }}/AssetBundles/StandaloneOSX
 
+  build-webgl:
+    name: Build WebGL
+    if: ${{ inputs.build_webgl }}
+    needs: patch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Download patched project
+        uses: actions/download-artifact@v8
+        with:
+          name: patched-project
+          path: RippedProject
+
+      - name: Restore NuGet packages
+        run: |
+          dotnet tool install --global NuGetForUnity.Cli
+          nugetforunity restore RippedProject
+
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@v1.3.1
+
+      - name: Build game
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: RippedProject
+          targetPlatform: WebGL
+          buildName: Frontline
+          versioning: None
+
+      - name: Make asset bundles directory
+        if: ${{ inputs.build_asset_bundles }}
+        shell: bash
+        run: mkdir -p ${{ github.workspace }}/AssetBundles/WebGL
+
+      - name: Build asset bundles
+        if: ${{ inputs.build_asset_bundles }}
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: RippedProject
+          targetPlatform: WebGL
+          buildMethod: AssetTools.BuildAssetBundlesCi
+          customParameters: >
+            -assetbundlePath /github/workspace/AssetBundles/WebGL
+          versioning: None
+          allowDirtyBuild: true
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Frontline-WebGL
+          path: build/WebGL
+
+      - name: Upload asset bundles
+        if: ${{ inputs.build_asset_bundles }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: AssetBundles-WebGL
+          path: ${{ github.workspace }}/AssetBundles/WebGL
+
   build-android:
     name: Build Android
     if: ${{ inputs.build_android }}
@@ -484,7 +557,7 @@ jobs:
   deploy:
     name: Deploy
     if: ${{ inputs.deploy && always() }}
-    needs: [build-linux, build-windows, build-macos, build-android, build-ios, build-macos-bundles, build-ios-bundles]
+    needs: [build-linux, build-windows, build-macos, build-webgl, build-android, build-ios, build-macos-bundles, build-ios-bundles]
     runs-on: ubuntu-latest
     steps:
       - name: Check build status
@@ -501,19 +574,21 @@ jobs:
 
       - name: Organize artifacts
         run: |
-          mkdir -p deploy/Android deploy/iOS deploy/Linux deploy/Windows deploy/Mac
+          mkdir -p deploy/Android deploy/iOS deploy/Linux deploy/Windows deploy/Mac deploy/WebGL
 
           [ -d "build-artifacts/AssetBundles-Android" ] && mv build-artifacts/AssetBundles-Android/* deploy/Android/
           [ -d "build-artifacts/AssetBundles-iOS" ] && mv build-artifacts/AssetBundles-iOS/* deploy/iOS/
           [ -d "build-artifacts/AssetBundles-Linux" ] && mv build-artifacts/AssetBundles-Linux/* deploy/Linux/
           [ -d "build-artifacts/AssetBundles-Windows" ] && mv build-artifacts/AssetBundles-Windows/* deploy/Windows/
           [ -d "build-artifacts/AssetBundles-macOS" ] && mv build-artifacts/AssetBundles-macOS/* deploy/Mac/
+          [ -d "build-artifacts/AssetBundles-WebGL" ] && mv build-artifacts/AssetBundles-WebGL/* deploy/WebGL/
 
           [ -f "build-artifacts/Frontline.apk/Frontline.apk" ] && mv build-artifacts/Frontline.apk/Frontline.apk deploy/
           [ -f "build-artifacts/Frontline.ipa/Frontline.ipa" ] && mv build-artifacts/Frontline.ipa/Frontline.ipa deploy/
           [ -f "build-artifacts/Frontline.AppImage/Frontline.AppImage" ] && mv build-artifacts/Frontline.AppImage/Frontline.AppImage deploy/
           [ -f "build-artifacts/Frontline-Setup.exe/Frontline-Setup.exe" ] && mv build-artifacts/Frontline-Setup.exe/Frontline-Setup.exe deploy/
           [ -f "build-artifacts/Frontline.dmg/Frontline.dmg" ] && mv build-artifacts/Frontline.dmg/Frontline.dmg deploy/
+          [ -d "build-artifacts/Frontline-WebGL" ] && mv build-artifacts/Frontline-WebGL/* deploy/WebGL/
 
           rm -rf build-artifacts/patched-project
 
