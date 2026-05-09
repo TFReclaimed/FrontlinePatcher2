@@ -594,6 +594,7 @@ jobs:
 
       - name: Install Rclone
         run: |
+          sudo apt-get update
           sudo apt-get install rclone
 
       - name: Configure Rclone
