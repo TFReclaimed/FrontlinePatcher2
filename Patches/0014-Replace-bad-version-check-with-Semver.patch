@@ -5,7 +5,7 @@ Subject: [PATCH] Replace bad version check with Semver
 
 
 diff --git a/Assets/Scripts/Assembly-CSharp/GameShell.cs b/Assets/Scripts/Assembly-CSharp/GameShell.cs
-index 779713d6..be5a302f 100644
+index 779713d6..2db8dc46 100644
 --- a/Assets/Scripts/Assembly-CSharp/GameShell.cs
 +++ b/Assets/Scripts/Assembly-CSharp/GameShell.cs
 @@ -9,2 +9,3 @@ using UnityEngine.CrashLog;
@@ -67,14 +67,20 @@ index 779713d6..be5a302f 100644
 -				ShowUpdateAppPopup();
 +				ShowUpdateAppPopup(text);
  				return;
-@@ -895,5 +863,5 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
+@@ -895,6 +863,11 @@ public class GameShell : SingletonMonoBehaviour<GameShell>, INPListenerType, INP
  
 -	public void ShowUpdateAppPopup()
 +	public void ShowUpdateAppPopup(string minVersion = "")
  	{
 -		string errorText = SingletonMonoBehaviour<LocalizationManager>.Instance.GetErrorText(ErrorModalType.NeedUpdate);
++#if UNITY_WEBGL
++		var errorText = $"Your game is out of date (version {Application.version})! Please refresh the page to continue playing. You may need to clear your browser cache if the issue persists.";
++		PopUpManager.ShowOk("Error", errorText, null);
++#else
 +		var errorText = $"Your game is out of date (version {Application.version})! Please update to the latest version{(string.IsNullOrEmpty(minVersion) ? "" : $" {minVersion}")} to continue playing.";
  		PopUpManager.ShowOk("Error", errorText, OpenUpdatePage);
++#endif
+ 	}
 diff --git a/Packages/nuget-packages/packages.config b/Packages/nuget-packages/packages.config
 index c0ab7ed4..fb6e653e 100644
 --- a/Packages/nuget-packages/packages.config
