@@ -14,12 +14,12 @@ index 09ea8264..06b0fd37 100644
 +  m_ScrollSensitivity: 120
    m_Viewport: {fileID: 0}
 diff --git a/Assets/Scripts/Assembly-CSharp/CardCarousel.cs b/Assets/Scripts/Assembly-CSharp/CardCarousel.cs
-index 44b44873..b2b2b3cb 100644
+index 44b44873..0f7fc61f 100644
 --- a/Assets/Scripts/Assembly-CSharp/CardCarousel.cs
 +++ b/Assets/Scripts/Assembly-CSharp/CardCarousel.cs
 @@ -404,2 +404,13 @@ public class CardCarousel : MonoBehaviour
  		}
-+#if UNITY_STANDALONE
++#if UNITY_STANDALONE || UNITY_WEBGL
 +		if (Interactable)
 +		{
 +			var axis = Input.GetAxis("Mouse ScrollWheel");
@@ -94,12 +94,12 @@ index 71a25c9c..c06972a8 100644
 +#endif
  	}
 diff --git a/Assets/Scripts/Assembly-CSharp/PromotionTrackUI.cs b/Assets/Scripts/Assembly-CSharp/PromotionTrackUI.cs
-index a35b34d5..282fa69e 100644
+index a35b34d5..3d2ddc0b 100644
 --- a/Assets/Scripts/Assembly-CSharp/PromotionTrackUI.cs
 +++ b/Assets/Scripts/Assembly-CSharp/PromotionTrackUI.cs
 @@ -146,2 +146,14 @@ public class PromotionTrackUI : MonoBehaviour
  	{
-+#if UNITY_STANDALONE
++#if UNITY_STANDALONE || UNITY_WEBGL
 +		if (_interactable)
 +		{
 +			var axis = Input.GetAxis("Mouse ScrollWheel");
