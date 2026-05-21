@@ -5,7 +5,7 @@ Subject: [PATCH] Add Discord rich presence
 
 
 diff --git a/Assets/Scenes/GameShell.unity b/Assets/Scenes/GameShell.unity
-index ed61b1b1..8aa415b8 100644
+index ed61b1b1..bd28e4a5 100644
 --- a/Assets/Scenes/GameShell.unity
 +++ b/Assets/Scenes/GameShell.unity
 @@ -624,2 +624,4 @@ GameObject:
@@ -30,7 +30,7 @@ index ed61b1b1..8aa415b8 100644
 +  applicationID: 1495881995501437119
 +  steamID: 
 +  targetPipe: -1
-+  logLevel: 3
++  logLevel: 256
 +  logFile: discord.log
 +  registerUriScheme: 0
 +  active: 1
