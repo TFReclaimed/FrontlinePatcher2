@@ -5463,23 +5463,40 @@ z(5iK=tREL>PWyN9aYves!*}TW;5S43nvJ4)J$T0%j2me6F8tpq_OIymIo2CQEyeez
 hF2EPa{zkd{M|J<N9%?z|NKw>i_;~IA9{=AR{|A6>@23C&
 
 diff --git a/Assets/Scripts/Assembly-CSharp/ChatManager.cs b/Assets/Scripts/Assembly-CSharp/ChatManager.cs
-index 29fee990..142b8783 100644
+index 29fee990..49053b5c 100644
 --- a/Assets/Scripts/Assembly-CSharp/ChatManager.cs
 +++ b/Assets/Scripts/Assembly-CSharp/ChatManager.cs
 @@ -133,3 +133,2 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
  	{
 -		_client.Initialize();
  		_hasStarted = true;
-@@ -199,3 +198,3 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
+@@ -168,2 +167,16 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
+ 
++#if UNITY_ANDROID || UNITY_IOS
++	private void OnApplicationPause(bool pauseStatus)
++	{
++		if (pauseStatus)
++		{
++			Disconnect();
++		}
++		else
++		{
++			Connect();
++		}
++	}
++#endif
++
+ 	public void SetActiveChannel(ChannelType channel)
+@@ -199,3 +212,3 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
  	{
 -		_userNickname = null;
 +		_userNickname = nickname;
  		_chatMessageAttributes["nck"] = nickname;
-@@ -205,3 +204,2 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
+@@ -205,3 +218,2 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
  		}
 -		_userNickname = nickname;
  		return false;
-@@ -341,6 +339,3 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
+@@ -341,6 +353,3 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
  		}
 -		if (_state != ChatState.OFFLINE)
 -		{
@@ -5487,14 +5504,14 @@ index 29fee990..142b8783 100644
 -		}
 +		_client.Disconnect();
  		SetState(ChatState.OFFLINE);
-@@ -359,2 +354,6 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
+@@ -359,2 +368,6 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
  		}
 +		else if (AccountManager.profile != null && AccountManager.profile.details != null && !string.IsNullOrEmpty(AccountManager.profile.details.displayName))
 +		{
 +			SetNickname(AccountManager.profile.details.displayName);
 +		}
  		for (int i = 0; i < _channelData.Count; i++)
-@@ -525,2 +524,6 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
+@@ -525,2 +538,6 @@ public class ChatManager : SingletonMonoBehaviour<ChatManager>
  			}
 +			else if (e is MatrixDisconnectEventArgs)
 +			{
