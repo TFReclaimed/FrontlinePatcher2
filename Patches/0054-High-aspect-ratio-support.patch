@@ -292,6 +292,45 @@ index 00000000..a463a20b
 +  userData: 
 +  assetBundleName: 
 +  assetBundleVariant: 
+diff --git a/Assets/Scripts/Assembly-CSharp/MulliganDialog.cs b/Assets/Scripts/Assembly-CSharp/MulliganDialog.cs
+index d60f84cd..181ba498 100644
+--- a/Assets/Scripts/Assembly-CSharp/MulliganDialog.cs
++++ b/Assets/Scripts/Assembly-CSharp/MulliganDialog.cs
+@@ -99,10 +99,3 @@ public class MulliganDialog : MonoBehaviour
+ 		backgroundMesh.transform.localScale = Vector3.one;
+-		Bounds bounds = backgroundMesh.GetComponent<MeshFilter>().mesh.bounds;
+-		Vector3 vector = gameplayCamera.ViewportToWorldPoint(new Vector3(0f, 0f, 11f));
+-		Vector3 vector2 = gameplayCamera.ViewportToWorldPoint(new Vector3(1f, 1f, 11f));
+-		Vector3 localScale = vector2 - vector;
+-		localScale.x /= bounds.size.x;
+-		localScale.y /= bounds.size.y;
+-		localScale.z /= bounds.size.z;
+-		backgroundMesh.transform.localScale = localScale;
++		UpdateBackgroundMeshScale();
+ 		Debug.Log("Mulligan: StartCoroutine(MoveCardsToSelectionPosition())");
+@@ -214,2 +207,6 @@ public class MulliganDialog : MonoBehaviour
+ 	{
++		if (!IsFinished && gameplayCamera != null && backgroundMesh != null)
++		{
++			UpdateBackgroundMeshScale();
++		}
+ 		if (ContinueButton.activeSelf && cardSelectionStarted)
+@@ -229,2 +226,15 @@ public class MulliganDialog : MonoBehaviour
+ 
++	private void UpdateBackgroundMeshScale()
++	{
++		var currentZ = backgroundMesh.transform.localPosition.z;
++		var bounds = backgroundMesh.GetComponent<MeshFilter>().mesh.bounds;
++		var vector = gameplayCamera.ViewportToWorldPoint(new Vector3(0f, 0f, currentZ));
++		var vector2 = gameplayCamera.ViewportToWorldPoint(new Vector3(1f, 1f, currentZ));
++		var localScale = vector2 - vector;
++		localScale.x /= bounds.size.x;
++		localScale.y /= bounds.size.y;
++		localScale.z /= bounds.size.z;
++		backgroundMesh.transform.localScale = localScale;
++	}
++
+ 	public void OnContinuePressed()
 diff --git a/Assets/prefabs/ui/FUE_GameUI.prefab b/Assets/prefabs/ui/FUE_GameUI.prefab
 index c3a2d471..f95e0234 100644
 --- a/Assets/prefabs/ui/FUE_GameUI.prefab
